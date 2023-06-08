@@ -1,5 +1,6 @@
 @import './base.css';
 
+<<<<<<< HEAD
 .top-op{
 	position: fixed;
 	top: 0;
@@ -285,4 +286,44 @@ body > footer > div {
 	font-size: 1em;
 	padding: 10px 1em;
 }
+=======
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;
+}
+
+/* a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+} */
+a {
+  text-decoration: none;
+  color: orange;
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: rgba(22, 110, 154, 0.8);
+    border-radius: 2zzpx;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+>>>>>>> 509c494 (Initial commit)
 }

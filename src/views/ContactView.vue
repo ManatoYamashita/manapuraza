@@ -1,5 +1,6 @@
 <template>
     <div class="contact">
+<<<<<<< HEAD
       <h1>Under Constraction...</h1>
       <p>現在開発中です。<br>
         ようやく、レイアウトは完成しました。
@@ -10,10 +11,14 @@
           <a href="https://manapuraza.com/"><img src="../assets/manapuraza-logo.svg" alt="logo" width="120"></a>
           <p style="font-size: small;padding-left: 0%">2023.07.10 山下マナト</p>
       </div>
+=======
+      <h1>This is an contact page</h1>
+>>>>>>> 509c494 (Initial commit)
     </div>
   </template>
   
   <style>
+<<<<<<< HEAD
   img {
     padding: 30px 0 0 0;
   }
@@ -21,6 +26,12 @@
     .contact {
       min-height: 100vh;
       display: block;
+=======
+  @media (min-width: 1024px) {
+    .contact {
+      min-height: 100vh;
+      display: flex;
+>>>>>>> 509c494 (Initial commit)
       align-items: center;
     }
   }

@@ -6,4 +6,8 @@ import TheWelcome from '../components/TheWelcome.vue'
   <main>
     <TheWelcome />
   </main>
+<<<<<<< HEAD
 </template>
+=======
+</template>
+>>>>>>> 509c494 (Initial commit)

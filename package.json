@@ -8,15 +8,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
+=======
+>>>>>>> 509c494 (Initial commit)
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+<<<<<<< HEAD
     "vite": "^4.3.5",
     "vue-template-compiler": "^2.7.14"
+=======
+    "vite": "^4.3.5"
+>>>>>>> 509c494 (Initial commit)
   }
 }

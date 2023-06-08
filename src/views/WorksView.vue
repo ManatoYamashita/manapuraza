@@ -1,5 +1,6 @@
 <template>
   <div class="works">
+<<<<<<< HEAD
     <h1>Works（skills）</h1>
 
     <main>
@@ -55,6 +56,17 @@ a:hover {
 @media (min-width: 1024px) {
   .works {
     display: block;
+=======
+    <h1>This is an works page</h1>
+  </div>
+</template>
+
+<style>
+@media (min-width: 1024px) {
+  .works {
+    min-height: 100vh;
+    display: flex;
+>>>>>>> 509c494 (Initial commit)
     align-items: center;
   }
 }

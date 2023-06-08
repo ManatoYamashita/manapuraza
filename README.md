@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MANAPURAZA.COM
 
 &#x1F34C;
@@ -24,3 +25,34 @@ This template should help get you started developing with Vue 3 in Vite.
 ### 今後
 今後は日本語と英語に切り替えるトグルスイッチを追加し、余裕があればダークモードにも対応したいです。
 最終更新: 2023/08/28
+=======
+# manapuraza
+
+This template should help get you started developing with Vue 3 in Vite.
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+>>>>>>> 509c494 (Initial commit)

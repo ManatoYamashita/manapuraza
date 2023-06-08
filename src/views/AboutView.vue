@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+<<<<<<< HEAD
     <h1>About</h1>
     <div class="col">
       <div class="prof">
@@ -30,10 +31,14 @@
         </ul>
       </div>
     </div>
+=======
+    <h1>This is an about page</h1>
+>>>>>>> 509c494 (Initial commit)
   </div>
 </template>
 
 <style>
+<<<<<<< HEAD
 .col {
   display: flex;
   justify-content: space-around;
@@ -62,3 +67,13 @@
   }
 }
 </style>
+=======
+@media (min-width: 1024px) {
+  .about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+}
+</style>
+>>>>>>> 509c494 (Initial commit)
