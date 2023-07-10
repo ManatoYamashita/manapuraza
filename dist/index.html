@@ -2,14 +2,110 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/manapuraza-icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
-    <script type="module" crossorigin src="/assets/index-7c6f8601.js"></script>
-    <link rel="stylesheet" href="/assets/index-b199a9c2.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- seo -->
+    <meta name="description" content="MANAPURAXA.COM is a website that for portfolio site Manato Yamashita, a student of TUC">
+    <meta name="keywords" content="Manato Yamashita, TCU, Tokyo City University, Digital Contents Study society, ヤマシタマナト, 山下マナト, 山下真和都, 東京都市大学, デジタルコンテンツ研究会, ポートフォリオ, portfolio" />
+    <meta property="og:title" content="MANAPURAZA.COM - Portfolio of Manato Yamashita 2023" />
+    <meta property="og:type" content="portfolio" />
+    <meta property="og:url" content="https://manapuraza.com/" />
+    <meta property="og:image" content="./src/assets/banana-poster.jpeg" />
+    <meta property="og:site_name" content="MANAPURAZA.COM" />
+    <meta property="og:locale" content="ja_JP"  />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta property="og:type" content="website" />
+    <meta http-equiv="Content-Script-Type" content="text/JavaScript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="subject" content="Portfolio of Manato Yamashita 2023 for job hunting" />
+    <meta name="abstract" content="Portfolio" />
+    <meta name="author" content="Manato Yamashita" />
+    <meta name="owner" content="Manato Yamashita" />
+    <meta name="designer" content="Manato Yamashita" />
+    <link rev="made" href="mailto:g2172117&#64;tcu.ac.jp" />
+    <meta name="creation date" content="2023.07.07" />
+    <meta name="copyright" content="Manato Yamashita | Tokyo City University Digital Contents study society" />
+    <meta name="tel" scheme="08021509014" />
+    <meta name="country code" scheme="81" />
+    <link rel="start" href="https://manapuraza.com" />
+    <meta name="Targted Geographic Area" content="Worldwide" />
+    <meta name="coverage" content="Japan" />
+    <meta name="classification" content="portfolio" />
+    <meta name="doc-class" content="Living Document" />
+    <meta name="rating" content="General" />
+
+    <title>MANAPURAZA.COM</title>
+    <script type="module" crossorigin src="/assets/index-8ff0d3c3.js"></script>
+    <link rel="stylesheet" href="/assets/index-9c822d9d.css">
   </head>
   <body>
+  <img src="/manapuraza-icon.svg" alt="logo" class="logo-op"/>
+  <div class="top-op"></div>
+    <div class="logo">
+      <a href="https://manapuraza.com/">
+       <img src="/assets/manapuraza-logo-162fb913.svg" alt="logo" width="250px">
+      </a>
+    </div>
+    <div id="video-area">
+      <video id="video" poster="/assets/banana-poster-3f580816.jpeg" webkit-playsinline playsinline muted autoplay loop>
+      <!--
+      poster：動画ファイルが利用できない環境で代替表示される画像
+      webkit-playsinline：iOS 9までのSafari用インライン再生指定
+      playsinline：iOS 10以降のSafari用インライン再生指定
+      muted：音声をミュートさせる
+      autoplay：動画を自動再生させる
+      loop：動画をループさせる
+      controls：コントロールバーを表示する
+      -->
+      <source src="/assets/yellow-f2cbbde8.mp4" type="video/mp4">
+      <p>Something went wrong. 動画を再生できる環境ではありません。</p>
+      </video>
+      <!--/video-area--></div>
     <div id="app"></div>
+
+    <footer>
+      <nav class="snsmenu">
+        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+        <label class="menu-open-button" for="menu-open">
+          <span class="hamburger hamburger-1"></span>
+          <span class="hamburger hamburger-2"></span>
+          <span class="hamburger hamburger-3"></span>
+        </label>
+        
+        <a href="https://bento.me/ym/" class="menu-item"><i class="fa fab fa-solid fa-user"></i></a>
+        <a href="https://github.com/ManatoYamashita/" class="menu-item"><i class="fa fab fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/yamashitamanato/" class="menu-item"> <i class="fa fab fa-brands fa-linkedin"></i></a>
+        <a href="https://twitter.com/YamashitaMa_tcu/" class="menu-item"><i class="fa fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/tmana.sub.jp/" class="menu-item"> <i class="fa fab fa-brands fa-instagram"></i> </a>
+        <a href="mailto:tcumanato@gmail.com" class="menu-item"><i class="fa fab fa-envelope"></i></a>
+        <a href="tel:08021509014" class="menu-item"><i class="fa fab fa-solid fa-phone"></i></a>
+      </nav>
+      
+      
+      <!-- filters -->
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <defs>
+            <filter id="shadowed-goo">
+                
+                <fegaussianblur in="SourceGraphic" result="blur" stdDeviation="10" />
+                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <fegaussianblur in="goo" stdDeviation="3" result="shadow" />
+                <fecolormatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+                <feoffset in="shadow" dx="1" dy="1" result="shadow" />
+                <fecomposite in2="shadow" in="goo" result="goo" />
+                <fecomposite in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+            <filter id="goo">
+                <fegaussianblur in="SourceGraphic" result="blur" stdDeviation="10" />
+                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <fecomposite in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+          </defs>
+      </svg>
+      <div class="credit">©︎ 2023 Manato Yamashita / <a href="https://tcu-dc.net/">Tokyo City University Digital Contents Study society</a></div>
+    </footer>
     
   </body>
 </html>
