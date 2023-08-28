@@ -9,11 +9,17 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
 =======
 >>>>>>> 509c494 (Initial commit)
+=======
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+>>>>>>> 89669a1 ([add] fixed Works, link icons and profile images.)
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"
   },

@@ -1,5 +1,6 @@
 <script setup>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { RouterLink, RouterView } from 'vue-router'
 <<<<<<< HEAD
@@ -7,6 +8,8 @@ import HelloWorld from './components/HelloWorld.vue'
 >>>>>>> 509c494 (Initial commit)
 =======
 >>>>>>> 25bd1b3 ([add] works page's information)
+=======
+>>>>>>> 89669a1 ([add] fixed Works, link icons and profile images.)
 </script>
 
 <template>
