@@ -28,12 +28,15 @@
         <li><strong>Study</strong>: <a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
         <li><strong>Research</strong>: <a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
         <li><strong>Like</strong>: Banana &#x1F34C;</li>
+<<<<<<< HEAD
 =======
         <li><strong>Study</strong>: <a href="https://tcu.ac.jp/">Tokyo-City University</a>, Informatics, major in Information systems</li>
 >>>>>>> 25bd1b3 ([add] works page's information)
 =======
         <li><strong>Study</strong>: <a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
 >>>>>>> 89669a1 ([add] fixed Works, link icons and profile images.)
+=======
+>>>>>>> 8b1540a ([add] information about laboratory to about page)
       </ul>
       </div>
       <div class="his">
