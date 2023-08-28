@@ -43,7 +43,7 @@ import SupportIcon from './icons/IconSupport.vue'
 =======
 >>>>>>> 89669a1 ([add] fixed Works, link icons and profile images.)
     <p>
-      Hello, I’m <strong>Manato Yamashita</strong>. I’m studying computer science at the Department of Informatics, at <strong><a href="https://tcu.ac.jp/" target="_blank">Tokyo City University</a></strong><fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" />.
+      Hello, I'm <strong>Manato Yamashita</strong>. I'm studying computer science at the Department of Informatics, at <strong><a href="https://tcu.ac.jp/" target="_blank">Tokyo City University</a></strong><fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" />.
       I am conducting research on information security at Seki Laboratory. My favorite writer is Sayaka Murata.<br>
       This site is a my "portfolio site".
       MANAPURAZA.COM is implemented <strong>SPA（Single Page Application）</strong> by <strong><a href="https://ja.vitejs.dev/" target="_blank">Vite</a></strong><fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /> with

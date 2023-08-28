@@ -333,7 +333,6 @@ a {
   transition: 0.4s;
 }
 #app > header > div > nav > a {
-	/* 画面の幅によって変化する */
 	font-size: .8em;
 	padding: 0 .5em;
 	margin: 0;
