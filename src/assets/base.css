@@ -1,10 +1,14 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
 <<<<<<< HEAD
+<<<<<<< HEAD
   --vt-c-yellow: #e7da4a;
 =======
   --vt-c-white: #ffffff;
 >>>>>>> 509c494 (Initial commit)
+=======
+  --vt-c-yellow: #e7da4a;
+>>>>>>> 25bd1b3 ([add] works page's information)
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
 
@@ -22,21 +26,30 @@
   --vt-c-text-light-1: var(--vt-c-indigo);
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
 <<<<<<< HEAD
+<<<<<<< HEAD
   --vt-c-text-dark-1: var(--vt-c-yellow);
   --vt-c-text-dark-2: #2c3e50;
 =======
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 >>>>>>> 509c494 (Initial commit)
+=======
+  --vt-c-text-dark-1: var(--vt-c-yellow);
+  --vt-c-text-dark-2: #2c3e50;
+>>>>>>> 25bd1b3 ([add] works page's information)
 }
 
 /* semantic color variables for this project */
 :root {
 <<<<<<< HEAD
+<<<<<<< HEAD
   --color-background: var(--vt-c-yellow);
 =======
   --color-background: var(--vt-c-white);
 >>>>>>> 509c494 (Initial commit)
+=======
+  --color-background: var(--vt-c-yellow);
+>>>>>>> 25bd1b3 ([add] works page's information)
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
@@ -68,17 +81,23 @@
 *::after {
   box-sizing: border-box;
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* margin: 0;
   font-weight: normal; */
 =======
   margin: 0;
   font-weight: normal;
 >>>>>>> 509c494 (Initial commit)
+=======
+  /* margin: 0;
+  font-weight: normal; */
+>>>>>>> 25bd1b3 ([add] works page's information)
 }
 
 body {
   min-height: 100vh;
   color: var(--color-text);
+<<<<<<< HEAD
 <<<<<<< HEAD
   transition: color 0.5s, background-color 0.5s;
   line-height: notmal;
@@ -87,23 +106,36 @@ body {
   font-size: 16px;
 =======
   background: var(--color-background);
+=======
+>>>>>>> 25bd1b3 ([add] works page's information)
   transition: color 0.5s, background-color 0.5s;
-  line-height: 1.6;
+  line-height: notmal;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+<<<<<<< HEAD
   font-size: 15px;
 >>>>>>> 509c494 (Initial commit)
+=======
+  font-size: 16px;
+>>>>>>> 25bd1b3 ([add] works page's information)
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 25bd1b3 ([add] works page's information)
 .video-container {
   background: url(./background_1.mp4) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+<<<<<<< HEAD
 } 
 =======
 >>>>>>> 509c494 (Initial commit)
+=======
+} 
+>>>>>>> 25bd1b3 ([add] works page's information)

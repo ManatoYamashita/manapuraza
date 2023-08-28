@@ -1,6 +1,7 @@
 <template>
   <div class="works">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <h1>Works（skills）</h1>
 
     <main>
@@ -58,15 +59,44 @@ a:hover {
     display: block;
 =======
     <h1>This is an works page</h1>
+=======
+    <h1>Works（skills）</h1>
+    <h3>&nbsp;・Illustration / Graphics</h3>
+      <p>Adobe Photoshop, Adobe Illustrator, ibisPaintX, etc</p>
+      <a href="https://manapuraza.myportfolio.com">Manapuraza Creative Works</a>
+    <h3>&nbsp;・Programming / Web</h3>
+      <p>HTML, CSS, JavaScropt, PHP, C, Java, WordPress etc</p>
+      <ul class="prog-works">
+        <li><a href="https://manapuraza.com">MANAPURAZA.COM</a>（このサイト）</li>
+        <li><a href="https://tmana.sub.jp/numeron/dirs/level4/dist/numeron_level4.html/">NUMERON</a>（論理数学ゲーム）</li>
+        <li><a href="https://dum.manaouraza.com/">Down Under Mountain</a>（オーストラリア留学ブログ）</li>
+        <li><a href="https://killerdie-2023.netlify.com">キラキラ大学生研究会</a>（1周年サイト）</li>
+        <li><a href="https://chaintence.shotaro.jp/">Chaintence</a>（テンプレメール作成Webアプリ）</li>
+        <li><a href="https://github.com/ManatoYamashita/SysB_wtm">WTM</a>（天気提案アプリ）</li>
+      </ul>
+    <h3>&nbsp;・Video / Animation</h3>
+      <p>Adobe Premieere Pro, etc</p>
+      <ul class="movie-works">
+        <li><a href="https://www.youtube.com/@ManatoYamashita">個人YouTubeチャンネル</a></li>
+        <li><a href="https://www.youtube.com/@tcu_dc">デジタルコンテンツ研究会YouTubeチャンネル</a></li>
+      </ul>
+>>>>>>> 25bd1b3 ([add] works page's information)
   </div>
 </template>
 
 <style>
+p {
+  padding-left: 40px;
+}
 @media (min-width: 1024px) {
   .works {
     min-height: 100vh;
+<<<<<<< HEAD
     display: flex;
 >>>>>>> 509c494 (Initial commit)
+=======
+    display: block;
+>>>>>>> 25bd1b3 ([add] works page's information)
     align-items: center;
   }
 }

@@ -20,10 +20,15 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "vite": "^4.3.5",
     "vue-template-compiler": "^2.7.14"
 =======
     "vite": "^4.3.5"
 >>>>>>> 509c494 (Initial commit)
+=======
+    "vite": "^4.3.5",
+    "vue-template-compiler": "^2.7.14"
+>>>>>>> 25bd1b3 ([add] works page's information)
   }
 }
