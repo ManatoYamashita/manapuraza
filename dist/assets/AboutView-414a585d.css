@@ -1,0 +1,1 @@
+.col{display:flex;justify-content:space-around}.fa{font-size:.6rem;margin-left:.2rem}@media (min-width: 1024px){.about{display:block;align-items:center}}@media (max-width: 540px){.col{display:block}.his li{width:100%;padding:.5rem}.prof li{padding:.5rem}}
