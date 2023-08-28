@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b1d2dd1 ([fix] fixed README.md)
 # MANAPURAZA.COM
 
 &#x1F34C;
