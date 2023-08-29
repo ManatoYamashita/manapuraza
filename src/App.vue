@@ -1,22 +1,24 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/" class="rlink">Home</RouterLink>
-        <RouterLink to="/about" class="rlink">About</RouterLink>
-        <RouterLink to="/works" class="rlink">Works</RouterLink>
-        <RouterLink to="/contact" class="rlink">Contact</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <Transition name="slide" mode="out-in">
-    <router-view />
-  </Transition>
-
+  <div>
+    <header>
+      <div class="wrapper">
+        <nav>
+          <RouterLink to="/" class="rlink">Home</RouterLink>
+          <RouterLink to="/about" class="rlink">About</RouterLink>
+          <RouterLink to="/works" class="rlink">Works</RouterLink>
+          <RouterLink to="/contact" class="rlink">Contact</RouterLink>
+        </nav>
+      </div>
+    </header>
+    
+    <Transition name="slide" mode="out-in">
+        <router-view />
+    </Transition>
+  </div>
 </template>
 
 <style scoped>
@@ -38,6 +40,7 @@ nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+  text-decoration-line: none;
 }
 
 nav a:first-of-type {

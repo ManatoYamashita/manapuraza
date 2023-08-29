@@ -2,20 +2,22 @@
   <div class="about">
     <h1>About</h1>
     <div class="col">
+
       <div class="prof">
-      <h2>Profile</h2>
-      <ul>
-        <li><strong>Name</strong>: <a href="https://bento.me/ym/" target="_blank">Manato Yamashita<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-        <li><strong>Sex</strong>: Man</li>
-        <li><strong>Gender</strong>: Man</li>
-        <li><strong>Birthday</strong>: 2002.04.17</li>
-        <li><strong>Country</strong>: Japan（ja）</li>
-        <li><strong>Live-in</strong>: Kanagawa | Tokyo | kumamoto</li>
-        <li><strong>Study</strong>: <a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-        <li><strong>Research</strong>: <a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-        <li><strong>Like</strong>: Banana &#x1F34C;</li>
-      </ul>
+        <h2>Profile</h2>
+        <ul>
+          <li><strong>Name</strong>: <a href="https://bento.me/ym/" target="_blank">Manato Yamashita<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
+          <li><strong>Sex</strong>: Man</li>
+          <li><strong>Gender</strong>: Man</li>
+          <li><strong>Birthday</strong>: 2002.04.17</li>
+          <li><strong>Country</strong>: Japan（ja）</li>
+          <li><strong>Live-in</strong>: Kanagawa | Tokyo | kumamoto</li>
+          <li><strong>Study</strong>: <a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
+          <li><strong>Research</strong>: <a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
+          <li><strong>Like</strong>: Banana &#x1F34C;</li>
+        </ul>
       </div>
+
       <div class="his">
         <h2>History</h2>
         <ul>
@@ -33,7 +35,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .col {
   display: flex;
   justify-content: space-around;
