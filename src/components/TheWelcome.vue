@@ -17,7 +17,7 @@
       In my classes, I learned the basic theories of <strong>ICT assessments</strong> and <strong>multimedia</strong>,
       and also did team development using <strong>programming</strong>, from requirement definition to video production.
       Furthermore, as the representative of a group with more than 100 members that creates digital contents using digital tools,
-      I did <strong>video production</strong>, <strong>graphics design</strong>, <strong>llustration</strong>, <strong>programming</strong>, and <strong>iweb design</strong>.
+      I did <strong>video production</strong>, <strong>graphics design</strong>, <strong>llustration</strong>, <strong>programming</strong>, and <strong>web design</strong>.
       I also enjoy making animations as a hobby, and I <strong>love all of creative</strong> activities in general.
     </p>
   </div>
