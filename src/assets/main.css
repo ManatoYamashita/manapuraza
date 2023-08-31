@@ -49,9 +49,14 @@
 	80% {
 		opacity: 1;
 	}
-	100% {
+	99% {
 		width: 245px;
 		opacity: 0;
+	}
+	100% {
+		width: 250px;
+		opacity: 0;
+		display: none;
 	}
 }
 
@@ -87,18 +92,13 @@ body {
 
 div.logo > a > img {
 	width: 15em;
-  }
+}
 
 a {
   text-decoration: none;
   color: rgb(17, 17, 17);
   transition: 0.4s;
   text-decoration: underline;
-}
-#app > header > div > nav > a {
-	font-size: .8em;
-	padding: 0 .5em;
-	margin: 0;
 }
 
 footer {
@@ -115,11 +115,8 @@ body > footer > div {
 	 filter: url('#shadowed-goo');
   	 position: absolute;
 	 left: 2%;
-	 margin-left: -60px;
-	 padding-top: 20px;
-	 padding-left: 60px;
+	 bottom: 7vh;
 	 width: 650px;
-	 height: 150px;
 	 box-sizing: border-box;
 	 font-size: 20px;
 	 text-align: left;
@@ -271,19 +268,4 @@ body > footer > div {
     background-color: #9bc3e2;
 	text-shadow: #4faef2 0px 0px 10px;
   }
-}
-
-@media (min-width: 720px) {
-  body {
-    display: block;
-    place-items: center;
-  }
-  #app {
-    display: block;
-    grid-template-columns: 1fr 1fr;
-  }
-  #app > header > div > nav > a {
-	font-size: 1em;
-	padding: 10px 1em;
-}
 }

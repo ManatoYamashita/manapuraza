@@ -67,4 +67,11 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
+@media (max-width: 500px) {
+  nav a {
+    padding: 0 .5rem;
+    font-size: .8rem;
+  }
+}
 </style>
