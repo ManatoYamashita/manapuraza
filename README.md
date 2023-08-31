@@ -2,6 +2,9 @@
 
 <img src="./public/ogp.png" alt="OGP image" width="300" style="border-radius:8px;">
 
+* https://manapuraza.com/
+* https://manapuraza.vercel.app/
+
 Manato Yamashita's portfolio site 2023.
 This template should help get you started developing with Vue 3 in Vite.
 
