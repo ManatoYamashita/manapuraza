@@ -72,7 +72,7 @@
 	border-radius: 10px;
 	border: 1px solid rgba( 255, 255, 255, 0.18 );
 	animation: box-shadow-pulse 5s forwards;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 @keyframes box-shadow-pulse {
