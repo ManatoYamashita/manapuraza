@@ -16,11 +16,12 @@
             <li><a href="https://github.com/ManatoYamashita" target="_blank">GitHub&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
             <br>
             <li><a href="https://manapuraza.com">MANAPURAZA.COM</a>（このサイト）</li>
-            <li><a href="https://tmana.sub.jp/numeron/dirs/level4/dist/numeron_level4.html/" target="_blank">NUMERON&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（論理数学ゲーム）</li>
-            <li><a href="https://dum.manaouraza.com/" target="_blank">Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（オーストラリア留学ブログ）</li>
-            <li><a href="https://killerdie-2023.netlify.com" target="_blank">キラキラ大学生研究会&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（1周年サイト）</li>
+            <li><a href="http://tmana.sub.jp/numeron/dirs/level4/dist/numeron_level4.html/" target="_blank">NUMERON&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（論理数学ゲーム）</li>
+            <li><a href="https://dum.manapuraza.com/" target="_blank">Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（オーストラリア留学ブログ）</li>
+            <li><a href="https://killerdie-2023.netlify.com/" target="_blank">キラキラ大学生研究会&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（1周年サイト）</li>
             <li><a href="https://chaintence.shotaro.jp/" target="_blank">Chaintence&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（テンプレメール作成Webアプリ）</li>
-            <li><a href="https://github.com/ManatoYamashita/SysB_wtm" target="_blank">WTM&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（天気提案アプリ）</li>
+            <li><a href="https://github.com/ManatoYamashita/SysB_wtm/" target="_blank">WTM&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（天気提案アプリ）</li>
+            <li><a href="http://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html/" target="_blank">でじこんちゃん Twitter bot&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
           </ul>
 
         <h3>Video / Animation</h3>

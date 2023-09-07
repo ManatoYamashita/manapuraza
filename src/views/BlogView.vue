@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
     import BlogArticles from '@/components/BlogArticles.vue'
 </script>
 
@@ -6,4 +6,4 @@
   <main>
     <BlogArticles />
   </main>
-</template>
+</template> -->

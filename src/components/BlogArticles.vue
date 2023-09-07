@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     export default {
         name: 'BlogArticles'
     };
@@ -7,4 +7,4 @@
     <main>
         <h1>Blogs</h1>
     </main>
-</template>
+</template> -->
