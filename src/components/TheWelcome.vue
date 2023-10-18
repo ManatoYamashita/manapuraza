@@ -28,7 +28,7 @@
   padding: 1rem;
 }
 p {
-  font-size: .9rem;
+  font-size: 1rem;
 }
 img#profile-img {
   width: 15vw;

@@ -22,12 +22,12 @@
             <li><a href="https://chaintence.shotaro.jp/" target="_blank">Chaintence&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（テンプレメール作成Webアプリ）</li>
             <li><a href="https://github.com/ManatoYamashita/SysB_wtm/" target="_blank">WTM&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（天気提案アプリ）</li>
             <li><a href="http://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html/" target="_blank">でじこんちゃん Twitter bot&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-            <li><a href="jamstack-blog-test.vercel.app">Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" />(Jamstackテスト)</a></li>
+            <li><a href="jamstack-blog-test.vercel.app">Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>(Jamstackテスト)</li>
             <li><a href="www.comm.tcu.ac.jp/tcu-acc/">東京都市大学 同好会連合本部&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
           </ul>
 
         <h3>Video / Animation</h3>
-          <p>Adobe Premieere Pro, etc...</p>
+          <p>Adobe Premiere Pro, FlipaClip, etc...</p>
           <ul>
             <li><a href="https://www.youtube.com/@ManatoYamashita/" target="_blank">個人 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
             <li><a href="https://www.youtube.com/@tcu_dc/" target="_blank">デジタルコンテンツ研究会 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
@@ -60,10 +60,10 @@ div#image-content {
   justify-content: flex-end;
 }
 p, ul li { 
-  font-size: .7em;
+  font-size: .8em;
 }
 a {
-  font-size: .8rem;
+  font-size: 1rem;
   color:  #3b9bdf;
   font-weight: bolder;
 }
