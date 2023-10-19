@@ -17,13 +17,13 @@
             <br>
             <li><a href="https://manapuraza.com">MANAPURAZA.COM</a>（このサイト）</li>
             <li><a href="http://tmana.sub.jp/numeron/dirs/level4/dist/numeron_level4.html/" target="_blank">NUMERON&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（論理数学ゲーム）</li>
-            <li><a href="https://dum.manapuraza.com/" target="_blank">Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（オーストラリア留学ブログ）</li>
+            <li><a href="http://dum.manapuraza.com/" target="_blank">Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（オーストラリア留学ブログ）</li>
             <li><a href="https://killerdie-2023.netlify.com/" target="_blank">キラキラ大学生研究会&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（非公式同好会 1周年記念サイト）</li>
             <li><a href="https://chaintence.shotaro.jp/" target="_blank">Chaintence&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（テンプレメール作成Webアプリ）</li>
             <li><a href="https://github.com/ManatoYamashita/SysB_wtm/" target="_blank">WTM&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（天気提案アプリ）</li>
             <li><a href="http://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html/" target="_blank">でじこんちゃん Twitter bot&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-            <li><a href="jamstack-blog-test.vercel.app">Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>(Jamstackテスト)</li>
-            <li><a href="www.comm.tcu.ac.jp/tcu-acc/">東京都市大学 同好会連合本部&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
+            <li><a href="http://jamstack-blog-test.vercel.app">Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>(Jamstackテスト)</li>
+            <li><a href="http://www.comm.tcu.ac.jp/tcu-acc/">東京都市大学 同好会連合本部&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
           </ul>
 
         <h3>Video / Animation</h3>
