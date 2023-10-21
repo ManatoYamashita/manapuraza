@@ -317,4 +317,7 @@ body > footer > div {
 	  transition-duration: 650ms;
 	  transform: translate3d(315px, 0, 0);
    }
+   .credit {
+	font-size: .5em;
+   }
 }

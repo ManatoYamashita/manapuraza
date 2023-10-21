@@ -57,10 +57,10 @@
   }
   .his li {
     width: 100%;
-    padding: .5rem;
+    padding: 0;
   }
   .prof li {
-    padding: .5rem;
+    padding: 0;
   }
 }
 </style>

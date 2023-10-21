@@ -85,7 +85,7 @@ img {
   }
   div#main-contents {
     width: 100%;
-    padding: .5rem;
+    padding: .2rem;
     margin-bottom: 2rem;
   }
   div#image-content {
