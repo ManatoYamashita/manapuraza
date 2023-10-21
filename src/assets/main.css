@@ -18,7 +18,7 @@
 	animation-timing-function: ease-in-out;
   }
    
-  @keyframes top-op{
+  @keyframes top-op {
   0% {
 	width: 100%;
 	left:0;
@@ -64,7 +64,7 @@
 	max-width: 1280px;
 	max-height: 80vh;
 	margin: 1% 5%;
-	padding: 2rem;
+	padding: 2rem 2rem 0 2rem;
 	background: rgba( 255, 255, 255, 0.4 );
 	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 	backdrop-filter: blur( 2px );
@@ -269,4 +269,52 @@ body > footer > div {
     background-color: #9bc3e2;
 	text-shadow: #4faef2 0px 0px 10px;
   }
+}
+
+/* スマートフォンの表示 */
+@media screen and (max-width: 480px) {
+	h1 {
+		font-size: 1.5em;
+	}
+	h2 {
+		font-size: 1.2em;
+	}
+	.menu-open-button, .menu-item {
+		font-size: 1em;
+		width: 45px;
+		height: 45px;
+		line-height: 45px;
+		margin: 0;
+	}
+	.menu-open:checked ~ .menu-item {
+		transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+   }
+	.menu-open:checked ~ .menu-item:nth-child(3) {
+		transition-duration: 170ms;
+		transform: translate3d(45px, 0, 0);
+   }
+	.menu-open:checked ~ .menu-item:nth-child(4) {
+		transition-duration: 250ms;
+		transform: translate3d(90px, 0, 0);
+   }
+	.menu-open:checked ~ .menu-item:nth-child(5) {
+		transition-duration: 330ms;
+		transform: translate3d(135px, 0, 0);
+   }
+	.menu-open:checked ~ .menu-item:nth-child(6) {
+		transition-duration: 410ms;
+		transform: translate3d(180px, 0, 0);
+   }
+	.menu-open:checked ~ .menu-item:nth-child(7) {
+	  transition-duration: 490ms;
+	  transform: translate3d(225px, 0, 0);
+   }
+	.menu-open:checked ~ .menu-item:nth-child(8) {
+	  transition-duration: 570ms;
+	  transform: translate3d(270px, 0, 0);
+   } 
+	.menu-open:checked ~ .menu-item:nth-child(9) {
+	  transition-duration: 650ms;
+	  transform: translate3d(315px, 0, 0);
+   }
 }
