@@ -1,5 +1,5 @@
 <template>
-    <div class="contact">
+    <div class="main">
       <h1>Under Constraction...&#x1F34C;</h1>
       <p>現在開発中です。<br>
         ようやく、レイアウトは完成しました。

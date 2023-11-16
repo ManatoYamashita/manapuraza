@@ -1,78 +1,62 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <div>
-    <header>
-      <div class="wrapper">
-        <nav>
-          <RouterLink to="/" class="rlink">Home</RouterLink>
-          <RouterLink to="/about" class="rlink">About</RouterLink>
-          <RouterLink to="/works" class="rlink">Works</RouterLink>
-          <!-- <RouterLink to="/blog" class="rlink">Blog</RouterLink> -->
-          <RouterLink to="/contact" class="rlink">Contact</RouterLink>
-        </nav>
-      </div>
-    </header>
-    
+  <div class="app" :style="$route.meta.style">
     <Transition name="slide" mode="out-in">
         <router-view />
     </Transition>
   </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+};
+</script>
+
 <style scoped>
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-nav a.router-link-exact-active {
-  color:  #4faef2;
-  font-weight: bolder;
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-  text-decoration-line: none;
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-.slide-enter-active {
-  transition: all 0.3s ease-out;
-}
-.slide-leave-active {
-  transition: all 0.3s ease-in;
-}
-.slide-enter-from, .slide-leave-to {
-  transform: translateX(-20px);
-}
-
-@media (min-width: 1024px) {
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  .app {
+    position: relative;
+    left: auto;
+    width: 80vw;
+    height: 80vh;
+    max-width: 1280px;
+    max-height: 80vh;
+    padding: 2rem 2rem 0 2rem;
+    margin: 1rem auto;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.51);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur( 1px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    animation: box-shadow-pulse 5s forwards;
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent;
+    transition: top 1s cubic-bezier(0,.94,.57,1.02);
   }
-}
-
-@media (max-width: 500px) {
-  nav a {
-    padding: 0 .5rem;
-    font-size: .8rem;
+  ::-webkit-scrollbar {
+    display: none;
   }
-}
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
+
+  .main::-webkit-scrollbar {
+	  width: 10px;
+  }
+  .slide-enter-active {
+    transition: all 0.3s ease-out;
+  }
+  .slide-leave-active {
+    transition: all 0.3s ease-in;
+  }
+  .slide-enter-from, .slide-leave-to {
+    transform: translateX(-20px);
+  }
 </style>
