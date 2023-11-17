@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomeView,
       meta: {
         style: {
-          top: '100vh',
+          top: '10vh',
         },
       },
     },

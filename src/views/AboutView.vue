@@ -1,9 +1,13 @@
+
+import SnsView from '../components/snsView.vue';
 <template>
   <div class="main">
     <h1>About</h1>
-    <div class="col">
-
-      <div class="prof">
+    <h2>Manato Yamashita</h2>
+    <div class="howyoufeel">
+      <div class="self-image">
+        <img src="@/assets/ym.webp" alt="山下マナト">
+        <SnsView />
         <h2>Profile</h2>
         <ul>
           <li><strong>Name</strong>: <a href="https://bento.me/ym/" target="_blank">Manato Yamashita<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
@@ -36,31 +40,18 @@
 </template>
 
 <style scoped>
-.col {
-  display: flex;
-  justify-content: space-around;
+h2 {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+img {
+  width: 25%;
 }
 .fa {
   font-size: .6rem;
   margin-left: .2rem;
 }
-@media (min-width: 1024px) {
-  .about {
-    display: block;
-    align-items: center;
-  }
-}
 
 @media (max-width: 540px) {
-  .col {
-    display: block;
-  }
-  .his li {
-    width: 100%;
-    padding: 0;
-  }
-  .prof li {
-    padding: 0;
-  }
 }
 </style>

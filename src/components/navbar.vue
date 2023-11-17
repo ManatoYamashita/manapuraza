@@ -47,6 +47,7 @@ export default {
         display: block;
         height: 3rem;
         width: auto;
+        overflow: hidden;
     }
     .rlink {
         text-decoration: none;
