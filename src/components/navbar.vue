@@ -1,39 +1,39 @@
 <template>
     <div class="navbar">
         <div class="logo">
-                <a href="https://manapuraza.com/">
+                <RouterLink to="/">
                     <transition name="slide" mode="out-in">
                     <img src="@/assets/manapuraza-logo.svg" alt="logo" v-show="currentPath !== '/'">
                     </transition>
-                </a>
+                </RouterLink>
         </div>
         <nav>
-          <RouterLink to="/" class="rlink">Home</RouterLink>
+          <!-- <RouterLink to="/" class="rlink">Home</RouterLink> -->
           <RouterLink to="/about" class="rlink">About</RouterLink>
           <RouterLink to="/works" class="rlink">Works</RouterLink>
-          <RouterLink to="/contact" class="rlink">Contact</RouterLink>
+          <!-- <RouterLink to="/contact" class="rlink">Contact</RouterLink> -->
         </nav>
     </div>
 </template>
 
 <script>
-import { RouterLink } from "vue-router";
-export default {
-    name: "Navbar",
-    components: {
-        RouterLink,
-    },
-    data() {
-        return {
-            currentPath: this.$route.path,
-        };
-    },
-    watch: {
-        $route(to, from) {
-            this.currentPath = to.path;
+    import { RouterLink } from "vue-router";
+    export default {
+        name: "Navbar",
+        components: {
+            RouterLink,
         },
-    },
-};
+        data() {
+            return {
+                currentPath: this.$route.path,
+            };
+        },
+        watch: {
+            $route(to, from) {
+                this.currentPath = to.path;
+            },
+        },
+    };
 </script>
 
 <style lang="css" scoped>
@@ -45,21 +45,25 @@ export default {
     }
     .logo {
         display: block;
-        height: 3rem;
+        height: 5rem;
         width: auto;
         overflow: hidden;
+    }
+    img {
+        height: 100%;
+        width: auto;
     }
     .rlink {
         text-decoration: none;
         color: #000;
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-weight: bold;
         padding: 0 1rem;
         cursor: pointer;
     }
     .rlink:hover {
-        color: #4faef2;
-	    text-shadow: #4faef2 1rem 0px 1rem;
+        color: skyblue;
+	    text-shadow: #4faef2 0 0px 1rem;
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;
         animation: glow 1s ease-in-out infinite alternate;

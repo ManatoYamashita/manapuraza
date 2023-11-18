@@ -1,19 +1,85 @@
 <template>
-  <div class="app" :style="$route.meta.style">
-    <Transition name="slide" mode="out-in">
-        <router-view />
-    </Transition>
+  <div id="main">
+    <img src="@/assets/manapuraza-logo.svg" id="center-logo" :class="className" :style="styleObject" />
+    <div class="app">
+      <router-view v-slot="{ Component }">
+        <transition name="slide" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
   </div>
 </template>
 
-<script>
-import {useRoute} from "vue-router";
+<script setup>
+  import { watch, onMounted, computed } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  const route = useRoute();
+  const router = useRouter();
 
-const route = useRoute();
-console.log(route.path);
+  const checkRouterReady = async () => {
+    await router.isReady();
+  };
+
+  watch(route, () => {
+    console.log('current route: ', route.name);
+    if (route.name === 'home') {
+      document.querySelector('.app').style.top = '20vh';
+      document.querySelector('.app').style.opacity = '0';
+    } else {
+      document.querySelector('.app').style.top = '0';
+      document.querySelector('.app').style.opacity = '1';
+    }
+  });
+
+  onMounted(() => {
+    checkRouterReady();
+  });
+
+  const path = computed(() => route.path); // パスを算出プロパティとして定義
+
+  const className = computed(() => { // クラス名を算出プロパティとして定義
+    if (path.value === '/') {
+      return 'foo'; // パスが'/'なら'foo'というクラスを返す
+    } else {
+      return 'bar'; // それ以外なら'bar'というクラスを返す
+    }
+  });
+
+  const styleObject = computed(() => { // スタイルオブジェクトを算出プロパティとして定義
+    if (path.value === '/') {
+      return {
+        opacity: '1',
+        transition: 'all .4s ease-in-out',
+      };
+    } else {
+      return {
+        opacity: '0',
+        filter: 'blur(2rem)',
+        transition: 'all .4s ease-in-out',
+      };
+    }
+  });
 </script>
 
 <style scoped>
+  #main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+  }
+  #center-logo {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: 40%;
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
+  .className {
+    transition: all .4s ease-in-out;
+  }
   .app {
     position: relative;
     left: auto;
@@ -28,12 +94,11 @@ console.log(route.path);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur( 1px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
-    animation: box-shadow-pulse 5s forwards;
     overflow: scroll;
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent;
-    transition: top 1s cubic-bezier(0,.94,.57,1.02);
+    transition: .5s ease-in-out;
   }
   ::-webkit-scrollbar {
     display: none;
@@ -51,13 +116,32 @@ console.log(route.path);
   .main::-webkit-scrollbar {
 	  width: 10px;
   }
-  .slide-enter-active {
-    transition: all 0.3s ease-out;
+
+.slide-enter-active {
+  animation: slide-in .2s cubic-bezier(0,.94,.57,1.02);
+}
+.slide-leave-active {
+  animation: slide-out .2s cubic-bezier(0,.94,.57,1.02);
+}
+@keyframes slide-in {
+  0% {
+    transform: translateX(2%);
+    opacity: 0;
   }
-  .slide-leave-active {
-    transition: all 0.3s ease-in;
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
-  .slide-enter-from, .slide-leave-to {
-    transform: translateX(-20px);
+}
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
   }
+  100% {
+    transform: translateX(-2%);
+    opacity: 0;
+  }
+}
+
 </style>

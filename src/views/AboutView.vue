@@ -1,57 +1,140 @@
+<script setup>
+  import SnsView from '@/components/SnsView.vue';
+  import HistoryView from '../components/historyView.vue';
+</script>
 
-import SnsView from '../components/snsView.vue';
 <template>
   <div class="main">
     <h1>About</h1>
     <h2>Manato Yamashita</h2>
-    <div class="howyoufeel">
+    
+    <section class="howyoufeel">
       <div class="self-image">
-        <img src="@/assets/ym.webp" alt="山下マナト">
-        <SnsView />
-        <h2>Profile</h2>
-        <ul>
-          <li><strong>Name</strong>: <a href="https://bento.me/ym/" target="_blank">Manato Yamashita<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-          <li><strong>Sex</strong>: Man</li>
-          <li><strong>Gender</strong>: Man</li>
-          <li><strong>Birthday</strong>: 2002.04.17</li>
-          <li><strong>Country</strong>: Japan（ja）</li>
-          <li><strong>Live-in</strong>: Kanagawa | Tokyo | kumamoto</li>
-          <li><strong>Study</strong>: <a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-          <li><strong>Research</strong>: <a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-          <li><strong>Like</strong>: Banana &#x1F34C;</li>
-        </ul>
+        <img src="@/assets/ym_photo.jpg" alt="山下マナト">
       </div>
+      <div id="message">
+        <p>
+          <strong id="howyoufeel">How you feel?</strong>
+          <br>I'm Manato Yamashita. studying computer science at the Department of Informatics,
+           at Tokyo City University. My hobbies are create digital contents(ex: illustration, animation, web and so on...) and reading.
+            my favorite writer is Sayaka Murata.This site is for my portfolio named MANAPURAZA.COM from Manato(my name) + Tamaplaza(the station near my living)
+             I love all of creative activities! and banana.&#x1F34C;
+        </p>
+        <SnsView id="sns" />
+      </div>
+      </section>
+
+      <section class="profile">
+        <h2>Profile</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <td><a href="https://bento.me/ym/" target="_blank">Manato Yamashita <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+          </tr>
+          <tr>
+            <th>Sex</th>
+            <td>Man</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>Man</td>
+          </tr>
+          <tr>
+            <th>Birthday</th>
+            <td>2002.04.17</td>
+          </tr>
+          <tr>
+            <th>Country</th>
+            <td>Japan（ja）</td>
+          </tr>
+          <tr>
+            <th>Live-in</th>
+            <td>Kanagawa | Tokyo | Kumamoto</td>
+          </tr>
+          <tr>
+            <th>Study</th>
+            <td><a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+          </tr>
+          <tr>
+            <th>Research</th>
+            <td><a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+          </tr>
+          <tr>
+            <th>Like</th>
+            <td>Banana 🍌</td>
+          </tr>
+        </table>
+      </section>
 
       <div class="his">
         <h2>History</h2>
-        <ul>
-          <li><strong>2002</strong>: Born in Kumamoto prefecture</li>
-          <li><strong>2003</strong>: Lived in Tokyo, Katsushika-ward</li>
-          <li><strong>2015</strong>: Tateishi-junior-high school</li>
-          <li><strong>2018</strong>: Hojo-high school</li>
-          <li><strong>2021</strong>: Tokyo-City University</li>
-          <li><strong>2021</strong>: Live in Kawasaki City, Miyamae-ward（Miyazakidai）</li>
-          <li><strong>2023</strong>: <a href="https://www.ecu.edu.au/" target="_blank">Edith-Cowan University<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（study abroad, Australia）</li>
-          <li><strong>2023</strong>: Live in Kawasaki City, Miyamae-ward（Saginuma）</li>
-        </ul>
+        <HistoryView />
       </div>
-    </div>
   </div>
 </template>
 
 <style scoped>
-h2 {
-  font-size: 1.2rem;
-  margin: 1rem 0;
-}
-img {
-  width: 25%;
-}
-.fa {
-  font-size: .6rem;
-  margin-left: .2rem;
-}
+  .main {
+    width: 90%;
+    margin: 0 auto;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 5rem;
+  }
+  img {
+    width: 15rem;
+    border-radius: .5rem;
+  }
+  .howyoufeel {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  #howyoufeel {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  #message {
+    padding: 0 0 0 2rem
+  }
+  #message p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin: 0;
+  }
+  .profile {
+    margin: 0;
+  }
+  #sns {
+    width: 100%;
+  }
+  table {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  tr {
+    width: 100%;
+    border-bottom: 1px solid #101010;
+    font-weight: bold;
+  }
+  th {
+    width: 50%;
+    text-align: left;
+    align-self: stretch;
+    padding: 1rem;
+    border-bottom: 1px solid #101010;
 
-@media (max-width: 540px) {
-}
+  }
+  td {
+    text-align: left;
+    border-bottom: 1px solid #101010;
+  }
+
+  /* SP */
+  @media (max-width: 540px) {
+  }
 </style>

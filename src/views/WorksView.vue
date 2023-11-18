@@ -138,6 +138,18 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'WorksView',
+  components: {
+  },
+  data() {
+    return {
+    }
+  },
+}
+</script>
+
 <style scoped>
 .works {
   height: 100%;
@@ -154,7 +166,7 @@ main {
   padding: 1rem;
 }
 #dc-chan {
-  width: 50%;
+  width: 75%;
   height: auto;
   border-radius: .5rem;
   box-shadow: none;
@@ -179,7 +191,7 @@ img {
   margin-left: 0;
 }
 ul {
-  padding: 0 .5rem 0 1rem;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
@@ -195,7 +207,7 @@ a:hover {
 }
 h2 {
   font-size: 1.5rem;
-  margin: 2rem 0;
+  margin: 3rem 0 0 0;
 }
 h3 {
   font-size: .9rem;

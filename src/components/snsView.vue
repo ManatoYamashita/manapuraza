@@ -31,8 +31,8 @@
     flex-shrink: 0;
 }
 .sns {
-    width: 2rem;
+    width: 1.5rem;
     height: 2rem;
-    margin: 1rem;
+    margin: .5rem;
 }
 </style>

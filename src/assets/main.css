@@ -135,6 +135,7 @@ footer > div {
 
 @media (hover: hover) {
   a:hover {
+	color: #4faef2;
 	text-shadow: #4faef2 0px 0px 1rem;
   }
 }
