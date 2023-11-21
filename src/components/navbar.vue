@@ -3,11 +3,11 @@
         <div class="logo">
                 <RouterLink to="/">
                     <transition name="slide" mode="out-in">
-                    <img src="@/assets/manapuraza-logo.svg" alt="logo" v-show="currentPath !== '/'">
+                      <img src="@/assets/manapuraza-logo.svg" alt="logo" v-show="currentPath !== '/'">
                     </transition>
                 </RouterLink>
         </div>
-        <nav>
+        <nav class="default-menu">
           <!-- <RouterLink to="/" class="rlink">Home</RouterLink> -->
           <RouterLink to="/about" class="rlink">About</RouterLink>
           <RouterLink to="/works" class="rlink">Works</RouterLink>
@@ -42,6 +42,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem 0;
+        height: 100%;
     }
     .logo {
         display: block;
@@ -51,7 +52,6 @@
     }
     img {
         height: 100%;
-        width: auto;
     }
     .rlink {
         text-decoration: none;
@@ -67,6 +67,9 @@
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;
         animation: glow 1s ease-in-out infinite alternate;
+    }
+    #spnav {
+        display: none;
     }
     .slide-enter-from,
     .slide-leave-to {
@@ -84,5 +87,17 @@
     .slide-leave-active {
         transition: transform 0.5s;
         transition-delay: 500ms;
+    }
+    /* sp表示 */
+    @media screen and (max-width: 540px) {
+        .logo img {
+            width: 10rem;
+        }
+        .default-menu {
+            display: none;
+        }
+        #spnav {
+            display: block;
+        }
     }
 </style>

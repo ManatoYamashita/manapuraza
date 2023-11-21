@@ -82,10 +82,6 @@
     font-size: 1.5rem;
     margin-top: 5rem;
   }
-  img {
-    width: 15rem;
-    border-radius: .5rem;
-  }
   .howyoufeel {
     display: flex;
     justify-content: space-between;
@@ -94,9 +90,19 @@
   #howyoufeel {
     font-size: 1.2rem;
     margin: 0;
+    width: 100%;
+  }
+  .self-image {
+    width: 50%;
+    margin: 0;
+  }
+  img {
+    width: 100%;
+    border-radius: .5rem;
   }
   #message {
-    padding: 0 0 0 2rem
+    width: 50%;
+    padding: 0 0 0 2rem;
   }
   #message p {
     font-size: 1rem;
@@ -133,8 +139,21 @@
     text-align: left;
     border-bottom: 1px solid #101010;
   }
-
+  .his {
+    margin-bottom: 75vh;
+  }
   /* SP */
-  @media (max-width: 540px) {
+  @media screen and (max-width: 540px) {
+    .howyoufeel {
+      flex-direction: column;
+      align-items: center;
+    }
+    #message {
+      width: 90%;
+      padding: 1rem 0;
+    }
+    td a {
+      margin: 1rem 0;
+    }
   }
 </style>

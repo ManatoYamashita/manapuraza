@@ -7,10 +7,8 @@
 	margin: 0 auto;
 	width: 100%;
 	height: 100vh;
-  }
-  .top-op{
-	z-index: 1;
-	background: #4faef2;
+	z-index: 99;
+	background: var(--mpuraza-acsent);
 	animation-duration: .5s;
 	animation-delay: 1.6s;
 	animation-fill-mode: forwards;
@@ -30,7 +28,7 @@
   }
 
   .logo-op {
-	z-index: 2;
+	z-index: 99;
 	position: absolute;
 	width: 120px;
 	top: 0;
@@ -38,7 +36,7 @@
 	right: 0;
 	bottom: 0;
 	margin: auto;
-	-webkit-animation: logo 1s forwards;
+	-webkit-animation: logo-op 1s forwards;
 	animation: logo-op 1s forwards;
   }
 @keyframes logo-op {
@@ -72,6 +70,12 @@ main {
 	left: 0;
 	height: 90vh;
 	width: 100%;
+}
+h1 {
+	font-size: 3rem;
+}
+h2 {
+	font-size: 2rem;
 }
 
 @keyframes box-shadow-pulse {
@@ -135,17 +139,19 @@ footer > div {
 
 @media (hover: hover) {
   a:hover {
-	color: #4faef2;
-	text-shadow: #4faef2 0px 0px 1rem;
+	color: var(--mpuraza-acsent);
+	text-shadow: var(--mpuraza-acsent) 0px 0px 1rem;
   }
 }
-
 /* スマートフォンの表示 */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 540px) {
 	h1 {
-		font-size: 1.5em;
+		font-size: 2.5rem;
 	}
 	h2 {
-		font-size: 1.2em;
+		font-size: 1.5em;
+	}
+	header {
+		height: 7vh;
 	}
 }

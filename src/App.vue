@@ -1,6 +1,9 @@
 <template>
   <div id="main">
-    <img src="@/assets/manapuraza-logo.svg" id="center-logo" :class="className" :style="styleObject" />
+    <a href="https://manapuraza.com">
+      <img src="@/assets/manapuraza-logo.svg" id="center-logo" :class="className" :style="styleObject" />
+    </a>
+
     <div class="app">
       <router-view v-slot="{ Component }">
         <transition name="slide" mode="out-in">
@@ -8,12 +11,15 @@
         </transition>
       </router-view>
     </div>
+
+    <SpNav id="sp-nav" />
   </div>
 </template>
 
 <script setup>
   import { watch, onMounted, computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
+  import SpNav from '@/components/spNav.vue';
   const route = useRoute();
   const router = useRouter();
 
@@ -40,9 +46,9 @@
 
   const className = computed(() => { // クラス名を算出プロパティとして定義
     if (path.value === '/') {
-      return 'foo'; // パスが'/'なら'foo'というクラスを返す
+      return 'route-home'; // パスが'/'なら'route-home'というクラスを返す
     } else {
-      return 'bar'; // それ以外なら'bar'というクラスを返す
+      return 'route-other'; // それ以外なら'route-other'というクラスを返す
     }
   });
 
@@ -67,7 +73,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 100vh;
   }
   #center-logo {
     position: absolute;
@@ -77,8 +82,19 @@
     height: auto;
     transform: translate(-50%, -50%);
   }
-  .className {
+  #sp-nav {
+    display: none;
+  }
+  .route-home {
+    opacity: 1;
     transition: all .4s ease-in-out;
+    animation-delay: 1s;
+  }
+  .route-other {
+    opacity: 0;
+    filter: blur(2rem);
+    transition: all .4s ease-in-out;
+    animation-delay: 1s;
   }
   .app {
     position: relative;
@@ -143,5 +159,20 @@
     opacity: 0;
   }
 }
-
+/* SP表示 */
+@media (max-width: 540px) {
+  #center-logo {
+    top: 30%;
+    width: 60%;
+  }
+  .app {
+    width: 90vw;
+    height: 75vh;
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+  #sp-nav {
+    display: block;
+  }
+}
 </style>

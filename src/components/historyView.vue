@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div id="main">
       <div class="timeline">
-        <div class="entry">
-          <div class="title">
+        <div class="entry animation">
+         <div class="title">
             <h3>2002</h3>
           </div>
           <div class="body p1">
@@ -10,7 +10,7 @@
             <p>2002, Kumamoto / Japan（ja）</p>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry animation">
           <div class="title">
             <h3>2003</h3>
           </div>
@@ -19,7 +19,7 @@
             <p>2003~, Tokyo / Japan（ja）</p>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry animation">
           <div class="title">
             <h3>2015</h3>
           </div>
@@ -28,7 +28,7 @@
             <p>2015 ~ 2018, Tokyo / Japan（ja）</p>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry animation">
           <div class="title">
             <h3>2018</h3>
           </div>
@@ -37,7 +37,7 @@
             <p>2018 ~ 2021, Tokyo / Japan（ja）</p>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry animation">
           <div class="title">
             <h3>2021</h3>
           </div>
@@ -49,7 +49,7 @@
             <p>2021 ~ 2022, Kanagawa / Japan（ja）</p>
           </div>
         </div>
-        <div class="entry">
+        <div class="entry animation">
           <div class="title">
             <h3>2023</h3>
           </div>
@@ -65,13 +65,21 @@
     </div>
 </template>
 
+<script>
+</script>
+
 <style scoped>
+#main {
+  width: 100%;
+  min-height: 100vh;
+  max-width: 800px;
+}
 .timeline {
   width: 100%;
-  max-width: 800px;
-  padding: 2rem 0 1rem 0;
+  height: 100%;
+  padding: 2rem 0 5rem 0;
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 50vh;
 }
 .timeline:before {
   /* タイムラインの縦線 */
@@ -79,7 +87,7 @@
   position: absolute;
   left: calc(33% + 15px);
   top: calc(3rem + 3px);
-  bottom: 0px;
+  bottom: 0;
   width: 4px;
   background: #101010;
 }
@@ -141,5 +149,24 @@ p {
 }
 .p6 {
   margin-bottom: 2rem;
+}
+
+.animation {
+  opacity: 0;
+  position: sticky;
+  animation: scroll-anime ease forwards; 
+  animation-timeline: view();
+  animation-range: contain 0% end 100%;
+}
+@keyframes scroll-anime {
+  /* 要素を上から下へスライドさせる */
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
