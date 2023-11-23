@@ -73,6 +73,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    pointer-events: none;
   }
   #center-logo {
     position: absolute;
@@ -81,6 +82,7 @@
     width: 40%;
     height: auto;
     transform: translate(-50%, -50%);
+    pointer-events: all;
   }
   #sp-nav {
     display: none;
@@ -115,6 +117,7 @@
     scrollbar-width: thin;
     scrollbar-color: transparent;
     transition: .5s ease-in-out;
+    z-index: 1;
   }
   ::-webkit-scrollbar {
     display: none;
@@ -173,6 +176,7 @@
   }
   #sp-nav {
     display: block;
+    pointer-events: all;
   }
 }
 </style>

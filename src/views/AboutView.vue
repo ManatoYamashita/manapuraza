@@ -77,6 +77,7 @@
   .main {
     width: 90%;
     margin: 0 auto;
+    pointer-events: all;
   }
   h2 {
     font-size: 1.5rem;

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div id="main">
         <nav class="snsmenu">
         <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
@@ -214,4 +214,4 @@
 	font-size: .5em;
    }
 }
-</style>
+</style> -->

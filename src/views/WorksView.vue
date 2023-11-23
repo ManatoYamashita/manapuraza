@@ -151,11 +151,9 @@ export default {
 </script>
 
 <style scoped>
-.works {
-  height: 100%;
-}
 main {
   width: 100%;
+  pointer-events: all;
 }
 #main-contents {
   width: 100%;

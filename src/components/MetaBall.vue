@@ -203,14 +203,14 @@
 				const bally = Math.abs( Math.cos( i + 1.12 * time * Math.cos( 1.22 + 0.1424 * i ) ) ) * 0.77; // dip into the floor
 				const ballz = Math.cos( i + 1.32 * time * 0.1 * Math.sin( ( 0.92 + 0.53 * i ) ) ) * 0.27 + 0.5;
 
-				// if ( current_material === 'plastic' ) {
+				// if ( current_material === 'multicolors' ) {
 
 				// 	object.addBall( ballx, bally, ballz, strength, subtract, rainbow[ i % 7 ] );
 
 				// } else {
 
 					object.addBall( ballx, bally, ballz, strength, subtract );
-
+					
 				// }
 
 			}
