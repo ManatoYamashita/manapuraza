@@ -42,17 +42,17 @@
     checkRouterReady();
   });
 
-  const path = computed(() => route.path); // パスを算出プロパティとして定義
+  const path = computed(() => route.path);
 
-  const className = computed(() => { // クラス名を算出プロパティとして定義
+  const className = computed(() => {
     if (path.value === '/') {
-      return 'route-home'; // パスが'/'なら'route-home'というクラスを返す
+      return 'route-home';
     } else {
-      return 'route-other'; // それ以外なら'route-other'というクラスを返す
+      return 'route-other'; 
     }
   });
 
-  const styleObject = computed(() => { // スタイルオブジェクトを算出プロパティとして定義
+  const styleObject = computed(() => {
     if (path.value === '/') {
       return {
         opacity: '1',
@@ -135,48 +135,50 @@
   .main::-webkit-scrollbar {
 	  width: 10px;
   }
+  .slide-enter-active {
+    animation: slide-in .2s cubic-bezier(0,.94,.57,1.02);
+  }
+  .slide-leave-active {
+    animation: slide-out .2s cubic-bezier(0,.94,.57,1.02);
+  }
 
-.slide-enter-active {
-  animation: slide-in .2s cubic-bezier(0,.94,.57,1.02);
-}
-.slide-leave-active {
-  animation: slide-out .2s cubic-bezier(0,.94,.57,1.02);
-}
-@keyframes slide-in {
-  0% {
-    transform: translateX(2%);
-    opacity: 0;
+  @keyframes slide-in {
+    0% {
+      transform: translateX(2%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
+
+  @keyframes slide-out {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-2%);
+      opacity: 0;
+    }
   }
-}
-@keyframes slide-out {
-  0% {
-    transform: translateX(0);
-    opacity: 1;
+  
+  /* SP表示 */
+  @media (max-width: 540px) {
+    #center-logo {
+      top: 30%;
+      width: 60%;
+    }
+    .app {
+      width: 90vw;
+      height: 75vh;
+      padding: 1rem;
+      margin: 1rem auto;
+    }
+    #sp-nav {
+      display: block;
+      pointer-events: all;
+    }
   }
-  100% {
-    transform: translateX(-2%);
-    opacity: 0;
-  }
-}
-/* SP表示 */
-@media (max-width: 540px) {
-  #center-logo {
-    top: 30%;
-    width: 60%;
-  }
-  .app {
-    width: 90vw;
-    height: 75vh;
-    padding: 1rem;
-    margin: 1rem auto;
-  }
-  #sp-nav {
-    display: block;
-    pointer-events: all;
-  }
-}
 </style>

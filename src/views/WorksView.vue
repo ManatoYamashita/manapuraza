@@ -12,16 +12,16 @@
                   <img src="@/assets/works-sumbnail/example.png" alt="illustrations">
                 </div>
                 <h3>Manapuraza Creative Works&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A portfolio graphics and illustrations</p>
+                <p>{{ $t('works.w1') }}</p>
               </a>
             </li>
           </ul>
-        
+
         <h2>Programming / Web</h2>
           <ul>
             <a href="https://github.com/ManatoYamashita" target="_blank">
               <h3>GitHub&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-              <p>Repositorys storing codes</p>
+              <p>{{  $t('works.w2') }}</p>
             </a>
           </ul>
           <ul>
@@ -31,7 +31,7 @@
                   <img src="@/assets/works-sumbnail/example.png" alt="manapuraza">
                 </div>
                 <h3>Manapuraza&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A portfolio website show all of creative</p>
+                <p>{{  $t('works.w3') }}</p>
               </a>
             </li>
             <li>
@@ -40,7 +40,7 @@
                   <img src="@/assets/works-sumbnail/numeron.png" alt="numeron">
                 </div>
                 <h3>NUMERON&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A logical mathmatical game</p>
+                <p>{{ $t('works.w4') }}</p>
               </a>
             </li>
             <li>
@@ -49,7 +49,7 @@
                   <img src="@/assets/works-sumbnail/dum.png" alt="dum">
                 </div>
                 <h3>Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A blog for study abroad to Australia</p>
+                <p>{{ $t('works.w5') }}</p>
               </a>
             </li>
             <li>
@@ -58,7 +58,7 @@
                   <img src="@/assets/works-sumbnail/killerdie.png" alt="killerdie">
                 </div>
                 <h3>キラキラ大学生研究会 1周年記念&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A Event page for one-year anniversary</p>
+                <p>{{ $t('works.w6') }}</p>
               </a>
             </li>
             <li>
@@ -67,16 +67,16 @@
                   <img src="@/assets/works-sumbnail/chaintence.png" alt="chaintence">
                 </div>
                 <h3>chaintence&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A web app creating sentence by connecting template sentences like chain</p>
+                <p>{{ $t('works.w7') }}</p>
               </a>
             </li>
             <li>
               <a href="https://github.com/ManatoYamashita/SysB_wtm" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="WehereToMe">
+                  <img src="@/assets/works-sumbnail/wtm.png" alt="WehereToMe">
                 </div>
                 <h3>WTM&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A weather forecast activity suggestion app constracted by Java</p>
+                <p>{{ $t('works.w8') }}</p>
               </a>
             </li>
             <li>
@@ -85,7 +85,7 @@
                   <img src="@/assets/works-sumbnail/dc-chan_xbot.png" alt="dc-chan">
                 </div>
                 <h3>でじこんちゃん Twitter bot&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>DC-chan, original charactor twitter bot autometed by GoogleAppScript</p>
+                <p>{{ $t('works.w9') }}</p>
               </a>
             </li>
             <li>
@@ -94,7 +94,7 @@
                   <img src="@/assets/works-sumbnail/jamstack.png" alt="jamstack-blog">
                 </div>
                 <h3>Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A blog test using Jamstack(Nuxt.js + microCMSs)</p>
+                <p>{{ $t('works.w10') }}</p>
               </a>
             </li>
             <li>
@@ -103,7 +103,7 @@
                   <img src="@/assets/works-sumbnail/tcuacc.png" alt="tcu-acc">
                 </div>
                 <h3>東京都市大学 同好会連合本部&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>A website for TCU-ACC, a union of clubs in Tokyo-City University</p>
+                <p>{{ $t('works.w11') }}</p>
               </a>
             </li>
           </ul>
@@ -113,19 +113,19 @@
             <li>
               <a href="https://www.youtube.com/@ManatoYamashita/" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="youtube">
+                  <img src="@/assets/works-sumbnail/yt_ym.png" alt="youtube">
                 </div>
                 <h3>個人 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>My personal YouTube channel</p>
+                <p>{{ $t('works.w12') }}</p>
               </a>
             </li>
             <li>
               <a href="https://www.youtube.com/@tcu_dc/" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="youtube dc">
+                  <img src="@/assets/works-sumbnail/yt_dc.png" alt="youtube dc">
                 </div>
                 <h3>デジタルコンテンツ研究会 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>YouTube channel of DC, a club in Tokyo-City University</p>
+                <p>{{ $t('works.w13') }}</p>
               </a>
             </li>
           </ul>

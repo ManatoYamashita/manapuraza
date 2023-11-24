@@ -21,6 +21,17 @@
     </div>
 </template>
 
+<script>
+export default {
+    name: 'spNav',
+        methods: {
+                toggleLanguage() {
+                this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';
+                }
+        },
+}
+</script>
+
 <style lang="css" scoped>
 #main{
   z-index: 1;

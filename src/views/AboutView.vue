@@ -6,7 +6,7 @@
 <template>
   <div class="main">
     <h1>About</h1>
-    <h2>Manato Yamashita</h2>
+    <h2>{{ $t('about.ym') }}</h2>
     
     <section class="howyoufeel">
       <div class="self-image">
@@ -15,11 +15,7 @@
       <div id="message">
         <p>
           <strong id="howyoufeel">How you feel?</strong>
-          <br>I'm Manato Yamashita. studying computer science at the Department of Informatics,
-           at Tokyo City University. My hobbies are create digital contents(ex: illustration, animation, web and so on...) and reading.
-            my favorite writer is Sayaka Murata.This site is for my portfolio named MANAPURAZA.COM from Manato(my name) + Tamaplaza(the station near my living)
-             I love all of creative activities! and banana.&#x1F34C;
-        </p>
+          <br>{{ $t('about.passage') }} &#x1F34C; </p>
         <SnsView id="sns" />
       </div>
       </section>
@@ -28,44 +24,40 @@
         <h2>Profile</h2>
         <table>
           <tr>
-            <th>Name</th>
-            <td><a href="https://bento.me/ym/" target="_blank">Manato Yamashita <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+            <th>{{ $t('about.name') }}</th>
+            <td><a href="https://bento.me/ym/" target="_blank">{{ $t('about.name-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
           </tr>
           <tr>
-            <th>Sex</th>
-            <td>Man</td>
+            <th>{{ $t('about.sex') }}</th>
+            <td>{{ $t('about.sex-co') }}</td>
           </tr>
           <tr>
-            <th>Gender</th>
-            <td>Man</td>
+            <th>{{ $t('about.birth') }}</th>
+            <td>{{ $t('about.birth-co') }}</td>
           </tr>
           <tr>
-            <th>Birthday</th>
-            <td>2002.04.17</td>
+            <th>{{ $t('about.country') }}</th>
+            <td>{{ $t('about.country-co') }}</td>
           </tr>
           <tr>
-            <th>Country</th>
-            <td>Japan（ja）</td>
+            <th>{{ $t('about.live') }}</th>
+            <td>{{ $t('about.live-co') }}</td>
           </tr>
           <tr>
-            <th>Live-in</th>
-            <td>Kanagawa | Tokyo | Kumamoto</td>
+            <th>{{ $t('about.study') }}</th>
+            <td><a href="https://informatics.tcu.ac.jp/" target="_blank">{{ $t('about.study-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
           </tr>
           <tr>
-            <th>Study</th>
-            <td><a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+            <th>{{ $t('about.research') }}</th>
+            <td><a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">{{ $t('about.research-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
           </tr>
           <tr>
-            <th>Research</th>
-            <td><a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory <i class="fas fa-arrow-up-right-from-square"></i></a></td>
-          </tr>
-          <tr>
-            <th>Like</th>
-            <td>Banana 🍌</td>
+            <th>{{ $t('about.like') }}</th>
+            <td>{{ $t('about.like-co') }} &#x1F34C;</td>
           </tr>
         </table>
       </section>
-
+      
       <div class="his">
         <h2>History</h2>
         <HistoryView />
@@ -129,18 +121,20 @@
     width: 100%;
     border-bottom: 1px solid #101010;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   th {
     width: 50%;
     text-align: left;
-    align-self: stretch;
     padding: 1rem;
-    border-bottom: 1px solid #101010;
-
   }
   td {
-    text-align: left;
-    border-bottom: 1px solid #101010;
+    width: 50%;
+    text-align: right;
+    align-self: stretch;
+    padding: 1rem;    
   }
   .his {
     padding-bottom: 75vh;

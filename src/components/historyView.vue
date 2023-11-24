@@ -6,8 +6,8 @@
             <h3>2002</h3>
           </div>
           <div class="body p1">
-            <h3>Born in Kumamoto prefecture</h3>
-            <p>2002, Kumamoto / Japan（ja）</p>
+            <h3>{{ $t('his.02') }}</h3>
+            <p>{{ $t('his.02-de') }}</p>
           </div>
         </div>
         <div class="entry animation">
@@ -15,8 +15,8 @@
             <h3>2003</h3>
           </div>
           <div class="body p2">
-            <h3>Live in Tokyo</h3>
-            <p>2003~, Tokyo / Japan（ja）</p>
+            <h3>{{ $t('his.03') }}</h3>
+            <p>{{ $t('his.03-de') }}</p>
           </div>
         </div>
         <div class="entry animation">
@@ -24,8 +24,8 @@
             <h3>2015</h3>
           </div>
           <div class="body p3">
-            <h3>Enter in Tateishi-Junior High school</h3>
-            <p>2015 ~ 2018, Tokyo / Japan（ja）</p>
+            <h3>{{ $t('his.15') }}</h3>
+            <p>{{ $t('his.15-de') }}</p>
           </div>
         </div>
         <div class="entry animation">
@@ -33,8 +33,8 @@
             <h3>2018</h3>
           </div>
           <div class="body p4">
-            <h3>Enter in Honjo-High school</h3>
-            <p>2018 ~ 2021, Tokyo / Japan（ja）</p>
+            <h3>{{ $t('his.18') }}</h3>
+            <p>{{ $t('his.18-de') }}</p>
           </div>
         </div>
         <div class="entry animation">
@@ -42,24 +42,34 @@
             <h3>2021</h3>
           </div>
           <div class="body p5">
-            <h3>Enter in Tokyo-City University</h3>
-            <p>2021 ~, Tokyo | Kanagawa / Japan（ja）</p>
+            <h3>{{ $t('his.21') }}</h3>
+            <p>{{ $t('his.21-de') }}</p>
 
-            <h3>Live in Miyazakidai, Kawasaki City</h3>
-            <p>2021 ~ 2022, Kanagawa / Japan（ja）</p>
+            <h3>{{ $t('his.21-2') }}</h3>
+            <p>{{ $t('his.21-2-de') }}</p>
           </div>
         </div>
         <div class="entry animation">
           <div class="title">
-            <h3>2023</h3>
+            <h3>2022</h3>
           </div>
           <div class="body p6">
-            <h3>Enter in Edith-Cowan University</h3>
-            <p>2022 ~ 2023, Perth(WA) / Australia（au）</p>
-
-            <h3>Live in Saginuma, Kawasaki City</h3>
-            <p>2023 ~, Kanagawa / Japan (ja)</p>
+            <h3>{{ $t('his.22') }}</h3>
+            <p>{{ $t('his.22-de') }}</p>
           </div>
+          <div class="entry animation">
+          <div class="title">
+            <h3>2023</h3>
+          </div>
+          <div class="body p7">
+            <h3>{{ $t('his.23') }}</h3>
+            <p>{{ $t('his.23-de') }}</p>
+
+            <h3>{{ $t('his.23-2') }}</h3>
+            <p>{{ $t('his.23-2-de') }}</p>
+          </div>
+        </div>
+        
         </div>
       </div>
     </div>
@@ -148,6 +158,9 @@ p {
   margin-bottom: 2rem;
 }
 .p6 {
+  margin-bottom: 2rem;
+}
+.p7 {
   margin-bottom: 2rem;
 }
 
