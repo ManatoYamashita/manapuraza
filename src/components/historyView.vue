@@ -65,10 +65,10 @@
     </div>
 </template>
 
-<script>
-</script>
-
 <style scoped>
+* {
+  pointer-events: all;
+}
 #main {
   width: 100%;
   min-height: 100vh;

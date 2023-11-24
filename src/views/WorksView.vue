@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div id="main">
     <h1>Works</h1>
 
     <main>
@@ -16,7 +16,7 @@
               </a>
             </li>
           </ul>
-
+        
         <h2>Programming / Web</h2>
           <ul>
             <a href="https://github.com/ManatoYamashita" target="_blank">
@@ -37,7 +37,7 @@
             <li>
               <a href="http://tmana.sub.jp/numeron/dirs/src/numeron.html" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="numeron">
+                  <img src="@/assets/works-sumbnail/numeron.png" alt="numeron">
                 </div>
                 <h3>NUMERON&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>A logical mathmatical game</p>
@@ -46,7 +46,7 @@
             <li>
               <a href="http://dum.manapuraza.com" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="dum">
+                  <img src="@/assets/works-sumbnail/dum.png" alt="dum">
                 </div>
                 <h3>Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>A blog for study abroad to Australia</p>
@@ -55,7 +55,7 @@
             <li>
               <a href="https://killerdie-2023.netlify.com" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="killerdie">
+                  <img src="@/assets/works-sumbnail/killerdie.png" alt="killerdie">
                 </div>
                 <h3>キラキラ大学生研究会 1周年記念&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>A Event page for one-year anniversary</p>
@@ -64,7 +64,7 @@
             <li>
               <a href="https://chaintence.shotaro.jp" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="chaintence">
+                  <img src="@/assets/works-sumbnail/chaintence.png" alt="chaintence">
                 </div>
                 <h3>chaintence&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>A web app creating sentence by connecting template sentences like chain</p>
@@ -82,7 +82,7 @@
             <li>
               <a href="http://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="dc-chan">
+                  <img src="@/assets/works-sumbnail/dc-chan_xbot.png" alt="dc-chan">
                 </div>
                 <h3>でじこんちゃん Twitter bot&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>DC-chan, original charactor twitter bot autometed by GoogleAppScript</p>
@@ -91,7 +91,7 @@
             <li>
               <a href="http://jamstack-blog-test.vercel.app">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="jamstack-blog">
+                  <img src="@/assets/works-sumbnail/jamstack.png" alt="jamstack-blog">
                 </div>
                 <h3>Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>A blog test using Jamstack(Nuxt.js + microCMSs)</p>
@@ -100,7 +100,7 @@
             <li>
               <a href="http://www.comm.tcu.ac.jp/tcu-acc">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="tcu-acc">
+                  <img src="@/assets/works-sumbnail/tcuacc.png" alt="tcu-acc">
                 </div>
                 <h3>東京都市大学 同好会連合本部&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>A website for TCU-ACC, a union of clubs in Tokyo-City University</p>
@@ -151,32 +151,43 @@ export default {
 </script>
 
 <style scoped>
-main {
-  width: 100%;
+* {
   pointer-events: all;
+}
+#main {
+  width: 100%;
 }
 #main-contents {
   width: 100%;
 }
 #image-content {
-  width: 30%;
-  float: right;
+  width: 100%;
   padding: 1rem;
+  text-align: right;
 }
 #dc-chan {
-  width: 75%;
+  width: 25%;
   height: auto;
   border-radius: .5rem;
   box-shadow: none;
   cursor: pointer;
 }
-.img-cover {
+ul .img-cover {
   overflow: hidden;
+  position: relative;
+  width: 100%; /* コンテナの幅を100%に設定 */
+  padding-top: 56.25%; /* 16:9の比率を維持 */
   border-radius: .5rem;
 }
-img {
+ul img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: auto;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   border-radius: .5rem;
   box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.2);
 }
@@ -233,6 +244,7 @@ p {
     grid-template-columns: repeat(1, 1fr);
   }
   #dc-chan {
+    position: relative;
     width: 50%;
     height: auto;
     box-shadow: none;

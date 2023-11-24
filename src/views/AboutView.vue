@@ -1,6 +1,6 @@
 <script setup>
   import SnsView from '@/components/SnsView.vue';
-  import HistoryView from '../components/historyView.vue';
+  import HistoryView from '@/components/historyView.vue';
 </script>
 
 <template>
@@ -74,10 +74,12 @@
 </template>
 
 <style scoped>
+  * {
+    pointer-events: all;
+  }
   .main {
     width: 90%;
     margin: 0 auto;
-    pointer-events: all;
   }
   h2 {
     font-size: 1.5rem;
@@ -141,7 +143,7 @@
     border-bottom: 1px solid #101010;
   }
   .his {
-    margin-bottom: 75vh;
+    padding-bottom: 75vh;
   }
   /* SP */
   @media screen and (max-width: 540px) {

@@ -1,9 +1,9 @@
 <template>
   <div id="main">
     <a href="https://manapuraza.com">
-      <img src="@/assets/manapuraza-logo.svg" id="center-logo" :class="className" :style="styleObject" />
+      <img src="@/assets/manapuraza-logo.svg" draggable="false" id="center-logo" :class="className" :style="styleObject" />
     </a>
-
+  
     <div class="app">
       <router-view v-slot="{ Component }">
         <transition name="slide" mode="out-in">
