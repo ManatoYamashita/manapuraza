@@ -111,7 +111,7 @@
                     
                     scene = new THREE.Scene();
 					
-                    const url = '@/assets/y.svg';
+                    const url = 'src/assets/y.svg';
 
                     const textureLoader = new THREE.TextureLoader();
                     const backgroundTexture = textureLoader.load(url);
