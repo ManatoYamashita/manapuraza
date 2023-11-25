@@ -56,5 +56,10 @@
       "w11": "A website for TCU-ACC, a union of clubs in TCU.",
       "w12": "A YouTube channel for me",
       "w13": "A TouTube channel for my circle"
+    },
+    "404": {
+      "title": "404",
+      "notfound": "Not Found",
+      "message": "The page you are looking for does not exist."
     }
 }
