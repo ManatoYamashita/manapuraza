@@ -92,7 +92,6 @@
   margin-bottom: 50vh;
 }
 .timeline:before {
-  /* タイムラインの縦線 */
   content: '';
   position: absolute;
   left: calc(33% + 15px);
@@ -163,8 +162,8 @@ p {
 .p7 {
   margin-bottom: 2rem;
 }
-
-.animation {
+/* Safariで非対応だったため、削除 */
+/* .animation {
   opacity: 0;
   position: sticky;
   animation: scroll-anime ease forwards; 
@@ -172,7 +171,6 @@ p {
   animation-range: contain 0% end 100%;
 }
 @keyframes scroll-anime {
-  /* 要素を上から下へスライドさせる */
   0% {
     opacity: 0;
     transform: translateY(-50px);
@@ -181,5 +179,5 @@ p {
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 </style>

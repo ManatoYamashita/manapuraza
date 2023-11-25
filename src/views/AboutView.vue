@@ -88,7 +88,7 @@
     width: 100%;
   }
   .self-image {
-    width: 50%;
+    width: 30%;
     margin: 0;
   }
   img {
@@ -96,7 +96,7 @@
     border-radius: .5rem;
   }
   #message {
-    width: 50%;
+    width: 70%;
     padding: 0 0 0 2rem;
   }
   #message p {
@@ -137,13 +137,17 @@
     padding: 1rem;    
   }
   .his {
-    padding-bottom: 75vh;
+    padding-bottom: 10vh;
   }
-  /* SP */
+
   @media screen and (max-width: 540px) {
     .howyoufeel {
       flex-direction: column;
       align-items: center;
+    }
+    .self-image {
+      width: 50%;
+      margin: 0 auto;
     }
     #message {
       width: 90%;

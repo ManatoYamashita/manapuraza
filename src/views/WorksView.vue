@@ -9,7 +9,7 @@
             <li>
               <a href="https://manapuraza.myportfolio.com" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="illustrations">
+                  <img src="@/assets/works-sumbnail/creativeworks.gif" alt="illustrations">
                 </div>
                 <h3>Manapuraza Creative Works&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w1') }}</p>
@@ -170,7 +170,7 @@ export default {
   height: auto;
   border-radius: .5rem;
   box-shadow: none;
-  cursor: pointer;
+  pointer-events: none;
 }
 ul .img-cover {
   overflow: hidden;
