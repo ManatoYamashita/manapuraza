@@ -66,9 +66,6 @@
 </template>
 
 <style scoped>
-  * {
-    pointer-events: all;
-  }
   .main {
     width: 90%;
     margin: 0 auto;

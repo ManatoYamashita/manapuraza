@@ -33,8 +33,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#main{
-  z-index: 1;
+#main {
+  position: fixed;
+  bottom: .5rem;
+  right: 0;
   text-align: center;
   z-index: 1;
 }

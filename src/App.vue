@@ -32,9 +32,11 @@
     if (route.name === 'home') {
       document.querySelector('.app').style.top = '20vh';
       document.querySelector('.app').style.opacity = '0';
+      document.querySelector('.app').style.pointerEvents = 'none';
     } else {
       document.querySelector('.app').style.top = '0';
       document.querySelector('.app').style.opacity = '1';
+      document.querySelector('.app').style.pointerEvents = 'all';
     }
   });
 
@@ -73,7 +75,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    display: contents;
   }
   #center-logo {
     position: absolute;
@@ -82,7 +84,6 @@
     width: 40%;
     height: auto;
     transform: translate(-50%, -50%);
-    pointer-events: all;
   }
   #sp-nav {
     display: none;
@@ -99,9 +100,7 @@
     animation-delay: 1s;
   }
   .app {
-    position: relative;
-    left: auto;
-    width: 80vw;
+    width: 85vw;
     height: 80vh;
     max-width: 1280px;
     max-height: 80vh;
@@ -109,10 +108,10 @@
     margin: 1rem auto;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.51);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur( 1px );
+    backdrop-filter: blur(.5rem);
+    -webkit-backdrop-filter: blur( .5rem );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
-    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent;
@@ -120,20 +119,15 @@
     z-index: 1;
   }
   ::-webkit-scrollbar {
-    display: none;
+    overflow: scroll;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
+  .slide-enter {
+    transform: translateX(-2%);
+    opacity: 0;
   }
-  ::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: transparent;
-  }
-
-  .main::-webkit-scrollbar {
-	  width: 10px;
+  .slide-leave-to {
+    transform: translateX(2%);
+    opacity: 0;
   }
   .slide-enter-active {
     animation: slide-in .2s cubic-bezier(0,.94,.57,1.02);
@@ -167,7 +161,7 @@
   /* SP表示 */
   @media (max-width: 540px) {
     #center-logo {
-      top: 30%;
+      top: 40%;
       width: 60%;
     }
     .app {
@@ -178,9 +172,6 @@
     }
     #sp-nav {
       display: block;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
       pointer-events: all;
     }
   }
