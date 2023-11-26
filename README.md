@@ -2,7 +2,7 @@
 
 <img src="./public/ogp.png" alt="OGP image" width="300" style="border-radius:8px;">
 
-* **ver1.0**: manapuraza-s0y8f8i94-manatoyamashita.vercel.app
+* **ver1.0**: https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app
 * **ver2.0**: https://manapuraza.com/
 
 Manato Yamashita's portfolio site 2023.
