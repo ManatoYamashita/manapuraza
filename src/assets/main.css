@@ -128,4 +128,8 @@ footer > div {
 	header {
 		height: 7vh;
 	}
+	/* Safari only */
+	_::-webkit-full-page-media, _:future, :root.safari_only {
+		padding-bottom: 65px;
+	}
 }

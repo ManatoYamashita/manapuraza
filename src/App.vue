@@ -166,7 +166,7 @@
     }
     .app {
       width: 90vw;
-      height: 75vh;
+      height: 70vh;
       padding: 1rem;
       margin: 1rem auto;
     }
