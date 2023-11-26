@@ -9,6 +9,7 @@
 
 		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 		import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
+		import backgroundimage from '@/assets/y.svg';
 
 		let container, stats;
 		let camera, scene, renderer;
@@ -111,7 +112,8 @@
                     
                     scene = new THREE.Scene();
 					
-                    const url = 'src/assets/y.svg';
+                    // urlには画像の相対パスを指定
+					const url = backgroundimage;
 
                     const textureLoader = new THREE.TextureLoader();
                     const backgroundTexture = textureLoader.load(url);
