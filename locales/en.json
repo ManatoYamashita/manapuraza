@@ -1,0 +1,65 @@
+{
+    "navbar": {
+      "toggle": "Eng"
+    },
+    "about": {
+      "ym": "Yamashita Manato",
+      "passage": "I'm Manato Yamashita. studying computer science at the Department of Informatics, at Tokyo City University. My hobbies are create digital contents(ex: illustration, animation, web and so on...) and reading. my favorite writer is Sayaka Murata.This site is for my portfolio named MANAPURAZA.COM from Manato(my name) + Tamaplaza(the station near my living) I love all of creative activities! and banana.",
+      "name": "Name",
+      "name-co": "Manato Yamashita",
+      "sex": "Sex / Gneder",
+      "sex-co": "Man",
+      "birth": "Birthday",
+      "birth-co": "2002/04/17",
+      "country": "Country",
+      "country-co": "Japan",
+      "live": "Live-in",
+      "live-co": "Kanagawa | Tokyo | Kumamoto",
+      "study": "studying",
+      "study-co": "Tokyo City University, Department of Informatics / System Engineering",
+      "research": "Research",
+      "research-co": "Information Security",
+      "like": "Like",
+      "like-co": "Banana"
+    },
+    "his": {
+      "02": "Born in Kumamoto",
+      "02-de": "2002, Kumamoto / Japan",
+      "03": "Moved to Tokyo",
+      "03-de": "2003~, Tokyo / Japan",
+      "15": "Entered TATEISHI Junior High School",
+      "15-de": "2015 ~ 2018, Tokyo / Japan",
+      "18": "Entered HONJO High School",
+      "18-de": "2018 ~ 2021, Tokyo / Japan",
+      "21": "Entered Tokyo City University",
+      "21-de": "2021 ~, Tokyo / Japan",
+      "21-2": "Live in Miyazakidai, Kawasaki",
+      "21-2-de": "2021 ~, Kawasaki / Japan",
+      "22": "Entered Edith Cowan University",
+      "22-de": "2022 ~ 2023, Perth, WA / Australia",
+      "23": "Live in Saginuma, Kawasaki",
+      "23-de": "2023 ~, Kawasaki / Japan",
+      "23-2": "Started to research about Information Security at TCU Seki lab.",
+      "23-2-de": "2023 ~, Yokohama / Japan"
+    },
+    "works": {
+      "w1": "A portfolio graphics and illustrations.",
+      "w2": "A git repositorys storing codes.",
+      "w3": "A web portfolio website show all of creative.",
+      "w4": "A game, mathamatical logical guessing.",
+      "w5": "A blog about my experiment study abroad in Australia.",
+      "w6": "A event website for one-year anniversary of KD, whichi is my friends community.",
+      "w7": "A web app creating passage from words templates by connecting sentences.",
+      "w8": "A Android app suggestion activity from weather forecast.",
+      "w9": "A Twitter bot of DC-chan, which is original character of my circle.",
+      "w10": "A test website for blog constracted by Jamstack(Nuxt3 + microCMS).",
+      "w11": "A website for TCU-ACC, a union of clubs in TCU.",
+      "w12": "A YouTube channel for me",
+      "w13": "A TouTube channel for my circle"
+    },
+    "404": {
+      "title": "404",
+      "notfound": "Not Found",
+      "message": "The page you are looking for does not exist."
+    }
+}

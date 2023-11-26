@@ -1,66 +1,157 @@
+<script setup>
+  import SnsView from '@/components/SnsView.vue';
+  import HistoryView from '@/components/historyView.vue';
+</script>
+
 <template>
-  <div class="about">
+  <div class="main">
     <h1>About</h1>
-    <div class="col">
-
-      <div class="prof">
-        <h2>Profile</h2>
-        <ul>
-          <li><strong>Name</strong>: <a href="https://bento.me/ym/" target="_blank">Manato Yamashita<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-          <li><strong>Sex</strong>: Man</li>
-          <li><strong>Gender</strong>: Man</li>
-          <li><strong>Birthday</strong>: 2002.04.17</li>
-          <li><strong>Country</strong>: Japan（ja）</li>
-          <li><strong>Live-in</strong>: Kanagawa | Tokyo | kumamoto</li>
-          <li><strong>Study</strong>: <a href="https://informatics.tcu.ac.jp/" target="_blank">Tokyo-City University, Informatic / Systems<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-          <li><strong>Research</strong>: <a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">SEKI Cyber Security Laboratory<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a></li>
-          <li><strong>Like</strong>: Banana &#x1F34C;</li>
-        </ul>
+    <h2>{{ $t('about.ym') }}</h2>
+    
+    <section class="howyoufeel">
+      <div class="self-image">
+        <img src="@/assets/ym_photo.jpg" alt="山下マナト">
       </div>
+      <div id="message">
+        <p>
+          <strong id="howyoufeel">How you feel?</strong>
+          <br>{{ $t('about.passage') }} &#x1F34C; </p>
+        <SnsView id="sns" />
+      </div>
+      </section>
 
+      <section class="profile">
+        <h2>Profile</h2>
+        <table>
+          <tr>
+            <th>{{ $t('about.name') }}</th>
+            <td><a href="https://bento.me/ym/" target="_blank">{{ $t('about.name-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.sex') }}</th>
+            <td>{{ $t('about.sex-co') }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.birth') }}</th>
+            <td>{{ $t('about.birth-co') }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.country') }}</th>
+            <td>{{ $t('about.country-co') }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.live') }}</th>
+            <td>{{ $t('about.live-co') }}</td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.study') }}</th>
+            <td><a href="https://informatics.tcu.ac.jp/" target="_blank">{{ $t('about.study-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.research') }}</th>
+            <td><a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">{{ $t('about.research-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+          </tr>
+          <tr>
+            <th>{{ $t('about.like') }}</th>
+            <td>{{ $t('about.like-co') }} &#x1F34C;</td>
+          </tr>
+        </table>
+      </section>
+      
       <div class="his">
         <h2>History</h2>
-        <ul>
-          <li><strong>2002</strong>: Born in Kumamoto prefecture</li>
-          <li><strong>2003</strong>: Lived in Tokyo, Katsushika-ward</li>
-          <li><strong>2015</strong>: Tateishi-junior-high school</li>
-          <li><strong>2018</strong>: Hojo-high school</li>
-          <li><strong>2021</strong>: Tokyo-City University</li>
-          <li><strong>2021</strong>: Live in Kawasaki City, Miyamae-ward（Miyazakidai）</li>
-          <li><strong>2023</strong>: <a href="https://www.ecu.edu.au/" target="_blank">Edith-Cowan University<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></a>（study abroad, Australia）</li>
-          <li><strong>2023</strong>: Live in Kawasaki City, Miyamae-ward（Saginuma）</li>
-        </ul>
+        <HistoryView />
       </div>
-    </div>
   </div>
 </template>
 
 <style scoped>
-.col {
-  display: flex;
-  justify-content: space-around;
-}
-.fa {
-  font-size: .6rem;
-  margin-left: .2rem;
-}
-@media (min-width: 1024px) {
-  .about {
-    display: block;
+  .main {
+    width: 90%;
+    margin: 0 auto;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 5rem;
+  }
+  .howyoufeel {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  #howyoufeel {
+    font-size: 1.2rem;
+    margin: 0;
+    width: 100%;
+  }
+  .self-image {
+    width: 30%;
+    margin: 0;
+  }
+  img {
+    width: 100%;
+    border-radius: .5rem;
+  }
+  #message {
+    width: 70%;
+    padding: 0 0 0 2rem;
+  }
+  #message p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin: 0;
+  }
+  .profile {
+    margin: 0;
+  }
+  #sns {
+    width: 100%;
+  }
+  table {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
-}
-
-@media (max-width: 540px) {
-  .col {
-    display: block;
-  }
-  .his li {
+  tr {
     width: 100%;
-    padding: 0;
+    border-bottom: 1px solid #101010;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  .prof li {
-    padding: 0;
+  th {
+    width: 50%;
+    text-align: left;
+    padding: 1rem;
   }
-}
+  td {
+    width: 50%;
+    text-align: right;
+    align-self: stretch;
+    padding: 1rem;    
+  }
+  .his {
+    padding-bottom: 10vh;
+  }
+
+  @media screen and (max-width: 540px) {
+    .howyoufeel {
+      flex-direction: column;
+      align-items: center;
+    }
+    .self-image {
+      width: 50%;
+      margin: 0 auto;
+    }
+    #message {
+      width: 90%;
+      padding: 1rem 0;
+    }
+    td a {
+      margin: 1rem 0;
+    }
+  }
 </style>
