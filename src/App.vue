@@ -172,6 +172,8 @@
     }
     #sp-nav {
       display: block;
+      position: fixed;
+      right: 50%;
       pointer-events: all;
     }
   }

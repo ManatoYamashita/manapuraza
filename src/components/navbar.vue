@@ -200,6 +200,7 @@
         }
         #lang-switch {
             display: flex;
+            position: static;
         }
     }
 </style>

@@ -28,7 +28,7 @@
             <li>
               <a href="https://manapuraza.com">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/example.png" alt="manapuraza">
+                  <img src="@/assets/works-sumbnail/example.webp" alt="manapuraza">
                 </div>
                 <h3>Manapuraza&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{  $t('works.w3') }}</p>
@@ -37,7 +37,7 @@
             <li>
               <a href="http://tmana.sub.jp/numeron/dirs/src/numeron.html" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/numeron.png" alt="numeron">
+                  <img src="@/assets/works-sumbnail/numeron.webp" alt="numeron">
                 </div>
                 <h3>NUMERON&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w4') }}</p>
@@ -46,7 +46,7 @@
             <li>
               <a href="http://dum.manapuraza.com" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/dum.png" alt="dum">
+                  <img src="@/assets/works-sumbnail/dum.webp" alt="dum">
                 </div>
                 <h3>Down Under Mountain&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w5') }}</p>
@@ -55,7 +55,7 @@
             <li>
               <a href="https://killerdie-2023.netlify.com" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/killerdie.png" alt="killerdie">
+                  <img src="@/assets/works-sumbnail/killerdie.webp" alt="killerdie">
                 </div>
                 <h3>キラキラ大学生研究会 1周年記念&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w6') }}</p>
@@ -64,7 +64,7 @@
             <li>
               <a href="https://chaintence.shotaro.jp" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/chaintence.png" alt="chaintence">
+                  <img src="@/assets/works-sumbnail/chaintence.webp" alt="chaintence">
                 </div>
                 <h3>chaintence&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w7') }}</p>
@@ -73,7 +73,7 @@
             <li>
               <a href="https://github.com/ManatoYamashita/SysB_wtm" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/wtm.png" alt="WehereToMe">
+                  <img src="@/assets/works-sumbnail/wtm.webp" alt="WehereToMe">
                 </div>
                 <h3>WTM&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w8') }}</p>
@@ -82,7 +82,7 @@
             <li>
               <a href="http://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/dc-chan_xbot.png" alt="dc-chan">
+                  <img src="@/assets/works-sumbnail/dc-chan_xbot.webp" alt="dc-chan">
                 </div>
                 <h3>でじこんちゃん Twitter bot&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w9') }}</p>
@@ -91,7 +91,7 @@
             <li>
               <a href="http://jamstack-blog-test.vercel.app">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/jamstack.png" alt="jamstack-blog">
+                  <img src="@/assets/works-sumbnail/jamstack.webp" alt="jamstack-blog">
                 </div>
                 <h3>Blog test&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w10') }}</p>
@@ -100,7 +100,7 @@
             <li>
               <a href="http://www.comm.tcu.ac.jp/tcu-acc">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/tcuacc.png" alt="tcu-acc">
+                  <img src="@/assets/works-sumbnail/tcuacc.webp" alt="tcu-acc">
                 </div>
                 <h3>東京都市大学 同好会連合本部&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w11') }}</p>
@@ -113,7 +113,7 @@
             <li>
               <a href="https://www.youtube.com/@ManatoYamashita/" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/yt_ym.png" alt="youtube">
+                  <img src="@/assets/works-sumbnail/yt_ym.webp" alt="youtube">
                 </div>
                 <h3>個人 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w12') }}</p>
@@ -122,7 +122,7 @@
             <li>
               <a href="https://www.youtube.com/@tcu_dc/" target="_blank">
                 <div class="img-cover">
-                  <img src="@/assets/works-sumbnail/yt_dc.png" alt="youtube dc">
+                  <img src="@/assets/works-sumbnail/yt_dc.webp" alt="youtube dc">
                 </div>
                 <h3>デジタルコンテンツ研究会 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
                 <p>{{ $t('works.w13') }}</p>

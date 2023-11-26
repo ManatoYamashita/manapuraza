@@ -94,13 +94,11 @@ a {
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
 }
 footer > div {
 	font-size: .7em;
-	position: relative;
-	bottom: 0;
 }
 
 #back {

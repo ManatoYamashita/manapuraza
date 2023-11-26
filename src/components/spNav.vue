@@ -34,9 +34,6 @@ export default {
 
 <style lang="css" scoped>
 #main {
-  position: fixed;
-  bottom: .5rem;
-  right: 0;
   text-align: center;
   z-index: 1;
 }
