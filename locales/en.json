@@ -54,8 +54,10 @@
       "w9": "A Twitter bot of DC-chan, which is original character of my circle.",
       "w10": "A test website for blog constracted by Jamstack(Nuxt3 + microCMS).",
       "w11": "A website for TCU-ACC, a union of clubs in TCU.",
-      "w12": "A YouTube channel for me",
-      "w13": "A TouTube channel for my circle"
+      "w12": "A website for SEKI-lab, a laboratory researching Information Security.",
+      "w13": "A Web App quiz game Information Security.",
+      "v1": "A YouTube channel for me",
+      "v2": "A TouTube channel for my circle"
     },
     "404": {
       "title": "404",
