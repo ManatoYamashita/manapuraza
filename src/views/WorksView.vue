@@ -16,7 +16,7 @@
               </a>
             </li>
           </ul>
-
+          
         <h2>Programming / Web</h2>
           <ul>
             <a href="https://github.com/ManatoYamashita" target="_blank">
@@ -106,6 +106,24 @@
                 <p>{{ $t('works.w11') }}</p>
               </a>
             </li>
+            <li>
+              <a href="https://sekilab.vercel.app">
+                <div class="img-cover">
+                  <img src="@/assets/works-sumbnail/sekilab.png" alt="sekilab">
+                </div>
+                <h3>東京都市大学 関研究室 情報セキュリティ&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
+                <p>{{  $t('works.w12') }}</p>
+              </a>
+            </li>
+            <li>
+              <a href="https://sekilab-quiz.vercel.app">
+                <div class="img-cover">
+                  <img src="@/assets/works-sumbnail/sekilab-quiz.jpg" alt="sekilab">
+                </div>
+                <h3>情報セキュリティ Quiz App&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
+                <p>{{  $t('works.w13') }}</p>
+              </a>
+            </li>
           </ul>
 
         <h2>Video / Animation</h2>
@@ -116,7 +134,7 @@
                   <img src="@/assets/works-sumbnail/yt_ym.webp" alt="youtube">
                 </div>
                 <h3>個人 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>{{ $t('works.w12') }}</p>
+                <p>{{ $t('works.v1') }}</p>
               </a>
             </li>
             <li>
@@ -125,7 +143,7 @@
                   <img src="@/assets/works-sumbnail/yt_dc.webp" alt="youtube dc">
                 </div>
                 <h3>デジタルコンテンツ研究会 YouTubeチャンネル&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
-                <p>{{ $t('works.w13') }}</p>
+                <p>{{ $t('works.v2') }}</p>
               </a>
             </li>
           </ul>
