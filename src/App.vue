@@ -4,7 +4,7 @@
       <img src="@/assets/manapuraza-logo.svg" draggable="false" id="center-logo" :class="className" :style="styleObject" />
     </a>
   
-    <div class="app">
+    <div class="app glass">
       <router-view v-slot="{ Component }">
         <transition name="slide" mode="out-in">
           <component :is="Component" />
@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script setup>
+<script type="text/javascript" setup>
   import { watch, onMounted, computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import SpNav from '@/components/spNav.vue';
@@ -107,16 +107,26 @@
     padding: 2rem 2rem 0 2rem;
     margin: 1rem auto;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.51);
+    /* background: rgba(255, 255, 255, 0.51);
     backdrop-filter: blur(.5rem);
     -webkit-backdrop-filter: blur( .5rem );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba( 255, 255, 255, 0.18 ); */
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent;
     transition: .5s ease-in-out;
     z-index: 1;
+  }
+  .glass {
+    background-color: rgba(255, 255, 255, 0.1); /* 背景色 */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
+    backdrop-filter: blur(20px);
+    box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
   }
   ::-webkit-scrollbar {
     overflow: scroll;

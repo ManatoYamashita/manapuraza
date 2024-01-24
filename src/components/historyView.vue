@@ -75,6 +75,16 @@
     </div>
 </template>
 
+<script type="text/javascript">
+  import { useI18n } from 'vue-i18n';
+  export default {
+    setup() {
+      const { t } = useI18n();
+      return { t };
+    }
+  }
+</script>
+
 <style scoped>
 * {
   pointer-events: all;

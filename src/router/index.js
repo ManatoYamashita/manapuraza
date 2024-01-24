@@ -25,16 +25,16 @@ const router = createRouter({
         },
       },
     },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: () => import('../views/ContactView.vue'),
-      meta: {
-        style: {
-          top: '0',
-        },
-      },
-    },
+    // {
+    //   path: '/contact',
+    //   name: 'contact',
+    //   component: () => import('../views/ContactView.vue'),
+    //   meta: {
+    //     style: {
+    //       top: '0',
+    //     },
+    //   },
+    // },
     { path: '/:pathMatch(.*)*',
       name: 'not-found', 
       component: NotFound 

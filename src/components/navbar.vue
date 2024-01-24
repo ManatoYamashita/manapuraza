@@ -21,7 +21,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/javascript">
     import { RouterLink } from "vue-router";
     export default {
         name: "Navbar",

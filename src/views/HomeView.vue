@@ -3,7 +3,7 @@
 </template>
 
 <style lang="css" scoped>
-div {
-  display: none;
-}
+  div {
+    display: none;
+  }
 </style>

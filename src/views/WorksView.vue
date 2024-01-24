@@ -156,16 +156,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'WorksView',
-  components: {
-  },
-  data() {
-    return {
-    }
-  },
-}
+<script type="text/javascript">
+  export default {
+    name: 'WorksView',
+    components: {
+    },
+    data() {
+      return {
+      }
+    },
+  }
 </script>
 
 <style scoped>
