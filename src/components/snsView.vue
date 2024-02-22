@@ -1,3 +1,5 @@
+<!-- ToDo: SVGのpathを直接書くのではなく、FontAwesomeなどのアイコンを使う -->
+
 <template>
     <div id="icons">
         <a href="https://bento.me" id="bento">

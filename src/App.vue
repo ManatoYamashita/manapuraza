@@ -107,10 +107,6 @@
     padding: 2rem 2rem 0 2rem;
     margin: 1rem auto;
     border-radius: 10px;
-    /* background: rgba(255, 255, 255, 0.51);
-    backdrop-filter: blur(.5rem);
-    -webkit-backdrop-filter: blur( .5rem );
-    border: 1px solid rgba( 255, 255, 255, 0.18 ); */
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     scrollbar-width: thin;
