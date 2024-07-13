@@ -44,6 +44,33 @@
               </a>
             </li>
             <li>
+              <a href="https://dcchan.vercel.app" target="_blank">
+                <div class="img-cover">
+                  <img src="@/assets/works-sumbnail/dcchan.webp" alt="dcchan">
+                </div>
+                <h3>でじこんちゃん - AI&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
+                <p>{{ $t('works.w14') }}</p>
+              </a>
+            </li>
+            <li>
+              <a href="https://amausyrup.net" target="_blank">
+                <div class="img-cover">
+                  <img src="@/assets/works-sumbnail/amausyrup.webp" alt="amausyrup">
+                </div>
+                <h3>Amausyrup.net&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
+                <p>{{ $t('works.w15') }}</p>
+              </a>
+            </li>
+            <li>
+              <a href="https://population-todohuken.vercel.app/" target="_blank">
+                <div class="img-cover">
+                  <img src="@/assets/works-sumbnail/population-todohuken.webp" alt="都道府県別総人口推移">
+                </div>
+                <h3>都道府県別総人口推移&nbsp;<fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
+                <p>{{ $t('works.w16') }}</p>
+              </a>
+            </li>
+            <li>
               <a href="http://dum.manapuraza.com" target="_blank">
                 <div class="img-cover">
                   <img src="@/assets/works-sumbnail/dum.webp" alt="dum">
