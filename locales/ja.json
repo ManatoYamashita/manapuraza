@@ -43,24 +43,100 @@
         "23-2-de": "2023年以降、横浜 / 日本"
     },
     "works": {
-        "w1": "グラフィックスとイラストのポートフォリオ",
-        "w2": "コードを保存するGitリポジトリ",
-        "w3": "クリエイティブ全般を表示するWebポートフォリオウェブサイト",
-        "w4": "数学的な論理推論を用いたゲーム",
-        "w5": "オーストラリアでの留学に関するブログ",
-        "w6": "友人コミュニティKDの一周年記念イベントウェブサイト",
-        "w7": "文章テンプレートをつなげてパッセージを作成するWebアプリ",
-        "w8": "天気予報からアクティビティを提案するAndroidアプリ",
-        "w9": "私のサークルのオリジナルキャラクターDCちゃんのTwitter bot",
-        "w10": "Jamstack（Nuxt3 + microCMS）で構築されたブログのテストウェブサイト",
-        "w11": "TCU内のクラブ連合TCU-ACCのウェブサイト",
-        "w12": "情報セキュリティを研究している研究室のウェブサイト",
-        "w13": "情報セキュリティクイズを出題するWebアプリ",
-        "w14": "でじこんちゃん(私の団体TCU-DCの公式キャラクタ)のファンサイトです。AIチャット機能を含み、ChatGPT APIを使用しています。",
-        "w15": "Notion APIを使用したブログ機能を持つVtuberあまうしろっぷの非公式ウェブサイト",
-        "w16": "Highcharts.jsのテストのために制作したWeb app",
-        "v1": "私のYouTubeチャンネル",
-        "v2": "私のサークル(DC)のYouTubeチャンネル"
+        "graphics": {
+            "1": {
+                "title": "グラフィックスとイラストのポートフォリオ",
+                "description": "自分のグラフィックデザインとイラストの作品をまとめたポートフォリオ。"
+            },
+            "2": {
+                "title": "クリエイティブ全般を表示するWebポートフォリオウェブサイト",
+                "description": "自分のクリエイティブな作品全般を集めたウェブサイト形式のポートフォリオ。"
+            }
+        },
+        "prog": {
+            "1": {
+                "title": "manapuraza.com",
+                "description": "広告制作会社の4ヶ月のインターンの1ヶ月で作った、学生時代のクリエイティブの一部を紹介したポートフォリオサイト。Vue.js3とThree.jsで書かれています。（当サイト）"
+            },
+            "2": {
+                "title": "Down Under Mountain - オーストラリア留学ブログ",
+                "description": "2023年に4ヶ月間西オーストラリアのEdith Cowan Universityに留学したので、その時に書いたブログ。WordPressで書かれています。"
+            },
+            "3": {
+                "title": "NUMERON - 論理数字あてゲーム",
+                "description": "大学1年生の時にHTML,CSS,Javascriptの練習のために知り合いと開発した数字当てゲームです。"
+            },
+            "4": {
+                "title": "AmauSyrup.net - 天羽しろっぷ非公式ファンサイト",
+                "description": "Vtuberの非公式ウェブサイトで、Notion APIを利用したブログ機能を搭載。Next.js with TypescriptとGSAPのscrollTriggerを使っています。"
+            },
+            "5": {
+                "title": "東京都市大学 同好会連合",
+                "description": "東京都市大学同好会連合の会長をしていた時に作ったサイトCMSを使用しています。開発と保守、運用を担当していました。大学の共用WWWサーバにデプロイ"
+            },
+            "6": {
+                "title": "Jamstack Blog test",
+                "description": "Jamstack（Nuxt3 + microCMS）で構築されたブログのテストウェブサイト"
+            },
+            "7": {
+                "title": "Chaintence",
+                "description": "2日間の技育ハッカソンで開発した、テンプレートをつなげてメール文を作成するWebApp。NuxtJSとmicroCMSで構築されています。私はフロントエンドと発表を担当しました。"
+            },
+            "8": {
+                "title": "でじこんちゃん Twitter BOT",
+                "description": "私のサークルの公式キャラクターであるでじこんちゃんのTwitter BOT。GoogleAppsScript(GAS)でTwitterのAPIを叩いています。APIの有料化に伴い現在は動作させていません。"
+            },
+            "9": {
+                "title": "関研究室（TCU情報セキュリティ研究室）",
+                "description": "研究室のWebサイトNuxt.js3とmicroCMSで構築"
+            },
+            "10": {
+                "title": "情報セキュリティクイズ",
+                "description": "研究室の紹介のために作ったクイズアプリVue.js2で構築。Vecelでデプロイ"
+            },
+            "11": {
+                "title": "キラキラ大学生研究会 1周年記念",
+                "description": "大学の非公認団体の1周年公式サイト。Vue.js3で構築"
+            },
+            "12": {
+                "title": "都道府県別総人口推移グラフSPA",
+                "description": "データビジュアライゼーションをテストするためのWebアプリ。Highcharts.jsとNext.jsで構築。テスト(Jext)とGithubWorkflowも導入"
+            },
+            "13": {
+                "title": "wtm - おでかけ支援アプリ",
+                "description": "4人のチームで開発したAndroidアプリ。AndroidStudio(Java * Gradle)で開発。私はリーダと開発、デザインを担当しました。"
+            },
+            "14": {
+                "title": "でじこんちゃんAI",
+                "description": "デジタルコンテンツ研究会のキャラクターであるでじこんちゃんのAIチャット。Next.js, GSAP, ChatGPT APIを使用しています。"
+            },
+            "15": {
+                "title": "WAGIRI!! - 和風フリックゲーム",
+                "description": "Progate主催のハッカソンでグランプリを受賞した和風フリックゲーム。Next.js(Typescript), Goで構築。オンライン対戦にも対応しています。私はフロントエンドとデザイン、アニメーションを担当しました。"
+            },
+            "16": {
+                "title": "HPB to me! 2023 - 21歳、拳で。",
+                "description": "自分の誕生日を祝うために作ったジョークサイト。音楽や声優は知り合いに作ってもらいました。おこがましい"
+            },
+            "17": {
+                "title": "都市大アニメーション",
+                "description": "私が総監督として、世田谷区とアニメを共同制作しているので、その広報用のサイトです。Astro.jsとMDXで構築。"
+            },
+            "18": {
+                "title": "東京都市大学 学生団体連合本部",
+                "description": "学生団体連合本部の公式サイトです。HTML,CSS,Javascript,GASで構築。"
+            }
+        },
+        "video": {
+            "1": {
+                "title": "個人Youtubeチャンネル2",
+                "description": "高校生の頃にゆっくり動画をアップロードしていたチャンネル。メインチャンネルがBANされてしまったため、現在使用しています。"
+            },
+            "2": {
+                "title": "TCU-DC(サークル)のYouTubeチャンネル",
+                "description": "サークルの活動を紹介するYouTubeチャンネル。一部の作品は私が作った映像ではないものも含まれます。"
+            }
+        }
     },
     "404": {
         "title": "404",

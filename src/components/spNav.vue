@@ -46,6 +46,7 @@ export default {
   margin-left: -2.5rem;
   position: absolute;
   left: 50%;
+  bottom: 0;
   color: white;
   text-align: center;
   line-height: 4rem;

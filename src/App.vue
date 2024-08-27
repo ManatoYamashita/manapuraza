@@ -184,6 +184,7 @@
       display: block;
       position: fixed;
       right: 50%;
+      bottom: 2.5rem;
       pointer-events: all;
     }
   }

@@ -43,24 +43,100 @@
       "23-2-de": "2023 ~, Yokohama / Japan"
     },
     "works": {
-      "w1": "A portfolio graphics and illustrations.",
-      "w2": "A git repositorys storing codes.",
-      "w3": "A web portfolio website show all of creative.",
-      "w4": "A game, mathamatical logical guessing.",
-      "w5": "A blog about my experiment study abroad in Australia.",
-      "w6": "A event website for one-year anniversary of KD, whichi is my friends community.",
-      "w7": "A web app creating passage from words templates by connecting sentences.",
-      "w8": "A Android app suggestion activity from weather forecast.",
-      "w9": "A Twitter bot of DC-chan, which is original character of my circle.",
-      "w10": "A test website for blog constracted by Jamstack(Nuxt3 + microCMS).",
-      "w11": "A website for TCU-ACC, a union of clubs in TCU.",
-      "w12": "A website for SEKI-lab, a laboratory researching Information Security.",
-      "w13": "A Web App quiz game Information Security.",
-      "w14": "DC-chan, a charactor of TCU-DC fun site, contein AI chat which is using ChatGPT API for conversation.",
-      "w15": "Amausyrup, V-tuber unofficial website using notion API.",
-      "w16": "Highcharts.js test website.",
-      "v1": "A YouTube channel for me",
-      "v2": "A TouTube channel for my circle"
+      "graphics": {
+          "1": {
+              "title": "Portfolio of Graphics and Illustrations",
+              "description": "A portfolio compiling my graphic design and illustration works."
+          },
+          "2": {
+              "title": "Web Portfolio Showcasing Overall Creative Works",
+              "description": "A web-based portfolio that gathers all my creative works."
+          }
+      },
+      "prog": {
+          "1": {
+              "title": "manapuraza.com",
+              "description": "A portfolio site showcasing some of my creative works during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. (This site)"
+          },
+          "2": {
+              "title": "Down Under Mountain - Australia Study Abroad Blog",
+              "description": "A blog I wrote during my four-month study abroad at Edith Cowan University in Western Australia in 2023. Built with WordPress."
+          },
+          "3": {
+              "title": "NUMERON - Logical Number Guessing Game",
+              "description": "A number guessing game developed during my first year of university as practice for HTML, CSS, and Javascript, created in collaboration with an acquaintance."
+          },
+          "4": {
+              "title": "AmauSyrup.net - Unofficial Fan Site for AmauSyrup",
+              "description": "An unofficial website for a Vtuber featuring a blog function utilizing the Notion API. Built with Next.js with Typescript and GSAP's scrollTrigger."
+          },
+          "5": {
+              "title": "Tokyo City University Asocciation of Clubs/Circles",
+              "description": "A site I created while serving as the president of the Tokyo City University Federation of Student Clubs. It uses a CMS. I was responsible for development, maintenance, and operation. Deployed on the university's shared WWW server."
+          },
+          "6": {
+              "title": "Jamstack Blog Test",
+              "description": "A test website for a blog built with Jamstack (Nuxt 3 + microCMS)."
+          },
+          "7": {
+              "title": "Chaintence",
+              "description": "A WebApp for creating email texts by connecting templates, developed during a two-day hackathon. Built with NuxtJS and microCMS. I was responsible for frontend development and presentation."
+          },
+          "8": {
+              "title": "DC-chan Twitter BOT",
+              "description": "A Twitter BOT for the official character of my club, DC-chan. Built with Google Apps Script (GAS) to interact with the Twitter API. Currently inactive due to the API becoming paid."
+          },
+          "9": {
+              "title": "Seki Laboratory (TCU Information Security Laboratory)",
+              "description": "The website for the lab, built with Nuxt.js 3 and microCMS."
+          },
+          "10": {
+              "title": "Information Security Quiz",
+              "description": "A quiz app created to introduce the lab. Built with Vue.js 2 and deployed on Vercel."
+          },
+          "11": {
+              "title": "KillerDie 1st Anniversary",
+              "description": "The official site for the 1st anniversary of a university's unofficial group. Built with Vue.js 3."
+          },
+          "12": {
+              "title": "Population Transition Graph by Prefecture SPA",
+              "description": "A web app for testing data visualization. Built with Highcharts.js and Next.js, with Jest and Github Workflow implemented."
+          },
+          "13": {
+              "title": "wtm - Outing Support App for Android",
+              "description": "An Android app developed by a team, 4members. Built with Android Studio (Java + Gradle). I was responsible for leadership, development, and design."
+          },
+          "14": {
+              "title": "DC-chan AI",
+              "description": "An AI chat for DC-chan, the character of the Digital Content Research Society. Built with Next.js, GSAP, and ChatGPT API."
+          },
+          "15": {
+              "title": "WAGIRI!! - Japanese Style Flick Game",
+              "description": "A Japanese-style flick game that won the grand prize in a hackathon hosted by Progate. Built with Next.js (Typescript) and Go, supporting online battles. I was responsible for frontend, design, and animations."
+          },
+          "16": {
+              "title": "HPB to me! 2023 - 21 Years Old, With a Fist.",
+              "description": "A joke site I created to celebrate my own birthday. Music and voice acting were created by acquaintances. Presumptuous."
+          },
+          "17": {
+              "title": "Tokyo City University Animation Studio",
+              "description": "A site for promoting an animation co-produced with Setagaya City, where I am the general director. Built with Astro.js and MDX."
+          },
+          "18": {
+              "title": "Tokyo City University Student Organization",
+              "description": "The official site of the Student Union Headquarters. Built with HTML, CSS, Javascript, and GAS."
+          }
+      },
+      "video": {
+          "1": {
+              "title": "Personal YouTube Channel 2",
+              "description": "A channel where I uploaded Yukkuri videos during high school. Currently in use after the main channel was banned."
+          },
+          "2": {
+              "title": "TCU-DC (Club) YouTube Channel",
+              "description": "A YouTube channel showcasing the activities of the club. Some of the videos were not created by me."
+          }
+      }
     },
     "404": {
       "title": "404",
