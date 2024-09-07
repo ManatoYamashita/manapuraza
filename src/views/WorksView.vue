@@ -83,10 +83,10 @@ export default {
           "https://killerdie-2023.netlify.app/",
           "https://population-todohuken.vercel.app/",
           "https://github.com/ManatoYamashita/SysB_wtm",
-          "https://dcchan.vercel.app/",
+          "https://でじこんちゃん.net/",
           "https://flickgame.tcu-dc.net/",
           "https://hpb-2023.manapuraza.com/",
-          "https://tcu-animation.vercel.app/",
+          "https://tcu-animation.manapuraza.com/",
           "https://www.sto.tcu.ac.jp/",
         ],
         video: [
