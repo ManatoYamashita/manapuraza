@@ -1,5 +1,5 @@
 <script setup>
-  import SnsView from '@/components/SnsView.vue';
+  import SnsView from '@/components/snsView.vue';
   import HistoryView from '@/components/historyView.vue';
 </script>
 
