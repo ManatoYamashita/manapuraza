@@ -31,4 +31,4 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          # git-ftp-args: --remote-root /manapuraza
+          git-ftp-args: --remote-root /manapuraza/
