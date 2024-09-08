@@ -27,8 +27,7 @@ jobs:
       - name: Upload files via FTP
         uses: SamKirkland/FTP-Deploy-Action@3.0.0
         with:
-          ftp-server: ${{ secrets.FTP_HOST }}  # FTPホスト名（Secretsに設定）
-          ftp-username: ${{ secrets.FTP_USER }}  # FTPユーザー名（Secretsに設定）
-          ftp-password: ${{ secrets.FTP_PASSWORD }}  # FTPパスワード（Secretsに設定）
-          local-dir: ./dist  # Vue3のデフォルトのビルドディレクトリ
-          server-dir: /manapuraza  # アップロードするサーバ上のディレクトリ
+          ftp-server: ${{ secrets.FTP_HOST }}
+          ftp-username: ${{ secrets.FTP_USER }}
+          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist
