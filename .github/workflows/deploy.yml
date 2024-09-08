@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2  # リポジトリのコードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v3  # リポジトリのコードをチェックアウト
 
       - name: Set up Node.js
         uses: actions/setup-node@v2  # Node.jsのセットアップ
@@ -25,10 +25,10 @@ jobs:
         run: npm run build
 
       - name: Upload files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          ftp-server: ${{ secrets.FTP_HOST }}
-          ftp-username: ${{ secrets.FTP_USER }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist
           # git-ftp-args: --remote-root /manapuraza
