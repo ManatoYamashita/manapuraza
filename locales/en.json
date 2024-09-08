@@ -56,7 +56,7 @@
       "prog": {
           "1": {
               "title": "manapuraza.com",
-              "description": "A portfolio site showcasing some of my creative works during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. (This site)"
+              "description": "A portfolio site showcasing some of my creative works during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. responsive CI/CD (This site)"
           },
           "2": {
               "title": "Down Under Mountain - Australia Study Abroad Blog",
