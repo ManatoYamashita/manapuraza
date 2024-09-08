@@ -1,0 +1,34 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2  # リポジトリのコードをチェックアウト
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2  # Node.jsのセットアップ
+        with:
+          node-version: '18'  # 使用するNode.jsのバージョン
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Upload files via FTP
+        uses: sebastianpopp/ftp-action@v1.1.1  # FTPアップロード用アクションを使用
+        with:
+          host: ${{ secrets.FTP_HOST }}  # FTPホスト名（Secretsに設定）
+          user: ${{ secrets.FTP_USER }}  # FTPユーザー名（Secretsに設定）
+          password: ${{ secrets.FTP_PASSWORD }}  # FTPパスワード（Secretsに設定）
+          local-dir: ./dist  # Vue3のデフォルトのビルドディレクトリ
+          remote-dir: /manapuraza  # アップロードするサーバ上のディレクトリ
