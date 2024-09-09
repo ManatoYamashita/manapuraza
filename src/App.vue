@@ -20,6 +20,7 @@
   import { watch, onMounted, computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import SpNav from '@/components/spNav.vue';
+  
   const route = useRoute();
   const router = useRouter();
 

@@ -19,6 +19,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "vite": "^4.3.5",
-    "vue-template-compiler": "^2.7.14"
+    "vite-plugin-sitemap": "^0.7.1",
+    "vue-template-compiler": "^0.1.0"
   }
 }
