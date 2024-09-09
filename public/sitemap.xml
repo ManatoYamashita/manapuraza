@@ -1,0 +1,47 @@
+<?xml version=”1.0″ encoding=”UTF-8″?>
+<urlset xmlns=”http://www.sitemaps.org/schemas/sitemap/0.9″>
+    <url>
+        <loc>https://manapuraza.com</loc>
+        <lastmod>2024-09-10</lastmod>
+        <priority>1</priority>
+        <changefreq>monthly</changefreq>
+        <image:image>
+            <image:loc>https://manapuraza.com/ogp.png</image:loc>
+            <image:caption>Manapuraza.com</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://manapuraza.com/assets/ym-photo.jpg</image:loc>
+            <image:caption>Manato Yamashita</image:caption>
+        </image:image>
+    </url>
+
+    <url>
+        <loc>https://manapuraza.com/about</loc>
+        <lastmod>2024-09-10</lastmod>
+        <priority>0.8</priority>
+        <changefreq>never</changefreq>
+        <image:image>
+            <image:loc>https://manapuraza.com/assets/ym-photo.jpg</image:loc>
+            <image:caption>Manato Yamashita</image:caption>
+        </image:image>
+    </url>
+
+    <url>
+        <loc>https://manapuraza.com/works</loc>
+        <lastmod>2024-09-10</lastmod>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+        <image:image>
+            <image:loc>https://manapuraza.com/assets/works-thumbnail/graphics/1.webp</image:loc>
+            <image:caption>山下マナト イラストレーション</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://manapuraza.com/assets/works-thumbnail/prog/1.webp</image:loc>
+            <image:caption>山下マナト Webデザイン</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://manapuraza.com/assets/works-thumbnail/video/1.webp</image:loc>
+            <image:caption>山下マナト videos</image:caption>
+        </image:image>
+    </url>
+</urlset>
