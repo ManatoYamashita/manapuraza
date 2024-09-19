@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <a href="https://manapuraza.com" aria-current="page">
-      <img src="@/assets/logo.webp" alt="ホームページに戻る" draggable="false" id="center-logo" :class="className" :style="styleObject" />
+      <img src="@/assets/logo.webp" loading="lazy" alt="ホームページに戻る" draggable="false" id="center-logo" :class="className" :style="styleObject" />
     </a>
   
     <div class="app glass">

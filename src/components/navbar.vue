@@ -3,7 +3,7 @@
         <div class="logo">
                 <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
                     <transition name="slide" mode="out-in" aria-current="page">
-                      <img src="@/assets/logo.webp" alt="manapuraza.com" class="logo" v-show="currentPath !== '/'">
+                      <img src="@/assets/logo.webp" alt="manapuraza.com logo" loading="lazy" class="logo" v-show="currentPath !== '/'">
                     </transition>
                 </RouterLink>
         </div>
