@@ -59,9 +59,9 @@
               "description": "A portfolio site showcasing some of my creative works during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. responsive CI/CD (This site)"
           },
           "2": {
-              "title": "Down Under Mountain - Australia Study Abroad Blog",
-              "description": "A blog I wrote during my four-month study abroad at Edith Cowan University in Western Australia in 2023. Built with WordPress."
-          },
+            "title": "DC-chan AI",
+            "description": "An AI chat for DC-chan, the character of the Digital Content Research Society. Built with Next.js, GSAP, and ChatGPT API."
+        },
           "3": {
               "title": "NUMERON - Logical Number Guessing Game",
               "description": "A number guessing game developed during my first year of university as practice for HTML, CSS, and Javascript, created in collaboration with an acquaintance."
@@ -107,8 +107,8 @@
               "description": "An Android app developed by a team, 4members. Built with Android Studio (Java + Gradle). I was responsible for leadership, development, and design."
           },
           "14": {
-              "title": "DC-chan AI",
-              "description": "An AI chat for DC-chan, the character of the Digital Content Research Society. Built with Next.js, GSAP, and ChatGPT API."
+              "title": "Down Under Mountain - Australia Study Abroad Blog",
+              "description": "A blog I wrote during my four-month study abroad at Edith Cowan University in Western Australia in 2023. Built with WordPress."
           },
           "15": {
               "title": "WAGIRI!! - Japanese Style Flick Game",

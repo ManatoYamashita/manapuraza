@@ -71,6 +71,7 @@ export default {
         ],
         prog: [
           "https://manapuraza.com",
+          "https://でじこんちゃん.net/",
           "https://dum.manapuraza.com",
           "https://tmana.sub.jp/numeron/dirs/src/numeron.html",
           "https://amausyrup.net",
@@ -83,7 +84,6 @@ export default {
           "https://killerdie-2023.netlify.app/",
           "https://population-todohuken.vercel.app/",
           "https://github.com/ManatoYamashita/SysB_wtm",
-          "https://でじこんちゃん.net/",
           "https://flickgame.tcu-dc.net/",
           "https://hpb-2023.manapuraza.com/",
           "https://tcu-animation.manapuraza.com/",

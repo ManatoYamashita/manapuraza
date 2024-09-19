@@ -14,7 +14,7 @@
         </nav>
 
         <div id="lang-switch">
-            <span>{{ $t('navbar.toggle') }}</span>
+            <span class="lang">{{ $t('navbar.toggle') }}</span>
             <div class="toggle-switch">
                 <input class="toggle-input" id="toggle" type="checkbox" @click="toggleLanguage">
                 <label class="toggle-label" for="toggle"></label>
@@ -104,13 +104,15 @@
         position: fixed;
         bottom: 1rem;
         right: 1rem;
-        margin-left: 1rem;
         display: flex;
         justify-content: left;
         flex-direction: row;
         align-items: center;
         z-index: 0;
         transform: scale(1.5);
+    }
+    .lang {
+        font-size: 12px;
     }
     /* Genel stil */
     .toggle-switch {

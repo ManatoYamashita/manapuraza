@@ -1,7 +1,7 @@
 <template>
   <div id="main">
-    <a href="https://manapuraza.com" aria-label="manapuraza.comのホームに戻る">
-      <img src="@/assets/logo.webp" alt="" draggable="false" id="center-logo" :class="className" :style="styleObject" />
+    <a href="https://manapuraza.com" aria-label="manapuraza.com">
+      <img src="@/assets/logo.webp" loading="lazy" alt="ホームに戻る" draggable="false" id="center-logo" :class="className" :style="styleObject" />
     </a>
   
     <div class="app glass">
@@ -80,7 +80,7 @@
   }
   #center-logo {
     position: absolute;
-    top: 35%;
+    top: 43%;
     left: 50%;
     width: 500px;
     height: auto;
@@ -108,10 +108,6 @@
     padding: 2rem 2rem 0 2rem;
     margin: 1rem auto;
     border-radius: 10px;
-    /* background: rgba(255, 255, 255, 0.51);
-    backdrop-filter: blur(.5rem);
-    -webkit-backdrop-filter: blur( .5rem );
-    border: 1px solid rgba( 255, 255, 255, 0.18 ); */
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     scrollbar-width: thin;

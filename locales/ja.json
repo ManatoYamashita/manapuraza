@@ -59,8 +59,8 @@
                 "description": "広告制作会社の4ヶ月のインターンの1ヶ月で作った、学生時代のクリエイティブの一部を紹介したポートフォリオサイト。Vue.js3とThree.jsで書かれています。（当サイト）"
             },
             "2": {
-                "title": "Down Under Mountain - オーストラリア留学ブログ",
-                "description": "2023年に4ヶ月間西オーストラリアのEdith Cowan Universityに留学したので、その時に書いたブログ。WordPressで書かれています。"
+                "title": "でじこんちゃんAI",
+                "description": "デジタルコンテンツ研究会のキャラクターであるでじこんちゃんのAIチャット。Next.js, GSAP, ChatGPT APIを使用しています。"
             },
             "3": {
                 "title": "NUMERON - 論理数字あてゲーム",
@@ -107,8 +107,8 @@
                 "description": "4人のチームで開発したAndroidアプリ。AndroidStudio(Java * Gradle)で開発。私はリーダと開発、デザインを担当しました。"
             },
             "14": {
-                "title": "でじこんちゃんAI",
-                "description": "デジタルコンテンツ研究会のキャラクターであるでじこんちゃんのAIチャット。Next.js, GSAP, ChatGPT APIを使用しています。"
+                "title": "Down Under Mountain - オーストラリア留学ブログ",
+                "description": "2023年に4ヶ月間西オーストラリアのEdith Cowan Universityに留学したので、その時に書いたブログ。WordPressで書かれています。"
             },
             "15": {
                 "title": "WAGIRI!! - 和風フリックゲーム",
