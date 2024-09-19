@@ -8,6 +8,9 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  build: {
+    sourcemap: true,
+  },
   assetsInclude: ["robots.txt"],
   resolve: {
     alias: {

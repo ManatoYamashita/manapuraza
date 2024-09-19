@@ -3,7 +3,7 @@
         <div class="logo">
                 <RouterLink to="/">
                     <transition name="slide" mode="out-in">
-                      <img src="@/assets/manapuraza-logo.svg" alt="logo" v-show="currentPath !== '/'">
+                      <img src="@/assets/logo.webp" alt="manapuraza.com" class="logo" v-show="currentPath !== '/'">
                     </transition>
                 </RouterLink>
         </div>
@@ -14,12 +14,12 @@
         </nav>
 
         <div id="lang-switch">
-                <span>{{ $t('navbar.toggle') }}</span>
-                <div class="toggle-switch">
+            <span>{{ $t('navbar.toggle') }}</span>
+            <div class="toggle-switch">
                 <input class="toggle-input" id="toggle" type="checkbox" @click="toggleLanguage">
                 <label class="toggle-label" for="toggle"></label>
-                </div>
             </div>
+        </div>
     </div>
 </template>
 
@@ -58,8 +58,8 @@
     }
     .logo {
         display: block;
-        height: 5rem;
-        width: auto;
+        width: 55%;
+        min-width: 200px;
         overflow: hidden;
     }
     img {
@@ -102,14 +102,15 @@
     /* toggle switch */
     #lang-switch {
         position: fixed;
-        bottom: 0rem;
-        right: 0;
+        bottom: 1rem;
+        right: 1rem;
         margin-left: 1rem;
         display: flex;
         justify-content: left;
         flex-direction: row;
         align-items: center;
         z-index: 0;
+        transform: scale(1.5);
     }
     /* Genel stil */
     .toggle-switch {
@@ -204,6 +205,7 @@
         #lang-switch {
             display: flex;
             position: static;
+            transform: scale(1.1);
         }
     }
 </style>

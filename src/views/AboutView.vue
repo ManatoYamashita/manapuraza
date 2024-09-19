@@ -10,7 +10,7 @@
     
     <section class="howyoufeel">
       <div class="self-image">
-        <img src="@/assets/ym_photo.jpg" alt="山下マナト">
+        <img fetchpriority="high" src="@/assets/yamashitamanato.webp" alt="山下マナト">
       </div>
       <div id="message">
         <p>

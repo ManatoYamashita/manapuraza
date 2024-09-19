@@ -1,9 +1,9 @@
 <template>
-  <div></div>
+  <main></main>
 </template>
 
 <style lang="css" scoped>
-  div {
+  main {
     display: none;
   }
 </style>

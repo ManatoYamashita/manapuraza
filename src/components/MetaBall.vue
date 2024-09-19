@@ -9,7 +9,7 @@
 
 		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 		import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
-		import backgroundimage from '@/assets/y.svg';
+		import backgroundimage from '@/assets/background.webp';
 
 		let container, stats;
 		let camera, scene, renderer;

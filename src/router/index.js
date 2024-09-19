@@ -3,7 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -25,19 +25,10 @@ const router = createRouter({
         },
       },
     },
-    // {
-    //   path: '/contact',
-    //   name: 'contact',
-    //   component: () => import('../views/ContactView.vue'),
-    //   meta: {
-    //     style: {
-    //       top: '0',
-    //     },
-    //   },
-    // },
-    { path: '/:pathMatch(.*)*',
+    { 
+      path: '/:pathMatch(.*)*',
       name: 'not-found', 
-      component: NotFound 
+      component: () => import('../views/NotFound.vue'),
     },
   ]
 });

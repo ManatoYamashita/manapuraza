@@ -1,7 +1,7 @@
 <template>
   <div id="main">
-    <a href="https://manapuraza.com">
-      <img src="@/assets/manapuraza-logo.svg" draggable="false" id="center-logo" :class="className" :style="styleObject" />
+    <a href="https://manapuraza.com" aria-label="manapuraza.comのホームに戻る">
+      <img src="@/assets/logo.webp" alt="" draggable="false" id="center-logo" :class="className" :style="styleObject" />
     </a>
   
     <div class="app glass">
@@ -82,7 +82,7 @@
     position: absolute;
     top: 35%;
     left: 50%;
-    width: 40%;
+    width: 500px;
     height: auto;
     transform: translate(-50%, -50%);
   }

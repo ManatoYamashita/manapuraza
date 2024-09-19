@@ -42,7 +42,7 @@
       </div>
 
       <div id="image-content">
-        <img id="dc-chan" src="@/assets/dc-chan.gif" alt="dc-chan" />
+        <img id="dc-chan" fetchpriority="low" loading="lazy" src="@/assets/dcchan.webp" alt="dc-chan" />
       </div>
     </main>
   </div>
