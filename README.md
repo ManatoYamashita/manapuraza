@@ -1,6 +1,6 @@
 # MANAPURAZA.COM &#x1F34C;
 
-<img src="./public/ogp.png" alt="OGP image" width="300" style="border-radius:8px;">
+<img src="./public/ogp.jpg" alt="OGP image" width="300" style="border-radius:8px;">
 
 * **ver1.0**: https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app
 * **ver2.0**: https://manapuraza.com/
