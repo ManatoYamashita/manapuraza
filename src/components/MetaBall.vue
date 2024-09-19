@@ -38,7 +38,7 @@
 				material: 'plastic',
 				speed: 0.1,
 				numBlobs: 3,
-				resolution: 50,
+				resolution: 40,
 				isolation: 4,
 			};
 
@@ -138,21 +138,19 @@
 
                     // MARCHING CUBES
 
-                    resolution = 50;
-
                     effect = new MarchingCubes( resolution, materials[ current_material ], true, true, 100000 );
                     effect.position.set( 0, 0, 0 );
                     effect.scale.set( 700, 700, 700 );
 
-                    effect.enableUvs = false;
-                    effect.enableColors = false;
+                    // effect.enableUvs = false;
+                    // effect.enableColors = false;
 
                     scene.add( effect );
 
                     // RENDERER
 
-                    renderer = new THREE.WebGLRenderer();
-                    renderer.setPixelRatio( window.devicePixelRatio );
+                    renderer = new THREE.WebGLRenderer({ antialias: false });
+                    renderer.setPixelRatio( window.devicePixelRatio / 2 );
                     renderer.setSize( window.innerWidth, window.innerHeight );
                     container.appendChild( renderer.domElement );
 
@@ -163,35 +161,35 @@
                     controls.maxDistance = 5000;
                     
 					// Raycasterとマウスのベクトルを作成
-					const raycaster = new THREE.Raycaster();
-					const mouse = new THREE.Vector2();
+					// const raycaster = new THREE.Raycaster();
+					// const mouse = new THREE.Vector2();
 
-					function onMouseClick(event) {
-						// マウスの位置を正規化
-						mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-						mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+					// function onMouseClick(event) {
+					// 	// マウスの位置を正規化
+					// 	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+					// 	mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
-						// Raycasterを更新
-						raycaster.setFromCamera(mouse, camera);
+					// 	// Raycasterを更新
+					// 	raycaster.setFromCamera(mouse, camera);
 
-						// 交差するオブジェクトを取得
-						const intersects = raycaster.intersectObjects(scene.children);
+					// 	// 交差するオブジェクトを取得
+					// 	const intersects = raycaster.intersectObjects(scene.children);
 						
-						if (intersects.length > 0) {
-							if(intersects[0].object.material.color.getHex() === 0xffb300) {
-								intersects[0].object.material.color.set(0xffffff);
-							} else if(intersects[0].object.material.color.getHex() === 0xffffff) {
-								intersects[0].object.material.color.set(0x58c0fc);
-							} else if(intersects[0].object.material.color.getHex() === 0x58c0fc) {
-								intersects[0].object.material.color.set(0x7dff95);
-							} else {
-								intersects[0].object.material.color.set(0xffb300);
-							}
-						}
-					}
+					// 	if (intersects.length > 0) {
+					// 		if(intersects[0].object.material.color.getHex() === 0xffb300) {
+					// 			intersects[0].object.material.color.set(0xffffff);
+					// 		} else if(intersects[0].object.material.color.getHex() === 0xffffff) {
+					// 			intersects[0].object.material.color.set(0x58c0fc);
+					// 		} else if(intersects[0].object.material.color.getHex() === 0x58c0fc) {
+					// 			intersects[0].object.material.color.set(0x7dff95);
+					// 		} else {
+					// 			intersects[0].object.material.color.set(0xffb300);
+					// 		}
+					// 	}
+					// }
 
 					// クリックイベントリスナーを追加
-					window.addEventListener('click', onMouseClick, false);
+					// window.addEventListener('click', onMouseClick, false);
 
                     setupGui();
 
@@ -200,9 +198,22 @@
                     window.addEventListener( 'resize', onWindowResize );
                 },
                 animate() {
-                    requestAnimationFrame( this.animate );
-                    render();
-                }
-            }
-        }
+					requestAnimationFrame(this.animate);
+					render();
+
+					const delta = clock.getDelta();
+					time += delta * effectController.speed * 0.5;
+
+					// 変更があった場合のみ更新
+					if (this.shouldUpdate) {
+					this.worker.postMessage({
+						time: time,
+						numBlobs: effectController.numBlobs,
+						resolution: effectController.resolution,
+					});
+					this.shouldUpdate = false;
+                	}
+            	}
+        	}
+		}
 </script>
