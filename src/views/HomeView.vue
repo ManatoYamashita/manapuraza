@@ -1,6 +1,4 @@
-<template>
-  <main></main>
-</template>
+<template><div></div></template>
 
 <style lang="css" scoped>
   main {
