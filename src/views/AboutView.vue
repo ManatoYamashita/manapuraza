@@ -23,38 +23,40 @@
       <section class="profile">
         <h2>Profile</h2>
         <table>
-          <tr>
-            <th>{{ $t('about.name') }}</th>
-            <td><a href="https://bento.me/ym/" target="_blank">{{ $t('about.name-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.sex') }}</th>
-            <td>{{ $t('about.sex-co') }}</td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.birth') }}</th>
-            <td>{{ $t('about.birth-co') }}</td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.country') }}</th>
-            <td>{{ $t('about.country-co') }}</td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.live') }}</th>
-            <td>{{ $t('about.live-co') }}</td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.study') }}</th>
-            <td><a href="https://informatics.tcu.ac.jp/" target="_blank">{{ $t('about.study-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.research') }}</th>
-            <td><a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">{{ $t('about.research-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
-          </tr>
-          <tr>
-            <th>{{ $t('about.like') }}</th>
-            <td>{{ $t('about.like-co') }} &#x1F34C;</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>{{ $t('about.name') }}</th>
+              <td><a href="https://bento.me/ym/" target="_blank">{{ $t('about.name-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.sex') }}</th>
+              <td>{{ $t('about.sex-co') }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.birth') }}</th>
+              <td>{{ $t('about.birth-co') }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.country') }}</th>
+              <td>{{ $t('about.country-co') }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.live') }}</th>
+              <td>{{ $t('about.live-co') }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.study') }}</th>
+              <td><a href="https://informatics.tcu.ac.jp/" target="_blank">{{ $t('about.study-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.research') }}</th>
+              <td><a href="https://www.comm.tcu.ac.jp/seki_lab/" target="_blank">{{ $t('about.research-co') }} <i class="fas fa-arrow-up-right-from-square"></i></a></td>
+            </tr>
+            <tr>
+              <th>{{ $t('about.like') }}</th>
+              <td>{{ $t('about.like-co') }} &#x1F34C;</td>
+            </tr>
+          </tbody>
         </table>
       </section>
       

@@ -111,8 +111,6 @@
                     // SCENE
                     
                     scene = new THREE.Scene();
-					
-                    // urlには画像の相対パスを指定
 					const url = backgroundimage;
 
                     const textureLoader = new THREE.TextureLoader();
