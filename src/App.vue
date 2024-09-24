@@ -69,6 +69,35 @@
       };
     }
   });
+
+  import { useHead } from '@vueuse/head';
+
+  useHead({
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          "@context": "https://manapuraza.com",
+          "@type": "WebSite",
+          "url": "https://manapuraza.com",
+          "name": "山下マナト",
+          "description": "東京都市大学メディア情報学部の山下マナトです。manapuraza.comは就活のために学生時代に作成したクリエイティブワークスを公開する、ポートフォリオです。",
+          "author": {
+            "@type": "Person",
+            "name": "山下マナト"
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": "山下マナト",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://manapuraza.com/logo.webp"
+            }
+          },
+        })
+      }
+    ]
+  });
 </script>
 
 <style scoped>
