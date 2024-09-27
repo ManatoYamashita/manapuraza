@@ -109,7 +109,6 @@
     margin: 1rem auto;
     border-radius: 10px;
     transition: .5s ease-in-out;
-    z-index: 1;
     scroll-behavior: none;
     overflow-y: hidden;
   }
@@ -131,7 +130,8 @@
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent;
-    z-index: 2;
+    z-index: 1;
+    pointer-events: all;
   }
   ::-webkit-scrollbar {
     overflow: scroll;
@@ -175,6 +175,11 @@
   
   /* SP表示 */
   @media (max-width: 540px) {
+    #main {
+      display: block;
+      overflow: hidden;
+      pointer-events: none;
+    }
     #center-logo {
       top: 40%;
       width: 60%;

@@ -127,6 +127,8 @@
     width: 100%;
     margin: 0 auto;
     padding: 1rem;
+    pointer-events: all;
+    scroll-behavior: auto;
   }
   #main-contents {
     width: 100%;
