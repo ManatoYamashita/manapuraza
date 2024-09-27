@@ -13,9 +13,10 @@
             :title="$t(work.title)"
             :description="$t(work.description)"
             :thumbnail="work.thumbnail"
+            :index="index"
           />
         </ul>
-        
+
         <h2>Programming / Web</h2>
         <ul>
           <WorkItem
@@ -25,6 +26,7 @@
             :title="$t(work.title)"
             :description="$t(work.description)"
             :thumbnail="work.thumbnail"
+            :index="index"
           />
         </ul>
 
@@ -37,79 +39,87 @@
             :title="$t(work.title)"
             :description="$t(work.description)"
             :thumbnail="work.thumbnail"
+            :index="index"
           />
         </ul>
       </div>
 
-      <div id="image-content">
-        <img id="dc-chan" fetchpriority="low" loading="lazy" src="@/assets/dcchan.webp" alt="dc-chan" />
-      </div>
+      <a href="https://でじこんちゃん.net" aria-label="でじこんちゃんのサイトへ">
+        <div id="image-content">
+          <img
+            id="dc-chan"
+            fetchpriority="low"
+            loading="lazy"
+            src="@/assets/dcchan.webp"
+            alt="dc-chan"
+          />
+        </div>
+      </a>
     </main>
   </div>
 </template>
 
 <script>
-import WorkItem from '@/components/WorkItem.vue';
+  import WorkItem from '@/components/WorkItem.vue';
 
-export default {
-  name: 'WorksView',
-  data() {
-    return {
-      graphicsWorks: this.generateWorks('graphics', 1, 1),
-      programmingWorks: this.generateWorks('prog', 1, 18),
-      videoWorks: this.generateWorks('video', 1, 2),
-    };
-  },
-  components: {
-    WorkItem
-  },
-  methods: {
-    generateWorks(category, start, end) {
-      const urlLists = {
-        graphics: [
-          "https://tcu-yamamana.notion.site/Graphics-and-Illustrations-94affc98e29f4ec6be668b05eb7eac13?pvs=4",
-        ],
-        prog: [
-          "https://manapuraza.com",
-          "https://でじこんちゃん.net/",
-          "https://dum.manapuraza.com",
-          "https://tmana.sub.jp/numeron/dirs/src/numeron.html",
-          "https://amausyrup.net",
-          "https://www.comm.tcu.ac.jp/tcu-acc/",
-          "https://jamstack-blog-test.vercel.app/",
-          "https://chaintence.shokm.net/",
-          "https://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html",
-          "https://www.comm.tcu.ac.jp/seki-ken",
-          "https://sekilab-quiz.vercel.app/",
-          "https://killerdie-2023.netlify.app/",
-          "https://population-todohuken.vercel.app/",
-          "https://github.com/ManatoYamashita/SysB_wtm",
-          "https://flickgame.tcu-dc.net/",
-          "https://hpb-2023.manapuraza.com/",
-          "https://tcu-animation.manapuraza.com/",
-          "https://www.sto.tcu.ac.jp/",
-        ],
-        video: [
-          "https://www.youtube.com/@manapuraza",
-          "https://www.youtube.com/@tcu_dc",
-        ],
+  export default {
+    name: 'WorksView',
+    components: {
+      WorkItem,
+    },
+    data() {
+      return {
+        graphicsWorks: this.generateWorks('graphics'),
+        programmingWorks: this.generateWorks('prog'),
+        videoWorks: this.generateWorks('video'),
       };
+    },
+    methods: {
+      generateWorks(category) {
+        const urlLists = {
+          graphics: [
+            'https://tcu-yamamana.notion.site/Graphics-and-Illustrations-94affc98e29f4ec6be668b05eb7eac13?pvs=4',
+          ],
+          prog: [
+            'https://manapuraza.com',
+            'https://でじこんちゃん.net/',
+            'https://dum.manapuraza.com',
+            'https://tmana.sub.jp/numeron/dirs/src/numeron.html',
+            'https://amausyrup.net',
+            'https://www.comm.tcu.ac.jp/tcu-acc/',
+            'https://jamstack-blog-test.vercel.app/',
+            'https://chaintence.shokm.net/',
+            'https://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html',
+            'https://www.comm.tcu.ac.jp/seki-ken',
+            'https://sekilab-quiz.vercel.app/',
+            'https://killerdie-2023.netlify.app/',
+            'https://population-todohuken.vercel.app/',
+            'https://github.com/ManatoYamashita/SysB_wtm',
+            'https://flickgame.tcu-dc.net/',
+            'https://hpb-2023.manapuraza.com/',
+            'https://tcu-animation.manapuraza.com/',
+            'https://www.sto.tcu.ac.jp/',
+          ],
+          video: [
+            'https://www.youtube.com/@manapuraza',
+            'https://www.youtube.com/@tcu_dc',
+          ],
+        };
 
-      // 該当するカテゴリーのURLリストを取得
-      const urlList = urlLists[category] || [];
+        const urlList = urlLists[category] || [];
 
-      return Array.from({ length: end - start + 1 }, (_, i) => {
-        const index = start + i - 1;  // インデックスを0ベースに修正
-        return {
-          url: urlList[index] || '',  // エラーチェック: インデックスが範囲外の場合は空文字を設定
+        return urlList.map((url, index) => ({
+          url: url || '',
           title: `works.${category}.${index + 1}.title`,
           description: `works.${category}.${index + 1}.description`,
-          thumbnail: new URL(`/src/assets/works-thumbnail/${category}/${index + 1}.webp`, import.meta.url).href
-        };
-      });
-    }
-  }
-}
+          thumbnail: new URL(
+            `/src/assets/works-thumbnail/${category}/${index + 1}.webp`,
+            import.meta.url
+          ).href,
+        }));
+      },
+    },
+  };
 </script>
 
 <style scoped>
@@ -127,7 +137,7 @@ export default {
   #dc-chan {
     width: 25%;
     height: auto;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     box-shadow: none;
     pointer-events: none;
   }
@@ -136,7 +146,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
-    transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
   li {
     list-style: none;
@@ -162,14 +172,14 @@ export default {
     main {
       display: block;
     }
-    div#main-contents {
+    #main-contents {
       width: 100%;
-      padding: .2rem;
+      padding: 0.2rem;
       margin-bottom: 2rem;
     }
-    div#image-content {
+    #image-content {
       width: 100%;
-      padding: .5rem;
+      padding: 0.5rem;
     }
     ul {
       grid-template-columns: repeat(1, 1fr);
