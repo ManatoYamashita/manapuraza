@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <a href="https://manapuraza.com" aria-current="page">
-      <img src="@/assets/logo.webp" alt="ホームページに戻る" draggable="false" id="center-logo" :class="className" :style="styleObject" />
+      <img fetchpriority="high" src="@/assets/logo.webp" alt="ホームページに戻る" draggable="false" id="center-logo" :class="className" :style="styleObject" />
     </a>
   
     <div class="app glass">
@@ -131,6 +131,7 @@
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent;
+    z-index: 2;
   }
   ::-webkit-scrollbar {
     overflow: scroll;

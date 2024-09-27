@@ -31,7 +31,7 @@
     });
   
     // メッセージのアニメーション
-    gsap.from('#message', {
+    gsap.from('.message', {
       opacity: 0,
       y: 50,
       duration: 1,
