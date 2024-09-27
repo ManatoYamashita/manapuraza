@@ -22,6 +22,7 @@ Blushed up in Puzzle inc Engineering intern 2023
 * 背景は`Three.js`で作成したマーチングキューブを配置しました。マウスアクションでカメラの角度を変えたりキューブの色を変えたりできます。
 * 初期状態は英語表記ですが、日本語と英語のトグルスイッチで切り替え可能です。
 * CI/CD(Github Actions)に対応しています。
+* GSAP animation
 
 ### About
 
