@@ -1,13 +1,11 @@
 <template>
     <div id="spnav">
         <nav class="menu-circle-social">
-            <input type="checkbox" href="#" class="menu-circle-open" name="menu-circle-open" id="menu-open"/>
+            <input type="checkbox" to="#" class="menu-circle-open" name="menu-circle-open" id="menu-open"/>
             <label class="menu-circle-open-button" for="menu-open" aria-label="メニューを開く">
-                <router-link to="/" class="menu-circle-item" aria-label="home">
                         <svg class="mp icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" viewBox="0 0 1440 1439.999935" preserveAspectRatio="xMidYMid meet" version="1.0">
                                 <path fill="#fff" d="M 443.851562 436.566406 C 493.277344 455.742188 517.992188 511.808594 498.441406 561.238281 L 342.414062 962.191406 C 323.234375 1011.613281 267.164062 1036.324219 217.742188 1017.15625 C 168.679688 997.964844 143.964844 941.902344 163.144531 892.472656 L 319.179688 491.148438 C 338.359375 442.09375 394.421875 417.382812 443.851562 436.566406 " fill-opacity="1" fill-rule="evenodd"/><path fill="#dddddd" d="M 1066.859375 436.566406 C 1116.289062 455.742188 1141.003906 511.808594 1121.816406 561.238281 L 965.421875 962.191406 C 946.238281 1011.613281 890.171875 1036.324219 841.117188 1017.15625 C 791.683594 997.964844 766.972656 941.902344 786.15625 892.472656 L 942.179688 491.148438 C 961.363281 442.09375 1017.429688 417.382812 1066.859375 436.566406 " fill-opacity="1" fill-rule="evenodd"/><path fill="#ffffff" d="M 443.851562 436.566406 C 394.421875 417.382812 338.359375 442.09375 319.179688 491.148438 L 163.144531 892.472656 C 143.964844 941.902344 168.679688 997.964844 217.742188 1017.15625 C 267.164062 1036.324219 323.234375 1011.613281 342.414062 962.191406 L 498.441406 561.238281 C 517.992188 511.808594 493.277344 455.742188 443.851562 436.566406 Z M 996.03125 436.566406 C 946.613281 455.742188 921.898438 511.808594 941.070312 561.238281 L 1097.105469 962.191406 C 1116.652344 1011.613281 1172.714844 1036.324219 1221.785156 1017.15625 C 1271.203125 997.964844 1295.917969 941.902344 1276.742188 892.472656 L 1120.347656 491.148438 C 1101.160156 442.09375 1045.097656 417.382812 996.03125 436.566406 Z M 755.539062 436.566406 C 804.59375 455.742188 829.304688 511.808594 810.132812 561.238281 L 654.101562 962.191406 C 634.921875 1011.613281 578.851562 1036.324219 529.425781 1017.15625 C 479.996094 997.964844 455.285156 941.902344 474.464844 892.472656 L 630.863281 491.148438 C 650.042969 442.09375 706.109375 417.382812 755.539062 436.566406 " fill-opacity="1" fill-rule="evenodd"/>
                         </svg>
-                </router-link>
             </label>
             <router-link to="/about" class="menu-circle-item" aria-label="山下マナトについて">
                 <svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 35" fill="#ffffff">
@@ -35,107 +33,107 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#spnav {
-  text-align: center;
-  z-index: 1;
-}
+        #spnav {
+                text-align: center;
+                z-index: 1;
+        }
 
-.menu-circle-item, .menu-circle-open-button {
-  border-radius: 100%;
-  background: var(--mpuraza-acsent);
-  width: 4rem;
-  height: 4rem;
-  margin-left: -2.5rem;
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  color: white;
-  text-align: center;
-  line-height: 4rem;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-  -webkit-transition: -webkit-transform ease-out 200ms;
-  transition: -webkit-transform ease-out 200ms;
-  transition: transform ease-out 200ms;
-  transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
-}
+        .menu-circle-item, .menu-circle-open-button {
+                border-radius: 100%;
+                background: var(--mpuraza-acsent);
+                width: 4rem;
+                height: 4rem;
+                margin-left: -2.5rem;
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                color: white;
+                text-align: center;
+                line-height: 4rem;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+                        
+                -webkit-transform: translate3d(0, 0, 0);
+                        transform: translate3d(0, 0, 0);
+                -webkit-transition: -webkit-transform ease-out 200ms;
+                transition: -webkit-transform ease-out 200ms;
+                transition: transform ease-out 200ms;
+                transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+        }
 
-.menu-circle-open {
-  display: none;
-}
-.menu-circle-open:checked + .menu-circle-open-button{
-  -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
-          transform: translate3d(0, 0, 0) rotate(-45deg);
-}
-.menu-circle-social{
-  box-sizing: border-box;
-  font-size: 2rem;
-}
-.menu-circle-item:nth-child(3) {
-  -webkit-transition-duration: 70ms;
-          transition-duration: 70ms;
-}
-.menu-circle-item:nth-child(4) {
-  -webkit-transition-duration: 130ms;
-          transition-duration: 130ms;
-}
-.menu-circle-open-button {
-  z-index: 1;
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -webkit-transition-duration: 400ms;
-          transition-duration: 400ms;
-  -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-          transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-  cursor: pointer;
-}
+        .menu-circle-open {
+                display: none;
+        }
+        .menu-circle-open:checked + .menu-circle-open-button{
+                -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
+                        transform: translate3d(0, 0, 0) rotate(-45deg);
+        }
+        .menu-circle-social{
+                box-sizing: border-box;
+                font-size: 2rem;
+        }
+        .menu-circle-item:nth-child(3) {
+                -webkit-transition-duration: 70ms;
+                        transition-duration: 70ms;
+        }
+        .menu-circle-item:nth-child(4) {
+                -webkit-transition-duration: 130ms;
+                        transition-duration: 130ms;
+        }
+        .menu-circle-open-button {
+                z-index: 1;
+                -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                -webkit-transition-duration: 400ms;
+                        transition-duration: 400ms;
+                -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+                        transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+                cursor: pointer;
+        }
 
-.menu-circle-open-button:hover {
-  -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
-          transform: scale(1.2, 1.2) translate3d(0, 0, 0);
-}
+        .menu-circle-open-button:hover {
+                -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+                        transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+        }
 
-.menu-circle-open:checked + .menu-circle-open-button {
-  -webkit-transition-timing-function: linear;
-          transition-timing-function: linear;
-  -webkit-transition-duration: 200ms;
-          transition-duration: 200ms;
-  -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
-          transform: scale(0.8, 0.8) translate3d(0, 0, 0);
-}
-.menu-circle-open:checked ~ .menu-circle-item {
-  -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
-          transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
-}
-.menu-circle-open:checked ~ .menu-circle-item:nth-child(3) {
-  -webkit-transition-duration: 160ms;
-          transition-duration: 160ms;
-  -webkit-transform: translate3d(4rem, 0, 0);
-          transform: translate3d(4rem, 0, 0);
-}
-.menu-circle-open:checked ~ .menu-circle-item:nth-child(4) {
-  -webkit-transition-duration: 240ms;
-          transition-duration: 240ms;
-  -webkit-transform: translate3d(-4rem, 0, 0);
-          transform: translate3d(-4rem, 0, 0);
-}
-label {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-}
-.icons {
-        width: 2rem;
-        height: 2rem;
-        margin: 0 auto;
-        fill: #fff;
-        transition: all 0.3s ease;
-}
-.mp {
-        width: 3rem;
-        height: 3rem;
-}
+        .menu-circle-open:checked + .menu-circle-open-button {
+                -webkit-transition-timing-function: linear;
+                        transition-timing-function: linear;
+                -webkit-transition-duration: 200ms;
+                        transition-duration: 200ms;
+                -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+                        transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+        }
+        .menu-circle-open:checked ~ .menu-circle-item {
+                -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+                        transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+        }
+        .menu-circle-open:checked ~ .menu-circle-item:nth-child(3) {
+                -webkit-transition-duration: 160ms;
+                        transition-duration: 160ms;
+                -webkit-transform: translate3d(4rem, 0, 0);
+                        transform: translate3d(4rem, 0, 0);
+        }
+        .menu-circle-open:checked ~ .menu-circle-item:nth-child(4) {
+                -webkit-transition-duration: 240ms;
+                        transition-duration: 240ms;
+                -webkit-transform: translate3d(-4rem, 0, 0);
+                        transform: translate3d(-4rem, 0, 0);
+        }
+        label {
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+        }
+        .icons {
+                width: 2rem;
+                height: 2rem;
+                margin: 0 auto;
+                fill: #fff;
+                transition: all 0.3s ease;
+        }
+        .mp {
+                width: 3rem;
+                height: 3rem;
+        }
 </style>
