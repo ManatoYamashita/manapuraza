@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="main">
+  <div class="about">
     <h1>About</h1>
     <h2>{{ t('about.ym') }}</h2>
 
@@ -24,17 +24,14 @@
 </template>
 
 <style scoped>
-  .main {
-    width: 90%;
+  .about {
+    width: 100%;
     margin: 0 auto;
+    padding: 1rem;
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 2.2rem;
     margin-top: 5rem;
-  }
-
-  .his {
-    padding-bottom: 10vh;
   }
 </style>

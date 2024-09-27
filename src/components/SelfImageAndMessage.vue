@@ -1,15 +1,14 @@
 <template>
-    <section class="howyoufeel">
+    <section class="image-and-paragraph">
       <div class="self-image">
         <img fetchpriority="high" :src="imageSrc" alt="山下マナト" />
       </div>
-      <div id="message">
+      <div class="message">
+        <strong class="howyoufeel">How you feel?</strong>
         <p>
-          <strong id="howyoufeel">How you feel?</strong>
-          <br />
           {{ t('about.passage') }} &#x1F34C;
         </p>
-        <Sns id="sns" />
+        <Sns />
       </div>
     </section>
 </template>
@@ -43,45 +42,53 @@
 </script>
   
 <style scoped>
-  .howyoufeel {
+  .image-and-paragraph {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   }
   .self-image {
-    width: 30%;
+    width: 50%;
+    max-width: 300px;
     margin: 0;
-    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
   .self-image img {
     width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
   }
-  #message {
+  .message {
+    display: flex;
+    flex-direction: column;
     width: 70%;
     padding-left: 2rem;
   }
-  #message p {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    margin: 0;
+  .message strong.howyoufeel {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
-  #howyoufeel {
+  .message p {
     font-size: 1.2rem;
+    line-height: 1.5rem;
     margin: 0;
   }
   
   /* レスポンシブ対応 */
   @media screen and (max-width: 540px) {
-    .howyoufeel {
+    .image-and-paragraph {
       flex-direction: column;
       align-items: center;
     }
     .self-image {
-      width: 50%;
+      width: 75%;
+      height: 30vh;
+      object-fit: cover;
       margin: 0 auto;
+      overflow: hidden;
     }
-    #message {
+    .message {
       width: 90%;
       padding: 1rem 0;
     }

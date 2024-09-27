@@ -10,6 +10,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+// 必要なアイコンをインポート
+import { faEnvelope, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faTwitter, faLinkedin, faInstagram, faDiscord } from '@fortawesome/free-brands-svg-icons';
+
+// アイコンをライブラリに追加
+library.add(faLink, faEnvelope, faGithub, faTwitter, faLinkedin, faInstagram, faDiscord);
+
 import { createI18n } from 'vue-i18n';
 import en from '/locales/en.json';
 import ja from '/locales/ja.json';
@@ -30,6 +37,7 @@ const app = createApp(App)
 const navbar = createApp(Navbar)
 const metaball = createApp(MetaBall)
 app.component('fa', FontAwesomeIcon)
+app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.use(router)
 navbar.use(router)

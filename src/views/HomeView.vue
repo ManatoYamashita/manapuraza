@@ -1,7 +1,7 @@
-<template><div></div></template>
+<template><div class="home"></div></template>
 
 <style lang="css" scoped>
-  main {
+  .home {
     display: none;
   }
 </style>

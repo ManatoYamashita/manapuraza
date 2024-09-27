@@ -1,7 +1,6 @@
-<!-- HistoryView.vue -->
 <template>
   <div id="main">
-    <div class="timeline">
+    <div class="timeline" ref="timeline">
       <div
         class="entry"
         v-for="(item, index) in historyItems"
@@ -10,7 +9,7 @@
         <div class="title">
           <h3>{{ item.year }}</h3>
         </div>
-        <div class="body" :class="'p' + (index + 1)">
+        <div class="incident" :class="'p' + (index + 1)">
           <h3>{{ t(item.titleKey) }}</h3>
           <p>{{ t(item.descriptionKey) }}</p>
         </div>
@@ -20,16 +19,16 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { gsap } from 'gsap';
+import CSSRulePlugin from 'gsap/CSSRulePlugin';
 
 export default {
   name: 'History',
   setup() {
     const { t } = useI18n();
 
-    // 履歴項目を定義
     const historyItems = ref([
       { year: '2002', titleKey: 'his.02', descriptionKey: 'his.02-de' },
       { year: '2003', titleKey: 'his.03', descriptionKey: 'his.03-de' },
@@ -42,16 +41,15 @@ export default {
       { year: '2023', titleKey: 'his.23-2', descriptionKey: 'his.23-2-de' },
     ]);
 
+    const timelineRef = ref(null);
+
     onMounted(() => {
-      // タイムラインの線のアニメーション
-      gsap.from('.timeline:before', {
-        height: 0,
-        duration: 1,
-        ease: 'power2.out',
-      });
+      const instance = getCurrentInstance();
+      const root = instance.proxy.$el;
+      const entries = root.querySelectorAll('.entry');
 
       // 各エントリーのアニメーション
-      gsap.from('.entry', {
+      gsap.from(entries, {
         opacity: 0,
         y: 50,
         duration: 1,
@@ -60,26 +58,23 @@ export default {
       });
     });
 
-    return { t, historyItems };
+    return { t, historyItems, timelineRef };
   },
 };
 </script>
 
 <style scoped>
-  /* * {
-    pointer-events: all;
-  } */
   #main {
     width: 100%;
     min-height: 100vh;
     max-width: 800px;
+    overflow-y: hidden;
   }
   .timeline {
     width: 100%;
     height: 100%;
     padding: 2rem 0 5rem 0;
     position: relative;
-    margin-bottom: 50vh;
   }
   .timeline:before {
     content: '';
@@ -125,7 +120,7 @@ export default {
     margin: 0;
     font-size: small;
   }
-  .body {
+  .incident {
     float: right;
     width: 66%;
     padding-left: 2rem;
@@ -152,5 +147,4 @@ export default {
   .p7 {
     margin-bottom: 2rem;
   }
-
 </style>

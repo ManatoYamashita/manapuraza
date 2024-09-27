@@ -1,5 +1,5 @@
 <template>
-    <section class="profile">
+    <section class="profile-table">
       <h2>Profile</h2>
       <table>
         <tbody>
@@ -79,17 +79,13 @@
 </script>
   
 <style scoped>
-  .profile {
+  .profile-table {
     margin: 0;
   }
   
   table {
     width: 100%;
     margin: 0;
-  }
-  
-  tr {
-    border-bottom: 2px solid #101010;
   }
 
   th,
@@ -114,15 +110,8 @@
     table {
       display: block;
     }
-    tr {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    th,
-    td {
+    th, td {
       width: 100%;
-      text-align: center;
     }
   }
 </style>

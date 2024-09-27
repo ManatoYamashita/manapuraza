@@ -7,7 +7,7 @@
     <div class="app glass">
       <router-view v-slot="{ Component }">
         <transition name="slide" mode="out-in">
-          <component :is="Component" />
+          <component :is="Component" id="scrollable-aria" />
         </transition>
       </router-view>
     </div>
@@ -108,12 +108,10 @@
     padding: 2rem 2rem 0 2rem;
     margin: 1rem auto;
     border-radius: 10px;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: transparent;
     transition: .5s ease-in-out;
     z-index: 1;
+    scroll-behavior: none;
+    overflow-y: hidden;
   }
   .glass {
     background-color: rgba(255, 255, 255, 0.1); /* 背景色 */
@@ -124,6 +122,15 @@
     -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
     backdrop-filter: blur(20px);
     box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
+  }
+  #scrollable-aria {
+    overflow-y: auto;
+    height: 100%;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent;
   }
   ::-webkit-scrollbar {
     overflow: scroll;
@@ -174,7 +181,7 @@
     .app {
       width: 90vw;
       height: 70vh;
-      padding: 1rem;
+      padding: 1rem 0;
       margin: 1rem auto;
     }
     #sp-nav {

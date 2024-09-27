@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div class="works">
     <h1>Works</h1>
 
     <main>
@@ -78,7 +78,7 @@
       generateWorks(category) {
         const urlLists = {
           graphics: [
-            'https://tcu-yamamana.notion.site/Graphics-and-Illustrations-94affc98e29f4ec6be668b05eb7eac13?pvs=4',
+            'https://www.pixiv.net/users/87914659',
           ],
           prog: [
             'https://manapuraza.com',
@@ -123,8 +123,10 @@
 </script>
 
 <style scoped>
-  #main {
+  .works {
     width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
   }
   #main-contents {
     width: 100%;
@@ -169,7 +171,7 @@
   }
 
   @media (max-width: 540px) {
-    main {
+    .works {
       display: block;
     }
     #main-contents {
