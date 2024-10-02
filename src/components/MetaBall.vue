@@ -5,16 +5,17 @@
 </template>
 
 <script>
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
+import { PerspectiveCamera, Scene, TextureLoader, WebGLRenderer, Clock } from 'three';
+import { AmbientLight, DirectionalLight, PointLight } from 'three';
+import { MeshPhongMaterial } from 'three';
+// import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+// import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
 import backgroundimage from '@/assets/background.webp';
 
 export default {
     name: 'MetaBall',
     data() {
         return {
-            // Three.jsオブジェクトはdata()に入れない
             resolution: 30,
             effectController: {
                 material: 'plastic',
@@ -24,11 +25,11 @@ export default {
                 isolation: 10,
             },
             time: 0,
-            clock: new THREE.Clock(),
+            clock: new Clock(),
         };
     },
-    mounted() {
-        this.init();
+    async mounted() {
+        await this.init();
         this.animate();
         window.addEventListener('resize', this.onWindowResize);
     },
@@ -36,16 +37,16 @@ export default {
         window.removeEventListener('resize', this.onWindowResize);
     },
     methods: {
-        init() {
+        async init() {
             this.container = this.$refs.container;
 
             // カメラの設定
-            this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
+            this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
             this.camera.position.set(-100, 300, 400);
 
             // シーンの設定
-            this.scene = new THREE.Scene();
-            const textureLoader = new THREE.TextureLoader();
+            this.scene = new Scene();
+            const textureLoader = new TextureLoader();
             const backgroundTexture = textureLoader.load(backgroundimage);
             this.scene.background = backgroundTexture;
 
@@ -54,6 +55,9 @@ export default {
 
             // マテリアルの生成
             this.materials = this.generateMaterials();
+
+            const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
+            const { MarchingCubes } = await import('three/addons/objects/MarchingCubes.js');
 
             // Marching Cubesの設定
             this.effect = new MarchingCubes(
@@ -68,15 +72,15 @@ export default {
             this.scene.add(this.effect);
 
             // レンダラーの設定
-            this.renderer = new THREE.WebGLRenderer({ antialias: false });
+            this.renderer = new WebGLRenderer({ antialias: false });
             this.renderer.setPixelRatio(window.devicePixelRatio * 0.5);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.container.appendChild(this.renderer.domElement);
 
-            // **デバイスがタッチ対応かどうかを判定**
+            // デバイスがタッチ対応かどうかを判定
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-            // **タッチデバイスでない場合にのみOrbitControlsを初期化**
+            // タッチデバイスでない場合にのみOrbitControlsを初期化
             if (!isTouchDevice) {
                 // コントロールの設定
                 this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -109,13 +113,15 @@ export default {
             this.renderer.render(this.scene, this.camera);
         },
         onWindowResize() {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            if (this.camera && this.renderer) {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
         },
         generateMaterials() {
             return {
-                plastic: new THREE.MeshPhongMaterial({
+                plastic: new MeshPhongMaterial({
                     specular: 0xffff00,
                     shininess: 10,
                     color: 0xffa500,
@@ -125,17 +131,15 @@ export default {
             };
         },
         setupLights() {
-            // 環境光
-            this.ambientLight = new THREE.AmbientLight(0xffffff, 1);
+            // 照明設定
+            this.ambientLight = new AmbientLight(0xffffff, 1);
             this.scene.add(this.ambientLight);
 
-            // 平行光源
-            this.light = new THREE.DirectionalLight(0xffffff, 0.5);
+            this.light = new DirectionalLight(0xffffff, 0.5);
             this.light.position.set(0.5, 1, 0.5);
             this.scene.add(this.light);
 
-            // 点光源
-            this.pointLight = new THREE.PointLight(0xffffff, 10, 1, 1);
+            this.pointLight = new PointLight(0xffffff, 10, 1, 1);
             this.pointLight.position.set(0, 0, 50);
             this.scene.add(this.pointLight);
         },

@@ -10,6 +10,21 @@ export default defineConfig({
   ],
   build: {
     sourcemap: true,
+    rollupOptions: {
+      output: {
+          manualChunks(id) {
+              if (id.includes('node_modules')) {
+                  if (id.includes('three')) {
+                      return 'vendor_three';
+                  }
+                  return 'vendor';
+              }
+          },
+      },
+    },
+  },
+  server: {
+    historyApiFallback: true,
   },
   assetsInclude: ["robots.txt"],
   resolve: {
