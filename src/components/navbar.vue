@@ -3,7 +3,14 @@
         <div class="logo">
                 <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
                     <transition name="slide" mode="out-in" aria-current="page">
-                      <img src="@/assets/logo.webp" alt="manapuraza.com logo" loading="lazy" class="logo" v-show="currentPath !== '/'">
+                        <img 
+                            src="@/assets/logo.webp" 
+                            alt="manapuraza.com logo" 
+                            loading="lazy" 
+                            class="logo" 
+                            v-show="currentPath 
+                            !== '/'"
+                        />
                     </transition>
                 </RouterLink>
         </div>
@@ -61,6 +68,7 @@
         width: 55%;
         min-width: 200px;
         overflow: hidden;
+        cursor: alias;
     }
     img {
         height: 100%;
@@ -71,7 +79,7 @@
         font-size: 1.2rem;
         font-weight: bold;
         padding: 0 1rem;
-        cursor: pointer;
+        cursor: help;
     }
     .rlink:hover {
         color: skyblue;

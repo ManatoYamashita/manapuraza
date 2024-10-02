@@ -1,7 +1,15 @@
 <template>
   <div id="main">
-    <a href="https://manapuraza.com" aria-current="page">
-      <img fetchpriority="high" src="@/assets/logo.webp" alt="ホームページに戻る" draggable="false" id="center-logo" :class="className" :style="styleObject" />
+    <a href="https://manapuraza.com" aria-current="page" class="home-logo">
+      <img 
+        fetchpriority="high" 
+        src="@/assets/logo.webp" 
+        alt="ホームページに戻る" 
+        draggable="false" 
+        id="center-logo" 
+        :class="className" 
+        :style="styleObject" 
+      />
     </a>
   
     <div class="app glass">
@@ -78,6 +86,11 @@
     height: 100%;
     display: contents;
   }
+  .home-logo {
+    pointer-events: all;
+    z-index: 1;
+    overflow-y: hidden;
+  }
   #center-logo {
     position: absolute;
     top: 43%;
@@ -85,6 +98,7 @@
     width: 500px;
     height: auto;
     transform: translate(-50%, -50%);
+    transition: all .5s ease-in-out;
   }
   #sp-nav {
     display: none;

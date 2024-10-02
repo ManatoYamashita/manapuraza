@@ -21,7 +21,7 @@ export default {
                 speed: 0.1,
                 numBlobs: 3,
                 resolution: 30,
-                isolation: 4,
+                isolation: 10,
             },
             time: 0,
             clock: new THREE.Clock(),
@@ -40,8 +40,8 @@ export default {
             this.container = this.$refs.container;
 
             // カメラの設定
-            this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
-            this.camera.position.set(-100, 300, 450);
+            this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
+            this.camera.position.set(-100, 300, 400);
 
             // シーンの設定
             this.scene = new THREE.Scene();
@@ -73,10 +73,16 @@ export default {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.container.appendChild(this.renderer.domElement);
 
-            // コントロールの設定
-            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-            this.controls.minDistance = 100;
-            this.controls.maxDistance = 500;
+            // **デバイスがタッチ対応かどうかを判定**
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            // **タッチデバイスでない場合にのみOrbitControlsを初期化**
+            if (!isTouchDevice) {
+                // コントロールの設定
+                this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.minDistance = 100;
+                this.controls.maxDistance = 500;
+            }
         },
         animate() {
             requestAnimationFrame(this.animate);

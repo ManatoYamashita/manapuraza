@@ -113,7 +113,6 @@ footer > div {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
 }
 
 @media (hover: hover) {
@@ -122,6 +121,16 @@ footer > div {
 	text-shadow: var(--mpuraza-acsent) 0px 0px 1rem;
   }
 }
+
+/* タブレット表示 */
+@media screen and (max-width: 1024px) {
+	/* 背景のcubesをコントロール不能にする。 */
+	#back {
+		pointer-events: none;
+		z-index: -1;
+	  }
+}
+
 /* スマートフォンの表示 */
 @media screen and (max-width: 540px) {
 	h1 {
@@ -137,7 +146,4 @@ footer > div {
 	_::-webkit-full-page-media, _:future, :root.safari_only {
 		padding-bottom: 65px;
 	}
-	#back {
-		pointer-events: none;
-	  }
 }
