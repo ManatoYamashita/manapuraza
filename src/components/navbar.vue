@@ -76,7 +76,7 @@
     .rlink {
         text-decoration: none;
         color: #000;
-        font-size: 1.2rem;
+        font-size: 1.7rem;
         font-weight: bold;
         padding: 0 1rem;
         cursor: help;
