@@ -86,7 +86,7 @@
 	    text-shadow: #4faef2 0 0px 1rem;
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;
-        animation: glow 1s ease-in-out infinite alternate;
+        animation: glow .3s ease-in-out infinite alternate;
     }
 
     .slide-enter-from,

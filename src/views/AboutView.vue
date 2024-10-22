@@ -11,11 +11,8 @@
   <div class="about">
     <h1>About</h1>
     <h2>{{ t('about.ym') }}</h2>
-
     <SelfImageAndMessage />
-
     <ProfileTable />
-
     <div class="his">
       <h2>History</h2>
       <History />

@@ -7,7 +7,7 @@
       "passage": "I'm Manato Yamashita. studying computer science at the Department of Informatics, at Tokyo City University. My hobbies are create digital contents(ex: illustration, animation, web and so on...) and reading. my favorite writer is Sayaka Murata.This site is for my portfolio named MANAPURAZA.COM from Manato(my name) + Tamaplaza(the station near my living) I love all of creative activities! and banana.",
       "name": "Name",
       "name-co": "Manato Yamashita",
-      "sex": "Sex / Gneder",
+      "sex": "Sex / Gender",
       "sex-co": "Man",
       "birth": "Birthday",
       "birth-co": "2002/04/17",
@@ -125,7 +125,11 @@
           "18": {
               "title": "Tokyo City University Student Organization",
               "description": "The official site of the Student Union Headquarters. Built with HTML, CSS, Javascript, and GAS."
-          }
+          },
+            "19": {
+                "title": "Text auto-laytout WebApp",
+                "description": "A webApp for my resarch in TCU Seki lab. based on reseach by DNP. Buiilt with Next.js+Typescript, shadcn-ui and GSAP usiing BudouX."
+            }
       },
       "video": {
           "1": {

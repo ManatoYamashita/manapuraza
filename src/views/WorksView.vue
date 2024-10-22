@@ -99,6 +99,7 @@
             'https://hpb-2023.manapuraza.com/',
             'https://tcu-animation.manapuraza.com/',
             'https://www.sto.tcu.ac.jp/',
+            'https://text-layout.manapuraza.com/',
           ],
           video: [
             'https://www.youtube.com/@manapuraza',
