@@ -42,7 +42,7 @@ export default {
 
             // カメラの設定
             this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
-            this.camera.position.set(-100, 300, 400);
+            this.camera.position.set(100, 100, 400);
 
             // シーンの設定
             this.scene = new Scene();
