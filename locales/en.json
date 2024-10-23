@@ -128,7 +128,7 @@
           },
             "19": {
                 "title": "Text auto-laytout WebApp",
-                "description": "A webApp for my resarch in TCU Seki lab. based on reseach by DNP. Buiilt with Next.js+Typescript, shadcn-ui and GSAP usiing BudouX."
+                "description": "A webApp for my resarch in TCU Seki lab. based on reseach by DNP. Buiilt with Next.js+Typescript, shadcn-ui and GSAP using BudouX for Machine learning"
             }
       },
       "video": {
