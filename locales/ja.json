@@ -68,15 +68,15 @@
             },
             "4": {
                 "title": "AmauSyrup.net - 天羽しろっぷ非公式ファンサイト",
-                "description": "Vtuberの非公式ウェブサイトで、Notion APIを利用したブログ機能を搭載。Next.js with TypescriptとGSAPのscrollTriggerを使っています。"
+                "description": "Vtuberの非公式ウェブサイトで、Notion APIを利用したブログ機能があるのでコーディングの知識がなくてもコンテンツの更新が可能。Next.js with TypescriptとGSAPのscrollTriggerを使っています。"
             },
             "5": {
                 "title": "東京都市大学 同好会連合",
                 "description": "東京都市大学同好会連合の会長をしていた時に作ったサイトCMSを使用しています。開発と保守、運用を担当していました。大学の共用WWWサーバにデプロイ"
             },
             "6": {
-                "title": "Jamstack Blog test",
-                "description": "Jamstack（Nuxt3 + microCMS）で構築されたブログのテストウェブサイト"
+                "title": "TCU Alumni Association(Demo)",
+                "description": "ミニマルなイメージのコーポレートサイト。コーディングを必要とせず、コンテンツを更新することが可能。提案で使用したデモ版です。Next.js + microCMS + gsapで構築。レスポンシブデザインに対応"
             },
             "7": {
                 "title": "Chaintence",
@@ -91,8 +91,8 @@
                 "description": "研究室のWebサイトNuxt.js3とmicroCMSで構築"
             },
             "10": {
-                "title": "情報セキュリティクイズ",
-                "description": "研究室の紹介のために作ったクイズアプリVue.js2で構築。Vecelでデプロイ"
+                "title": "オフィス露木",
+                "description": "ミニマルなイメージのコーポレートサイトのプレビューです。コーディングを必要とせず、コンテンツを更新することが可能。 Next.js + microCMS + gsapで構築。レスポンシブデザインに対応"
             },
             "11": {
                 "title": "キラキラ大学生研究会 1周年記念",
@@ -133,12 +133,12 @@
         },
         "video": {
             "1": {
-                "title": "個人Youtubeチャンネル2",
-                "description": "高校生の頃にゆっくり動画をアップロードしていたチャンネル。メインチャンネルがBANされてしまったため、現在使用しています。"
-            },
-            "2": {
                 "title": "TCU-DC(サークル)のYouTubeチャンネル",
                 "description": "サークルの活動を紹介するYouTubeチャンネル。一部の作品は私が作った映像ではないものも含まれます。"
+            },
+            "2": {
+                "title": "個人Youtubeチャンネル2",
+                "description": "高校生の頃にゆっくり動画をアップロードしていたチャンネル。メインチャンネルがBANされてしまったため、現在使用しています。"
             }
         }
     },

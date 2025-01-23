@@ -75,9 +75,9 @@
               "description": "A site I created while serving as the president of the Tokyo City University Federation of Student Clubs. It uses a CMS. I was responsible for development, maintenance, and operation. Deployed on the university's shared WWW server."
           },
           "6": {
-              "title": "Jamstack Blog Test",
-              "description": "A test website for a blog built with Jamstack (Nuxt 3 + microCMS)."
-          },
+            "title": "TCU Alumni Association(Demo)",
+            "description": "A minimal corporate site build with Next.js + microCMS + gsap"
+            },
           "7": {
               "title": "Chaintence",
               "description": "A WebApp for creating email texts by connecting templates, developed during a two-day hackathon. Built with NuxtJS and microCMS. I was responsible for frontend development and presentation."
@@ -91,9 +91,9 @@
               "description": "The website for the lab, built with Nuxt.js 3 and microCMS."
           },
           "10": {
-              "title": "Information Security Quiz",
-              "description": "A quiz app created to introduce the lab. Built with Vue.js 2 and deployed on Vercel."
-          },
+                "title": "Office TSUYUKI",
+                "description": "A minimal corporate site build with Next.js + microCMS + gsap"
+            },
           "11": {
               "title": "KillerDie 1st Anniversary",
               "description": "The official site for the 1st anniversary of a university's unofficial group. Built with Vue.js 3."
@@ -126,20 +126,20 @@
               "title": "Tokyo City University Student Organization",
               "description": "The official site of the Student Union Headquarters. Built with HTML, CSS, Javascript, and GAS."
           },
-            "19": {
+          "19": {
                 "title": "Text auto-laytout WebApp",
                 "description": "A webApp for my resarch in TCU Seki lab. based on reseach by DNP. Buiilt with Next.js+Typescript, shadcn-ui and GSAP using BudouX for Machine learning"
             }
       },
       "video": {
-          "1": {
-              "title": "Personal YouTube Channel 2",
-              "description": "A channel where I uploaded Yukkuri videos during high school. Currently in use after the main channel was banned."
-          },
-          "2": {
-              "title": "TCU-DC (Club) YouTube Channel",
-              "description": "A YouTube channel showcasing the activities of the club. Some of the videos were not created by me."
-          }
+        "1": {
+            "title": "TCU-DC (Club) YouTube Channel",
+            "description": "A YouTube channel showcasing the activities of the club. Some of the videos were not created by me."
+        },
+        "2": {
+            "title": "Personal YouTube Channel 2",
+            "description": "A channel where I uploaded Yukkuri videos during high school. Currently in use after the main channel was banned."
+        }
       }
     },
     "404": {

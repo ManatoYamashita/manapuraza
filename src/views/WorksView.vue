@@ -5,6 +5,7 @@
     <main>
       <div id="main-contents">
         <h2>Illustration / Graphics</h2>
+        <p></p>
         <ul>
           <WorkItem
             v-for="(work, index) in graphicsWorks"
@@ -86,11 +87,11 @@
             'https://tmana.sub.jp/numeron/dirs/src/numeron.html',
             'https://amausyrup.net',
             'https://www.comm.tcu.ac.jp/tcu-acc/',
-            'https://jamstack-blog-test.vercel.app/',
+            'https://pomjp-beta.vercel.app/',
             'https://chaintence.shokm.net/',
             'https://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html',
             'https://www.comm.tcu.ac.jp/seki-ken',
-            'https://sekilab-quiz.vercel.app/',
+            'https://tcu-almni.vercel.app/',
             'https://killerdie-2023.netlify.app/',
             'https://population-todohuken.vercel.app/',
             'https://github.com/ManatoYamashita/SysB_wtm',
