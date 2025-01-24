@@ -1,11 +1,12 @@
 <template>
   <div class="works">
     <h1>Works</h1>
+    <p>デジタルコンテンツの制作を趣味として行っているだけでなく、業務委託や有償依頼の経験があります。デザイン力を持ち前のセンスの基礎として、それをWeb制作や動画編集、イラストレーションに生かしています。</p>
 
     <main>
       <div id="main-contents">
         <h2>Illustration / Graphics</h2>
-        <p></p>
+        <p>絵を描くことが趣味で、グラフィックデザインやアニメーションを得意としています。また、現在(2024年~)は世田谷区と共同で、総監督と原画+動画としてアニメーションを制作に携わっています。</p>
         <ul>
           <WorkItem
             v-for="(work, index) in graphicsWorks"
@@ -19,6 +20,7 @@
         </ul>
 
         <h2>Programming / Web</h2>
+        <p>情報系学部でC言語、Java言語、情報学の基礎を学んだだけではなく、独学でWeb系の技術を習得し、趣味や業務委託でWeb制作を行っています。Next.jsやGsapを使用したWebフロントエンドが最も得意な領域です。</p>
         <ul>
           <WorkItem
             v-for="(work, index) in programmingWorks"
@@ -32,6 +34,7 @@
         </ul>
 
         <h2>Video / Animation</h2>
+        <p>大学2年生で160名規模の映像制作のサークルの代表を務めるほか、コンペティションや有償の依頼で映像を制作する経験があります。Youtubeチャンネルは消されてしまいましたが、一部の映像が残っているので、載せておきます。</p>
         <ul>
           <WorkItem
             v-for="(work, index) in videoWorks"
