@@ -43,7 +43,9 @@
       "23-2-de": "2023 ~, Yokohama / Japan"
     },
     "works": {
+        "paragraph": "I have experience in commissioned work and paid requests, as well as hobbies in creating digital content (illustrations, animations, websites, etc.). I use my design skills as a foundation for my sense of creativity in web production, video editing, and illustration.",
       "graphics": {
+            "paragraph": "Drawing is a hobby of mine, and I am good at graphic design and animation. Currently (2024~), I am working as a general director and original drawing + animation for an animation produced in collaboration with Setagaya Ward.",
           "1": {
               "title": "Pixiv",
               "description": "A portfolio compiling my graphic design and illustration works."
@@ -54,6 +56,7 @@
           }
       },
       "prog": {
+            "paragraph": "I have not only learned the basics of C language, Java language, and information science in the Department of Information Science, but also acquired web technology through self-study and engaged in web production as a hobby and commissioned work. Web frontend using Typescript, Next.js, Nuxt, and GSAP is my strongest area.",
           "1": {
               "title": "manapuraza.com",
               "description": "A portfolio site showcasing some of my creative works during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. responsive CI/CD (This site)"
@@ -132,6 +135,7 @@
             }
       },
       "video": {
+        "paragraph": "I have experience in video editing and have created videos for various purposes. I have experience in creating videos for clubs and circles, as well as personal videos uploaded to YouTube. The YouTube channel I used during my university days has been deleted, but I have another channel where I uploaded Yukkuri videos during high school, which I am currently using.",
         "1": {
             "title": "TCU-DC (Club) YouTube Channel",
             "description": "A YouTube channel showcasing the activities of the club. Some of the videos were not created by me."
