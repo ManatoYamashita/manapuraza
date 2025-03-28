@@ -3,8 +3,8 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import Navbar from './components/Navbar.vue'
-import MetaBall from './components/MetaBall.vue'
+import Navbar from '@/components/Navbar.vue'
+import MetaBall from '@/components/MetaBall.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowUpRightFromSquare, faArrowRight, faFilm, faCode, faPalette, faVideo, faPlay, faGlobe } from '@fortawesome/free-solid-svg-icons'
@@ -60,6 +60,7 @@ navbar.use(router)
 metaball.use(router)
 app.use(i18n);
 navbar.use(i18n);
+metaball.use(i18n);
 
 app.mount('#app')
 navbar.mount('#navbar')
