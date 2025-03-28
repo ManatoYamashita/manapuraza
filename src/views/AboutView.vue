@@ -26,7 +26,7 @@
     margin: 0 auto;
     padding: 1rem;
     pointer-events: all;
-    scroll-behavior: auto;
+    /* scroll-behavior: auto; */
   }
 
   h2 {

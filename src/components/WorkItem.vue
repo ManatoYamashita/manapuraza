@@ -2,7 +2,7 @@
   <li class="work-item">
     <a :href="url" target="_blank">
       <div class="img-cover">
-        <img :src="thumbnail" :alt="title" loading="lazy" />
+        <img :src="resolvedThumbnail" :alt="title" loading="eager" @error="handleImageError" />
       </div>
       <h3>{{ title }} <fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
       <p>{{ description }}</p>
@@ -12,6 +12,7 @@
 
 <script>
   import { gsap } from 'gsap';
+  import { computed } from 'vue';
 
   export default {
     name: 'WorkItem',
@@ -20,7 +21,28 @@
       title: { type: String, required: true },
       description: { type: String, required: true },
       thumbnail: { type: String, required: true },
-      index: { type: Number, required: true }, // indexをpropsとして受け取る
+      index: { type: Number, required: true },
+    },
+    setup(props) {
+      // サムネイル画像パスを解決
+      const resolvedThumbnail = computed(() => {
+        try {
+          // @/ で始まるパスの場合は、importを試みる
+          if (props.thumbnail.startsWith('@/')) {
+            // 注意: この方法はビルド時に静的解析されるため、動的なパスでは機能しない
+            // 実際のプロジェクトでは、すべての画像を事前にインポートする必要がある
+            return new URL(props.thumbnail, import.meta.url).href;
+          }
+          return props.thumbnail;
+        } catch (error) {
+          console.error('画像パスの解決に失敗しました:', error);
+          return 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+        }
+      });
+
+      return {
+        resolvedThumbnail
+      };
     },
     mounted() {
       gsap.from(this.$el, {
@@ -30,6 +52,13 @@
         ease: 'power4.out',
       });
     },
+    methods: {
+      handleImageError(e) {
+        // エラー時にプレースホルダー画像に置き換え
+        e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+        console.warn(`画像の読み込みに失敗しました: ${this.thumbnail}`);
+      }
+    }
   };
 </script>
 

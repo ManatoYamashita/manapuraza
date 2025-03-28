@@ -123,7 +123,7 @@
     margin: 1rem auto;
     border-radius: 10px;
     transition: .5s ease-in-out;
-    scroll-behavior: none;
+    /* scroll-behavior: auto; */
     overflow-y: hidden;
   }
   .glass {

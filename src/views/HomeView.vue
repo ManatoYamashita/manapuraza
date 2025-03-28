@@ -4,7 +4,7 @@
   .home {
     display: none;
     pointer-events: none;
-    scroll-behavior: none;
+    /* scroll-behavior: none; */
     overflow: hidden;
   }
 </style>
