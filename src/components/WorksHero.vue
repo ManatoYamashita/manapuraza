@@ -2,7 +2,7 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-text">
-        <h1>Unleash <span>your</span> <span class="highlight">Design</span> <span>Exploration</span></h1>
+        <h1>Creatives <span>based on</span> <span class="highlight">Design</span></h1>
         <p class="hero-description">{{ $t('works.paragraph') }}</p>
         <div class="cta-button">
           <Btn 
@@ -118,7 +118,7 @@ onMounted(() => {
   width: 100%;
   padding: 3rem 2rem;
   margin-bottom: 3rem;
-  min-height: 100svh;
+  /* min-height: 100svh; */
 }
 
 .hero-content {
@@ -167,11 +167,11 @@ onMounted(() => {
 /* ドロップダウンメニューのスタイル */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 10px);
+  bottom: calc(100% + 10px);
   left: 0;
   width: 280px;
   background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   z-index: 100;

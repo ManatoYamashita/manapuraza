@@ -1,7 +1,7 @@
 <template>
   <section id="animation">
-    <h2>Animation</h2>
-    <p>{{ $t('works.animation.paragraph') }}</p>
+    <h2 class="section-title">Animation</h2>
+    <p class="section-description">{{ $t('works.animation.paragraph') }}</p>
     <div class="animation-item">
       <div class="video-container">
         <iframe
@@ -90,13 +90,39 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40%;
+  height: 3px;
+  background-color: rgba(255, 152, 79, 0.7);
+  border-radius: 2px;
+}
+
+.section-description {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+
 .video-container {
   position: relative;
   width: 100%;
   padding-top: 56.25%; /* 16:9のアスペクト比 */
-  margin: 1rem 0;
+  margin: 0.5rem 0 1.5rem;
   overflow: hidden;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
 }
 
 .video-container iframe {
@@ -106,77 +132,108 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  border-radius: 0.8rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .video-container:hover iframe {
   transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 .animation-title {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-}
-
-.animation-description {
-  font-size: 1rem;
-  margin: 0;
-}
-
-.animation-item {
-  margin-bottom: 2rem;
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .animation-info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .animation-links {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.animation-links > * {
+  flex: 1;
+  min-width: 150px;
 }
 
 .animation-details {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  margin: 0.5rem 0;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 1rem;
 }
 
 .animation-detail-item {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
   font-weight: normal;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.animation-detail-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {
   .animation-item {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 1.5rem;
-    align-items: center;
+    gap: 2rem;
+    align-items: start;
   }
   
   .animation-info {
-    padding-right: 1rem;
+    padding: 0.5rem;
   }
 }
 
 @media (max-width: 767px) {
   .animation-links {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  
+  .animation-item {
+    padding: 1.2rem;
+  }
+  
+  .animation-details {
+    padding: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
-  .animation-links {
-    grid-template-columns: 1fr;
+  .section-title {
+    font-size: 1.7rem;
+  }
+  
+  .animation-title {
+    font-size: 1.2rem;
+  }
+  
+  .animation-detail-item {
+    font-size: 0.9rem;
+  }
+  
+  .animation-item {
+    padding: 1rem;
   }
 }
 </style> 

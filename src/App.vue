@@ -1,7 +1,5 @@
 <template>
   <div id="main">
-    <Navbar id="navbar" />
-    <MetaBall id="back" />
     <a href="https://manapuraza.com" aria-current="page" class="home-logo">
       <img 
         fetchpriority="high" 
@@ -30,8 +28,6 @@
   import { watch, onMounted, computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import SpNav from '@/components/SpNav.vue';
-  import Navbar from '@/components/Navbar.vue';
-  import MetaBall from '@/components/MetaBall.vue';
   
   const route = useRoute();
   const router = useRouter();

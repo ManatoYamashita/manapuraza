@@ -50,14 +50,40 @@ const i18n = createI18n({
 library.add(faArrowUpRightFromSquare)
 
 const app = createApp(App)
+const navbar = createApp(Navbar)
+const metaball = createApp(MetaBall)
 
-// コンポーネントをグローバルに登録
-app.component('Navbar', Navbar)
-app.component('MetaBall', MetaBall)
 app.component('fa', FontAwesomeIcon)
 app.component('font-awesome-icon', FontAwesomeIcon)
+navbar.component('font-awesome-icon', FontAwesomeIcon)
+metaball.component('font-awesome-icon', FontAwesomeIcon)
 
 app.use(router)
+navbar.use(router)
+metaball.use(router)
 app.use(i18n)
+navbar.use(i18n)
+metaball.use(i18n)
+
+if ('mediaSession' in navigator) {
+  navigator.mediaSession.setActionHandler('play', function() {
+    // 再生処理
+  });
+  
+  navigator.mediaSession.setActionHandler('pause', function() {
+    // 一時停止処理
+  });
+  
+  // Picture-in-Picture の代わりに、以下の標準アクションを使用できます
+  navigator.mediaSession.setActionHandler('previoustrack', function() {
+    // 前のトラックへ
+  });
+  
+  navigator.mediaSession.setActionHandler('nexttrack', function() {
+    // 次のトラックへ
+  });
+}
 
 app.mount('#app')
+navbar.mount('#navbar')
+metaball.mount('#back')
