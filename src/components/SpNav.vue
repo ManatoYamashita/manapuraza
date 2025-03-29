@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
 export default {
-    name: 'spNav',
+    name: 'SpNav',
         methods: {
                 toggleLanguage() {
                 this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';

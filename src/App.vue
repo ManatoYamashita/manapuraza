@@ -29,7 +29,7 @@
 <script type="text/javascript" setup>
   import { watch, onMounted, computed } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import SpNav from '@/components/spNav.vue';
+  import SpNav from '@/components/SpNav.vue';
   import Navbar from '@/components/Navbar.vue';
   import MetaBall from '@/components/MetaBall.vue';
   
