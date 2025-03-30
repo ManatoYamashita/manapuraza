@@ -9,8 +9,7 @@
 
 <template>
   <div class="about">
-    <h1>About</h1>
-    <h2>{{ t('about.ym') }}</h2>
+    <h1>{{ t('about.ym') }}</h1>
     <SelfImageAndMessage />
     <ProfileTable />
     <div class="his">
@@ -26,7 +25,6 @@
     margin: 0 auto;
     padding: 1rem;
     pointer-events: all;
-    /* scroll-behavior: auto; */
   }
 
   h2 {

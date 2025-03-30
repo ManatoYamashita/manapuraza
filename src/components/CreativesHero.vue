@@ -3,7 +3,7 @@
     <div class="hero-content">
       <div class="hero-text">
         <h1>Creatives <span>based on</span> <span class="highlight">Design</span></h1>
-        <p class="hero-description">{{ $t('works.paragraph') }}</p>
+        <p class="hero-description">{{ $t('creatives.paragraph') }}</p>
         <div class="cta-button">
           <Btn 
             @click="toggleDropdown"

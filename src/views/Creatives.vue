@@ -1,6 +1,6 @@
 <template>
-  <div class="works">
-    <WorksHero />
+  <div class="creatives">
+    <CreativesHero />
 
     <main>
       <div id="main-contents">
@@ -8,15 +8,15 @@
 
         <section id="programming">
           <h2>Programming / Web</h2>
-          <p>{{ $t('works.prog.paragraph') }}</p>
+          <p>{{ $t('creatives.prog.paragraph') }}</p>
           <ul>
-            <WorkItem
-              v-for="(work, index) in worksData.programming"
-              :key="work.id"
-              :url="work.url"
-              :title="$t(work.title)"
-              :description="$t(work.description)"
-              :thumbnail="work.thumbnail"
+            <CreativeItem
+              v-for="(creative, index) in creativesData.programming"
+              :key="creative.id"
+              :url="creative.url"
+              :title="$t(creative.title)"
+              :description="$t(creative.description)"
+              :thumbnail="creative.thumbnail"
               :index="index"
             />
           </ul>
@@ -24,15 +24,15 @@
 
         <section id="graphics">
           <h2>Illustration / Graphics</h2>
-          <p>{{ $t('works.graphics.paragraph') }}</p>
+          <p>{{ $t('creatives.graphics.paragraph') }}</p>
           <ul>
-            <WorkItem
-              v-for="(work, index) in worksData.graphics"
-              :key="work.id"
-              :url="work.url"
-              :title="$t(work.title)"
-              :description="$t(work.description)"
-              :thumbnail="work.thumbnail"
+            <CreativeItem
+              v-for="(creative, index) in creativesData.graphics"
+              :key="creative.id"
+              :url="creative.url"
+              :title="$t(creative.title)"
+              :description="$t(creative.description)"
+              :thumbnail="creative.thumbnail"
               :index="index"
             />
           </ul>
@@ -40,15 +40,15 @@
 
         <section id="video">
           <h2>Video / Animation</h2>
-          <p>{{ $t('works.video.paragraph') }}</p>
+          <p>{{ $t('creatives.video.paragraph') }}</p>
           <ul>
-            <WorkItem
-              v-for="(work, index) in worksData.video"
-              :key="work.id"
-              :url="work.url"
-              :title="$t(work.title)"
-              :description="$t(work.description)"
-              :thumbnail="work.thumbnail"
+            <CreativeItem
+              v-for="(creative, index) in creativesData.video"
+              :key="creative.id"
+              :url="creative.url"
+              :title="$t(creative.title)"
+              :description="$t(creative.description)"
+              :thumbnail="creative.thumbnail"
               :index="index"
             />
           </ul>
@@ -71,12 +71,10 @@
 </template>
 
 <script setup>
-  import WorkItem from '@/components/WorkItem.vue';
-  import Btn from '@/components/Btn.vue';
-  import WorksHero from '@/components/WorksHero.vue';
+  import CreativeItem from '@/components/CreativeItem.vue';
+  import CreativesHero from '@/components/CreativesHero.vue';
   import AnimationSection from '@/components/AnimationSection.vue';
-  import { worksData } from '@/data/works';
-  import { onMounted } from 'vue';
+  import { creativesData } from '@/data/creatives';
   import { gsap } from 'gsap';
   import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -85,19 +83,19 @@
 
   // Composition APIではデータを直接参照できる
   defineExpose({
-    worksData
+    creativesData
   });
 </script>
 
 <style scoped>
-  .works {
+  .creatives {
     width: 100%;
     margin: 0 auto;
     padding: 1rem;
     pointer-events: all;
     scroll-behavior: smooth;
   }
-  .works p {
+  .creatives p {
     font-size: 1.3rem;
   }
   

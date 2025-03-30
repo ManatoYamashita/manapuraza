@@ -32,17 +32,17 @@
       "18": "Entered HONJO High School",
       "18-de": "2018 ~ 2021, Tokyo / Japan",
       "21": "Entered Tokyo City University",
-      "21-de": "2021 ~, Tokyo / Japan",
+      "21-de": "2021 ~ 2025, Tokyo / Japan",
       "21-2": "Live in Miyazakidai, Kawasaki",
-      "21-2-de": "2021 ~, Kawasaki / Japan",
+      "21-2-de": "2021 ~ 2022, Kawasaki / Japan",
       "22": "Entered Edith Cowan University",
       "22-de": "2022 ~ 2023, Perth, WA / Australia",
       "23": "Live in Saginuma, Kawasaki",
-      "23-de": "2023 ~, Kawasaki / Japan",
-      "23-2": "Started to research about Information Security at TCU Seki lab.",
-      "23-2-de": "2023 ~, Yokohama / Japan"
+      "23-de": "2023 ~ 2025, Kawasaki / Japan",
+      "25": "Joined MONO-X",
+      "25-de": "2025 ~, Tokyo / Minato-ku, Roppongi Hills"
     },
-    "works": {
+    "creatives": {
         "paragraph": "I have experience in commissioned work and paid requests, as well as hobbies in creating digital content (illustrations, animations, websites, etc.). I use my design skills as a foundation for my sense of creativity in web production, video editing, and illustration.",
         "animation": {
             "paragraph": "As a director, I created an original animation in collaboration with Setagaya Ward. I gathered 35 members, formed a volunteer group, and spent a year creating the setting, script, video, and music. With the cooperation of 81 Produce, we cast voice actors Kent Itou and Reina Ueda.",
@@ -65,7 +65,7 @@
             "paragraph": "I have not only learned the basics of C language, Java language, and information science in the Department of Information Science, but also acquired web technology through self-study and engaged in web production as a hobby and commissioned work. Web frontend using Typescript, Next.js, Nuxt, and GSAP is my strongest area.",
           "manapuraza": {
               "title": "manapuraza.com",
-              "description": "A portfolio site showcasing some of my creative works during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. responsive CI/CD (This site)"
+              "description": "A portfolio site showcasing some of my creative creative during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. responsive CI/CD (This site)"
           },
           "dcchanAi": {
             "title": "DC-chan AI",
@@ -144,11 +144,11 @@
         "paragraph": "Drawing is a hobby of mine, and I am good at graphic design and animation. Currently (2024~), I am working as a general director and original drawing + animation for an animation produced in collaboration with Setagaya Ward.",
             "pixiv": {
                 "title": "Pixiv",
-                "description": "A portfolio compiling my graphic design and illustration works."
+                "description": "A portfolio compiling my graphic design and illustration creative."
             },
             "webPortfolio": {
-                "title": "Web Portfolio Showcasing Overall Creative Works",
-                "description": "A web-based portfolio that gathers all my creative works."
+                "title": "Web Portfolio Showcasing Overall Creative creative",
+                "description": "A web-based portfolio that gathers all my creative creative."
             }
         },
       "video": {

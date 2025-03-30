@@ -63,19 +63,19 @@
   // テーブル行の参照を格納する配列
   const rows = ref([]);
   
-  onMounted(() => {
-    // テーブル行の要素を取得
-    const rowElements = rows.value;
+  // onMounted(() => {
+  //   // テーブル行の要素を取得
+  //   const rowElements = rows.value;
   
-    // アニメーションの設定
-    gsap.from(rowElements, {
-      opacity: 0,
-      y: 20,
-      duration: 1,
-      ease: 'power2.out',
-      stagger: 0.2,
-    });
-  });
+  //   // アニメーションの設定
+  //   gsap.from(rowElements, {
+  //     opacity: 0,
+  //     y: 20,
+  //     duration: 1,
+  //     ease: 'power2.out',
+  //     stagger: 0.2,
+  //   });
+  // });
 </script>
   
 <style scoped>
@@ -83,18 +83,50 @@
     margin: 0;
   }
   
+  h2 {
+    font-size: 2.2rem;
+    margin: 3rem 0 1.5rem 0;
+    position: relative;
+    display: inline-block;
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(67, 153, 187, 0.8) 0%, rgba(67, 153, 187, 0.2) 100%);
+  }
+  
   table {
     width: 100%;
     margin: 0;
+    border-collapse: separate;
+    border-spacing: 0 10px;
   }
 
+  .table-row {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+
+  .table-row:hover {
+    background-color: rgba(67, 153, 187, 0.1);
+    transform: translateY(-2px);
+  }
+  
   th,
   td {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
   }
   
   th {
     text-align: left;
+    font-weight: 600;
+    color: #333;
+    position: relative;
   }
   
   td {
@@ -104,14 +136,45 @@
   td a {
     color: inherit;
     text-decoration: none;
+    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  td a:hover {
+    color: rgb(67, 153, 187);
+  }
+
+  td a i {
+    font-size: 0.8rem;
   }
   
   @media screen and (max-width: 540px) {
     table {
       display: block;
+      border-spacing: 0;
     }
+    
+    tr {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
     th, td {
       width: 100%;
+      text-align: left;
+      padding: 0.5rem 0;
+    }
+    
+    td {
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      padding-top: 0.8rem;
     }
   }
 </style>

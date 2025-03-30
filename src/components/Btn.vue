@@ -78,7 +78,7 @@
 const props = defineProps({
   text: {
     type: String,
-    default: 'Sign up'
+    default: 'View More'
   },
   link: {
     type: String,
@@ -98,7 +98,7 @@ const props = defineProps({
   },
   alt: {
     type: String,
-    default: ''
+    default: 'button link(view more)'
   },
   showArrow: {
     type: Boolean,

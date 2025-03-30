@@ -22,7 +22,6 @@
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { gsap } from 'gsap';
-import CSSRulePlugin from 'gsap/CSSRulePlugin';
 
 export default {
   name: 'History',
@@ -38,7 +37,8 @@ export default {
       { year: '2021', titleKey: 'his.21-2', descriptionKey: 'his.21-2-de' },
       { year: '2022', titleKey: 'his.22', descriptionKey: 'his.22-de' },
       { year: '2023', titleKey: 'his.23', descriptionKey: 'his.23-de' },
-      { year: '2023', titleKey: 'his.23-2', descriptionKey: 'his.23-2-de' },
+      { year: '2025', titleKey: 'his.25', descriptionKey: 'his.25-de' },
+      
     ]);
 
     const timelineRef = ref(null);
@@ -126,25 +126,33 @@ export default {
     padding-left: 2rem;
     margin: 0;
   }
-  .p1 {
-    margin-bottom: 1rem;
+
+  /* 時代ごとの間隔 */
+  .p1 { /* 2002年 */
+    margin-bottom: 0.5rem;
   }
-  .p2 {
+  .p2 { /* 2003年 */
     margin-bottom: 6rem;
   }
-  .p3 {
-    margin-bottom: 2rem;
+  .p3 { /* 2015年 */
+    margin-bottom: 1.5rem;
   }
-  .p4 {
-    margin-bottom: 2rem;
+  .p4 { /* 2018年 */
+    margin-bottom: 1.5rem;
   }
-  .p5 {
-    margin-bottom: 2rem;
+  .p5 { /* 2021年 */
+    margin-bottom: 0;
   }
-  .p6 {
-    margin-bottom: 2rem;
+  .p6 { /* 2021年 */
+    margin-bottom: .5rem;
   }
-  .p7 {
-    margin-bottom: 2rem;
+  .p7 { /* 2022年 */ 
+    margin-bottom: .5rem;
+  }
+  .p8 { /* 2023年 */
+    margin-bottom: 1rem;
+  }
+  .p9 { /* 2025年 */
+    margin-bottom: 1rem;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <li class="work-item">
+  <li class="creative-item">
     <a :href="url" target="_blank">
       <div class="img-cover">
         <img :src="resolvedThumbnail" :alt="title" loading="eager" @error="handleImageError" />
@@ -15,7 +15,7 @@
   import { computed } from 'vue';
 
   export default {
-    name: 'WorkItem',
+    name: 'creativeItem',
     props: {
       url: { type: String, required: true },
       title: { type: String, required: true },
@@ -63,7 +63,7 @@
 </script>
 
 <style scoped>
-  .work-item {
+  .creative-item {
     margin: 1rem 0;
     overflow: hidden; /* overflow-yをoverflowに変更 */
   }

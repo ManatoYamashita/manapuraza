@@ -10,6 +10,7 @@
 :root {
   --color-background: var(--vt-c-yellow);
   --mpuraza-acsent: var(--vt-c-blue);
+  --primary-color: var(--vt-c-blue);
 }
 
 @media (prefers-color-scheme: dark) {

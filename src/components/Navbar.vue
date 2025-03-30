@@ -17,7 +17,7 @@
         
         <nav class="default-menu">
             <RouterLink to="/about" class="rlink">About</RouterLink>
-            <RouterLink to="/works" class="rlink">Works</RouterLink>
+            <RouterLink to="/creatives" class="rlink">Creatives</RouterLink>
         </nav>
 
         <div id="lang-switch">
