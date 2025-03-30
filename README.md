@@ -37,6 +37,8 @@
 
 ## 🎨 Design
 
+<img alt="manapuraza.com is support responsive design." src="https://github.com/user-attachments/assets/4de9da7b-453c-4974-8d88-4dfee0d39830" width="400" />
+
 ### Concept
 
 - **Grassmorphism**: Apple製品からインスピレーションを得た現代的なUIデザイン, グラスモーフィズム
