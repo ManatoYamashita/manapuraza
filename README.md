@@ -87,7 +87,7 @@ Vue i18nプラグインを用いて、サイトは以下の言語に対応して
 - [ ] ダークモードの実装
 - [ ] でじこんちゃんのインタラクション強化
 - [ ] JAMstackベースのブログ機能
-- [ ] パフォーマンス最適化
+- [ ] パフォーマンス最適化（Lighthouseの結果にパフォーマンス項目に改善の余地あり）
 - [ ] アクセシビリティの向上
 
 ## 🛠️ Process
@@ -107,6 +107,10 @@ graph LR
 - Composition APIを活用した再利用可能なロジック
 
 ### パフォーマンス最適化
+
+<img width="500" alt="lighthouse-desktop" src="https://github.com/user-attachments/assets/0408da41-f59b-4949-9969-f991969e198f" />
+<img width="500" alt="lighthouse-mobile" src="https://github.com/user-attachments/assets/e8379745-5b96-4703-86da-73d5830483ab" />
+
 
 - 画像の遅延読み込み（`loading="lazy"`）
 - 動的インポートによるコード分割
