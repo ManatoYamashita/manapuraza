@@ -67,7 +67,7 @@ export const creativesData = {
        id: 'officeTsuyuki',
        title: 'creatives.prog.officeTsuyuki.title',
        description: 'creatives.prog.officeTsuyuki.description',
-       url: 'https://pomjp-beta.vercel.app/',
+       url: 'https://pomjp-tsuyuki.vercel.app',
        thumbnail: pomjpBetaImg
      },
      {
