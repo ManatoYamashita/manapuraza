@@ -47,16 +47,6 @@
                 <span class="info-value">2023年</span>
               </div>
             </div>
-            
-            <!-- <div class="info-item">
-              <div class="info-icon">
-                <font-awesome-icon :icon="['fas', 'clock']" />
-              </div>
-              <div class="info-content">
-                <span class="info-label">上映時間</span>
-                <span class="info-value">約5分</span>
-              </div>
-            </div> -->
           </div>
           
           <div class="credits-section">
@@ -86,7 +76,7 @@
             </div>
           </div>
           
-          <div class="synopsis-section">
+          <!-- <div class="synopsis-section">
             <h4 class="section-subtitle">
               <font-awesome-icon :icon="['fas', 'book-open']" class="subtitle-icon" />
               <span>あらすじ</span>
@@ -94,7 +84,7 @@
             <p class="synopsis-text">
               「新BOP」とは、世田谷区が取り組む放課後の居場所づくり事業です。このアニメーションは、小学生の主人公が初めて新BOPを訪れ、そこでの活動や出会いを通じて成長する姿を描いています。
             </p>
-          </div>
+          </div> -->
           
           <div class="animation-links">
             <Btn 
@@ -197,17 +187,20 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .animation-section {
-  /* padding: 2rem 0; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden; */
 }
 
 .section-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
   position: relative;
 }
 
 .section-title {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
   font-weight: 700;
   display: inline-block;
   position: relative;
@@ -215,16 +208,16 @@ onBeforeUnmount(() => {
 
 .section-divider {
   height: 3px;
-  width: 80px;
+  width: 60px;
   background: linear-gradient(90deg, var(--primary-color), rgba(255, 142, 83, 0.3));
   border-radius: 3px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .section-description {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
   max-width: 800px;
   color: #333;
 }
@@ -245,19 +238,23 @@ onBeforeUnmount(() => {
 
 .content-wrapper {
   padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* overflow: hidden; */
 }
 
 .video-wrapper {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .video-container {
   position: relative;
   width: 100%;
   padding-top: 56.25%; /* 16:9 アスペクト比 */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .video-container iframe {
@@ -298,22 +295,20 @@ onBeforeUnmount(() => {
 } */
 
 .animation-title {
-  font-size: 1.5rem;
-  margin: 0 0 1.5rem;
+  font-size: 1.3rem;
+  margin: 0 0 0.8rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.2;
   color: #333;
   position: relative;
-  padding-bottom: 0.8rem;
-  /* border-bottom: 2px solid rgba(255, 142, 83, 0.2); */
+  padding-bottom: 0.5rem;
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  /* padding: 1rem; */
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 /* .info-item {
@@ -355,9 +350,9 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin: 1.5rem 0 1rem;
+  margin: 0.8rem 0 0.5rem;
   color: #444;
 }
 
@@ -368,8 +363,8 @@ onBeforeUnmount(() => {
 
 .credits-section, .synopsis-section {
   border-radius: 0.8rem;
-  padding: .5rem .7rem;
-  margin-bottom: 1.5rem;
+  padding: .3rem .5rem;
+  margin-bottom: 0.8rem;
 }
 
 .animation-details {
@@ -379,11 +374,11 @@ onBeforeUnmount(() => {
 }
 
 .animation-detail-item {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.4;
   position: relative;
-  padding-left: 1.2rem;
+  padding-left: 1rem;
   color: #444;
 }
 
@@ -401,8 +396,8 @@ onBeforeUnmount(() => {
 }
 
 .synopsis-text {
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.85rem;
+  line-height: 1.4;
   color: #444;
   margin: 0;
 }
@@ -410,8 +405,8 @@ onBeforeUnmount(() => {
 .animation-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 0.8rem;
+  margin-top: 1rem;
 }
 
 .animation-links > * {
@@ -448,6 +443,7 @@ onBeforeUnmount(() => {
   .content-wrapper {
     display: grid;
     grid-template-columns: 40% 60%;
+    max-height: none;
   }
   
   .video-wrapper {
@@ -461,43 +457,96 @@ onBeforeUnmount(() => {
   }
   
   .animation-info {
-    padding: 2rem 2.5rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  .credits-section {
+    flex: 0 0 auto;
+  }
+  
+  .synopsis-section {
+    flex: 0 0 auto;
   }
 }
 
 @media (max-width: 967px) {
   .video-wrapper {
     border-radius: 1.2rem 1.2rem 0 0;
+    max-height: 40vh;
+  }
+  
+  .content-wrapper {
+    max-height: none;
   }
   
   .info-grid {
     grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 480px) {
-  .section-title {
-    font-size: 1.8rem;
-  }
-  
-  .animation-title {
-    font-size: 1.3rem;
-  }
-  
-  .section-subtitle {
-    font-size: 1rem;
-  }
   
   .animation-info {
-    padding: 1.5rem;
+    padding: 0.8rem 1rem;
+    overflow: hidden;
   }
   
-  .credits-section, .synopsis-section {
-    /* padding: 1rem; */  
+  .credits-section {
+    display: none;
+  }
+  
+  .synopsis-section {
+    max-height: 15vh;
   }
   
   .animation-links {
-    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animation-section {
+    height: 100vh;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+  }
+  
+  .section-description {
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  
+  .animation-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .animation-info {
+    padding: 0.8rem;
+  }
+  
+  .credits-section, .synopsis-section {
+    padding: 0.2rem 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .animation-links {
+    flex-direction: row;
+    margin-top: 0.5rem;
+  }
+  
+  .animation-links > * {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
   }
 }
 </style>

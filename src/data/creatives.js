@@ -88,7 +88,7 @@ export const creativesData = {
        id: 'tcu-alumni',
        title: 'creatives.prog.tcuAlumni.title',
        description: 'creatives.prog.tcuAlumni.description',
-       url: 'https://tcu-almni.vercel.app/',
+       url: 'https://tcu-alumni.vercel.app',
        thumbnail: tcuAlmniImg
      },
     //  {
