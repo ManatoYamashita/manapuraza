@@ -137,6 +137,10 @@
             "textLayout": {
                 "title": "テキスト自動レイアウトWebApp",
                 "description": "卒業研究のために作った、テキストの自動レイアウトをするWebApp。DNPの論文で提唱されたレイアウトルールを適用させてテキストを自動でレイアウトします。Next.js+Typescript, shadcn-ui, GSAP, 機械学習ライブラリにBudouXを使用。"
+            },
+            "cococareer-lp": {
+                "title": "Cococareer LP",
+                "description": "COCOMOTION様の依頼でCococareerという就活サービスのLPを作成。Next.js, Typescript, GSAP, FramerMotion, microCMSで構築。"
             }
         },
         "graphics": {
