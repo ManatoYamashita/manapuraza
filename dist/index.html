@@ -4,35 +4,38 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <link rel="preload" href="/assets/logo-C8duE7kC.webp" as="image" type="image/webp">
+    <link rel="preload" href="/icon.webp" as="image" type="image/webp">
     <!-- SEO settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <meta name="description" content="A portfolio site of Manato Yamashita. 山下マナトのポートフォリオサイトです。">
-    <meta name="keywords" content="Manato Yamashita, 山下マナト, 都市大, ポートフォリオ, portfolio, TCU, Tokyo City University, 東京都市大学, 山下, manapuraza, デジコン, デジタルコンテンツ研究会">
+    <meta name="description" content="A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。">
+    <meta name="keywords" content="Manato Yamashita, 山下マナト, 山下真和都, 都市大, ポートフォリオ, portfolio, TCU, Tokyo City University, 東京都市大学, 山下, manapuraza, デジコン, デジタルコンテンツ研究会">
     <meta name="author" content="Manato Yamashita">
     <meta property="og:title" content="MANAPURAZA.COM - Manato Yamashita Portfolio 2023">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manapuraza.com/">
     <meta property="og:image" content="/ogp.jpg">
     <meta property="og:site_name" content="MANAPURAZA.COM">
-    <meta property="og:description" content="A portfolio site of Manato Yamashita. 山下マナトのポートフォリオサイトです。">
+    <meta property="og:description" content="A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:locale:alternate" content="zh_CN">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@tcu_dc">
     <meta name="twitter:creator" content="@tcu_dc">
+    <meta name="thumbnail" content="/src/assets/yamashitamanato.webp" />
     <title>MANAPURAZA.COM - 山下マナト</title>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ" defer></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-HHXTJ94LDJ');
+      window.addEventListener('load', function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HHXTJ94LDJ');
+      });
     </script>
 
   <script type="application/ld+json">
@@ -41,14 +44,14 @@
       "@type": "WebPage",
       "url": "https://manapuraza.com",
       "name": "manapuraza.com",
-      "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "Manato"],
-      "headline": "MANAPURAZA.COM - 山下マナト",
+      "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "Manato", "山下マナト"],
+      "headline": "MANAPURAZA.COM - 山下マナト（山下真和都）",
       "image": "https://manapuraza.com/ogp.jpg",
-      "description": "A portfolio site of Manato Yamashita. 山下マナトのポートフォリオサイトです。",
+      "description": "A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。",
       "author": {
         "@type": "Person",
         "name": "山下マナト",
-        "alternateName": ["Manato Yamashita", "ヤマシタマナト", "マナト", "山下真和都"],
+        "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "山下真和都"],
         "url": "https://manapuraza.com",
         "sameAs": [
           "https://bsky.app/profile/yamashita.bsky.social",
@@ -98,15 +101,16 @@
   </script>
 
 
-    <script type="module" crossorigin src="/assets/index-Jx97wcYy.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-CUWcFaxC.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor_three-B3oyhiLB.js">
+    <script type="module" crossorigin src="/assets/index-CJUQ4gBY.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-COwNOKo7.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor_three-DsJM6PeA.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor_fontawesome-D9RvXfIH.js">
     <link rel="stylesheet" crossorigin href="/assets/index-MMcppwKW.css">
   </head>
 
   <body>
     <div rel="preload" class="top-op"></div>
-    <img fetchpriority="high" loading="eager" src="/icon.webp" alt="icon" class="image-op" draggable="false" />
+    <img fetchpriority="high" loading="eager" width="150" height="150" src="/icon.webp" alt="icon" class="image-op" draggable="false" />
     <div id="back"></div>
 
 

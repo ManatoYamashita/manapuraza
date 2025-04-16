@@ -12,7 +12,7 @@
       />
     </a>
   
-    <div class="app glass">
+    <div class="app glass" :class="{'hidden': isHomePage}">
       <router-view v-slot="{ Component }">
         <transition name="slide" mode="out-in">
           <component :is="Component" id="scrollable-aria" />
@@ -25,20 +25,22 @@
 </template>
 
 <script type="text/javascript" setup>
-  import { watch, onMounted, computed } from 'vue';
+  import { watch, onMounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import SpNav from '@/components/SpNav.vue';
   
   const route = useRoute();
   const router = useRouter();
+  const isHomePage = ref(true);
 
   const checkRouterReady = async () => {
     await router.isReady();
+    updateHomePageState();
   };
 
-  watch(route, () => {
-    console.log('current route: ', route.name);
-    if (route.name === 'home') {
+  const updateHomePageState = () => {
+    isHomePage.value = route.name === 'home';
+    if (isHomePage.value) {
       document.querySelector('.app').style.top = '20vh';
       document.querySelector('.app').style.opacity = '0';
       document.querySelector('.app').style.pointerEvents = 'none';
@@ -47,6 +49,11 @@
       document.querySelector('.app').style.opacity = '1';
       document.querySelector('.app').style.pointerEvents = 'all';
     }
+  };
+
+  watch(route, () => {
+    console.log('current route: ', route.name);
+    updateHomePageState();
   });
 
   onMounted(() => {
@@ -113,6 +120,10 @@
     filter: blur(2rem);
     transition: all .4s ease-in-out;
     animation-delay: 1s;
+  }
+  .hidden {
+    visibility: hidden;
+    opacity: 0 !important;
   }
   .app {
     width: 85vw;

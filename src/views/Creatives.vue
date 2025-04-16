@@ -11,7 +11,7 @@
           <p>{{ $t('creatives.prog.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in creativesData.programming"
+              v-for="(creative, index) in randomizedProgramming"
               :key="creative.id"
               :url="creative.url"
               :title="$t(creative.title)"
@@ -77,9 +77,15 @@
   import { creativesData } from '@/data/creatives';
   import { gsap } from 'gsap';
   import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+  import { computed } from 'vue';
 
   // GSAPプラグインの登録
   gsap.registerPlugin(ScrollToPlugin);
+
+  // ランダムに並び替えられたプログラミング作品のリスト（Programming作品は順番をランダムに並び替える）
+  const randomizedProgramming = computed(() => {
+    return [...creativesData.programming].sort(() => Math.random() - 0.5);
+  });
 
   // Composition APIではデータを直接参照できる
   defineExpose({
