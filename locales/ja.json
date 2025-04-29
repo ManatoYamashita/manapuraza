@@ -141,6 +141,10 @@
             "cococareer-lp": {
                 "title": "Cococareer LP",
                 "description": "COCOMOTION様の依頼でCococareerという就活サービスのLPを作成。Next.js, Typescript, GSAP, FramerMotion, microCMSで構築。"
+            },
+            "k-kamiya": {
+                "title": "割烹神谷 Website",
+                "description": "川口にある和食レストラン『割烹神谷』の公式Webサイト。Next.js15(Typescript)で書かれ、microCMS, gsap, framer-motionを使用。Stripeでの決済を実装"
             }
         },
         "graphics": {

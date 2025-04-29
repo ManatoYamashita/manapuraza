@@ -27,6 +27,7 @@ import tcuAnimationImg from '@/assets/creatives-thumb/prog/tcu-animation.webp';
 import stoTcuImg from '@/assets/creatives-thumb/prog/tcu-sto.webp';
 import textLayoutImg from '@/assets/creatives-thumb/prog/textlayout.webp';
 import cococareerImg from '@/assets/creatives-thumb/prog/cococareer-lp.webp';
+import kkamiyaImg from '@/assets/creatives-thumb/prog/k-kamiya.webp'
 // グラフィックス作品
 import pixivGalleryImg from '@/assets/creatives-thumb/graphics/illustration.webp';
 // ビデオ / アニメーション作品
@@ -166,6 +167,13 @@ export const creativesData = {
        url: 'https://cococareer-lp.vercel.app/',
        thumbnail: cococareerImg
      },
+     {
+      id: 'k-kamiya', // 割烹神谷公式サイト
+      title: 'creatives.prog.k-kamiya.title',
+      description: 'creatives.prog.k-kamiya.description',
+      url: 'https://www.k-kamiya.net',
+      thumbnail: kkamiyaImg,
+     }
    ],
 
     // グラフィックス作品

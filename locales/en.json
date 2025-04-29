@@ -145,6 +145,10 @@
         "cococareer-lp": {
             "title": "Cococareer LP",
             "description": "A LP for Cococareer, a job hunting service. Built with Next.js, Typescript, GSAP, FramerMotion, microCMS."
+        },
+        "k-kamiya": {
+            "title": "Kappou KAMIYA Website",
+            "description": "A Website for Kappou-KAMIYA, a Japanese traditional restaurant at Kawaguchi, Saitama Using Next.js15(Typescript), microCMS, framer-motion, gsap and Stripe builling."
         }
       },
 
