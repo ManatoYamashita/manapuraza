@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <main class="error-page">
         <div class="container">
             <div class="error">
                 <div class="content">
@@ -18,10 +18,10 @@
                     </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
     * {
         margin: 0;
         padding: 0;

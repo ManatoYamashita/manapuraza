@@ -1,7 +1,7 @@
 <template>
     <section class="image-and-paragraph">
       <div class="self-image">
-        <img fetchpriority="high" :src="imageSrc" alt="山下マナト" />
+        <img fetchpriority="high" :src="imageSrc" alt="山下真和都(マナト) | Manato Yamashita" />
       </div>
       <div class="message">
         <strong class="howyoufeel">How you feel?</strong>
@@ -20,7 +20,7 @@
   import Sns from '@/components/Sns.vue';
   
   const { t } = useI18n();
-  const imageSrc = new URL('@/assets/yamashitamanato.webp', import.meta.url).href;
+  const imageSrc = new URL('@/assets/山下真和都(マナト).webp', import.meta.url).href;
   
   onMounted(() => {
     // 画像のアニメーション

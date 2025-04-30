@@ -1,7 +1,7 @@
-<template><div class="home"></div></template>
+<template><main class="home"></main></template>
 
 <style lang="css" scoped>
-  .home {
+  main.home {
     display: none;
     pointer-events: none;
     /* scroll-behavior: none; */

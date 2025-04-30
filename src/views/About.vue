@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="about">
+  <main class="about">
     <h1>{{ t('about.ym') }}</h1>
     <SelfImageAndMessage />
     <ProfileTable />
@@ -16,11 +16,11 @@
       <h2>History</h2>
       <History />
     </div>
-  </div>
+  </main>
 </template>
 
-<style scoped>
-  .about {
+<style lang="css" scoped>
+  main.about {
     width: 100%;
     margin: 0 auto;
     padding: 1rem;
