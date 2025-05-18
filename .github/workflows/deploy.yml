@@ -24,6 +24,9 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: List directory contents
+        run: ls -la
+
       - name: Check if dist directory exists
         run: |
           if [ ! -d "dist" ]; then
@@ -37,6 +40,5 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          # git-ftp-args: --remote-root /manapuraza/
+          local-dir: dist
           server-dir: /manapuraza/
