@@ -24,6 +24,13 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: Check if dist directory exists
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "dist directory does not exist"
+            exit 1
+          fi
+
       - name: Upload files via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
