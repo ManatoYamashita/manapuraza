@@ -15,7 +15,10 @@
     <meta property="og:title" content="MANAPURAZA.COM - 山下真和都(マナト) Portfolio 2023">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manapuraza.com/">
-    <meta property="og:image" content="/ogp.jpg">
+    <meta property="og:image" content="https://manapuraza.com/ogp.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="山下真和都(マナト)のポートフォリオサイト">
     <meta property="og:site_name" content="MANAPURAZA.COM">
     <meta property="og:description" content="A portfolio site of Manato Yamashita / 山下真和都(マナト)のポートフォリオサイトです。">
     <meta property="og:locale" content="ja_JP">
@@ -37,6 +40,7 @@
       });
     </script>
 
+    <!-- Schema.org(JSON-LD) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -45,13 +49,20 @@
         "name": "manapuraza.com",
         "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "Manato", "山下マナト"],
         "headline": "MANAPURAZA.COM - 山下マナト（山下真和都）",
-        "image": "https://manapuraza.com/ogp.jpg",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://manapuraza.com/ogp.jpg",
+          "width": 1200,
+          "height": 630,
+          "caption": "山下真和都(マナト)のポートフォリオサイト"
+        },
         "description": "A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。",
         "author": {
           "@type": "Person",
           "name": "山下マナト",
           "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "山下真和都"],
           "url": "https://manapuraza.com",
+          "image": "https://manapuraza.com/src/assets/山下真和都(マナト).webp",
           "sameAs": [
             "https://bsky.app/profile/yamashita.bsky.social",
             "https://www.linkedin.com/in/yamashitamanato",
@@ -65,7 +76,9 @@
           "name": "山下真和都(Manato Yamashita)",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://manapuraza.com/logo.webp"
+            "url": "https://manapuraza.com/logo.webp",
+            "width": 600,
+            "height": 60
           },
           "contactPoint": {
             "@type": "ContactPoint",
@@ -97,7 +110,7 @@
           "@id": "https://manapuraza.com"
         }
       }
-    </script>
+      </script>
   </head>
 
   <body>
