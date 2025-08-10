@@ -144,7 +144,7 @@ const handleMediaQueryChange = (e) => {
 };
 
 // GSAPアニメーションの初期化
-const initializeAnimations = () => {
+const initializeAnimations = (gsap) => {
   // アニメーションセクションのアニメーション
   gsap.from('#animation', {
     opacity: 0,
@@ -195,7 +195,7 @@ onMounted(async () => {
   mediaQueryList.addEventListener('change', handleMediaQueryChange);
   
   // GSAPアニメーションの実行
-  initializeAnimations();
+  initializeAnimations(gsap);
 });
 
 onBeforeUnmount(() => {

@@ -16,7 +16,8 @@ import {
   faPlay, 
   faGlobe,
   faEnvelope, 
-  faLink 
+  faLink,
+  faUsers
 } from '@fortawesome/free-solid-svg-icons'
 import { 
   faGithub, 
@@ -43,12 +44,13 @@ library.add(
   faPalette,
   faVideo,
   faPlay,
-  faGlobe
+  faGlobe,
+  faUsers
 );
 
-// Vue-i18n軽量版を使用（Tree shaking最適化）
+// Vue-i18n最適化版を使用（Tree shaking最適化）
 const setupI18n = async () => {
-  // 通常のvue-i18nに復元（メッセージコンパイル機能を含む）
+  // 標準版を使用（message-compiler含む、但し遅延読み込みで最適化）
   const { createI18n } = await import('vue-i18n');
   
   // 初期は日本語のみ読み込み、英語はアイドル時に遅延読み込み
@@ -61,6 +63,8 @@ const setupI18n = async () => {
     globalInjection: true, // $t関数エラー修正のため有効化に復元
     silentTranslationWarn: true, // 警告メッセージを削減
     silentFallbackWarn: true,
+    warnHtmlMessage: false, // HTML警告無効化（軽量化）
+    escapeParameter: false, // エスケープ処理無効化（軽量化）
     messages: {
       ja: ja.default
     }

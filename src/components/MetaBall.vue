@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { PerspectiveCamera, Scene, TextureLoader, WebGLRenderer, Clock, Color, CanvasTexture } from 'three';
-import { AmbientLight, DirectionalLight, PointLight } from 'three';
+import { PerspectiveCamera, Scene, WebGLRenderer, Clock } from 'three';
+import { AmbientLight, DirectionalLight } from 'three';
 import { MeshPhongMaterial } from 'three';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
@@ -86,14 +86,9 @@ export default {
             this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
             this.camera.position.set(100, 100, 400);
 
-            // シーンの設定（美しい黄色グラデーション版）
+            // シーンの設定（背景はCSSグラデーションを使用）
             console.log('MetaBall: Setting up scene...');
             this.scene = new Scene();
-            
-            // プログラマティックな黄色グラデーション背景を作成（点滅防止）
-            console.log('MetaBall: Creating bright yellow gradient background...');
-            const gradientTexture = this.createYellowGradientTexture();
-            this.scene.background = gradientTexture;
 
             // ライトの設定
             this.setupLights();
@@ -102,7 +97,7 @@ export default {
             console.log('MetaBall: Setting up renderer...');
             this.renderer = new WebGLRenderer({ 
                 antialias: false, 
-                alpha: false, // 背景表示のため不透明に変更
+                alpha: true, // 背景はCSS側に委譲（透過）
                 powerPreference: 'high-performance',
                 stencil: false,
                 depth: true,
@@ -114,26 +109,24 @@ export default {
             this.renderer.setPixelRatio(pixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             
-            // レンダラーの追加最適化（背景表示対応）
+            // レンダラーの追加最適化（背景は透過）
             this.renderer.shadowMap.enabled = false;
             this.renderer.outputColorSpace = 'srgb';
+            this.renderer.setClearColor(0x000000, 0);
             console.log('MetaBall: Renderer setup complete');
             
             this.container.appendChild(this.renderer.domElement);
             console.log('MetaBall: Canvas added to DOM');
             
-            // 背景テクスチャの読み込みをプログラマティックグラデーションに置換（最適化）
-            console.log('MetaBall: Yellow gradient background applied successfully');
+            // 背景はCSSグラデーションへ全面委譲
+            console.log('MetaBall: Using CSS gradient background (transparent canvas)');
             
             // マテリアルの生成
             console.log('MetaBall: Generating materials...');
             this.materials = this.generateMaterials();
 
-            // 条件付きでOrbitControlsとMarchingCubesを読み込み
-            const [{ OrbitControls }, { MarchingCubes }] = await Promise.all([
-                import('three/addons/controls/OrbitControls.js'),
-                import('three/addons/objects/MarchingCubes.js')
-            ]);
+            // MarchingCubesを先に読み込み（必須）
+            const { MarchingCubes } = await import('three/addons/objects/MarchingCubes.js');
 
             // Marching Cubesの設定（最適化版）
             this.effect = new MarchingCubes(
@@ -157,8 +150,9 @@ export default {
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             const isLowPerformanceDevice = this.detectLowPerformanceDevice();
             
-            // 高性能デバイスのみでOrbitControlsを有効化（パフォーマンス重視）
+            // 高性能デバイスのみでOrbitControlsを条件付き読み込み（パフォーマンス重視）
             if (!isTouchDevice && !isLowPerformanceDevice) {
+                const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
                 // コントロールの設定（軽量版）
                 this.controls = new OrbitControls(this.camera, this.renderer.domElement);
                 this.controls.minDistance = 100;
@@ -396,34 +390,7 @@ export default {
             this.ambientLight = null;
             this.light = null;
         },
-        createYellowGradientTexture() {
-            // 美しい黄色グラデーションをCanvasで作成（パフォーマンス重視）
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;  // 適度な解像度
-            canvas.height = 512;
-            
-            const ctx = canvas.getContext('2d');
-            
-            // 線形グラデーション作成（上から下へ）
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            
-            // 美しい明るい黄色グラデーション
-            gradient.addColorStop(0, '#FFD700');    // 上部: ゴールド
-            gradient.addColorStop(0.3, '#FFED4E');  // 中上: 明るい黄色
-            gradient.addColorStop(0.7, '#FFF59D');  // 中下: さらに明るい黄色
-            gradient.addColorStop(1, '#FFEF94');    // 下部: ライトイエロー
-            
-            // Canvas全体をグラデーションで塗りつぶし
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Three.jsテクスチャとして作成
-            const texture = new CanvasTexture(canvas);
-            texture.colorSpace = 'srgb';
-            
-            console.log('MetaBall: Bright yellow gradient texture created');
-            return texture;
-        },
+        // 背景生成は削除。CSSグラデーションを使用。
     },
 };
 </script>

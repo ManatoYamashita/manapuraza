@@ -114,6 +114,20 @@
 
   onMounted(() => {
     checkRouterReady();
+    
+    // LCP改善: 高品質版ロゴのプリロードヒントを追加
+    const addLogoPreload = () => {
+      const logoPreloadLink = document.createElement('link');
+      logoPreloadLink.rel = 'preload';
+      logoPreloadLink.href = new URL('@/assets/logo.webp', import.meta.url).href;
+      logoPreloadLink.as = 'image';
+      logoPreloadLink.type = 'image/webp';
+      logoPreloadLink.fetchpriority = 'high';
+      document.head.appendChild(logoPreloadLink);
+    };
+    
+    // プリロードを即座に実行（LCP最適化）
+    addLogoPreload();
   });
 
   const path = computed(() => route.path);
@@ -214,7 +228,8 @@
     overflow-y: hidden;
   }
   .glass {
-    background-color: rgba(255, 255, 255, 0.1); /* 背景色 */
+    /* 背景を少し強めてコントラストを確保 */
+    background-color: rgba(255, 255, 255, 0.18);
     border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
     border-right-color: rgba(255, 255, 255, 0.2);
     border-bottom-color: rgba(255, 255, 255, 0.2);
@@ -222,6 +237,7 @@
     -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
     backdrop-filter: blur(20px);
     box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
+    color: #111; /* ガラス上のテキストは濃色で可読性を担保 */
   }
   #scrollable-aria {
     overflow-y: auto;

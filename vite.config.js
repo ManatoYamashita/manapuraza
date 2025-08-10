@@ -10,6 +10,11 @@ export default defineConfig({
     vue(),
     visualizer(),
   ],
+  define: {
+    __VUE_I18N_FULL_INSTALL__: false,
+    __VUE_I18N_LEGACY_API__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
+  },
   build: {
     sourcemap: true,
     minify: 'terser',
@@ -17,6 +22,12 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.warn'],
+        dead_code: true,
+        unused: true,
+      },
+      mangle: {
+        safari10: true,
       }
     },
     rollupOptions: {

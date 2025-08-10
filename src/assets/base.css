@@ -1,5 +1,7 @@
 :root {
-  --vt-c-yellow: #e7da4a;
+  /* 濃いめのイエローに調整 */
+  --vt-c-yellow: #f0d300; /* start */
+  --vt-c-yellow-strong: #d7a800; /* end */
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
   --vt-c-blue: #4faef2;
@@ -33,6 +35,10 @@ html {
 body {
   height: 100dvh;
   color: var(--color-text);
+  /* より濃いイエローのグラデーション背景 */
+  background: linear-gradient(135deg, var(--vt-c-yellow) 0%, var(--vt-c-yellow-strong) 100%);
+  /* 文字可読性のためのデフォルトテキスト色（ダーク） */
+  --color-text: #111;
   line-height: normal;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
