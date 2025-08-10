@@ -11,7 +11,6 @@
 </template>
 
 <script>
-  import { gsap } from 'gsap';
   import { computed } from 'vue';
 
   export default {
@@ -44,7 +43,10 @@
         resolvedThumbnail
       };
     },
-    mounted() {
+    async mounted() {
+      // GSAPを動的インポートして初期バンドルサイズを削減
+      const { gsap } = await import('gsap');
+      
       gsap.from(this.$el, {
         y: 200,
         duration: 1,

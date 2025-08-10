@@ -16,7 +16,6 @@
   
 <script setup>
   import { ref, onMounted } from 'vue';
-  import { gsap } from 'gsap';
   
   // アイコンの情報を定義
   const icons = [
@@ -60,7 +59,9 @@
   // refs を格納する配列
   const iconRefs = ref([]);
   
-  onMounted(() => {
+  onMounted(async () => {
+    // GSAPを動的インポートして初期バンドルサイズを削減
+    const { gsap } = await import('gsap');
     // アニメーションの設定
     gsap.fromTo(iconRefs.value, {
       y: 50,

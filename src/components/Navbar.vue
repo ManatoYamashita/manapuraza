@@ -8,8 +8,8 @@
                             alt="manapuraza.com logo" 
                             loading="lazy" 
                             decoding="async"
-                            width="1563"
-                            height="313"
+                            width="250"
+                            height="50"
                             class="logo" 
                             v-show="currentPath 
                             !== '/'"

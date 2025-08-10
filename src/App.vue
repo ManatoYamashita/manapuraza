@@ -2,13 +2,14 @@
   <div id="main">
     <a href="https://manapuraza.com" aria-current="page" class="home-logo">
       <img 
-        fetchpriority="high" 
-        src="@/assets/logo.webp" 
+        :fetchpriority="logoQuality === 'high' ? 'high' : 'low'" 
+        :src="currentLogoSrc" 
         alt="ホームページに戻る" 
         draggable="false" 
         id="center-logo" 
-        :class="className" 
-        :style="styleObject" 
+        :class="[className, logoTransitionClass]" 
+        :style="combinedStyleObject" 
+        @load="onLogoLoad"
       />
     </a>
   
@@ -33,6 +34,23 @@
   const router = useRouter();
   const isHomePage = ref(true);
 
+  // プログレッシブローディング用のロゴ管理
+  const logoQuality = ref('low'); // 'low' | 'high'
+  const isLogoTransitioning = ref(false);
+  const logoLoadAttempted = ref(false);
+
+  // ロゴソースの計算プロパティ
+  const currentLogoSrc = computed(() => {
+    return logoQuality.value === 'low' 
+      ? new URL('@/assets/logo-low.webp', import.meta.url).href
+      : new URL('@/assets/logo.webp', import.meta.url).href;
+  });
+
+  // ロゴ遷移用クラス
+  const logoTransitionClass = computed(() => {
+    return isLogoTransitioning.value ? 'logo-transitioning' : '';
+  });
+
   const checkRouterReady = async () => {
     await router.isReady();
     updateHomePageState();
@@ -55,6 +73,44 @@
     console.log('current route: ', route.name);
     updateHomePageState();
   });
+
+  // 高画質版ロゴの遅延読み込み
+  const loadHighQualityLogo = () => {
+    if (logoLoadAttempted.value) return;
+    
+    logoLoadAttempted.value = true;
+    const highQualityImg = new Image();
+    
+    highQualityImg.onload = () => {
+      // 遅延してスムーズな遷移を実現
+      setTimeout(() => {
+        isLogoTransitioning.value = true;
+        setTimeout(() => {
+          logoQuality.value = 'high';
+          setTimeout(() => {
+            isLogoTransitioning.value = false;
+          }, 300);
+        }, 100);
+      }, 200);
+    };
+    
+    highQualityImg.onerror = () => {
+      console.warn('高画質ロゴの読み込みに失敗しました。低画質版を使用します。');
+    };
+    
+    highQualityImg.src = new URL('@/assets/logo.webp', import.meta.url).href;
+  };
+
+  // ロゴ読み込み完了ハンドラー
+  const onLogoLoad = () => {
+    // 初期の低画質ロゴが読み込まれた後、高画質版を遅延読み込み
+    if (logoQuality.value === 'low' && !logoLoadAttempted.value) {
+      const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 100));
+      schedule(() => {
+        loadHighQualityLogo();
+      });
+    }
+  };
 
   onMounted(() => {
     checkRouterReady();
@@ -84,6 +140,21 @@
       };
     }
   });
+
+  // ロゴのスタイルオブジェクト（遷移効果を含む）
+  const combinedStyleObject = computed(() => {
+    const baseStyle = styleObject.value;
+    const transitionStyle = isLogoTransitioning.value ? {
+      opacity: '0.7',
+      transform: baseStyle.transform ? `${baseStyle.transform} scale(1.02)` : 'scale(1.02)',
+    } : {};
+    
+    return {
+      ...baseStyle,
+      ...transitionStyle,
+      transition: `${baseStyle.transition || 'all .4s ease-in-out'}, opacity .3s ease-in-out, transform .3s ease-in-out`,
+    };
+  });
 </script>
 
 <style scoped>
@@ -106,6 +177,11 @@
     height: auto;
     transform: translate(-50%, -50%);
     transition: all .5s ease-in-out;
+  }
+  
+  /* プログレッシブローディング遷移効果 */
+  .logo-transitioning {
+    filter: brightness(1.1) saturate(1.05);
   }
   #sp-nav {
     display: none;

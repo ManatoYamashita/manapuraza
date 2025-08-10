@@ -75,12 +75,7 @@
   import CreativesHero from '@/components/CreativesHero.vue';
   import AnimationSection from '@/components/AnimationSection.vue';
   import { creativesData } from '@/data/creatives';
-  import { gsap } from 'gsap';
-  import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
   import { computed } from 'vue';
-
-  // GSAPプラグインの登録
-  gsap.registerPlugin(ScrollToPlugin);
 
   // ランダムに並び替えられたプログラミング作品のリスト（Programming作品は順番をランダムに並び替える）
   const randomizedProgramming = computed(() => {

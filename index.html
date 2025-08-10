@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <link rel="preload" href="/icon.webp" as="image" type="image/webp">
+    <!-- Critical CSS - Inlined for Performance -->
+    <style>
+:root{--vt-c-yellow:#e7da4a;--vt-c-white-soft:#f8f8f8;--vt-c-white-mute:#f2f2f2;--vt-c-blue:#4faef2;--vt-c-black:#181818;--color-background:var(--vt-c-yellow);--mpuraza-acsent:var(--vt-c-blue);--primary-color:var(--vt-c-blue)}
+@media (prefers-color-scheme:dark){:root{--color-background:var(--vt-c-black)}}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-behavior:smooth}
+body{height:100dvh;color:var(--color-text);line-height:normal;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow:hidden;margin:0;padding:1rem}
+.top-op{position:fixed;top:0;left:0;margin:0 auto;width:100%;height:100vh;z-index:1;background:var(--mpuraza-acsent);animation-duration:.7s;animation-delay:1.2s;animation-fill-mode:forwards;animation-name:openerAnim;animation-timing-function:ease-in-out;pointer-events:none}
+@keyframes openerAnim{0%{transform:translateX(0)}100%{transform:translateX(-100vw)}}
+.image-op{z-index:2;position:absolute;top:0;left:0;bottom:0;right:0;opacity:1;margin:auto;width:200px;pointer-events:none;-moz-window-dragging:no-drag;-webkit-animation:iconAnim 1.2s forwards;animation:iconAnim 1.2s forwards}
+@keyframes iconAnim{0%{transform:scale(1);opacity:1}80%{opacity:1}99%{transform:scale(1.2);opacity:0}100%{transform:scale(1.3);opacity:0;display:none}}
+#back{height:100vh;width:100%;position:fixed;top:0;left:0}
+    </style>
     <!-- SEO settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -30,15 +43,29 @@
     <meta name="thumbnail" content="/src/assets/山下真和都(マナト).webp" />
     <title>MANAPURAZA.COM | 山下マナト（山下真和都）</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ" defer></script>
+    <!-- Google Analytics - Optimized for Performance -->
     <script>
-      window.addEventListener('load', function() {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-HHXTJ94LDJ');
-      });
+      // Google Analytics の最適化された遅延読み込み
+      (function() {
+        const schedule = window.requestIdleCallback || function(cb) { setTimeout(cb, 1); };
+        schedule(function() {
+          // GTMスクリプトを動的に追加
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ';
+          document.head.appendChild(script);
+          
+          // データレイヤーとGTAG設定
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-HHXTJ94LDJ', {
+            // パフォーマンス重視設定
+            page_title: document.title,
+            send_page_view: true
+          });
+        });
+      })();
     </script>
 
     <!-- Schema.org(JSON-LD) -->
@@ -116,7 +143,7 @@
 
   <body>
     <div rel="preload" class="top-op"></div>
-    <img fetchpriority="high" loading="eager" decoding="async" width="200" height="200" src="/icon.webp" alt="icon" class="image-op" draggable="false" />
+    <img fetchpriority="high" loading="eager" decoding="async" width="200" height="200" src="/icon.webp" alt="manapuraza.com icon" class="image-op" draggable="false" sizes="200px" />
     <div id="back"></div>
 
     <script rel="preload" type="module" src="/src/main.js"></script>

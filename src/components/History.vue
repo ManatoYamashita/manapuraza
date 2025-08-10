@@ -21,7 +21,6 @@
 <script>
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { gsap } from 'gsap';
 
 export default {
   name: 'History',
@@ -43,7 +42,9 @@ export default {
 
     const timelineRef = ref(null);
 
-    onMounted(() => {
+    onMounted(async () => {
+  // GSAPを動的インポートして初期バンドルサイズを削減
+  const { gsap } = await import('gsap');
       const instance = getCurrentInstance();
       const root = instance.proxy.$el;
       const entries = root.querySelectorAll('.entry');

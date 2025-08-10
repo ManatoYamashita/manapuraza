@@ -44,7 +44,6 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { gsap } from 'gsap';
 import Btn from '@/components/Btn.vue';
 
 // ドロップダウンの状態管理
@@ -60,7 +59,10 @@ const closeDropdown = () => {
   isDropdownOpen.value = false;
 };
 
-onMounted(() => {
+onMounted(async () => {
+  // GSAPを動的インポートして初期バンドルサイズを削減
+  const { gsap } = await import('gsap');
+  
   // Hero セクションのアニメーション
   const tl = gsap.timeline();
   

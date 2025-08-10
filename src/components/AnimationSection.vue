@@ -104,7 +104,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import Btn from '@/components/Btn.vue';
-import { gsap } from 'gsap';
 import { useI18n } from 'vue-i18n';
 
 // デスクトップ表示かどうかの状態
@@ -183,7 +182,9 @@ const initializeAnimations = () => {
   });
 };
 
-onMounted(() => {
+onMounted(async () => {
+  // GSAPを動的インポートして初期バンドルサイズを削減
+  const { gsap } = await import('gsap');
   // デスクトップ表示かどうかを判定するためのメディアクエリ
   mediaQueryList = window.matchMedia('(min-width: 968px)');
   

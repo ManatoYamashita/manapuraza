@@ -1,16 +1,59 @@
+# Static assets with hash - 1 year cache
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
 
+# HTML files - no cache for index, short cache for others
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  Vary: Accept-Encoding
+  
+/*.html
+  Cache-Control: public, max-age=3600
+  Vary: Accept-Encoding
+
+# Images - 30 days cache
 /icon.webp
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Vary: Accept-Encoding
 
 /ogp.jpg
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Vary: Accept-Encoding
 
+/*.webp
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Vary: Accept-Encoding
+
+/*.jpg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Vary: Accept-Encoding
+
+/*.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+  Vary: Accept-Encoding
+
+# Fonts - 1 year cache
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+
+# Manifest and service worker
+/manifest.json
+  Cache-Control: public, max-age=86400
+  Vary: Accept-Encoding
+
+# SEO files - 1 day cache
 /sitemap.xml
   Cache-Control: public, max-age=86400
+  Vary: Accept-Encoding
 
 /robots.txt
   Cache-Control: public, max-age=86400
+  Vary: Accept-Encoding
 
 

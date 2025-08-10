@@ -1,5 +1,3 @@
-import '@/assets/main.css'
-
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
@@ -93,8 +91,22 @@ setupI18n().then(i18n => {
   app.mount('#app');
   navbar.mount('#navbar');
 
+  // 初期レンダリング完了後にメインCSSを遅延読み込み
+  const loadMainCSS = () => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/src/assets/main.css';
+    document.head.appendChild(link);
+  };
+
   // 画面の初期描画完了後に背景の重いthree.jsを読み込む
   const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+  
+  // CSSを先に読み込み
+  schedule(() => {
+    loadMainCSS();
+  });
+  
   schedule(async () => {
     const { default: MetaBall } = await import('@/components/MetaBall.vue');
     const metaball = createApp(MetaBall);

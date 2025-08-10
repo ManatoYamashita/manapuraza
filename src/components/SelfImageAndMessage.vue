@@ -16,13 +16,15 @@
 <script setup>
   import { onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { gsap } from 'gsap';
   import Sns from '@/components/Sns.vue';
   
   const { t } = useI18n();
   const imageSrc = new URL('@/assets/山下真和都(マナト).webp', import.meta.url).href;
   
-  onMounted(() => {
+  onMounted(async () => {
+    // GSAPを動的インポートして初期バンドルサイズを削減
+    const { gsap } = await import('gsap');
+    
     // 画像のアニメーション
     gsap.from('.self-image img', {
       y: 100,
