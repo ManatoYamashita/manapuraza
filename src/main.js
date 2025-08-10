@@ -56,7 +56,7 @@ const setupI18n = async () => {
   
   return createI18n({
     legacy: false,
-    locale: 'en',
+    locale: 'ja',
     fallbackLocale: 'en',
     messages: {
       en: en.default,
