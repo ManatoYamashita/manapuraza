@@ -1,4 +1,4 @@
-# MANAPURAZA.COM 🍌
+# MANAPURAZA.COM 🍌（山下マナト Webポートフォリオ）
 
 <div align="center">
   <img src="./public/ogp.jpg" alt="OGP image" width="500" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
@@ -9,16 +9,17 @@
   [![i18n](https://img.shields.io/badge/i18n-Supported-success?style=flat-square)](https://vue-i18n.intlify.dev/)
 </div>
 
-## 🌟 About
+## About
 
-就活のために、東京都市大学に在学中に制作したクリエイティブワークスをまとめた山下マナトWebポートフォリオサイト。広告制作会社[株式会社パズル](https://puzzle-inc.jp)でのエンジニアインターン（2023年11月）を通じて、さらなる改善を重ねています。
+就活のための山下マナトWebポートフォリオサイト。東京都市大学の在学中（2021年 ~ 2024年）に制作したクリエイティブワークスをまとめています。
+広告制作会社[株式会社パズル](https://puzzle-inc.jp)でのエンジニアインターン（2023年11月）を通じて、さらなる改善を重ねています。
 
-### 🔗 Deployment
+### Deployment
 
 - **最新版**: [manapuraza.com](https://manapuraza.com)
 - **初期版**: [ver1.0](https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app)
 
-## 💻 Tech
+## Tech
 
 - **Frontend**
   - Vue.js 3 (Composition API)
@@ -35,7 +36,7 @@
   - FTPサーバ（本番環境）
   - Vercel（デモ環境）
 
-## 🎨 Design
+## Design
 
 <img alt="manapuraza.com is support responsive design." src="https://github.com/user-attachments/assets/4de9da7b-453c-4974-8d88-4dfee0d39830" width="400" />
 
@@ -53,20 +54,20 @@
 - **モバイル最適化**: 親指が届きやすい位置にメニューを配置
 - **パフォーマンス**: 軽量なトランジションアニメーション
 
-## 📱 Main functions
+## Main functions
 
-### 🏠 Home
+### Home
 
 - インタラクティブな3Dバックグラウンド（Three.js）
 - マウスインタラクションによるカメラアングル変更
 - スムーズなアニメーション
 
-### 👤 About
+### About
 
 - 経歴/スキルの視覚的プレゼンテーション
 経歴はオブジェクト形式で管理
 
-### 💼 Creatives
+### Creatives
 
 - カテゴリー別ポートフォリオ表示
 コンテンツは`data/creatives.json`で管理して取得しています。cmsの導入を検討中です。
@@ -77,14 +78,14 @@
 - インタラクティブなホバーエフェクト
 - オリジナルキャラクター「でじこんちゃん」のアニメーション
 
-## 🌐 国際化対応
+## 国際化対応
 
 Vue i18nプラグインを用いて、サイトは以下の言語に対応しています：
 
 - 🇯🇵 日本語
 - 🇺🇸 英語
 
-## 🚀 Next Actions
+## Next Actions
 
 - [ ] ダークモードの実装
 - [ ] でじこんちゃんのインタラクション強化
@@ -92,7 +93,7 @@ Vue i18nプラグインを用いて、サイトは以下の言語に対応して
 - [ ] パフォーマンス最適化（Lighthouseの結果にパフォーマンス項目に改善の余地あり）
 - [ ] アクセシビリティの向上
 
-## 🛠️ Process
+## 🛠Process
 
 ### Data Flow
 
@@ -146,9 +147,9 @@ graph LR
 - コンテンツセキュリティポリシー（CSP）の実装
 - 適切なCORS設定
 
-## 📝 ライセンス
+## ライセンス
 
-© 2023-2024 Manato Yamashita. All Rights Reserved.
+© 2022~ Manato Yamashita. All Rights Reserved.
 
 ---
 *最終更新: 2025/03/30*
