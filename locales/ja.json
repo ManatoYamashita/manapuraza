@@ -57,7 +57,13 @@
                     "websiteProduction": "Webサイト制作: 山下マナト"
                 },
                 "watch": "本編を見る（世田谷区公式YouTube）",
-                "site": "都市大アニメーション公式サイト"
+                "site": "ランディングページ（都市大アニメーション）",
+                "watchMain": "本編を見る",
+                "watchSub": "世田谷区公式YouTube",
+                "siteMain": "ランディングページ",
+                "siteSub": "都市大アニメーション 公式サイト",
+                "titleLabel": "世田谷区公式アニメ",
+                "titleMain": "新BOPへようこそ！"
             }
         },
         "prog": {

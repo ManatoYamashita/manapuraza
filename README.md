@@ -70,7 +70,7 @@
 ### Creatives
 
 - カテゴリー別ポートフォリオ表示
-コンテンツは`data/creatives.json`で管理して取得しています。cmsの導入を検討中です。
+コンテンツは`src/data/creatives.js`で管理しています。詳しくは [Creatives データ管理ガイド](src/data/creatives-guide.md) を参照してください。
   - アニメーション制作
   - グラフィックス/イラスト
   - プログラミング/Web開発

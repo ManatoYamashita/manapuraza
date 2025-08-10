@@ -60,7 +60,13 @@
                     "websiteProduction": "Website Production: Manato Yamashita"
                 },
                 "watch": "Watch the video(Setagaya City Official YouTube)",
-                "site": "Official Site - Tokyo City University Animation"
+                "site": "Official Site - Tokyo City University Animation",
+                "watchMain": "Watch",
+                "watchSub": "Setagaya City Official YouTube",
+                "siteMain": "Landing Page",
+                "siteSub": "Tokyo City University Animation",
+                "titleLabel": "Official Animation of Setagaya City",
+                "titleMain": "Welcome to the New BOP!"
             }
         },
 

@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
 import Navbar from '@/components/Navbar.vue'
-import MetaBall from '@/components/MetaBall.vue'
+// MetaBallは初期描画のクリティカルパス外なので、アイドル時に遅延読み込みする
 
 // FontAwesomeを必要なものだけに絞り込み
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -51,42 +51,58 @@ library.add(
 // 遅延インポートのため関数化
 const setupI18n = async () => {
   const { createI18n } = await import('vue-i18n');
-  const en = await import('/locales/en.json');
+  // 初期は日本語のみ読み込み、英語はアイドル時に遅延読み込み
   const ja = await import('/locales/ja.json');
   
-  return createI18n({
+  const i18n = createI18n({
     legacy: false,
     locale: 'ja',
     fallbackLocale: 'en',
     messages: {
-      en: en.default,
       ja: ja.default
     }
   });
+  
+  // アイドル時に英語辞書を読み込み、フォールバックを有効化
+  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+  schedule(async () => {
+    const en = await import('/locales/en.json');
+    i18n.global.setLocaleMessage('en', en.default);
+  });
+
+  return i18n;
 }
 
 const app = createApp(App);
 const navbar = createApp(Navbar);
-const metaball = createApp(MetaBall);
 
 app.component('fa', FontAwesomeIcon);
 app.component('font-awesome-icon', FontAwesomeIcon);
 navbar.component('font-awesome-icon', FontAwesomeIcon);
-metaball.component('font-awesome-icon', FontAwesomeIcon);
+// metaball側のコンポーネント登録は遅延読み込み時に設定する
 
 app.use(router);
 navbar.use(router);
-metaball.use(router);
+// metaballのルーター適用は遅延読み込み時に設定する
 
 // i18nを遅延読み込み
 setupI18n().then(i18n => {
   app.use(i18n);
   navbar.use(i18n);
-  metaball.use(i18n);
-  
+
   app.mount('#app');
   navbar.mount('#navbar');
-  metaball.mount('#back');
+
+  // 画面の初期描画完了後に背景の重いthree.jsを読み込む
+  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+  schedule(async () => {
+    const { default: MetaBall } = await import('@/components/MetaBall.vue');
+    const metaball = createApp(MetaBall);
+    metaball.component('font-awesome-icon', FontAwesomeIcon);
+    metaball.use(router);
+    metaball.use(i18n);
+    metaball.mount('#back');
+  });
 });
 
 // Media Session APIの遅延設定

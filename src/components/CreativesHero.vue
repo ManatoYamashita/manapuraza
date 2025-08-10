@@ -260,6 +260,9 @@ onMounted(() => {
 
 /* レスポンシブデザイン */
 @media (max-width: 1024px) {
+  .hero-section {
+    padding: 1rem;
+  }
   .hero-content {
     flex-direction: column;
     text-align: center;
@@ -309,9 +312,43 @@ onMounted(() => {
     width: 150px;
     height: 150px;
   }
-  
-  .dropdown-menu {
-    width: 90%;
+
+  /* 要素順序: h1 → sphere → p → CTA（モバイル時） */
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "sphere"
+      "desc"
+      "cta";
+    justify-items: center;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  /* .hero-text をフラット化して子要素をグリッドアイテム化 */
+  .hero-text {
+    display: contents;
+  }
+
+  .hero-text h1 {
+    grid-area: title;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-visual {
+    grid-area: sphere;
+  }
+
+  .hero-description {
+    grid-area: desc;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .cta-button {
+    grid-area: cta;
+    margin-top: 0.25rem;
   }
 }
 </style> 

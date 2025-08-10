@@ -7,6 +7,9 @@
                             src="@/assets/logo.webp" 
                             alt="manapuraza.com logo" 
                             loading="lazy" 
+                            decoding="async"
+                            width="1563"
+                            height="313"
                             class="logo" 
                             v-show="currentPath 
                             !== '/'"

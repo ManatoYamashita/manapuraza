@@ -35,7 +35,10 @@
         </div>
         
         <div class="animation-info">
-          <h3 class="animation-title">{{ $t('creatives.animation.tcuAnimation.title') }}</h3>
+          <h3 class="animation-title">
+            <span class="animation-title-label">{{ $t('creatives.animation.tcuAnimation.titleLabel') }}</span>
+            <span class="animation-title-main">{{ $t('creatives.animation.tcuAnimation.titleMain') }}</span>
+          </h3>
           
           <div class="info-grid">
             <div class="info-item">
@@ -54,26 +57,12 @@
               <font-awesome-icon :icon="['fas', 'users']" class="subtitle-icon" />
               <span>クレジット</span>
             </h4>
-            <div class="animation-details">
-              <p v-if="$t('creatives.animation.tcuAnimation.description.production')" class="animation-detail-item">
-                {{ $t('creatives.animation.tcuAnimation.description.production') }}
-              </p>
-              <p v-if="$t('creatives.animation.tcuAnimation.description.director')" class="animation-detail-item highlight-item">
-                {{ $t('creatives.animation.tcuAnimation.description.director') }}
-              </p>
-              <p v-if="$t('creatives.animation.tcuAnimation.description.animationProduction')" class="animation-detail-item">
-                {{ $t('creatives.animation.tcuAnimation.description.animationProduction') }}
-              </p>
-              <p v-if="$t('creatives.animation.tcuAnimation.description.productionSupport')" class="animation-detail-item">
-                {{ $t('creatives.animation.tcuAnimation.description.productionSupport') }}
-              </p>
-              <p v-if="$t('creatives.animation.tcuAnimation.description.voiceActors')" class="animation-detail-item">
-                {{ $t('creatives.animation.tcuAnimation.description.voiceActors') }}
-              </p>
-              <p v-if="$t('creatives.animation.tcuAnimation.description.websiteProduction')" class="animation-detail-item">
-                {{ $t('creatives.animation.tcuAnimation.description.websiteProduction') }}
-              </p>
-            </div>
+            <dl class="credits-grid">
+              <template v-for="item in credits" :key="item.label + item.value">
+                <dt v-if="item.label" class="credit-label">{{ item.label }}</dt>
+                <dd class="credit-value">{{ item.value }}</dd>
+              </template>
+            </dl>
           </div>
           
           <!-- <div class="synopsis-section">
@@ -91,17 +80,19 @@
               :href="'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu'" 
               :target="'_blank'" 
               :icon="['fas', 'play']" 
-              :text="$t('creatives.animation.tcuAnimation.watch')" 
+              :text="$t('creatives.animation.tcuAnimation.watchMain')" 
+              :subText="$t('creatives.animation.tcuAnimation.watchSub')"
               :alt="'本編動画を見る（世田谷区公式YouTube）'"
-              class="animation btn-primary"
+              :variant="'primary'"
             />
             <Btn 
               :href="'https://tcu-animation.jp'" 
               :target="'_blank'" 
               :icon="['fas', 'globe']" 
-              :text="$t('creatives.animation.tcuAnimation.site')" 
+              :text="$t('creatives.animation.tcuAnimation.siteMain')" 
+              :subText="$t('creatives.animation.tcuAnimation.siteSub')"
               :alt="'公式サイトへ（都市大アニメーション）'"
-              class="btn-secondary"
+              :variant="'secondary'"
             />
           </div>
         </div>
@@ -111,13 +102,42 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import Btn from '@/components/Btn.vue';
 import { gsap } from 'gsap';
+import { useI18n } from 'vue-i18n';
 
 // デスクトップ表示かどうかの状態
 const isDesktop = ref(false);
 let mediaQueryList = null;
+
+const { t } = useI18n();
+
+// クレジット情報（i18n文字列から「ラベル: 値」を分離）
+const creditKeys = [
+  'creatives.animation.tcuAnimation.description.production',
+  'creatives.animation.tcuAnimation.description.director',
+  'creatives.animation.tcuAnimation.description.animationProduction',
+  'creatives.animation.tcuAnimation.description.productionSupport',
+  'creatives.animation.tcuAnimation.description.voiceActors',
+  'creatives.animation.tcuAnimation.description.websiteProduction'
+];
+
+const credits = computed(() => {
+  return creditKeys
+    .map((key) => {
+      const raw = t(key);
+      if (!raw) return null;
+      const splitIndex = raw.indexOf(':') !== -1 ? raw.indexOf(':') : raw.indexOf('：');
+      if (splitIndex === -1) {
+        return { label: '', value: String(raw).trim() };
+      }
+      const label = raw.slice(0, splitIndex).trim();
+      const value = raw.slice(splitIndex + 1).trim();
+      return { label, value };
+    })
+    .filter(Boolean);
+});
 
 // メディアクエリの状態が変わったときに実行
 const handleMediaQueryChange = (e) => {
@@ -226,7 +246,7 @@ onBeforeUnmount(() => {
   /* background: rgba(255, 255, 255, 0.04); */
   /* border-radius: 1.2rem; */
   /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06); */
-  overflow: hidden;
+  overflow: visible; /* デスクトップでははみ出しを許可してボタンの影や輪郭が切れないようにする */
   /* border: 1px solid rgba(255, 255, 255, 0.1); */
   transition: all 0.4s ease;
 }
@@ -239,21 +259,26 @@ onBeforeUnmount(() => {
 .content-wrapper {
   padding: 0;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  /* overflow: hidden; */
+  display: grid;
+  grid-template-columns: 40% 60%;
+  max-height: none;
+  overflow: visible;
 }
 
 .video-wrapper {
   position: relative;
   width: 100%;
+  border-radius: 1.2rem 0 0 1.2rem;
+  height: 100%;
+  z-index: 0;
   /* overflow: hidden; */
 }
 
 .video-container {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 アスペクト比 */
+  height: 100%;
+  padding-top: 0;
   /* overflow: hidden; */
 }
 
@@ -289,10 +314,6 @@ onBeforeUnmount(() => {
 .video-wrapper:hover .play-button {
   transform: scale(1);
 }
-/* 
-.animation-info {
-  padding: 2rem;
-} */
 
 .animation-title {
   font-size: 1.3rem;
@@ -304,6 +325,23 @@ onBeforeUnmount(() => {
   padding-bottom: 0.5rem;
 }
 
+/* タイトルのラベルと本タイトルを分離表示 */
+.animation-title-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #777;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.animation-title-main {
+  display: block;
+}
+
+.animation-info {
+  padding-left: 1rem;
+}
+
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -311,28 +349,21 @@ onBeforeUnmount(() => {
   margin-bottom: 0.8rem;
 }
 
-/* .info-item {
+.info-item {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
 }
 
 .info-icon {
-  width: 36px;
-  height: 36px;
-  background: rgba(255, 142, 83, 0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--primary-color);
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .info-content {
   display: flex;
   flex-direction: column;
-} */
+}
 
 .info-label {
   font-size: 0.8rem;
@@ -361,10 +392,32 @@ onBeforeUnmount(() => {
   font-size: 0.9rem;
 }
 
-.credits-section, .synopsis-section {
+.credits-section {
   border-radius: 0.8rem;
   padding: .3rem .5rem;
   margin-bottom: 0.8rem;
+}
+
+/* ラベル/値の2カラムレイアウト */
+.credits-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  column-gap: 0.8rem;
+  row-gap: 0.4rem;
+  margin: 0;
+}
+
+.credit-label {
+  font-size: 0.85rem;
+  color: #777;
+  font-weight: 600;
+  text-align: right;
+}
+
+.credit-value {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
 }
 
 .animation-details {
@@ -407,6 +460,7 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   gap: 0.8rem;
   margin-top: 1rem;
+  width: 100%; /* リンク領域を右カラム幅いっぱいにする */
 }
 
 .animation-links > * {
@@ -439,57 +493,49 @@ onBeforeUnmount(() => {
   transform: translateY(-4px);
 }
 
-@media (min-width: 968px) {
-  .content-wrapper {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    max-height: none;
+@media (max-width: 967px) {
+  /* スマートフォンでは詳細情報（info-content）を非表示 */
+  .info-content {
+    display: none;
+  }
+  .info-grid {
+    display: none;
+  }
+  .info-icon {
+    display: none;
+  }
+  .animation-section {
+    height: auto; /* 固定高さを解除して重なりを根本解消 */
+    min-height: 100vh; /* 初期表示の視覚安定性を確保 */
+  }
+
+  .animation-item {
+    overflow: hidden; /* モバイルでははみ出しを抑制 */
+  }
+
+  .video-wrapper {
+    border-radius: 1.2rem 1.2rem 0 0;
+    max-height: none; /* モバイル時は高さ制限をなくし重なりを防止 */
+    overflow: hidden; /* iframeのはみ出しを防止 */
   }
   
-  .video-wrapper {
-    border-radius: 1.2rem 0 0 1.2rem;
-    height: 100%;
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: none;
   }
   
   .video-container {
-    height: 100%;
-    padding-top: 0;
+    height: auto;
+    padding-top: 56.25%; /* 16:9 アスペクト比 */
   }
   
   .animation-info {
-    padding: 1rem 1.5rem;
-    display: flex;
+    padding-top: 0.5rem;
+    padding-left: 0;
+    overflow: hidden; /* モバイルでははみ出し防止 */
     flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-  }
-  
-  .credits-section {
-    flex: 0 0 auto;
-  }
-  
-  .synopsis-section {
-    flex: 0 0 auto;
-  }
-}
-
-@media (max-width: 967px) {
-  .video-wrapper {
-    border-radius: 1.2rem 1.2rem 0 0;
-    max-height: 40vh;
-  }
-  
-  .content-wrapper {
-    max-height: none;
-  }
-  
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .animation-info {
-    padding: 0.8rem 1rem;
-    overflow: hidden;
+    z-index: 1; /* モバイルは標準優先度で十分 */
   }
   
   .credits-section {
@@ -501,13 +547,33 @@ onBeforeUnmount(() => {
   }
   
   .animation-links {
-    margin-top: 0.5rem;
+    margin-top: 0.8rem; /* 余白を拡張して重なりにくくする */
+    position: relative;
+    z-index: 1;
+    padding-left: 0; /* モバイルでは余白リセット */
+  }
+
+  .animation-detail-item {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 540px) {
+  /* スマホでは1カラムにして読みやすく（ただし本セクション自体は非表示設定が別で適用中） */
+  .credits-grid {
+    grid-template-columns: 1fr;
+  }
+  .credit-label {
+    text-align: left;
+    opacity: 0.8;
   }
 }
 
 @media (max-width: 480px) {
   .animation-section {
-    height: 100vh;
+    height: auto; /* 480px以下も固定高さを解除 */
+    min-height: 100vh;
   }
   
   .section-title {
@@ -540,7 +606,7 @@ onBeforeUnmount(() => {
   }
   
   .animation-links {
-    flex-direction: row;
+    flex-direction: column;
     margin-top: 0.5rem;
   }
   

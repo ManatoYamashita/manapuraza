@@ -1,0 +1,16 @@
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/icon.webp
+  Cache-Control: public, max-age=2592000
+
+/ogp.jpg
+  Cache-Control: public, max-age=2592000
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+

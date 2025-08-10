@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
-    <link rel="preload" href="/src/assets/logo.webp" as="image" type="image/webp">
     <link rel="preload" href="/icon.webp" as="image" type="image/webp">
     <!-- SEO settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <meta name="description" content="A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。">
@@ -115,7 +116,7 @@
 
   <body>
     <div rel="preload" class="top-op"></div>
-    <img fetchpriority="high" loading="eager" width="150" height="200" src="/icon.webp" alt="icon" class="image-op" draggable="false" />
+    <img fetchpriority="high" loading="eager" decoding="async" width="200" height="200" src="/icon.webp" alt="icon" class="image-op" draggable="false" />
     <div id="back"></div>
 
     <script rel="preload" type="module" src="/src/main.js"></script>
