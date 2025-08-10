@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import { PerspectiveCamera, Scene, TextureLoader, WebGLRenderer, Clock } from 'three';
+import { PerspectiveCamera, Scene, TextureLoader, WebGLRenderer, Clock, Color, CanvasTexture } from 'three';
 import { AmbientLight, DirectionalLight, PointLight } from 'three';
 import { MeshPhongMaterial } from 'three';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import { MarchingCubes } from 'three/addons/objects/MarchingCubes.js';
-import backgroundimage from '@/assets/background.webp';
+// 背景画像のimportを削除 - プログラマティックグラデーション使用のため
 
 export default {
     name: 'MetaBall',
@@ -73,22 +73,60 @@ export default {
     },
     methods: {
         async init() {
+            console.log('MetaBall: Starting initialization...');
             this.container = this.$refs.container;
+            
+            if (!this.container) {
+                console.error('MetaBall: Container element not found!');
+                return;
+            }
 
             // カメラの設定
+            console.log('MetaBall: Setting up camera...');
             this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
             this.camera.position.set(100, 100, 400);
 
-            // シーンの設定
+            // シーンの設定（美しい黄色グラデーション版）
+            console.log('MetaBall: Setting up scene...');
             this.scene = new Scene();
-            const textureLoader = new TextureLoader();
-            const backgroundTexture = textureLoader.load(backgroundimage);
-            this.scene.background = backgroundTexture;
+            
+            // プログラマティックな黄色グラデーション背景を作成（点滅防止）
+            console.log('MetaBall: Creating bright yellow gradient background...');
+            const gradientTexture = this.createYellowGradientTexture();
+            this.scene.background = gradientTexture;
 
             // ライトの設定
             this.setupLights();
 
+            // レンダラーを先に初期化（背景表示のため）
+            console.log('MetaBall: Setting up renderer...');
+            this.renderer = new WebGLRenderer({ 
+                antialias: false, 
+                alpha: false, // 背景表示のため不透明に変更
+                powerPreference: 'high-performance',
+                stencil: false,
+                depth: true,
+                precision: 'mediump'
+            });
+            
+            // デバイス固有の最適化
+            const pixelRatio = Math.min(window.devicePixelRatio, 2) * 0.5;
+            this.renderer.setPixelRatio(pixelRatio);
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // レンダラーの追加最適化（背景表示対応）
+            this.renderer.shadowMap.enabled = false;
+            this.renderer.outputColorSpace = 'srgb';
+            console.log('MetaBall: Renderer setup complete');
+            
+            this.container.appendChild(this.renderer.domElement);
+            console.log('MetaBall: Canvas added to DOM');
+            
+            // 背景テクスチャの読み込みをプログラマティックグラデーションに置換（最適化）
+            console.log('MetaBall: Yellow gradient background applied successfully');
+            
             // マテリアルの生成
+            console.log('MetaBall: Generating materials...');
             this.materials = this.generateMaterials();
 
             // 条件付きでOrbitControlsとMarchingCubesを読み込み
@@ -111,28 +149,9 @@ export default {
             // Frustum Culling を有効化（見えない部分の描画をスキップ）
             this.effect.frustumCulled = true;
             
+            console.log('MetaBall: Adding MarchingCubes to scene...');
             this.scene.add(this.effect);
-
-            // レンダラーの設定（パフォーマンス最適化）
-            this.renderer = new WebGLRenderer({ 
-                antialias: false, 
-                alpha: false, 
-                powerPreference: 'high-performance',
-                stencil: false,
-                depth: true,
-                precision: 'mediump'
-            });
-            
-            // デバイス固有の最適化
-            const pixelRatio = Math.min(window.devicePixelRatio, 2) * 0.5;
-            this.renderer.setPixelRatio(pixelRatio);
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            
-            // レンダラーの追加最適化
-            this.renderer.shadowMap.enabled = false;
-            this.renderer.outputEncoding = 'sRGB';
-            
-            this.container.appendChild(this.renderer.domElement);
+            console.log('MetaBall: MarchingCubes added successfully');
 
             // パフォーマンス重視設定: タッチデバイスと低スペックデバイスでOrbitControlsを無効化
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -146,7 +165,12 @@ export default {
                 this.controls.maxDistance = 500;
                 this.controls.enableDamping = false; // ダンピング無効（軽量化）
                 this.controls.autoRotate = false; // 自動回転無効（軽量化）
+                console.log('MetaBall: OrbitControls enabled');
+            } else {
+                console.log('MetaBall: OrbitControls disabled (touch device or low performance)');
             }
+            
+            console.log('MetaBall: Initialization complete!');
         },
         animate() {
             if (this.isPaused) {
@@ -215,18 +239,18 @@ export default {
             };
         },
         setupLights() {
-            // 軽量化されたライト設定（パフォーマンス重視）
-            // Ambient Light のみ使用（最も軽い）
-            this.ambientLight = new AmbientLight(0xffffff, 0.8);
+            // 背景表示最適化されたライト設定（パフォーマンス重視 + 美観改善）
+            // Ambient Light で基本照明（背景との調和を考慮）
+            this.ambientLight = new AmbientLight(0xffffff, 0.9); // 0.8→0.9に微調整
             this.scene.add(this.ambientLight);
 
-            // Directional Light を軽量設定で追加（影なし）
-            this.light = new DirectionalLight(0xffffff, 0.6);
+            // Directional Light で立体感を演出（背景を引き立てる）
+            this.light = new DirectionalLight(0xffffff, 0.7); // 0.6→0.7に微調整
             this.light.position.set(1, 1, 1);
-            this.light.castShadow = false; // 影計算を無効化
+            this.light.castShadow = false; // 影計算を無効化（パフォーマンス重視）
             this.scene.add(this.light);
             
-            // Point Light は重いので削除（コメントアウト）
+            // Point Light は重いので削除を維持（パフォーマンス重視）
             // this.pointLight = new PointLight(0xffffff, 10, 1, 1);
             // this.pointLight.position.set(0, 0, 50);
             // this.scene.add(this.pointLight);
@@ -371,6 +395,34 @@ export default {
             // ライトをクリーンアップ
             this.ambientLight = null;
             this.light = null;
+        },
+        createYellowGradientTexture() {
+            // 美しい黄色グラデーションをCanvasで作成（パフォーマンス重視）
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;  // 適度な解像度
+            canvas.height = 512;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // 線形グラデーション作成（上から下へ）
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            
+            // 美しい明るい黄色グラデーション
+            gradient.addColorStop(0, '#FFD700');    // 上部: ゴールド
+            gradient.addColorStop(0.3, '#FFED4E');  // 中上: 明るい黄色
+            gradient.addColorStop(0.7, '#FFF59D');  // 中下: さらに明るい黄色
+            gradient.addColorStop(1, '#FFEF94');    // 下部: ライトイエロー
+            
+            // Canvas全体をグラデーションで塗りつぶし
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Three.jsテクスチャとして作成
+            const texture = new CanvasTexture(canvas);
+            texture.colorSpace = 'srgb';
+            
+            console.log('MetaBall: Bright yellow gradient texture created');
+            return texture;
         },
     },
 };

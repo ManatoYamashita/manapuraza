@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <div class="timeline" ref="timeline">
+    <div class="timeline" ref="timelineRef">
       <div
         class="entry"
         v-for="(item, index) in historyItems"
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -45,9 +45,14 @@ export default {
     onMounted(async () => {
   // GSAPを動的インポートして初期バンドルサイズを削減
   const { gsap } = await import('gsap');
-      const instance = getCurrentInstance();
-      const root = instance.proxy.$el;
-      const entries = root.querySelectorAll('.entry');
+      
+      // template refを使用してDOM要素に安全にアクセス（Vue 3ベストプラクティス）
+      if (!timelineRef.value) {
+        console.error('History: Timeline element not found');
+        return;
+      }
+      
+      const entries = timelineRef.value.querySelectorAll('.entry');
 
       // 各エントリーのアニメーション
       gsap.from(entries, {
