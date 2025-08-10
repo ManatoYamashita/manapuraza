@@ -4,7 +4,7 @@
                 <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
                     <transition name="slide" mode="out-in" aria-current="page">
                         <img 
-                            src="@/assets/logo.webp" 
+                            src="@/assets/logo-low.webp" 
                             alt="manapuraza.com logo" 
                             loading="lazy" 
                             decoding="async"
@@ -83,6 +83,13 @@
         font-weight: bold;
         padding: 0 1rem;
         cursor: help;
+    }
+    .default-menu {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
     }
     .rlink:hover {
         color: skyblue;

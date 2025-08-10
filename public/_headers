@@ -1,59 +1,69 @@
-# Static assets with hash - 1 year cache
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
+###############################################
+# Global security headers (safe defaults)
+###############################################
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), clipboard-read=(), clipboard-write=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), wake-lock=(), xr-spatial-tracking=()
+  Cross-Origin-Opener-Policy: same-origin
   Vary: Accept-Encoding
 
+###############################################
 # HTML files - no cache for index, short cache for others
+###############################################
 /
   Cache-Control: public, max-age=0, must-revalidate
-  Vary: Accept-Encoding
-  
+
 /*.html
   Cache-Control: public, max-age=3600
-  Vary: Accept-Encoding
 
-# Images - 30 days cache
-/icon.webp
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-  Vary: Accept-Encoding
+###############################################
+# Static assets with hash - 1 year cache
+###############################################
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
 
-/ogp.jpg
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-  Vary: Accept-Encoding
-
-/*.webp
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-  Vary: Accept-Encoding
-
-/*.jpg
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-  Vary: Accept-Encoding
-
-/*.png
-  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
-  Vary: Accept-Encoding
-
+###############################################
 # Fonts - 1 year cache
+###############################################
 /*.woff2
   Cache-Control: public, max-age=31536000, immutable
-  Vary: Accept-Encoding
 
 /*.woff
   Cache-Control: public, max-age=31536000, immutable
-  Vary: Accept-Encoding
 
-# Manifest and service worker
+###############################################
+# Images - 30 days cache
+###############################################
+/icon.webp
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/ogp.jpg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/*.webp
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/*.jpg
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/*.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+###############################################
+# Manifest and SEO - 1 day cache
+###############################################
 /manifest.json
   Cache-Control: public, max-age=86400
-  Vary: Accept-Encoding
 
-# SEO files - 1 day cache
 /sitemap.xml
   Cache-Control: public, max-age=86400
-  Vary: Accept-Encoding
 
 /robots.txt
   Cache-Control: public, max-age=86400
-  Vary: Accept-Encoding
-
 

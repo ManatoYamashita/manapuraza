@@ -46,16 +46,21 @@ library.add(
   faGlobe
 );
 
-// 遅延インポートのため関数化
+// Vue-i18n軽量版を使用（Tree shaking最適化）
 const setupI18n = async () => {
-  const { createI18n } = await import('vue-i18n');
+  // 必要な機能のみをインポート（Bundle size削減）
+  const { createI18n } = await import('vue-i18n/dist/vue-i18n.runtime.esm-bundler.js');
+  
   // 初期は日本語のみ読み込み、英語はアイドル時に遅延読み込み
   const ja = await import('/locales/ja.json');
   
   const i18n = createI18n({
-    legacy: false,
+    legacy: false, // Vue2の互換性を無効化（軽量化）
     locale: 'ja',
     fallbackLocale: 'en',
+    globalInjection: false, // グローバル注入を無効化（軽量化）
+    silentTranslationWarn: true, // 警告メッセージを削減
+    silentFallbackWarn: true,
     messages: {
       ja: ja.default
     }
@@ -83,8 +88,12 @@ app.use(router);
 navbar.use(router);
 // metaballのルーター適用は遅延読み込み時に設定する
 
-// i18nを遅延読み込み
+// i18nを遅延読み込み（最適化版）
 setupI18n().then(i18n => {
+  // globalInjectionを無効にしたため、provide/injectパターンを使用
+  app.provide('i18n', i18n);
+  navbar.provide('i18n', i18n);
+  
   app.use(i18n);
   navbar.use(i18n);
 

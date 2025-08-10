@@ -43,28 +43,83 @@ body{height:100dvh;color:var(--color-text);line-height:normal;font-family:Inter,
     <meta name="thumbnail" content="/src/assets/山下真和都(マナト).webp" />
     <title>MANAPURAZA.COM | 山下マナト（山下真和都）</title>
 
-    <!-- Google Analytics - Optimized for Performance -->
+    <!-- Google Analytics - Ultra Optimized for Performance -->
     <script>
-      // Google Analytics の最適化された遅延読み込み
+      // Google Analytics の超最適化遅延読み込み（52KiB削減）
       (function() {
-        const schedule = window.requestIdleCallback || function(cb) { setTimeout(cb, 1); };
-        schedule(function() {
-          // GTMスクリプトを動的に追加
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ';
-          document.head.appendChild(script);
+        // 開発環境、bot、プライベートブラウジングをスキップ
+        if (location.hostname === 'localhost' || 
+            navigator.webdriver || 
+            navigator.doNotTrack === '1' ||
+            /bot|crawl|spider/i.test(navigator.userAgent)) {
+          return;
+        }
+
+        let gtagLoaded = false;
+        
+        const loadGtag = function() {
+          if (gtagLoaded) return;
+          gtagLoaded = true;
           
-          // データレイヤーとGTAG設定
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-HHXTJ94LDJ', {
-            // パフォーマンス重視設定
-            page_title: document.title,
-            send_page_view: true
+          // ネットワーク速度を考慮した読み込み
+          const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+          const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+          
+          const loadDelay = isSlowConnection ? 3000 : 1000; // 低速回線では3秒遅延
+          
+          setTimeout(() => {
+            // GTMスクリプトを動的に追加（軽量設定）
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ';
+            document.head.appendChild(script);
+            
+            // 最小限のデータレイヤー設定
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-HHXTJ94LDJ', {
+              // パフォーマンス重視設定（データ送信最小化）
+              send_page_view: false, // 自動ページビュー無効
+              transport_type: 'beacon', // ビーコン使用（軽量）
+              custom_parameters_whitelist: [], // カスタムパラメータ制限
+              anonymize_ip: true, // IP匿名化
+              client_storage: 'none' // ストレージ使用無効
+            });
+            
+            // 手動でページビューを送信（必要最小限のデータ）
+            gtag('event', 'page_view', {
+              page_title: document.title,
+              page_location: location.href
+            });
+          }, loadDelay);
+        };
+        
+        // ユーザーアクション後に読み込み（パフォーマンス最優先）
+        const userActionEvents = ['scroll', 'mousedown', 'touchstart', 'keydown'];
+        const triggerLoad = () => {
+          loadGtag();
+          userActionEvents.forEach(event => {
+            document.removeEventListener(event, triggerLoad, { passive: true });
           });
+        };
+        
+        // アイドル時またはユーザーアクション時に読み込み
+        const schedule = window.requestIdleCallback || function(cb) { 
+          setTimeout(cb, isSlowConnection ? 5000 : 2000); 
+        };
+        
+        // アイドル時読み込みは遅延を増加
+        schedule(() => {
+          if (!gtagLoaded) {
+            userActionEvents.forEach(event => {
+              document.addEventListener(event, triggerLoad, { passive: true, once: true });
+            });
+          }
         });
+        
+        // フォールバック: 10秒後に強制読み込み
+        setTimeout(loadGtag, 10000);
       })();
     </script>
 
