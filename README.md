@@ -1,155 +1,149 @@
 # MANAPURAZA.COM 🍌（山下マナト Webポートフォリオ）
 
 <div align="center">
-  <img src="./public/ogp.jpg" alt="OGP image" width="500" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
+  <img src="./public/ogp.jpg" alt="OGP image" width="520" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
   
-  [![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat-square&logo=vue.js)](https://vuejs.org/)
-  [![Vite](https://img.shields.io/badge/Vite-latest-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
-  [![Three.js](https://img.shields.io/badge/Three.js-latest-000000?style=flat-square&logo=three.js)](https://threejs.org/)
-  [![i18n](https://img.shields.io/badge/i18n-Supported-success?style=flat-square)](https://vue-i18n.intlify.dev/)
+  <br/>
+  <a href="https://vuejs.org/" target="_blank"><img alt="Vue.js" src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat-square&logo=vue.js"></a>
+  <a href="https://vitejs.dev/" target="_blank"><img alt="Vite" src="https://img.shields.io/badge/Vite-6.x-646CFF?style=flat-square&logo=vite"></a>
+  <a href="https://threejs.org/" target="_blank"><img alt="Three.js" src="https://img.shields.io/badge/Three.js-latest-000000?style=flat-square&logo=three.js"></a>
+  <a href="https://vue-i18n.intlify.dev/" target="_blank"><img alt="i18n" src="https://img.shields.io/badge/i18n-vue--i18n%209-green?style=flat-square"></a>
 </div>
 
 ## About
 
-就活のための山下マナトWebポートフォリオサイト。東京都市大学の在学中（2021年 ~ 2024年）に制作したクリエイティブワークスをまとめています。
-広告制作会社[株式会社パズル](https://puzzle-inc.jp)でのエンジニアインターン（2023年11月）を通じて、さらなる改善を重ねています。
+山下マナト（山下真和都）のWebポートフォリオです。2021–2024に制作したクリエイティブを整理し、現在も継続改善しています。
 
 ### Deployment
+- 最新版: [manapuraza.com](https://manapuraza.com)
+- 初期版: [ver1.0](https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app)
 
-- **最新版**: [manapuraza.com](https://manapuraza.com)
-- **初期版**: [ver1.0](https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app)
+## Stack
 
-## Tech
+- フロントエンド
+  - Vue 3 (Composition API)
+  - Vite 6
+  - Vue Router 4（HTML5 History）
+  - Vue I18n 9
+  - Three.js / GSAP
+  - Font Awesome（必要アイコンのみツリーシェイク）
+- ビルド/最適化
+  - 手動コード分割（`vendor`, `vendor_three`, `vendor_fontawesome`, `vendor_gsap`）
+  - Terser 最適化（`drop_console`, `drop_debugger`）
+  - Source Map 出力
+- デプロイ
+  - 本番: 静的ホスティング（FTP 配信）
+  - デモ: Vercel
 
-- **Frontend**
-  - Vue.js 3 (Composition API)
-  - Vite
-  - Vue Router
-  - Vue I18n
-  - Three.js
-  - GSAP
-  - Font Awesome
+Node.js 要件（Vite準拠）: Node 20.19+ または 22.12+。参考: [Vite Getting Started](https://vitejs.dev/guide/)
 
-- **Deployment / Inflactractures**
+## Quick Start
 
-  - GitHub Actions (CI/CD)
-  - FTPサーバ（本番環境）
-  - Vercel（デモ環境）
-
-## Design
-
-<img alt="manapuraza.com is support responsive design." src="https://github.com/user-attachments/assets/4de9da7b-453c-4974-8d88-4dfee0d39830" width="400" />
-
-### Concept
-
-- **Grassmorphism**: Apple製品からインスピレーションを得た現代的なUIデザイン, グラスモーフィズム
-- **Color**:
-  - メインカラー: イエロー/オレンジ（バナナをモチーフ）
-  - アクセントカラー: 水色（補色による調和）
-- **Responsive design**: モバイルファーストアプローチ
-
-### UX/UI設計原則
-
-- **直感的ナビゲーション**: ユーザーの探索をサポートする明確な情報階層
-- **モバイル最適化**: 親指が届きやすい位置にメニューを配置
-- **パフォーマンス**: 軽量なトランジションアニメーション
-
-## Main functions
-
-### Home
-
-- インタラクティブな3Dバックグラウンド（Three.js）
-- マウスインタラクションによるカメラアングル変更
-- スムーズなアニメーション
-
-### About
-
-- 経歴/スキルの視覚的プレゼンテーション
-経歴はオブジェクト形式で管理
-
-### Creatives
-
-- カテゴリー別ポートフォリオ表示
-コンテンツは`src/data/creatives.js`で管理しています。詳しくは [Creatives データ管理ガイド](src/data/creatives-guide.md) を参照してください。
-  - アニメーション制作
-  - グラフィックス/イラスト
-  - プログラミング/Web開発
-  - その他映像制作
-- インタラクティブなホバーエフェクト
-- オリジナルキャラクター「でじこんちゃん」のアニメーション
-
-## 国際化対応
-
-Vue i18nプラグインを用いて、サイトは以下の言語に対応しています：
-
-- 🇯🇵 日本語
-- 🇺🇸 英語
-
-## Next Actions
-
-- [ ] ダークモードの実装
-- [ ] でじこんちゃんのインタラクション強化
-- [ ] JAMstackベースのブログ機能
-- [ ] パフォーマンス最適化（Lighthouseの結果にパフォーマンス項目に改善の余地あり）
-- [ ] アクセシビリティの向上
-
-## 🛠Process
-
-### Data Flow
-
-```mermaid
-graph LR
-    A[データ取得] --> B[コンポーネント]
-    B --> C[状態管理]
-    C --> D[コンポーネント]
-    D --> E[表示]
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # プロダクションビルド（/dist）
+npm run preview  # ローカルで/prodを確認
+npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
 ```
 
-- Vueコンポーネントによる状態管理
-- プロップスとイベントによる親子間通信
-- Composition APIを活用した再利用可能なロジック
+## アーキテクチャ概要
 
-### パフォーマンス最適化
+- エントリ: `index.html`（クリティカルCSSをインライン化、重要画像`icon.webp`をpreload）
+- アプリ初期化: `src/main.js`
+  - `createApp(App)` を `#app` に、`createApp(Navbar)` を `#navbar` にマウント
+  - Three.js を使う `MetaBall` は `requestIdleCallback` で遅延読み込みし `#back` にマウント
+  - メインCSS（`/src/assets/main.css`）は初回描画後に遅延読み込み
+- ルーティング: `src/router/index.js`
+  - `/`（Home）, `/about`, `/creatives`, `/:pathMatch(.*)*`（404）
+  - すべてのサブページは遅延インポート
+- 国際化: `vue-i18n`
+  - 初期は日本語のみ同期ロード（`/locales/ja.json`）
+  - 英語はアイドル時に遅延ロード（`/locales/en.json`）
+  - `fallbackLocale: 'en'`, `legacy: false`, `globalInjection: true`
+  - 参考: [Vue I18n Lazy Loading](https://vue-i18n.intlify.dev/guide/advanced/lazy.html)
 
-<img width="500" alt="lighthouse-desktop" src="https://github.com/user-attachments/assets/0408da41-f59b-4949-9969-f991969e198f" />
-<img width="500" alt="lighthouse-mobile" src="https://github.com/user-attachments/assets/e8379745-5b96-4703-86da-73d5830483ab" />
+## パフォーマンス最適化
 
+- 遅延読み込み
+  - Three.js / `MetaBall` をアイドル時に動的インポート
+  - 英語ロケールをアイドル時にロード
+  - メインCSSを初期描画後に追加ロード
+- コード分割
+  - Vite Rollup `manualChunks` により依存を論理分割
+- 画像最適化
+  - WebP採用、`index.html` で `icon.webp` を preload
+- ビルド最適化
+  - Terser圧縮（`drop_console`, `drop_debugger`）
 
-- 画像の遅延読み込み（`loading="lazy"`）
-- 動的インポートによるコード分割
-- アセットの最適化（WebP形式の使用）
+## SEO / アナリティクス
 
-### セキュリティ考慮事項
+- `index.html` に SEOメタ、OG/Twitterカード、構造化データ（JSON-LD）を実装
+- Google Analytics はユーザー操作/アイドル時に超遅延ロード（ビーコン送信、IP匿名化、有効最小設定）
+- `public/robots.txt`, `public/sitemap.xml` を配置
 
-- クロスサイトスクリプティング（XSS）対策
-- コンテンツセキュリティポリシー（CSP）の実装
-- 適切なCORS設定
+## ルーティングとSPAフォールバック
 
-### CI/CD
+- `createWebHistory()` を使用
+- 開発サーバは SPA フォールバック有効
+- 本番静的配信では、サーバ側で `index.html` へのフォールバック設定を推奨
+  - 例（Nginx）:
+    ```
+    location / {
+      try_files $uri $uri/ /index.html;
+    }
+    ```
 
-```mermaid
-graph LR
-    A[Push to main] --> B[GitHub Actions]
-    B --> C[インストール]
-    C --> D[ビルド]
-    D --> E[FTPデプロイ]
+## 国際化（i18n）
+
+- リソース
+  - `locales/ja.json`, `locales/en.json`
+- 実装要点
+  - 初期レンダリングは `ja` のみロード、`en` は非同期追加
+  - `fallbackLocale: 'en'` によりキー欠損時に英語へフォールバック
+- 翻訳の追加手順
+  1. `locales/ja.json` と `locales/en.json` に新規キーを追加
+  2. 再読み込み不要（英語は遅延読込後に `setLocaleMessage` 済み）
+
+## コンテンツ/データ
+
+- クリエイティブ一覧: `src/data/creatives.js`
+- 運用ガイド: `src/data/creatives-guide.md`
+
+## デザイン方針
+
+- Grassmorphism / モバイルファースト / 軽量なトランジション
+- カラー
+  - メイン: イエロー/オレンジ（バナナモチーフ）
+  - アクセント: 水色
+
+## バンドル分析
+
+- `npm run analyze` → `rollup-plugin-visualizer` により依存とチャンクを可視化
+
+## セキュリティとアクセシビリティ
+
+- 主要対策
+  - 不要なスクリプトの排除、遅延読込で攻撃面縮小
+  - 画像の `alt`、適切な `aria` 属性の付与
+- 補足（推奨事項）
+  - 本番配信での適切な CSP 設定
+  - 依存の継続アップデート
+
+## スクリプト一覧
+
+```json
+{
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "analyze": "vite build --mode=analyze"
+}
 ```
-
-### バージョン管理
-
-- Node.js v18.17.0を使用
-- npm v8.1.0を使用
-- ESLint/Prettierによるコードフォーマット
-
-### セキュリティ考慮事項
-
-- クロスサイトスクリプティング（XSS）対策
-- コンテンツセキュリティポリシー（CSP）の実装
-- 適切なCORS設定
 
 ## ライセンス
 
-© 2022~ Manato Yamashita. All Rights Reserved.
+© 2022– Manato Yamashita. All Rights Reserved.
 
 ---
-*最終更新: 2025/03/30*
+最終更新: 2025-08-10
