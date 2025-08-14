@@ -1,0 +1,25 @@
+# Three.js / MetaBall 方針
+
+## ロード戦略
+- 初期描画に影響しないよう、`requestIdleCallback` で動的 import
+- マウント先は `#back`。他アプリ（App, Navbar）と i18n/router を共有
+
+## 例（`src/main.js` 抜粋）
+```js
+schedule(async () => {
+  const { default: MetaBall } = await import('@/components/MetaBall.vue')
+  const metaball = createApp(MetaBall)
+  metaball.component('font-awesome-icon', FontAwesomeIcon)
+  metaball.use(router)
+  metaball.use(i18n)
+  metaball.mount('#back')
+})
+```
+
+## エラーハンドリング
+- 動的 import 失敗時は `console.error` に詳細を残し、アプリ本体の UX を阻害しない
+
+## 依存
+- Three.js は専用チャンク `vendor_three` に分割
+- コントロール系（OrbitControls 等）を追加する場合は必要時に限定読み込み
+

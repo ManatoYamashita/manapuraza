@@ -1,0 +1,14 @@
+# SEO とアナリティクス
+
+## SEO
+- `index.html` に SEO メタ、OG/Twitter カード、JSON-LD を配置
+- `public/robots.txt` と `public/sitemap.xml` を提供
+
+## アナリティクス
+- Google Analytics を導入する場合は、ユーザー操作後/アイドル時に超遅延ロード
+- 送信はビーコン/匿名化/最小設定
+
+## ローカライゼーションと SEO
+- ルーティングは単一ロケール（`ja` 既定、`en` はクライアント追加）
+- 多言語 URL を採用しないため、hreflang は現状不要
+

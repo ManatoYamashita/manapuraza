@@ -1,0 +1,20 @@
+# アセットと画像
+
+## 画像形式
+- WebP を既定形式とする
+- 大サイズ画像はサムネイルを別途用意（`assets/creatives-thumb/`）
+
+## ロゴ最適化
+- 低解像度（`logo-low.webp`）→ 高解像度（`logo.webp`）の段階的切替
+- `<link rel="preload" as="image" fetchpriority="high">` で LCP を最適化
+
+## 参照方法
+- `new URL('@/assets/foo.webp', import.meta.url).href` を使用
+
+## 命名
+- 機能/用途でディレクトリを分け、単語はハイフン区切り
+
+## favicon/OGP
+- `public/favicon.ico`, `public/ogp.jpg`
+- 変更時はキャッシュを考慮しファイル名のバージョン付けを検討
+

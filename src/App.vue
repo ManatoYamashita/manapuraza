@@ -1,5 +1,10 @@
 <template>
   <div id="main">
+    <!-- ナビゲーション視覚フィードバック用プログレスバー -->
+    <div id="navigation-progress" class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
     <a href="https://manapuraza.com" aria-current="page" class="home-logo">
       <img 
         :fetchpriority="logoQuality === 'high' ? 'high' : 'low'" 
@@ -290,6 +295,55 @@
     }
   }
   
+  /* ナビゲーション視覚フィードバックシステム */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 9999;
+    display: none;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4faef2, #ff984f, #4faef2);
+    background-size: 200% 100%;
+    animation: gradient-wave 1.5s ease-in-out infinite;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 10px rgba(79, 174, 242, 0.6);
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  @keyframes gradient-wave {
+    0% {
+      background-position: 200% 50%;
+    }
+    100% {
+      background-position: -200% 50%;
+    }
+  }
+
+  /* ナビゲーション中のローディング状態 */
+  :global(.navigation-loading) {
+    cursor: wait !important;
+  }
+
+  :global(.navigation-loading *) {
+    cursor: wait !important;
+  }
+
+  /* ナビゲーションリンクのローディングフィードバック */
+  :global(.navigation-loading .rlink) {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease-in-out;
+  }
+
   /* SP表示 */
   @media (max-width: 540px) {
     #main {
@@ -313,6 +367,11 @@
       right: 50%;
       bottom: 2.5rem;
       pointer-events: all;
+    }
+    
+    /* SP用プログレスバー */
+    .progress-bar {
+      height: 4px;
     }
   }
 </style>

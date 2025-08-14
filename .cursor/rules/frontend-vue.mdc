@@ -1,0 +1,42 @@
+# Vue 実装規約（SFC/Composition API）
+
+## 基本
+- SFC は `<script setup>` を使用
+- Composition API（`ref`, `computed`, `watch`, `onMounted`）を基本
+- グローバル登録は最小限（Font Awesome のみ）
+
+## 例（`App.vue` 抜粋）
+```vue
+<script type="text/javascript" setup>
+import { watch, onMounted, computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+const isHomePage = ref(true)
+
+const currentLogoSrc = computed(() => /* ... */)
+watch(route, () => {/* ... */})
+onMounted(() => {/* ... */})
+</script>
+```
+
+## スタイル
+- ページ/枠レイアウトは `App.vue` で制御し、各 `views` は中身のみを描画
+- CSS は基本 `scoped`。共有が必要なスタイルは `src/assets/main.css`
+
+## DOM 直接操作
+- 既存の `document.querySelector('.app')` のような制御は互換性維持のため許容
+- 新規ではクラス切替やスタイルをリアクティブ値に寄せる（computed/バインド）
+
+## アイコン
+- グローバル: `fa`, `font-awesome-icon` を登録済み
+- 使い方
+```vue
+<fa :icon="['fas','arrow-right']" />
+```
+
+## 依存の動的 import
+- ページ（`views`）は必ず動的 import
+- 重い UI（`MetaBall.vue`）は `requestIdleCallback` で遅延
+

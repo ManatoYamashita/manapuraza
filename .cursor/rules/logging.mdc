@@ -1,0 +1,23 @@
+# ログと監視
+
+## コンソールログ方針
+- 本番でも `console.error` は保持
+- `console.debug`, `console.trace` は Terser で除去
+- 重要ログ（例: `MetaBall:`）のコメントは Terser フィルタで保持
+
+## 実装例
+```js
+terserOptions: {
+  compress: {
+    drop_console: false,
+    drop_debugger: true,
+    pure_funcs: ['console.debug','console.trace']
+  },
+  format: { comments: /MetaBall:/i }
+}
+```
+
+## 運用
+- 例外は握りつぶさず、UI への影響がなければ `console.error` に詳細を残す
+- 将来の監視導入時はビーコン送信を最小で実装し、ユーザーの同意/匿名化を徹底
+

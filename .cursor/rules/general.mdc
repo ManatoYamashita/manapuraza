@@ -1,0 +1,80 @@
+---
+alwaysApply: true
+---
+
+# manapuraza Rules Index (general.mdc)
+
+このファイルはルールの索引（エントリ）です。プロジェクトの実装と運用に必要な規約・手順を横断的に参照できます。新しい「おもちゃ（技術）」を手に取る前に、まずここを読みなさい。フフフ…。
+
+## 対象リポジトリ
+- `Vue 3 + Vite 6`、`Vue Router 4`、`vue-i18n 9`
+- Three.js/GSAP、Font Awesome（必要アイコンのみ）
+- 静的配信（本番）/ Vercel（デモ）
+
+## 索引（Rules Catalog）
+- アーキテクチャと構成: `./architecture.mdc`
+- Vue 実装規約（SFC/Composition API/コンポーネント）: `./frontend-vue.mdc`
+- ルーティング（SPA/404/遅延読み込み）: `./routing.mdc`
+- 国際化（i18nの遅延ロード/設定）: `./i18n/i18n.mdc`
+- パフォーマンス最適化（遅延/分割/LCP配慮）: `./performance.mdc`
+- ビルドとバンドル（Vite/Terser/manualChunks）: `./build-and-bundling.mdc`
+- アセットと画像（WebP/プリロード/命名）: `./assets-and-images.mdc`
+- ログと監視（console方針/本番）: `./logging.mdc`
+- デプロイ（静的配信/SPAフォールバック）: `./deployment.mdc`
+- セキュリティとアクセシビリティ: `./security-and-a11y.mdc`
+- SEOとアナリティクス: `./seo-and-analytics.mdc`
+- Three.js/MetaBall の方針: `./threejs-metaball.mdc`
+
+## 運用（PDCA）
+- PLAN: 変更前に本索引と各ルールの該当箇所を確認し、必要ならルール追記/更新の方針を作成
+- DO: ルール準拠で実装し、小さくコミット
+- CHECK: `docs/DEPLOYMENT_CHECKLIST.md` と照合、ビルド/プレビュー両環境確認
+- ACTION: 学びを該当ルールに反映し、ここ（索引）に追記が必要なら更新
+
+## 変更原則
+- 既存の実装を優先。ルールは「事実のドキュメント化」を基本とし、将来の指針は注記に限定
+- 新規ルールは関連ファイルへの最小分割で追加（200行超過や責務乖離時は新規ファイル化）
+- ルール内のコードは実運用可能な形で記述（擬似コードは禁止）
+
+## 参照
+- 実装の概要は `README.md` を参照
+- デプロイ運用は `docs/DEPLOYMENT_CHECKLIST.md` を参照
+
+# manapuraza Rules Index (general.mdc)
+
+このファイルはルールの索引（エントリ）です。プロジェクトの実装と運用に必要な規約・手順を横断的に参照できます。新しい「おもちゃ（技術）」を手に取る前に、まずここを読みなさい。フフフ…。
+
+## 対象リポジトリ
+- `Vue 3 + Vite 6`、`Vue Router 4`、`vue-i18n 9`
+- Three.js/GSAP、Font Awesome（必要アイコンのみ）
+- 静的配信（本番）/ Vercel（デモ）
+
+## 索引（Rules Catalog）
+- アーキテクチャと構成: `./architecture.mdc`
+- Vue 実装規約（SFC/Composition API/コンポーネント）: `./frontend-vue.mdc`
+- ルーティング（SPA/404/遅延読み込み）: `./routing.mdc`
+- 国際化（i18nの遅延ロード/設定）: `./i18n/i18n.mdc`
+- パフォーマンス最適化（遅延/分割/LCP配慮）: `./performance.mdc`
+- ビルドとバンドル（Vite/Terser/manualChunks）: `./build-and-bundling.mdc`
+- アセットと画像（WebP/プリロード/命名）: `./assets-and-images.mdc`
+- ログと監視（console方針/本番）: `./logging.mdc`
+- デプロイ（静的配信/SPAフォールバック）: `./deployment.mdc`
+- セキュリティとアクセシビリティ: `./security-and-a11y.mdc`
+- SEOとアナリティクス: `./seo-and-analytics.mdc`
+- Three.js/MetaBall の方針: `./threejs-metaball.mdc`
+
+## 運用（PDCA）
+- PLAN: 変更前に本索引と各ルールの該当箇所を確認し、必要ならルール追記/更新の方針を作成
+- DO: ルール準拠で実装し、小さくコミット
+- CHECK: `docs/DEPLOYMENT_CHECKLIST.md` と照合、ビルド/プレビュー両環境確認
+- ACTION: 学びを該当ルールに反映し、ここ（索引）に追記が必要なら更新
+
+## 変更原則
+- 既存の実装を優先。ルールは「事実のドキュメント化」を基本とし、将来の指針は注記に限定
+- 新規ルールは関連ファイルへの最小分割で追加（200行超過や責務乖離時は新規ファイル化）
+- ルール内のコードは実運用可能な形で記述（擬似コードは禁止）
+
+## 参照
+- 実装の概要は `README.md` を参照
+- デプロイ運用は `docs/DEPLOYMENT_CHECKLIST.md` を参照
+

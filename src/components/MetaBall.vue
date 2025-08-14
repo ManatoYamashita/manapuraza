@@ -322,22 +322,14 @@ export default {
             const subtract = 10;
             const strength = 0.6 / ((Math.sqrt(numBlobs) - 1) / 4 + 1);
 
-            // aspect ratio補正係数計算
-            const aspectRatio = window.innerWidth / window.innerHeight;
-            const aspectCorrectionX = aspectRatio >= 1.0 ? 1.0 / aspectRatio : 1.0;
-            const aspectCorrectionY = aspectRatio < 1.0 ? aspectRatio : 1.0;
-
+            // 統一補正システム: 座標系補正を削除（シンプル化）
             for (let i = 0; i < numBlobs; i++) {
                 const time = this.time;
                 
-                // 元の座標計算（正規化座標系 0.0-1.0）
-                let ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
-                let bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
+                // 座標計算（正規化座標系 0.0-1.0）- aspect ratio補正は削除
+                const ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
+                const bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
                 const ballz = Math.cos(i + 1.32 * time * 0.1 * Math.sin(0.92 + 0.53 * i)) * 0.27 + 0.5;
-                
-                // aspect ratio補正を適用（完璧円形を保証）
-                ballx = (ballx - 0.5) * aspectCorrectionX + 0.5;
-                bally = (bally - 0.5) * aspectCorrectionY + 0.5;
 
                 this.effect.addBall(ballx, bally, ballz, strength, subtract);
             }
@@ -353,22 +345,14 @@ export default {
             const frameCtrl = this.frameControl;
             const interpolation = frameCtrl.interpolationFactor;
 
-            // aspect ratio補正係数計算
-            const aspectRatio = window.innerWidth / window.innerHeight;
-            const aspectCorrectionX = aspectRatio >= 1.0 ? 1.0 / aspectRatio : 1.0;
-            const aspectCorrectionY = aspectRatio < 1.0 ? aspectRatio : 1.0;
-
+            // 統一補正システム: 座標系補正を削除（シンプル化）
             for (let i = 0; i < numBlobs; i++) {
                 const time = this.time;
                 
-                // 元の座標計算（正規化座標系 0.0-1.0）
-                let ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
-                let bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
+                // 座標計算（正規化座標系 0.0-1.0）- aspect ratio補正は削除
+                const ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
+                const bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
                 const ballz = Math.cos(i + 1.32 * time * 0.1 * Math.sin(0.92 + 0.53 * i)) * 0.27 + 0.5;
-                
-                // aspect ratio補正を適用（完璧円形を保証）
-                ballx = (ballx - 0.5) * aspectCorrectionX + 0.5;
-                bally = (bally - 0.5) * aspectCorrectionY + 0.5;
 
                 // 補間処理で滑らかな移行
                 if (frameCtrl.previousBalls[i]) {
@@ -488,67 +472,52 @@ export default {
             }
         },
         calculateAspectAwareResolution() {
-            // aspect ratio対応ボクセルグリッド解像度計算
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const aspectRatio = width / height;
-            
-            // 基準解像度（正方形時の基準）
+            // 統一補正システム: ボクセルグリッドは正方形維持（パフォーマンス重視）
             const baseRes = this.dynamicResolution.base; // 30
             
-            let resX, resY, resZ;
+            // 全軸で同一解像度を使用（aspect ratio補正はカメラ・スケールで対応）
+            const resolution = Math.max(15, Math.min(40, baseRes));
             
-            if (aspectRatio >= 1.0) {
-                // 横長画面: X軸解像度を比例増加
-                resX = Math.round(baseRes * aspectRatio);
-                resY = baseRes;
-                resZ = baseRes;
-            } else {
-                // 縦長画面: Y軸解像度を逆比例増加
-                resX = baseRes;
-                resY = Math.round(baseRes / aspectRatio);
-                resZ = baseRes;
-            }
-            
-            // 解像度制限（パフォーマンス考慮）
-            resX = Math.max(15, Math.min(60, resX));
-            resY = Math.max(15, Math.min(60, resY));
-            resZ = Math.max(15, Math.min(40, resZ));
-            
-            return { x: resX, y: resY, z: resZ };
+            return { x: resolution, y: resolution, z: resolution };
         },
         calculatePerfectSphereScale() {
-            // aspect ratio補正されたスケール計算
+            // 統一補正システム: シンプルで一貫したスケール計算
             const width = window.innerWidth;
             const height = window.innerHeight;
-            const aspectRatio = width / height;
             
             // 基準スケール
             const baseScale = 300;
             
-            // 画面サイズに応じた調整
+            // 画面サイズに応じた調整のみ（aspect ratio補正削除）
             const minDimension = Math.min(width, height);
             const sizeFactor = Math.max(0.7, Math.min(1.3, minDimension / 800));
             
-            // aspect ratio補正スケール（ボクセルグリッドと連動）
-            let scaleX = baseScale * sizeFactor;
-            let scaleY = baseScale * sizeFactor;
-            let scaleZ = baseScale * sizeFactor;
+            // 全軸で統一スケール（完璧な球形保証）
+            const scale = baseScale * sizeFactor;
             
-            // ボクセルグリッドの矩形化を補正するスケール調整
-            if (aspectRatio >= 1.0) {
-                // 横長: Xグリッドが増加した分、Xスケールを減らす
-                scaleX = scaleX / aspectRatio;
-            } else {
-                // 縦長: Yグリッドが増加した分、Yスケールを減らす
-                scaleY = scaleY * aspectRatio;
-            }
-            
-            return { x: scaleX, y: scaleY, z: scaleZ };
+            return { x: scale, y: scale, z: scale };
         },
         calculateOptimalFOV() {
-            // 最適FOV計算（シンプル化）
-            return 50; // ボクセルグリッド補正で解決するためFOVは固定
+            // 統一補正システム: 動的FOV調整でaspect ratio対応
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspectRatio = width / height;
+            
+            // 基準FOV
+            const baseFOV = 50;
+            
+            // aspect ratioに基づく動的FOV調整
+            let fov = baseFOV;
+            if (aspectRatio >= 1.5) {
+                // 横長画面: FOVを狭めて球形保持
+                fov = baseFOV * 0.9;
+            } else if (aspectRatio <= 0.75) {
+                // 縦長画面: FOVを広げて球形保持
+                fov = baseFOV * 1.1;
+            }
+            
+            // FOV制限
+            return Math.max(35, Math.min(65, fov));
         },
         calculateOptimalCameraPosition() {
             // 最適カメラ位置計算（FOV補正と連携）
@@ -572,26 +541,26 @@ export default {
             return { x: 100, y: 100, z: cameraZ };
         },
         updateAspectCorrectedMetaBall() {
-            // aspect ratio対応ボクセルグリッド補正システム
+            // 統一補正システム：動的FOV + 統一スケールでaspect ratio対応
             if (this.effect && this.camera) {
-                // 1. ボクセルグリッド解像度をaspect ratio対応で再初期化
+                // 1. ボクセルグリッド解像度を正方形で再初期化（パフォーマンス重視）
                 const newResolution = this.calculateAspectAwareResolution();
                 
                 // MarchingCubes再初期化（非同期）
                 const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
                 schedule(() => {
                     if (this.effect) {
-                        // 最適解像度で再構築
-                        this.effect.init(Math.max(newResolution.x, newResolution.y, newResolution.z));
-                        console.log(`MetaBall: Voxel grid updated - ${newResolution.x}x${newResolution.y}x${newResolution.z}`);
+                        // 正方形解像度で再構築
+                        this.effect.init(newResolution.x);
+                        console.log(`MetaBall: Voxel grid updated - ${newResolution.x}x${newResolution.y}x${newResolution.z} (unified cubic grid)`);
                     }
                 });
                 
-                // 2. aspect ratio補正スケール適用
+                // 2. 統一スケール適用（完璧球形保証）
                 const scale = this.calculatePerfectSphereScale();
                 this.effect.scale.set(scale.x, scale.y, scale.z);
                 
-                // 3. カメラ設定更新
+                // 3. 動的FOV調整でaspect ratio補正
                 const optimalFOV = this.calculateOptimalFOV();
                 this.camera.fov = optimalFOV;
                 this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -603,7 +572,7 @@ export default {
                 // 5. 投影行列更新
                 this.camera.updateProjectionMatrix();
                 
-                console.log(`MetaBall: Aspect corrected - Scale(${scale.x.toFixed(1)},${scale.y.toFixed(1)},${scale.z.toFixed(1)}), Aspect(${this.camera.aspect.toFixed(2)})`);
+                console.log(`MetaBall: Unified correction system - Scale(${scale.x.toFixed(1)}), FOV(${optimalFOV.toFixed(1)}°), Aspect(${this.camera.aspect.toFixed(2)})`);
             }
         },
         detectLowPerformanceDevice() {

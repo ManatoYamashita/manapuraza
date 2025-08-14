@@ -1,0 +1,34 @@
+# アーキテクチャと構成
+
+## 概要
+- エントリ: `index.html`
+- アプリ初期化: `src/main.js`
+  - `createApp(App)` を `#app` に、`createApp(Navbar)` を `#navbar` にマウント
+  - 重い Three.js を使う `MetaBall` は `requestIdleCallback` で遅延読み込みし `#back` にマウント
+- ルーティング: `src/router/index.js`（`createWebHistory()`）
+- i18n: 遅延初期化（`ja` 同期、`en` 非同期）
+- エイリアス: `@ -> /src`（`vite.config.js`）
+
+## ディレクトリ方針
+- `src/components`:
+  - UI部品（`Navbar.vue`, `SpNav.vue`, etc）
+  - 大きい描画処理（`MetaBall.vue`）は遅延読み込み前提
+- `src/views`:
+  - ルート直下のページコンポーネント（`Home.vue` 他）
+  - すべて動的 import でチャンク化
+- `src/assets`:
+  - 画像は WebP を基本、命名は用途別に階層化（`creatives-thumb/` など）
+
+## 責務分離
+- `App.vue` はルーティングの描画枠とヒーローロゴの LCP 最適化に専念
+- 直接 DOM 操作は限定的に許可（`App.vue` の `.app` スタイル切替）。新規コードでは可能な限りリアクティブに置換
+- 三層分割は採用しない（静的サイト前提）。データ取得はローカル JSON/JS のみ
+
+## SPA フォールバック
+- 開発サーバ: `server.historyApiFallback: true`
+- 本番静的配信: サーバ設定で `index.html` へフォールバック（例は `README.md` 参照）
+
+## 変更時の原則
+- 低コストな改善を優先（遅延/分割/キャッシュ活用）
+- 依存追加は最後の手段。まず原生 API と既存依存で解決する
+

@@ -1,0 +1,18 @@
+# デプロイ
+
+## 環境
+- 本番: 静的配信（FTP）。SPA はサーバ側で `index.html` へフォールバック
+- デモ: Vercel
+
+## 手順
+1. `npm run build`
+2. `npm run preview` でローカル確認（http://localhost:4173）
+3. `/dist` を配信
+
+## チェックリスト
+- `docs/DEPLOYMENT_CHECKLIST.md` を参照
+- 主要確認: MetaBall 動作、i18n 英語追加、レイアウト/レスポンシブ、ログ、エラー無
+
+## ヘッダー/キャッシュ
+- `public/_headers` がある場合は CDN/ホスティング仕様に合わせて更新
+
