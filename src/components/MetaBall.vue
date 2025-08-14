@@ -178,10 +178,10 @@ export default {
             console.log(`MetaBall: Initial voxel grid - ${initialResolution.x}x${initialResolution.y}x${initialResolution.z} (max: ${maxRes})`);
             this.effect.position.set(0, 0, 0);
             
-            // 完璧球形スケール適用
+            // 完璧球形スケール適用（PerspectiveCamera投影歪み逆補正）
             const initialScale = this.calculatePerfectSphereScale();
             this.effect.scale.set(initialScale.x, initialScale.y, initialScale.z);
-            console.log(`MetaBall: Perfect sphere scale set to ${initialScale.x.toFixed(1)} with FOV ${initialFOV.toFixed(1)}°`);
+            console.log(`MetaBall: Inverse projection compensation initialized - ScaleX(${initialScale.x.toFixed(1)}) ScaleY(${initialScale.y.toFixed(1)}) ScaleZ(${initialScale.z.toFixed(1)}) FOV(${initialFOV.toFixed(1)}°)`);
             
             // Frustum Culling を有効化（見えない部分の描画をスキップ）
             this.effect.frustumCulled = true;
@@ -481,43 +481,58 @@ export default {
             return { x: resolution, y: resolution, z: resolution };
         },
         calculatePerfectSphereScale() {
-            // 統一補正システム: シンプルで一貫したスケール計算
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            
-            // 基準スケール
-            const baseScale = 300;
-            
-            // 画面サイズに応じた調整のみ（aspect ratio補正削除）
-            const minDimension = Math.min(width, height);
-            const sizeFactor = Math.max(0.7, Math.min(1.3, minDimension / 800));
-            
-            // 全軸で統一スケール（完璧な球形保証）
-            const scale = baseScale * sizeFactor;
-            
-            return { x: scale, y: scale, z: scale };
-        },
-        calculateOptimalFOV() {
-            // 統一補正システム: 動的FOV調整でaspect ratio対応
+            // 真の解決：PerspectiveCamera投影歪み逆補正システム
             const width = window.innerWidth;
             const height = window.innerHeight;
             const aspectRatio = width / height;
             
-            // 基準FOV
-            const baseFOV = 50;
+            // 基準スケール
+            const baseScale = 300;
             
-            // aspect ratioに基づく動的FOV調整
-            let fov = baseFOV;
-            if (aspectRatio >= 1.5) {
-                // 横長画面: FOVを狭めて球形保持
-                fov = baseFOV * 0.9;
-            } else if (aspectRatio <= 0.75) {
-                // 縦長画面: FOVを広げて球形保持
-                fov = baseFOV * 1.1;
+            // 画面サイズに応じた調整
+            const minDimension = Math.min(width, height);
+            const sizeFactor = Math.max(0.7, Math.min(1.3, minDimension / 800));
+            
+            // ベーススケールを適用
+            let scaleX = baseScale * sizeFactor;
+            let scaleY = baseScale * sizeFactor;
+            const scaleZ = baseScale * sizeFactor;
+            
+            // PerspectiveCamera投影歪みの物理的相殺
+            if (aspectRatio > 1.0) {
+                // 横長画面: カメラが水平方向を引き伸ばす → X軸を縮めて相殺
+                scaleX = scaleX / aspectRatio;
+                console.log(`MetaBall: Horizontal stretch compensation - scaleX reduced by ${aspectRatio.toFixed(2)}`);
+            } else if (aspectRatio < 1.0) {
+                // 縦長画面: カメラが水平方向を圧縮 → Y軸を伸ばして相殺
+                scaleY = scaleY / aspectRatio;  
+                console.log(`MetaBall: Horizontal compression compensation - scaleY expanded by ${(1/aspectRatio).toFixed(2)}`);
+            } else {
+                console.log('MetaBall: Perfect square aspect - no compensation needed');
             }
             
-            // FOV制限
-            return Math.max(35, Math.min(65, fov));
+            return { x: scaleX, y: scaleY, z: scaleZ };
+        },
+        calculateOptimalFOV() {
+            // 真の解決：スケール逆補正が主力のため、FOVは基本固定
+            const baseFOV = 50;
+            
+            // 極端なaspect ratioでのみ最小限のFOV調整を行う（スケール補正の補助）
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            let fov = baseFOV;
+            
+            // 超極端なケースのみ、スケール補正を補助する最小限の調整
+            if (aspectRatio >= 2.5) {
+                // 超横長画面でのみ微調整
+                fov = baseFOV * 0.95;
+                console.log('MetaBall: Ultra-wide screen FOV micro-adjustment');
+            } else if (aspectRatio <= 0.4) {
+                // 超縦長画面でのみ微調整  
+                fov = baseFOV * 1.05;
+                console.log('MetaBall: Ultra-tall screen FOV micro-adjustment');
+            }
+            
+            return Math.max(40, Math.min(60, fov));
         },
         calculateOptimalCameraPosition() {
             // 最適カメラ位置計算（FOV補正と連携）
@@ -572,7 +587,7 @@ export default {
                 // 5. 投影行列更新
                 this.camera.updateProjectionMatrix();
                 
-                console.log(`MetaBall: Unified correction system - Scale(${scale.x.toFixed(1)}), FOV(${optimalFOV.toFixed(1)}°), Aspect(${this.camera.aspect.toFixed(2)})`);
+                console.log(`MetaBall: Inverse projection compensation - ScaleX(${scale.x.toFixed(1)}) ScaleY(${scale.y.toFixed(1)}) ScaleZ(${scale.z.toFixed(1)}) FOV(${optimalFOV.toFixed(1)}°) Aspect(${this.camera.aspect.toFixed(2)})`);
             }
         },
         detectLowPerformanceDevice() {
