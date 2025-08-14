@@ -101,12 +101,26 @@ setupI18n().then(i18n => {
   app.mount('#app');
   navbar.mount('#navbar');
 
-  // 初期レンダリング完了後にメインCSSを遅延読み込み
+  // メインCSSの環境対応読み込み（開発・プロダクション統一）
   const loadMainCSS = () => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = '/src/assets/main.css';
-    document.head.appendChild(link);
+    if (import.meta.env.DEV) {
+      // 開発環境：従来の動的読み込み
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/src/assets/main.css';
+      document.head.appendChild(link);
+      console.log('MetaBall: CSS loaded dynamically (dev mode)');
+    } else {
+      // プロダクション環境：静的インポートで確実に読み込み
+      import('/src/assets/main.css').catch(err => {
+        console.error('MetaBall: CSS import failed:', err);
+        // フォールバック：基本スタイルの確保
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        document.body.style.fontFamily = 'system-ui, sans-serif';
+      });
+      console.log('MetaBall: CSS imported statically (prod mode)');
+    }
   };
 
   // 画面の初期描画完了後に背景の重いthree.jsを読み込む

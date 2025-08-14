@@ -20,14 +20,18 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.warn'],
+        drop_console: false, // コンソール完全削除を無効化
+        drop_debugger: true, // debugger文は削除
+        pure_funcs: ['console.debug', 'console.trace'], // 詳細ログのみ削除
         dead_code: true,
         unused: true,
       },
       mangle: {
         safari10: true,
+      },
+      format: {
+        // 重要ログのコメント保持
+        comments: /^!|@preserve|@license|@cc_on|MetaBall:/i,
       }
     },
     rollupOptions: {

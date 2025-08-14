@@ -96,8 +96,8 @@ export default {
             }
 
             // カメラの設定（最適FOVで初期化）
-            console.log('MetaBall: Setting up camera with FOV compensation...');
-            const initialFOV = this.calculateCompensatedFOV();
+            console.log('MetaBall: Setting up camera with optimal settings...');
+            const initialFOV = this.calculateOptimalFOV();
             this.camera = new PerspectiveCamera(initialFOV, window.innerWidth / window.innerHeight, 1, 700);
             
             // 初期カメラ位置を最適化
@@ -153,17 +153,29 @@ export default {
             console.log('MetaBall: Generating materials...');
             this.materials = this.generateMaterials();
 
-            // MarchingCubesを先に読み込み（必須）
-            const { MarchingCubes } = await import('three/addons/objects/MarchingCubes.js');
+            // MarchingCubesを先に読み込み（必須・環境統一）
+            let MarchingCubes;
+            try {
+                const module = await import('three/addons/objects/MarchingCubes.js');
+                MarchingCubes = module.MarchingCubes;
+                console.log(`MetaBall: MarchingCubes loaded successfully (${import.meta.env.MODE} mode)`);
+            } catch (error) {
+                console.error('MetaBall: Failed to load MarchingCubes:', error);
+                throw new Error('MetaBall initialization failed: MarchingCubes module unavailable');
+            }
 
-            // Marching Cubesの設定（最適化版）
+            // Marching Cubesの設定（aspect ratio対応版）
+            const initialResolution = this.calculateAspectAwareResolution();
+            const maxRes = Math.max(initialResolution.x, initialResolution.y, initialResolution.z);
+            
             this.effect = new MarchingCubes(
-                this.dynamicResolution.current, // 動的解像度を初期値として使用
+                maxRes, // aspect ratio対応解像度
                 this.materials[this.effectController.material],
                 true, // enableUvs
                 true, // enableColors  
                 50000 // maxPolyCount を100000から50000に削減
             );
+            console.log(`MetaBall: Initial voxel grid - ${initialResolution.x}x${initialResolution.y}x${initialResolution.z} (max: ${maxRes})`);
             this.effect.position.set(0, 0, 0);
             
             // 完璧球形スケール適用
@@ -182,21 +194,36 @@ export default {
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             const isLowPerformanceDevice = this.detectLowPerformanceDevice();
             
-            // 高性能デバイスのみでOrbitControlsを条件付き読み込み（パフォーマンス重視）
+            // 高性能デバイスのみでOrbitControlsを条件付き読み込み（環境統一・パフォーマンス重視）
             if (!isTouchDevice && !isLowPerformanceDevice) {
-                const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
-                // コントロールの設定（軽量版）
-                this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-                this.controls.minDistance = 100;
-                this.controls.maxDistance = 500;
-                this.controls.enableDamping = false; // ダンピング無効（軽量化）
-                this.controls.autoRotate = false; // 自動回転無効（軽量化）
-                console.log('MetaBall: OrbitControls enabled');
+                try {
+                    const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
+                    // コントロールの設定（軽量版）
+                    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+                    this.controls.minDistance = 100;
+                    this.controls.maxDistance = 500;
+                    this.controls.enableDamping = false; // ダンピング無効（軽量化）
+                    this.controls.autoRotate = false; // 自動回転無効（軽量化）
+                    console.log(`MetaBall: OrbitControls enabled (${import.meta.env.MODE} mode)`);
+                } catch (error) {
+                    console.warn('MetaBall: OrbitControls failed to load, continuing without controls:', error);
+                    this.controls = null;
+                }
             } else {
-                console.log('MetaBall: OrbitControls disabled (touch device or low performance)');
+                console.log(`MetaBall: OrbitControls disabled (touch device or low performance - ${import.meta.env.MODE} mode)`);
             }
             
-            console.log('MetaBall: Initialization complete!');
+            // 環境統一性確認ログ
+            console.log(`MetaBall: Initialization complete! (${import.meta.env.MODE} mode, DEV=${import.meta.env.DEV}, PROD=${import.meta.env.PROD})`);
+            
+            // プロダクション時の追加検証
+            if (import.meta.env.PROD) {
+                console.log('MetaBall: Production mode - performance optimizations active');
+                // プロダクション環境での統一性チェック
+                if (!this.effect || !this.renderer || !this.camera) {
+                    console.error('MetaBall: Critical components missing in production!');
+                }
+            }
         },
         animate() {
             if (this.isPaused) {
@@ -245,8 +272,8 @@ export default {
                 this.renderer.setPixelRatio(pixelRatio);
                 this.renderer.setSize(width, height, false); // updateStyleを無効化
                 
-                // 完璧球形投影システム全面更新（FOV補正含む）
-                this.updatePerfectSphereProjection();
+                // aspect ratio対応ボクセルグリッド補正システム更新
+                this.updateAspectCorrectedMetaBall();
                 
                 // リサイズ後のクリア処理
                 this.renderer.clear();
@@ -295,11 +322,22 @@ export default {
             const subtract = 10;
             const strength = 0.6 / ((Math.sqrt(numBlobs) - 1) / 4 + 1);
 
+            // aspect ratio補正係数計算
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            const aspectCorrectionX = aspectRatio >= 1.0 ? 1.0 / aspectRatio : 1.0;
+            const aspectCorrectionY = aspectRatio < 1.0 ? aspectRatio : 1.0;
+
             for (let i = 0; i < numBlobs; i++) {
                 const time = this.time;
-                const ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
-                const bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
+                
+                // 元の座標計算（正規化座標系 0.0-1.0）
+                let ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
+                let bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
                 const ballz = Math.cos(i + 1.32 * time * 0.1 * Math.sin(0.92 + 0.53 * i)) * 0.27 + 0.5;
+                
+                // aspect ratio補正を適用（完璧円形を保証）
+                ballx = (ballx - 0.5) * aspectCorrectionX + 0.5;
+                bally = (bally - 0.5) * aspectCorrectionY + 0.5;
 
                 this.effect.addBall(ballx, bally, ballz, strength, subtract);
             }
@@ -315,11 +353,22 @@ export default {
             const frameCtrl = this.frameControl;
             const interpolation = frameCtrl.interpolationFactor;
 
+            // aspect ratio補正係数計算
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            const aspectCorrectionX = aspectRatio >= 1.0 ? 1.0 / aspectRatio : 1.0;
+            const aspectCorrectionY = aspectRatio < 1.0 ? aspectRatio : 1.0;
+
             for (let i = 0; i < numBlobs; i++) {
                 const time = this.time;
-                const ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
-                const bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
+                
+                // 元の座標計算（正規化座標系 0.0-1.0）
+                let ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
+                let bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
                 const ballz = Math.cos(i + 1.32 * time * 0.1 * Math.sin(0.92 + 0.53 * i)) * 0.27 + 0.5;
+                
+                // aspect ratio補正を適用（完璧円形を保証）
+                ballx = (ballx - 0.5) * aspectCorrectionX + 0.5;
+                bally = (bally - 0.5) * aspectCorrectionY + 0.5;
 
                 // 補間処理で滑らかな移行
                 if (frameCtrl.previousBalls[i]) {
@@ -438,49 +487,68 @@ export default {
                 this.intersectionObserver.observe(this.$refs.container || this.$el);
             }
         },
-        calculatePerfectSphereScale() {
-            // 球形維持のための組一スケール計算
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            
-            // 基準スケール（完全球形維持）
-            const baseScale = 300;
-            
-            // 画面サイズに応じた統一スケール調整
-            const minDimension = Math.min(width, height);
-            const scaleFactor = Math.max(0.7, Math.min(1.3, minDimension / 800));
-            const uniformScale = baseScale * scaleFactor;
-            
-            // 絶対的等スケール（球形維持）
-            return { x: uniformScale, y: uniformScale, z: uniformScale };
-        },
-        calculateCompensatedFOV() {
-            // 透視投影歪み補正FOV計算（数学的補正）
+        calculateAspectAwareResolution() {
+            // aspect ratio対応ボクセルグリッド解像度計算
             const width = window.innerWidth;
             const height = window.innerHeight;
             const aspectRatio = width / height;
             
-            // 基準FOV（aspect ratio = 1.0時の完璧値）
-            const baseFOV = 50;
+            // 基準解像度（正方形時の基準）
+            const baseRes = this.dynamicResolution.base; // 30
             
-            // 数学的投影補正公式
-            // aspect ratioが1.0から遠ざかるほどFOV調整が必要
-            let compensatedFOV;
+            let resX, resY, resZ;
             
             if (aspectRatio >= 1.0) {
-                // 横長画面：FOVを減らして水平伸びを防止
-                // 公式: FOV_compensated = baseFOV / sqrt(aspectRatio)
-                compensatedFOV = baseFOV / Math.sqrt(aspectRatio);
+                // 横長画面: X軸解像度を比例増加
+                resX = Math.round(baseRes * aspectRatio);
+                resY = baseRes;
+                resZ = baseRes;
             } else {
-                // 縦長画面：FOVを少し増やして水平縮みを防止
-                // 公式: FOV_compensated = baseFOV * sqrt(1/aspectRatio) * 0.9
-                compensatedFOV = baseFOV * Math.sqrt(1 / aspectRatio) * 0.9;
+                // 縦長画面: Y軸解像度を逆比例増加
+                resX = baseRes;
+                resY = Math.round(baseRes / aspectRatio);
+                resZ = baseRes;
             }
             
-            // 安全範囲内でFOVを制限（数学的安定性保証）
-            compensatedFOV = Math.max(25, Math.min(75, compensatedFOV));
+            // 解像度制限（パフォーマンス考慮）
+            resX = Math.max(15, Math.min(60, resX));
+            resY = Math.max(15, Math.min(60, resY));
+            resZ = Math.max(15, Math.min(40, resZ));
             
-            return compensatedFOV;
+            return { x: resX, y: resY, z: resZ };
+        },
+        calculatePerfectSphereScale() {
+            // aspect ratio補正されたスケール計算
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspectRatio = width / height;
+            
+            // 基準スケール
+            const baseScale = 300;
+            
+            // 画面サイズに応じた調整
+            const minDimension = Math.min(width, height);
+            const sizeFactor = Math.max(0.7, Math.min(1.3, minDimension / 800));
+            
+            // aspect ratio補正スケール（ボクセルグリッドと連動）
+            let scaleX = baseScale * sizeFactor;
+            let scaleY = baseScale * sizeFactor;
+            let scaleZ = baseScale * sizeFactor;
+            
+            // ボクセルグリッドの矩形化を補正するスケール調整
+            if (aspectRatio >= 1.0) {
+                // 横長: Xグリッドが増加した分、Xスケールを減らす
+                scaleX = scaleX / aspectRatio;
+            } else {
+                // 縦長: Yグリッドが増加した分、Yスケールを減らす
+                scaleY = scaleY * aspectRatio;
+            }
+            
+            return { x: scaleX, y: scaleY, z: scaleZ };
+        },
+        calculateOptimalFOV() {
+            // 最適FOV計算（シンプル化）
+            return 50; // ボクセルグリッド補正で解決するためFOVは固定
         },
         calculateOptimalCameraPosition() {
             // 最適カメラ位置計算（FOV補正と連携）
@@ -503,28 +571,39 @@ export default {
             
             return { x: 100, y: 100, z: cameraZ };
         },
-        updatePerfectSphereProjection() {
-            // 完璧球形投影システム（FOV補正+スケール+カメラ統合更新）
+        updateAspectCorrectedMetaBall() {
+            // aspect ratio対応ボクセルグリッド補正システム
             if (this.effect && this.camera) {
-                // 1. 絶対球形スケール適用
+                // 1. ボクセルグリッド解像度をaspect ratio対応で再初期化
+                const newResolution = this.calculateAspectAwareResolution();
+                
+                // MarchingCubes再初期化（非同期）
+                const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+                schedule(() => {
+                    if (this.effect) {
+                        // 最適解像度で再構築
+                        this.effect.init(Math.max(newResolution.x, newResolution.y, newResolution.z));
+                        console.log(`MetaBall: Voxel grid updated - ${newResolution.x}x${newResolution.y}x${newResolution.z}`);
+                    }
+                });
+                
+                // 2. aspect ratio補正スケール適用
                 const scale = this.calculatePerfectSphereScale();
                 this.effect.scale.set(scale.x, scale.y, scale.z);
                 
-                // 2. 透視投影補正FOV適用（最重要）
-                const compensatedFOV = this.calculateCompensatedFOV();
-                this.camera.fov = compensatedFOV;
-                
-                // 3. カメラaspect ratio更新
+                // 3. カメラ設定更新
+                const optimalFOV = this.calculateOptimalFOV();
+                this.camera.fov = optimalFOV;
                 this.camera.aspect = window.innerWidth / window.innerHeight;
                 
                 // 4. 最適カメラ位置適用
                 const cameraPos = this.calculateOptimalCameraPosition();
                 this.camera.position.set(cameraPos.x, cameraPos.y, cameraPos.z);
                 
-                // 5. 投影行列更新（必須）
+                // 5. 投影行列更新
                 this.camera.updateProjectionMatrix();
                 
-                console.log(`MetaBall: Perfect Sphere - FOV(${compensatedFOV.toFixed(1)}°), Scale(${scale.x.toFixed(1)}), AspectRatio(${this.camera.aspect.toFixed(2)})`);
+                console.log(`MetaBall: Aspect corrected - Scale(${scale.x.toFixed(1)},${scale.y.toFixed(1)},${scale.z.toFixed(1)}), Aspect(${this.camera.aspect.toFixed(2)})`);
             }
         },
         detectLowPerformanceDevice() {
