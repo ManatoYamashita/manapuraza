@@ -95,10 +95,14 @@ export default {
                 return;
             }
 
-            // カメラの設定
-            console.log('MetaBall: Setting up camera...');
-            this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 700);
-            this.camera.position.set(100, 100, 400);
+            // カメラの設定（最適FOVで初期化）
+            console.log('MetaBall: Setting up camera with FOV compensation...');
+            const initialFOV = this.calculateCompensatedFOV();
+            this.camera = new PerspectiveCamera(initialFOV, window.innerWidth / window.innerHeight, 1, 700);
+            
+            // 初期カメラ位置を最適化
+            const initialCameraPos = this.calculateOptimalCameraPosition();
+            this.camera.position.set(initialCameraPos.x, initialCameraPos.y, initialCameraPos.z);
 
             // シーンの設定（背景はCSSグラデーションを使用）
             console.log('MetaBall: Setting up scene...');
@@ -161,7 +165,11 @@ export default {
                 50000 // maxPolyCount を100000から50000に削減
             );
             this.effect.position.set(0, 0, 0);
-            this.effect.scale.set(300, 300, 300);
+            
+            // 完璧球形スケール適用
+            const initialScale = this.calculatePerfectSphereScale();
+            this.effect.scale.set(initialScale.x, initialScale.y, initialScale.z);
+            console.log(`MetaBall: Perfect sphere scale set to ${initialScale.x.toFixed(1)} with FOV ${initialFOV.toFixed(1)}°`);
             
             // Frustum Culling を有効化（見えない部分の描画をスキップ）
             this.effect.frustumCulled = true;
@@ -231,17 +239,19 @@ export default {
                 const width = window.innerWidth;
                 const height = window.innerHeight;
                 
-                this.camera.aspect = width / height;
-                this.camera.updateProjectionMatrix();
-                
                 // レンダラーサイズ変更時の安定化処理
                 const devicePixelRatio = window.devicePixelRatio || 1;
                 const pixelRatio = Math.min(Math.max(devicePixelRatio * 0.5, 0.5), 1.5);
                 this.renderer.setPixelRatio(pixelRatio);
                 this.renderer.setSize(width, height, false); // updateStyleを無効化
                 
+                // 完璧球形投影システム全面更新（FOV補正含む）
+                this.updatePerfectSphereProjection();
+                
                 // リサイズ後のクリア処理
                 this.renderer.clear();
+                
+                console.log(`MetaBall: Window resized to ${width}x${height} (aspect: ${(width/height).toFixed(2)})`);
             }
         },
         generateMaterials() {
@@ -426,6 +436,95 @@ export default {
                 );
                 
                 this.intersectionObserver.observe(this.$refs.container || this.$el);
+            }
+        },
+        calculatePerfectSphereScale() {
+            // 球形維持のための組一スケール計算
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // 基準スケール（完全球形維持）
+            const baseScale = 300;
+            
+            // 画面サイズに応じた統一スケール調整
+            const minDimension = Math.min(width, height);
+            const scaleFactor = Math.max(0.7, Math.min(1.3, minDimension / 800));
+            const uniformScale = baseScale * scaleFactor;
+            
+            // 絶対的等スケール（球形維持）
+            return { x: uniformScale, y: uniformScale, z: uniformScale };
+        },
+        calculateCompensatedFOV() {
+            // 透視投影歪み補正FOV計算（数学的補正）
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspectRatio = width / height;
+            
+            // 基準FOV（aspect ratio = 1.0時の完璧値）
+            const baseFOV = 50;
+            
+            // 数学的投影補正公式
+            // aspect ratioが1.0から遠ざかるほどFOV調整が必要
+            let compensatedFOV;
+            
+            if (aspectRatio >= 1.0) {
+                // 横長画面：FOVを減らして水平伸びを防止
+                // 公式: FOV_compensated = baseFOV / sqrt(aspectRatio)
+                compensatedFOV = baseFOV / Math.sqrt(aspectRatio);
+            } else {
+                // 縦長画面：FOVを少し増やして水平縮みを防止
+                // 公式: FOV_compensated = baseFOV * sqrt(1/aspectRatio) * 0.9
+                compensatedFOV = baseFOV * Math.sqrt(1 / aspectRatio) * 0.9;
+            }
+            
+            // 安全範囲内でFOVを制限（数学的安定性保証）
+            compensatedFOV = Math.max(25, Math.min(75, compensatedFOV));
+            
+            return compensatedFOV;
+        },
+        calculateOptimalCameraPosition() {
+            // 最適カメラ位置計算（FOV補正と連携）
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspectRatio = width / height;
+            
+            // 基準カメラ位置
+            const baseDistance = 400;
+            
+            // FOV補正と連動したカメラ距離微調整
+            let cameraZ = baseDistance;
+            
+            // 極端なaspect ratioでの微調整（FOV補正を補助）
+            if (aspectRatio >= 2.0) {
+                cameraZ = baseDistance * 1.05; // 超横長で微調整
+            } else if (aspectRatio <= 0.5) {
+                cameraZ = baseDistance * 1.03; // 超縦長で微調整
+            }
+            
+            return { x: 100, y: 100, z: cameraZ };
+        },
+        updatePerfectSphereProjection() {
+            // 完璧球形投影システム（FOV補正+スケール+カメラ統合更新）
+            if (this.effect && this.camera) {
+                // 1. 絶対球形スケール適用
+                const scale = this.calculatePerfectSphereScale();
+                this.effect.scale.set(scale.x, scale.y, scale.z);
+                
+                // 2. 透視投影補正FOV適用（最重要）
+                const compensatedFOV = this.calculateCompensatedFOV();
+                this.camera.fov = compensatedFOV;
+                
+                // 3. カメラaspect ratio更新
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                
+                // 4. 最適カメラ位置適用
+                const cameraPos = this.calculateOptimalCameraPosition();
+                this.camera.position.set(cameraPos.x, cameraPos.y, cameraPos.z);
+                
+                // 5. 投影行列更新（必須）
+                this.camera.updateProjectionMatrix();
+                
+                console.log(`MetaBall: Perfect Sphere - FOV(${compensatedFOV.toFixed(1)}°), Scale(${scale.x.toFixed(1)}), AspectRatio(${this.camera.aspect.toFixed(2)})`);
             }
         },
         detectLowPerformanceDevice() {
