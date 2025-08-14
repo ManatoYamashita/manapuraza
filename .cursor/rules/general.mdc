@@ -12,18 +12,18 @@ alwaysApply: true
 - 静的配信（本番）/ Vercel（デモ）
 
 ## 索引（Rules Catalog）
-- アーキテクチャと構成: `./architecture.mdc`
-- Vue 実装規約（SFC/Composition API/コンポーネント）: `./frontend-vue.mdc`
-- ルーティング（SPA/404/遅延読み込み）: `./routing.mdc`
+- アーキテクチャと構成: `./architecture/architecture.mdc`
+- Vue 実装規約（SFC/Composition API/コンポーネント）: `./frontend-vue/frontend-vue.mdc`
+- ルーティング（SPA/404/遅延読み込み）: `./routing/routing.mdc`
 - 国際化（i18nの遅延ロード/設定）: `./i18n/i18n.mdc`
-- パフォーマンス最適化（遅延/分割/LCP配慮）: `./performance.mdc`
-- ビルドとバンドル（Vite/Terser/manualChunks）: `./build-and-bundling.mdc`
-- アセットと画像（WebP/プリロード/命名）: `./assets-and-images.mdc`
-- ログと監視（console方針/本番）: `./logging.mdc`
-- デプロイ（静的配信/SPAフォールバック）: `./deployment.mdc`
-- セキュリティとアクセシビリティ: `./security-and-a11y.mdc`
-- SEOとアナリティクス: `./seo-and-analytics.mdc`
-- Three.js/MetaBall の方針: `./threejs-metaball.mdc`
+- パフォーマンス最適化（遅延/分割/LCP配慮）: `./performance/performance.mdc`
+- ビルドとバンドル（Vite/Terser/manualChunks）: `./build-and-bundling/build-and-bundling.mdc`
+- アセットと画像（WebP/プリロード/命名）: `./assets-and-images/assets-and-images.mdc`
+- ログと監視（console方針/本番）: `./logging/logging.mdc`
+- デプロイ（静的配信/SPAフォールバック）: `./deployment/deployment.mdc`
+- セキュリティとアクセシビリティ: `./security-and-a11y/security-and-a11y.mdc`
+- SEOとアナリティクス: `./seo-and-analytics/seo-and-analytics.mdc`
+- Three.js/MetaBall の方針: `./threejs-metaball/threejs-metaball.mdc`
 
 ## 運用（PDCA）
 - PLAN: 変更前に本索引と各ルールの該当箇所を確認し、必要ならルール追記/更新の方針を作成

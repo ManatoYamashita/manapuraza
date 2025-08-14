@@ -1,3 +1,10 @@
+---
+alwaysApply: false
+description: アセットと画像の取り扱いルール。画像形式、命名、参照方法、ロゴ最適化、favicon/OGP を定義します。
+title: アセットと画像
+version: 1.0.0
+---
+
 # アセットと画像
 
 ## 画像形式

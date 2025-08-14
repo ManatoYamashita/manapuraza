@@ -113,6 +113,66 @@ Portfolio items are centrally managed in this file with strict conventions:
 - **rollup-plugin-visualizer**: 5.14.0 - Bundle analysis
 - **terser**: 5.39.0 - JavaScript minification
 
+## Three.js MarchingCubes Development Guidelines
+
+### MetaBall Perfect Sphere Maintenance (Critical Knowledge)
+
+**Problem**: Three.js MarchingCubes algorithm has fundamental limitations that cause sphere deformation during window resizing.
+
+**Root Cause**: 
+- MarchingCubes uses fixed cubic voxel grid (e.g., 30×30×30)
+- External scale adjustments create elliptical distortion
+- Coordinate space: Internal 0.0-1.0 cubic space vs. rectangular screen space
+
+**NEVER attempt these approaches (proven ineffective):**
+- External scale compensation (e.g., `scale.set(300 * aspectRatio, 300, 300)`)
+- Voxel grid rectangularization
+- Multiple correction layers
+- MarchingCubes reinitialization on resize
+
+**ALWAYS use Inverse Coordinate Correction Method:**
+```javascript
+// In updateCubes() function
+const aspectRatio = window.innerWidth / window.innerHeight;
+
+// For horizontal screens (aspectRatio > 1.0)
+correctedX = (rawX - 0.5) / aspectRatio + 0.5;
+
+// For vertical screens (aspectRatio < 1.0)  
+correctedY = (rawY - 0.5) * aspectRatio + 0.5;
+
+effect.value.addBall(correctedX, correctedY, rawZ, strength, subtract);
+```
+
+**Mathematical Principle:**
+- Create intentional ellipse in voxel space
+- Scale transformation results in perfect circle on screen
+- Formula: `voxel_ellipse + uniform_scale = screen_circle`
+
+**System Requirements:**
+- Uniform scale: `effect.value.scale.set(300, 300, 300)`
+- No resize reinitialization needed
+- Coordinate correction applies every frame
+- Maintains performance and stability
+
+**Verification Method:**
+Test on multiple aspect ratios (4:3, 16:9, 21:9, portrait modes) - MetaBalls must remain perfectly circular during real-time window resizing.
+
+### Vue Router Navigation Optimization
+
+**Progressive Loading Feedback System:**
+- Implement `beforeEach` and `afterEach` navigation guards
+- Use progressive progress bar with staged completion (25% → 60% → 85% → 100%)
+- Apply `cursor: wait` during component loading
+- Preload components using `requestIdleCallback` for instant navigation
+
+**Component Preloading Pattern:**
+```javascript
+const AboutComponent = () => import('../views/About.vue');
+const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 100));
+schedule(() => { AboutComponent(); });
+```
+
 ## Important Notes
 
 - **No testing framework**: Manual testing only
@@ -120,3 +180,4 @@ Portfolio items are centrally managed in this file with strict conventions:
 - **Multiple Vue app instances**: Main app + Navbar + MetaBall (lazy)
 - **Image optimization critical**: All portfolio images must be WebP and properly imported
 - **i18n strict requirements**: All text must have translations in both languages
+- **Three.js sphere deformation**: Use inverse coordinate correction method only

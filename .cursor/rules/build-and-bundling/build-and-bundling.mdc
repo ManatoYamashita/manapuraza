@@ -1,3 +1,10 @@
+---
+alwaysApply: false
+description: ビルドとバンドルの方針。Vite/Terser 設定、チャンク分割、解析、Node 要件を定義します。
+title: ビルドとバンドル（Vite/Rollup/Terser）
+version: 1.0.0
+---
+
 # ビルドとバンドル（Vite/Rollup/Terser）
 
 ## ツールとバージョン

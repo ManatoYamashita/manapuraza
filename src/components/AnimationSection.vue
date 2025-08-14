@@ -10,21 +10,46 @@
       <div class="content-wrapper">
         <div class="video-wrapper">
           <div class="video-container">
+            <!-- YouTube iframeスケルトンローディングシステム -->
+            <div v-if="isVideoLoading" class="youtube-skeleton">
+              <div class="skeleton-content">
+                <div class="skeleton-play-button">
+                  <div class="skeleton-play-icon"></div>
+                </div>
+                <div class="skeleton-bottom">
+                  <div class="skeleton-progress-bar"></div>
+                  <div class="skeleton-controls">
+                    <div class="skeleton-control-button"></div>
+                    <div class="skeleton-control-button"></div>
+                    <div class="skeleton-control-button"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="skeleton-loading-text">動画を読み込み中...</div>
+            </div>
+            
+            <!-- YouTube iframe（読み込み完了時に表示） -->
             <iframe
               v-if="!isDesktop"
+              ref="mobileIframe"
+              :class="{ 'iframe-loaded': !isVideoLoading }"
               src="https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M"
               title="世田谷区オリジナルアニメ「新BOPへようこそ!」"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               loading="eager"
+              @load="onIframeLoad"
             ></iframe>
             <iframe 
               v-else
+              ref="desktopIframe"
+              :class="{ 'iframe-loaded': !isVideoLoading }"
               src="https://www.youtube.com/embed/hdK1_B_Mef8?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=hdK1_B_Mef8"
               title="デスクトップ表示用動画"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               loading="eager"
+              @load="onIframeLoad"
             ></iframe>
           </div>
           <div class="video-overlay">
@@ -102,13 +127,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
 import Btn from '@/components/Btn.vue';
 import { useI18n } from 'vue-i18n';
 
 // デスクトップ表示かどうかの状態
 const isDesktop = ref(false);
 let mediaQueryList = null;
+
+// YouTube iframe読み込み状態管理（Vue3ベストプラクティス）
+const isVideoLoading = ref(true);
+const mobileIframe = ref(null);
+const desktopIframe = ref(null);
+let loadingTimeout = null;
 
 const { t } = useI18n();
 
@@ -138,10 +169,62 @@ const credits = computed(() => {
     .filter(Boolean);
 });
 
+// iframe読み込み完了ハンドラー（Vue3ベストプラクティス）
+const onIframeLoad = () => {
+  console.log('AnimationSection: YouTube iframe loaded successfully');
+  
+  // GSAP使用時は滑らかなフェードイン効果
+  if (window.gsap) {
+    window.gsap.to('.youtube-skeleton', {
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.out',
+      onComplete: () => {
+        isVideoLoading.value = false;
+      }
+    });
+  } else {
+    // フォールバック: GSAPなしでも動作
+    setTimeout(() => {
+      isVideoLoading.value = false;
+    }, 300);
+  }
+};
+
+// 読み込み状態のタイムアウト管理
+const resetLoadingState = () => {
+  isVideoLoading.value = true;
+  
+  // 最大10秒でスケルトンを自動非表示（ネットワーク問題対策）
+  if (loadingTimeout) {
+    clearTimeout(loadingTimeout);
+  }
+  
+  loadingTimeout = setTimeout(() => {
+    console.log('AnimationSection: Loading timeout - forcing iframe display');
+    isVideoLoading.value = false;
+  }, 10000);
+};
+
 // メディアクエリの状態が変わったときに実行
 const handleMediaQueryChange = (e) => {
+  const wasDesktop = isDesktop.value;
   isDesktop.value = e.matches;
+  
+  // デバイス切り替え時は読み込み状態をリセット
+  if (wasDesktop !== isDesktop.value) {
+    resetLoadingState();
+    console.log(`AnimationSection: Device switched to ${isDesktop.value ? 'desktop' : 'mobile'}`);
+  }
 };
+
+// デスクトップ状態変更の監視（Vue3リアクティブシステム）
+watch(isDesktop, (newValue, oldValue) => {
+  // 初回読み込み以外で切り替わった場合
+  if (oldValue !== undefined && newValue !== oldValue) {
+    resetLoadingState();
+  }
+}, { immediate: false });
 
 // GSAPアニメーションの初期化
 const initializeAnimations = (gsap) => {
@@ -185,17 +268,23 @@ const initializeAnimations = (gsap) => {
 onMounted(async () => {
   // GSAPを動的インポートして初期バンドルサイズを削減
   const { gsap } = await import('gsap');
+  
   // デスクトップ表示かどうかを判定するためのメディアクエリ
   mediaQueryList = window.matchMedia('(min-width: 968px)');
   
   // 初期表示時の状態設定
   isDesktop.value = mediaQueryList.matches;
   
+  // 初期読み込み状態のタイムアウト設定
+  resetLoadingState();
+  
   // ウィンドウサイズが変わった時に再評価
   mediaQueryList.addEventListener('change', handleMediaQueryChange);
   
   // GSAPアニメーションの実行
   initializeAnimations(gsap);
+  
+  console.log('AnimationSection: YouTube skeleton loading system initialized');
 });
 
 onBeforeUnmount(() => {
@@ -203,6 +292,14 @@ onBeforeUnmount(() => {
   if (mediaQueryList) {
     mediaQueryList.removeEventListener('change', handleMediaQueryChange);
   }
+  
+  // タイムアウトのクリーンアップ（メモリリーク防止）
+  if (loadingTimeout) {
+    clearTimeout(loadingTimeout);
+    loadingTimeout = null;
+  }
+  
+  console.log('AnimationSection: Cleanup completed');
 });
 </script>
 
@@ -283,6 +380,122 @@ onBeforeUnmount(() => {
   /* overflow: hidden; */
 }
 
+/* YouTube スケルトンローディングスタイル */
+.youtube-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.skeleton-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.skeleton-play-button {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  animation: skeleton-pulse 2s ease-in-out infinite;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-play-icon {
+  width: 0;
+  height: 0;
+  border-left: 20px solid #ccc;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  margin-left: 4px;
+  animation: skeleton-pulse 2s ease-in-out infinite reverse;
+}
+
+.skeleton-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.skeleton-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: skeleton-slide 2.5s ease-in-out infinite;
+}
+
+.skeleton-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.skeleton-control-button {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  animation: skeleton-pulse 2s ease-in-out infinite;
+}
+
+.skeleton-control-button:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.skeleton-control-button:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.skeleton-loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 20px);
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: skeleton-pulse 2s ease-in-out infinite;
+  text-align: center;
+}
+
+/* iframe表示時のスムーズ遷移 */
 .video-container iframe {
   position: absolute;
   top: 0;
@@ -290,7 +503,33 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   border: none;
-  transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  z-index: 1;
+}
+
+.video-container iframe.iframe-loaded {
+  opacity: 1;
+  z-index: 3;
+}
+
+/* スケルトンアニメーション */
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes skeleton-slide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 .video-overlay {

@@ -1,3 +1,10 @@
+---
+alwaysApply: false
+description: ログと監視の方針。console の扱いと Terser 設定、運用ルールを定義します。
+title: ログと監視
+version: 1.0.0
+---
+
 # ログと監視
 
 ## コンソールログ方針

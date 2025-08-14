@@ -1,3 +1,10 @@
+---
+alwaysApply: false
+description: Vue SFC/Composition API の実装規約。スタイル/DOM操作/動的 import の指針を定義します。
+title: Vue 実装規約（SFC/Composition API）
+version: 1.0.0
+---
+
 # Vue 実装規約（SFC/Composition API）
 
 ## 基本

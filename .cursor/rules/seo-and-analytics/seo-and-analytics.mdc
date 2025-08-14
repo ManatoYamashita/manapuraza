@@ -1,3 +1,10 @@
+---
+alwaysApply: false
+description: SEO とアナリティクスの方針。メタ/OG/サイトマップ、計測の遅延方針、ローカライゼーションとの関係を定義します。
+title: SEO とアナリティクス
+version: 1.0.0
+---
+
 # SEO とアナリティクス
 
 ## SEO

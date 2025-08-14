@@ -1,3 +1,10 @@
+---
+alwaysApply: false
+description: Three.js/MetaBall の実装方針。ロード戦略、依存、エラーハンドリング、例を定義します。
+title: Three.js / MetaBall 方針
+version: 1.0.0
+---
+
 # Three.js / MetaBall 方針
 
 ## ロード戦略
