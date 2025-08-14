@@ -42,6 +42,20 @@ export default {
                 frameCount: 0,
                 lastCheck: performance.now(),
                 avgFrameTime: 0
+            },
+            // 解像度変更の非同期制御
+            resolutionChange: {
+                pending: false,
+                targetResolution: 30,
+                debounceTimer: null
+            },
+            // 補間ベースフレーム制御
+            frameControl: {
+                lastUpdateTime: 0,
+                updateInterval: 16, // 60FPS基準
+                interpolationFactor: 1.0,
+                previousBalls: [],
+                adaptiveUpdate: true
             }
         };
     },
@@ -101,18 +115,28 @@ export default {
                 powerPreference: 'high-performance',
                 stencil: false,
                 depth: true,
-                precision: 'mediump'
+                precision: 'mediump',
+                // 安定性向上のための追加設定
+                premultipliedAlpha: false,
+                preserveDrawingBuffer: false,
+                failIfMajorPerformanceCaveat: false
             });
             
-            // デバイス固有の最適化
-            const pixelRatio = Math.min(window.devicePixelRatio, 2) * 0.5;
+            // デバイス固有の最適化（安定性重視）
+            const devicePixelRatio = window.devicePixelRatio || 1;
+            const pixelRatio = Math.min(Math.max(devicePixelRatio * 0.5, 0.5), 1.5);
             this.renderer.setPixelRatio(pixelRatio);
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             
-            // レンダラーの追加最適化（背景は透過）
+            // レンダラーの追加最適化（安定性重視）
             this.renderer.shadowMap.enabled = false;
             this.renderer.outputColorSpace = 'srgb';
             this.renderer.setClearColor(0x000000, 0);
+            
+            // WebGL状態の安定化
+            this.renderer.autoClear = true;
+            this.renderer.sortObjects = true;
+            this.renderer.capabilities.logarithmicDepthBuffer = false;
             console.log('MetaBall: Renderer setup complete');
             
             this.container.appendChild(this.renderer.domElement);
@@ -190,15 +214,8 @@ export default {
             const delta = this.clock.getDelta();
             this.time += delta * this.effectController.speed * 0.5;
 
-            // 動的解像度調整または手動解像度変更の場合のみ更新
-            const currentResolution = this.dynamicResolution.current;
-            if (
-                this.effectController.resolution !== this.resolution ||
-                this.effectController.isolation !== this.effect.isolation ||
-                currentResolution !== this.resolution
-            ) {
-                this.resolution = Math.floor(currentResolution);
-                this.effect.init(this.resolution);
+            // isolation変更のみアニメーションフレーム内で実行（軽量）
+            if (this.effectController.isolation !== this.effect.isolation) {
                 this.effect.isolation = this.effectController.isolation;
             }
 
@@ -210,9 +227,21 @@ export default {
         },
         onWindowResize() {
             if (this.camera && this.renderer) {
-                this.camera.aspect = window.innerWidth / window.innerHeight;
+                // リサイズ時の安定性向上
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                
+                this.camera.aspect = width / height;
                 this.camera.updateProjectionMatrix();
-                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                
+                // レンダラーサイズ変更時の安定化処理
+                const devicePixelRatio = window.devicePixelRatio || 1;
+                const pixelRatio = Math.min(Math.max(devicePixelRatio * 0.5, 0.5), 1.5);
+                this.renderer.setPixelRatio(pixelRatio);
+                this.renderer.setSize(width, height, false); // updateStyleを無効化
+                
+                // リサイズ後のクリア処理
+                this.renderer.clear();
             }
         },
         generateMaterials() {
@@ -267,21 +296,69 @@ export default {
 
             this.effect.update();
         },
+        updateCubesSmooth() {
+            this.effect.reset();
+
+            const numBlobs = this.effectController.numBlobs;
+            const subtract = 10;
+            const strength = 0.6 / ((Math.sqrt(numBlobs) - 1) / 4 + 1);
+            const frameCtrl = this.frameControl;
+            const interpolation = frameCtrl.interpolationFactor;
+
+            for (let i = 0; i < numBlobs; i++) {
+                const time = this.time;
+                const ballx = Math.sin(i + 1.26 * time * (1.03 + 0.5 * Math.cos(0.21 * i))) * 0.27 + 0.5;
+                const bally = Math.abs(Math.cos(i + 1.12 * time * Math.cos(1.22 + 0.1424 * i))) * 0.77;
+                const ballz = Math.cos(i + 1.32 * time * 0.1 * Math.sin(0.92 + 0.53 * i)) * 0.27 + 0.5;
+
+                // 補間処理で滑らかな移行
+                if (frameCtrl.previousBalls[i]) {
+                    const prev = frameCtrl.previousBalls[i];
+                    const smoothX = prev.x + (ballx - prev.x) * interpolation;
+                    const smoothY = prev.y + (bally - prev.y) * interpolation;
+                    const smoothZ = prev.z + (ballz - prev.z) * interpolation;
+                    
+                    this.effect.addBall(smoothX, smoothY, smoothZ, strength, subtract);
+                    
+                    // 位置更新
+                    frameCtrl.previousBalls[i] = { x: smoothX, y: smoothY, z: smoothZ };
+                } else {
+                    this.effect.addBall(ballx, bally, ballz, strength, subtract);
+                    frameCtrl.previousBalls[i] = { x: ballx, y: bally, z: ballz };
+                }
+            }
+
+            this.effect.update();
+        },
         updateCubesOptimized() {
-            // 高負荷時は計算をスキップ
-            if (this.performanceMonitor.avgFrameTime > 50) { // 50ms以上なら処理軽減
-                this.skipFrameCount = (this.skipFrameCount || 0) + 1;
-                if (this.skipFrameCount % 2 === 0) return; // 2フレームに1回実行
+            const now = performance.now();
+            const frameCtrl = this.frameControl;
+            const elapsed = now - frameCtrl.lastUpdateTime;
+            
+            // パフォーマンスに応じた更新間隔調整
+            if (this.performanceMonitor.avgFrameTime > 50) {
+                frameCtrl.updateInterval = 33; // 30FPS相当
+                frameCtrl.interpolationFactor = 0.8;
+            } else if (this.performanceMonitor.avgFrameTime > 35) {
+                frameCtrl.updateInterval = 22; // 45FPS相当
+                frameCtrl.interpolationFactor = 0.9;
+            } else {
+                frameCtrl.updateInterval = 16; // 60FPS相当
+                frameCtrl.interpolationFactor = 1.0;
             }
             
-            this.updateCubes();
+            // 補間ベース更新制御
+            if (elapsed >= frameCtrl.updateInterval || !frameCtrl.adaptiveUpdate) {
+                this.updateCubesSmooth();
+                frameCtrl.lastUpdateTime = now;
+            }
         },
         monitorPerformance(now) {
             const monitor = this.performanceMonitor;
             monitor.frameCount++;
             
             const elapsed = now - monitor.lastCheck;
-            if (elapsed >= 1000) { // 1秒ごとに監視
+            if (elapsed >= 3000) { // 3秒ごとに監視（頻度減らし点滅防止）
                 monitor.avgFrameTime = elapsed / monitor.frameCount;
                 
                 // 動的解像度調整
@@ -293,11 +370,17 @@ export default {
         },
         adjustDynamicResolution(avgFrameTime) {
             const dynamic = this.dynamicResolution;
+            let newResolution = dynamic.current;
             
             if (avgFrameTime > 40) { // 40ms以上なら解像度を下げる
-                dynamic.current = Math.max(dynamic.min, dynamic.current - 2);
+                newResolution = Math.max(dynamic.min, dynamic.current - 2);
             } else if (avgFrameTime < 25) { // 25ms以下なら解像度を上げる
-                dynamic.current = Math.min(dynamic.max, dynamic.current + 1);
+                newResolution = Math.min(dynamic.max, dynamic.current + 1);
+            }
+            
+            // 解像度が変更される場合は非同期で処理
+            if (newResolution !== dynamic.current) {
+                this.scheduleResolutionChange(newResolution);
             }
         },
         pauseAnimation() {
@@ -365,30 +448,98 @@ export default {
                 renderer.toLowerCase().includes(indicator)
             );
         },
+        scheduleResolutionChange(newResolution) {
+            const resChange = this.resolutionChange;
+            
+            // デバウンス処理：頻繁な解像度変更を防ぐ
+            if (resChange.debounceTimer) {
+                clearTimeout(resChange.debounceTimer);
+            }
+            
+            resChange.targetResolution = newResolution;
+            resChange.debounceTimer = setTimeout(() => {
+                this.executeResolutionChange();
+            }, 500); // 500ms後に実行
+        },
+        executeResolutionChange() {
+            const resChange = this.resolutionChange;
+            
+            // 既に変更処理中の場合はスキップ
+            if (resChange.pending) return;
+            
+            const targetRes = Math.floor(resChange.targetResolution);
+            const currentRes = this.resolution;
+            
+            // 実際に変更が必要かチェック
+            if (targetRes === currentRes) return;
+            
+            resChange.pending = true;
+            
+            // アイドル時または次フレームで実行
+            const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+            schedule(() => {
+                try {
+                    // MarchingCubes再初期化（非アニメーションフレーム）
+                    this.resolution = targetRes;
+                    this.dynamicResolution.current = targetRes;
+                    
+                    if (this.effect) {
+                        this.effect.init(this.resolution);
+                    }
+                    
+                    console.log(`MetaBall: Resolution changed to ${targetRes}`);
+                } catch (error) {
+                    console.error('MetaBall: Resolution change failed:', error);
+                } finally {
+                    resChange.pending = false;
+                    resChange.debounceTimer = null;
+                }
+            });
+        },
         cleanupThreeResources() {
             // Three.jsリソースのメモリリーク対策強化
             if (this.controls) {
                 this.controls.dispose();
                 this.controls = null;
             }
+            
+            // WebGLコンテキストの安全なクリーンアップ
             if (this.renderer) {
+                // レンダリング停止
                 this.renderer.dispose();
+                
+                // コンテキストロス前のクリーンアップ
+                if (this.renderer.domElement && this.renderer.domElement.parentNode) {
+                    this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+                }
+                
+                // WebGLコンテキストの強制終了（安定性向上）
                 this.renderer.forceContextLoss();
                 this.renderer.domElement = null;
                 this.renderer = null;
             }
+            
             if (this.effect) {
                 this.effect.geometry?.dispose();
                 this.effect.material?.dispose();
                 this.effect = null;
             }
+            
             if (this.scene) {
                 this.scene.clear();
                 this.scene = null;
             }
-            // ライトをクリーンアップ
+            
+            // ライトとクロック関連のクリーンアップ
             this.ambientLight = null;
             this.light = null;
+            this.clock = null;
+            
+            // タイマーのクリーンアップ
+            if (this.resolutionChange.debounceTimer) {
+                clearTimeout(this.resolutionChange.debounceTimer);
+                this.resolutionChange.debounceTimer = null;
+            }
         },
         // 背景生成は削除。CSSグラデーションを使用。
     },
