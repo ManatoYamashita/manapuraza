@@ -1,4 +1,5 @@
-# MANAPURAZA.COM 🍌（山下マナト Webポートフォリオ）
+# MANAPURAZA.COM 🍌
+山下マナト Webポートフォリオ
 
 <div align="center">
   <img src="./public/ogp.jpg" alt="OGP image" width="520" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
@@ -65,6 +66,9 @@ npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
 
 ## パフォーマンス最適化
 
+<img width="1920" height="1080" alt="manapuraza-lighthouse-scores" src="https://github.com/user-attachments/assets/6c98a726-7aa3-4957-a58b-6a92b645c4af" />
+
+
 - 遅延読み込み
   - Three.js / `MetaBall` をアイドル時に動的インポート
   - 英語ロケールをアイドル時にロード
@@ -112,7 +116,12 @@ npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
 
 ## デザイン方針
 
-- Grassmorphism / モバイルファースト / 軽量なトランジション
+<img width="540" height="675" alt="manapuraza-is-supported-responsive-design" src="https://github.com/user-attachments/assets/d3d7c754-d2c9-4822-b589-2276f4b46f11" />
+
+[Figma link](https://www.figma.com/design/XW4k9FCVkEjovbucl4XtWx/manapuraza.com?node-id=0-1&t=EJ28mq4TUObSEY9m-1)
+
+- Grassmorphism / 軽量なトランジション
+- モバイルファースト（レスポンシブデザイン完全対応）
 - カラー
   - メイン: イエロー/オレンジ（バナナモチーフ）
   - アクセント: 水色
@@ -143,7 +152,7 @@ npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
 
 ## ライセンス
 
-© 2022– Manato Yamashita. All Rights Reserved.
+© 2023– Manato Yamashita. All Rights Reserved.
 
 ---
 最終更新: 2025-08-10
