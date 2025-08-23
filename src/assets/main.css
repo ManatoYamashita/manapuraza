@@ -7,7 +7,7 @@
 	margin: 0 auto;
 	width: 100%;
 	height: 100vh;
-	z-index: 1;
+	z-index: 10;
 	background: var(--mpuraza-acsent);
 	animation-duration: .7s;
 	animation-delay: 1.2s;
@@ -27,7 +27,7 @@
   }
 
   .image-op {
-	z-index: 2;
+	z-index: 11;
 	position: absolute;
 	top: 0;
 	left: 0;

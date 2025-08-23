@@ -10,120 +10,120 @@
  */
 
 // 画像のインポート
-import manapurazaImg from '@/assets/creatives-thumb/prog/manapuraza.webp';
-import dcchanNetImg from '@/assets/creatives-thumb/prog/dcchan-ai.webp';
-import numeronGameImg from '@/assets/creatives-thumb/prog/numeron.webp';
-import pomjpBetaImg from '@/assets/creatives-thumb/prog/office-tsuyuki.webp';
-import tcudcBotImg from '@/assets/creatives-thumb/prog/dcchan-twitterbot.webp';
-import sekiKenImg from '@/assets/creatives-thumb/prog/sekilab.webp';
-import sysbWtmImg from '@/assets/creatives-thumb/prog/wtm.webp';
-import dumManapurazaImg from '@/assets/creatives-thumb/prog/dum.webp';
-import flickgameImg from '@/assets/creatives-thumb/prog/flickgame-wagiri.webp';
-import tcuAnimationImg from '@/assets/creatives-thumb/prog/tcu-animation.webp';
-import textLayoutImg from '@/assets/creatives-thumb/prog/textlayout.webp';
-import kkamiyaImg from '@/assets/creatives-thumb/prog/k-kamiya.webp'
+import manapurazaImg from '@/assets/creatives-thumb/dev/manapuraza.webp';
+import dcchanNetImg from '@/assets/creatives-thumb/dev/dcchan-ai.webp';
+import numeronGameImg from '@/assets/creatives-thumb/dev/numeron.webp';
+import pomjpBetaImg from '@/assets/creatives-thumb/dev/office-tsuyuki.webp';
+import tcudcBotImg from '@/assets/creatives-thumb/dev/dcchan-twitterbot.webp';
+import sekiKenImg from '@/assets/creatives-thumb/dev/sekilab.webp';
+import sysbWtmImg from '@/assets/creatives-thumb/dev/wtm.webp';
+import dumManapurazaImg from '@/assets/creatives-thumb/dev/dum.webp';
+import flickgameImg from '@/assets/creatives-thumb/dev/flickgame-wagiri.webp';
+import tcuAnimationImg from '@/assets/creatives-thumb/dev/tcu-animation.webp';
+import textLayoutImg from '@/assets/creatives-thumb/dev/textlayout.webp';
+import kkamiyaImg from '@/assets/creatives-thumb/dev/k-kamiya.webp'
 // グラフィックス作品
-import pixivGalleryImg from '@/assets/creatives-thumb/graphics/illustration.webp';
+import pixivGalleryImg from '@/assets/creatives-thumb/illustration/pixiv.webp';
 // ビデオ / アニメーション作品
-import manapurazaYoutubeImg from '@/assets/creatives-thumb/video/ytb-manapuraza.webp';
-import tcuDcYoutubeImg from '@/assets/creatives-thumb/video/ytb-tcudc.webp';
+import manapurazaYoutubeImg from '@/assets/creatives-thumb/video/youtube-manapuraza.webp';
+import tcuDcYoutubeImg from '@/assets/creatives-thumb/video/youtube-tcudc.webp';
 
 export const creativesData = {
  
    // プログラミング / Web 作品
-   programming: [
+   developmnet: [
      {
        id: 'manapuraza',  // MANAOURAZA.com
-       title: 'creatives.prog.manapuraza.title',
-       description: 'creatives.prog.manapuraza.description',
+       title: 'creatives.dev.manapuraza.title',
+       description: 'creatives.dev.manapuraza.description',
        url: 'https://manapuraza.com',
        thumbnail: manapurazaImg
      },
      {
        id: 'dcchan-net',  // でじこんちゃん.net
-       title: 'creatives.prog.dcchanAi.title',
-       description: 'creatives.prog.dcchanAi.description',
+       title: 'creatives.dev.dcchanAi.title',
+       description: 'creatives.dev.dcchanAi.description',
        url: 'https://でじこんちゃん.net/',
        thumbnail: dcchanNetImg
      },
      {
        id: 'numeron-game',  // NUMERON
-       title: 'creatives.prog.numeron.title',
-       description: 'creatives.prog.numeron.description',
+       title: 'creatives.dev.numeron.title',
+       description: 'creatives.dev.numeron.description',
        url: 'https://tmana.sub.jp/numeron/dirs/src/numeron.html',
        thumbnail: numeronGameImg
      },
      {
        id: 'officeTsuyuki',  // オフィス露木 コーポレートサイト
-       title: 'creatives.prog.officeTsuyuki.title',
-       description: 'creatives.prog.officeTsuyuki.description',
+       title: 'creatives.dev.officeTsuyuki.title',
+       description: 'creatives.dev.officeTsuyuki.description',
        url: 'https://office-tsuyuki.pom.jp',
        thumbnail: pomjpBetaImg
      },
      {
        id: 'tcudc-bot',  // でじこんちゃん TwitterBot
-       title: 'creatives.prog.dcchanBot.title',
-       description: 'creatives.prog.dcchanBot.description',
+       title: 'creatives.dev.dcchanBot.title',
+       description: 'creatives.dev.dcchanBot.description',
        url: 'https://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html',
        thumbnail: tcudcBotImg
      },
      {
        id: 'seki-ken',  // 東京都市大学 関研究室 情報セキュリティ
-       title: 'creatives.prog.sekiLab.title',
-       description: 'creatives.prog.sekiLab.description',
+       title: 'creatives.dev.sekiLab.title',
+       description: 'creatives.dev.sekiLab.description',
        url: 'https://www.comm.tcu.ac.jp/seki-ken',
        thumbnail: sekiKenImg
      },
      {
        id: 'sysb-wtm',  // 天気行動提案アプリWTM
-       title: 'creatives.prog.wtmApp.title',
-       description: 'creatives.prog.wtmApp.description',
+       title: 'creatives.dev.wtmApp.title',
+       description: 'creatives.dev.wtmApp.description',
        url: 'https://github.com/ManatoYamashita/SysB_wtm',
        thumbnail: sysbWtmImg
      },
      {
        id: 'dum-manapuraza',  // DownUnderMountain TAPブログ
-       title: 'creatives.prog.downUnder.title',
-       description: 'creatives.prog.downUnder.description',
+       title: 'creatives.dev.downUnder.title',
+       description: 'creatives.dev.downUnder.description',
        url: 'https://dum.manapuraza.com',
        thumbnail: dumManapurazaImg
      },
      {
        id: 'flickgame',  // フリックゲーム WAGIRI!!
-       title: 'creatives.prog.wagiri.title',
-       description: 'creatives.prog.wagiri.description',
+       title: 'creatives.dev.wagiri.title',
+       description: 'creatives.dev.wagiri.description',
        url: 'https://flickgame.tcu-dc.net/',
        thumbnail: flickgameImg
      },
      {
        id: 'tcu-animation',  // 都市大アニメーション
-       title: 'creatives.prog.tcuAnimation.title',
-       description: 'creatives.prog.tcuAnimation.description',
+       title: 'creatives.dev.tcuAnimation.title',
+       description: 'creatives.dev.tcuAnimation.description',
        url: 'https://tcu-animation.jp/',
        thumbnail: tcuAnimationImg
      },
      {
        id: 'text-layout',  // 文章自動レイアウトWebApp
-       title: 'creatives.prog.textLayout.title',
-       description: 'creatives.prog.textLayout.description',
+       title: 'creatives.dev.textLayout.title',
+       description: 'creatives.dev.textLayout.description',
        url: 'https://text-layout.manapuraza.com/',
        thumbnail: textLayoutImg
      },
      {
       id: 'k-kamiya', // 割烹神谷公式サイト
-      title: 'creatives.prog.k-kamiya.title',
-      description: 'creatives.prog.k-kamiya.description',
+      title: 'creatives.dev.k-kamiya.title',
+      description: 'creatives.dev.k-kamiya.description',
       url: 'https://www.k-kamiya.net',
       thumbnail: kkamiyaImg,
      }
    ],
 
     // グラフィックス作品
-    graphics: [
+    illustration: [
       {
         id: 'pixiv-gallery',  // Pixiv
-        title: 'creatives.graphics.pixiv.title',
-        description: 'creatives.graphics.pixiv.description',
+        title: 'creatives.illustration.pixiv.title',
+        description: 'creatives.illustration.pixiv.description',
         url: 'https://www.pixiv.net/users/87914659',
         thumbnail: pixivGalleryImg
       },
@@ -131,20 +131,20 @@ export const creativesData = {
  
    // ビデオ / アニメーション作品
    video: [
-     {
-       id: 'manapuraza-youtube',  // manapuraza YouTubeチャンネル
-       title: 'creatives.video.tcuDcChannel.title',
-       description: 'creatives.video.tcuDcChannel.description',
-       url: 'https://www.youtube.com/@manapuraza',
-       thumbnail: manapurazaYoutubeImg
-     },
-     {
-       id: 'tcu-dc-youtube',  // デジコン YouTubeチャンネル
-       title: 'creatives.video.personalChannel.title',
-       description: 'creatives.video.personalChannel.description',
-       url: 'https://www.youtube.com/@tcu_dc',
-       thumbnail: tcuDcYoutubeImg
-     }
+    {
+      id: 'tcu-dc-youtube',  // デジコン YouTubeチャンネル
+      title: 'creatives.video.tcuDcChannel.title',
+      description: 'creatives.video.tcuDcChannel.description',
+      url: 'https://www.youtube.com/@tcu_dc',
+      thumbnail: tcuDcYoutubeImg
+    },
+    {
+      id: 'manapuraza-youtube',  // manapuraza YouTubeチャンネル
+      title: 'creatives.video.personalChannel.title',
+      description: 'creatives.video.personalChannel.description',
+      url: 'https://www.youtube.com/@manapuraza',
+      thumbnail: manapurazaYoutubeImg
+    }
    ]
 };
 

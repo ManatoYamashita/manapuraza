@@ -70,7 +70,7 @@
             }
         },
 
-      "prog": {
+      "dev": {
         "paragraph": "I have not only learned the basics of C language, Java language, and information science in the Department of Information Science, but also acquired web technology through self-study and engaged in web production as a hobby and commissioned work. Web frontend using Typescript, Next.js, Nuxt, and GSAP is my strongest area.",
         "manapuraza": {
             "title": "manapuraza.com",
@@ -130,7 +130,7 @@
         },
         "wagiri": {
             "title": "WAGIRI!! - Japanese Style Flick Game",
-            "description": "A Japanese-style flick game that won the grand prize in a hackathon hosted by Progate. Built with Next.js (Typescript) and Go, supporting online battles. I was responsible for frontend, design, and animations."
+            "description": "A Japanese-style flick game that won the grand prize in a hackathon hosted by devate. Built with Next.js (Typescript) and Go, supporting online battles. I was responsible for frontend, design, and animations."
         },
         "hpbToMe": {
             "title": "HPB to me! 2023 - 21 Years Old, With a Fist.",
@@ -158,7 +158,7 @@
         }
       },
 
-      "graphics": {
+      "illustration": {
         "paragraph": "Drawing is a hobby of mine, and I am good at graphic design and animation. Currently (2024~), I am working as a general director and original drawing + animation for an animation produced in collaboration with Setagaya Ward.",
             "pixiv": {
                 "title": "Pixiv",

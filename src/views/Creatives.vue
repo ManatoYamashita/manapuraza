@@ -4,42 +4,52 @@
 
     <main>
       <div id="main-contents">
-        <AnimationSection />
+        <CreativeItem
+          :url="'https://tcu-animation.jp/'"
+          :title="$t('creatives.animation.tcuAnimation.title')"
+          :description="$t('creatives.animation.paragraph')"
+          :thumbnail="''"
+          :index="0"
+          :mode="'Animation'"
+          :animationData="animationData"
+        />
 
-        <section id="programming">
-          <h2>Programming / Web</h2>
-          <p>{{ $t('creatives.prog.paragraph') }}</p>
+        <section id="developmnet">
+          <h2>Developmnet</h2>
+          <p>{{ $t('creatives.dev.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in randomizedProgramming"
+              v-for="(creative, index) in randomizeddevelopmnet"
               :key="creative.id"
               :url="creative.url"
               :title="$t(creative.title)"
               :description="$t(creative.description)"
               :thumbnail="creative.thumbnail"
               :index="index"
+              :mode="'Development'"
             />
           </ul>
         </section>
 
-        <section id="graphics">
-          <h2>Illustration / Graphics</h2>
-          <p>{{ $t('creatives.graphics.paragraph') }}</p>
+        <section id="illustration">
+          <h2>Illustration</h2>
+          <p>{{ $t('creatives.illustration.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in creativesData.graphics"
+              v-for="(creative, index) in creativesData.illustration"
               :key="creative.id"
               :url="creative.url"
               :title="$t(creative.title)"
               :description="$t(creative.description)"
               :thumbnail="creative.thumbnail"
               :index="index"
+              :mode="'Illustration'"
             />
           </ul>
         </section>
 
         <section id="video">
-          <h2>Video / Animation</h2>
+          <h2>Video</h2>
           <p>{{ $t('creatives.video.paragraph') }}</p>
           <ul>
             <CreativeItem
@@ -50,6 +60,7 @@
               :description="$t(creative.description)"
               :thumbnail="creative.thumbnail"
               :index="index"
+              :mode="'Video'"
             />
           </ul>
         </section>
@@ -73,14 +84,56 @@
 <script setup>
   import CreativeItem from '@/components/CreativeItem.vue';
   import CreativesHero from '@/components/CreativesHero.vue';
-  import AnimationSection from '@/components/AnimationSection.vue';
   import { creativesData } from '@/data/creatives';
   import { computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
 
-  // ランダムに並び替えられたプログラミング作品のリスト（Programming作品は順番をランダムに並び替える）
-  const randomizedProgramming = computed(() => {
-    return [...creativesData.programming].sort(() => Math.random() - 0.5);
+  const { t } = useI18n();
+
+  // ランダムに並び替えられたプログラミング作品のリスト（developmnet作品は順番をランダムに並び替える）
+  const randomizeddevelopmnet = computed(() => {
+    return [...creativesData.developmnet].sort(() => Math.random() - 0.5);
   });
+
+  // Animation section用のデータ
+  const animationData = computed(() => ({
+    videoUrls: { 
+      mobile: 'https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M',
+      desktop: 'https://www.youtube.com/embed/hdK1_B_Mef8?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=hdK1_B_Mef8'
+    },
+    credits: [
+      t('creatives.animation.tcuAnimation.description.production'),
+      t('creatives.animation.tcuAnimation.description.director'),
+      t('creatives.animation.tcuAnimation.description.animationProduction'),
+      t('creatives.animation.tcuAnimation.description.productionSupport'),
+      t('creatives.animation.tcuAnimation.description.voiceActors'),
+      t('creatives.animation.tcuAnimation.description.websiteProduction')
+    ],
+    productionYear: '2024~2025',
+    titleLabel: t('creatives.animation.tcuAnimation.titleLabel'),
+    titleMain: t('creatives.animation.tcuAnimation.titleMain'),
+    buttons: [
+      {
+        href: 'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu',
+        target: '_blank',
+        icon: ['fas', 'play'],
+        text: t('creatives.animation.tcuAnimation.watchMain'),
+        subText: t('creatives.animation.tcuAnimation.watchSub'),
+        alt: '本編動画を見る（世田谷区公式YouTube）',
+        variant: 'primary'
+      },
+      {
+        href: 'https://tcu-animation.jp',
+        target: '_blank',
+        icon: ['fas', 'globe'],
+        text: t('creatives.animation.tcuAnimation.siteMain'),
+        subText: t('creatives.animation.tcuAnimation.siteSub'),
+        alt: '公式サイトへ（都市大アニメーション）',
+        variant: 'secondary'
+      }
+    ]
+  }));
+
 
   // Composition APIではデータを直接参照できる
   defineExpose({
@@ -97,7 +150,7 @@
     scroll-behavior: smooth;
   }
   .creatives p {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
   
   /* 各セクションのスタイル */
@@ -154,6 +207,11 @@
   }
   a:hover {
     color: rgb(67, 153, 187);
+  }
+
+  /* Illustrationセクションの1列表示 */
+  #illustration ul {
+    grid-template-columns: 1fr;
   }
 
   /* タブレット表示用 */

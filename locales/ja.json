@@ -66,7 +66,7 @@
                 "titleMain": "新BOPへようこそ！"
             }
         },
-        "prog": {
+        "dev": {
             "paragraph": "情報系学部でC言語、Java言語、情報学の基礎を学んだだけではなく、独学でWeb系の技術を習得し、趣味や業務委託でWeb制作を行っています。Typescript, Next.js, NuxtやGSAPを使用したWebフロントエンドが最も得意な領域です。",
             "manapuraza": {
                 "title": "manapuraza.com",
@@ -126,7 +126,7 @@
             },
             "wagiri": {
                 "title": "WAGIRI!! - 和風フリックゲーム",
-                "description": "Progate主催のハッカソンでグランプリを受賞した和風フリックゲーム。Next.js(Typescript), Goで構築。オンライン対戦にも対応しています。私はフロントエンドとデザイン、アニメーションを担当しました。"
+                "description": "devate主催のハッカソンでグランプリを受賞した和風フリックゲーム。Next.js(Typescript), Goで構築。オンライン対戦にも対応しています。私はフロントエンドとデザイン、アニメーションを担当しました。"
             },
             "hpbToMe": {
                 "title": "HPB to me! 2023 - 21歳、拳で。",
@@ -153,7 +153,7 @@
                 "description": "川口にある和食レストラン『割烹神谷』の公式Webサイト。Next.js15(Typescript)で書かれ、microCMS, gsap, framer-motionを使用。Stripeでの決済を実装"
             }
         },
-        "graphics": {
+        "illustration": {
             "paragraph": "絵を描くことが趣味で、グラフィックデザインやアニメーションを得意としています。また、現在(2024年~)は世田谷区と共同で、総監督と原画+動画としてアニメーションを制作に携わっています。",
             "pixiv": {
                 "title": "Pixiv",

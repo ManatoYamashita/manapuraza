@@ -19,7 +19,7 @@
         </div>
         
         <nav class="default-menu">
-            <RouterLink to="/about" class="rlink">About</RouterLink>
+            <RouterLink to="/about" class="rlink" @click="handleAboutClick">About</RouterLink>
             <RouterLink to="/creatives" class="rlink">Creatives</RouterLink>
         </nav>
 
@@ -53,6 +53,10 @@
         methods: {
             toggleLanguage() {
             this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';
+            },
+            handleAboutClick() {
+                console.log('About link clicked!');
+                this.$router.push('/about');
             }
         },
     };
@@ -65,6 +69,9 @@
         align-items: center;
         padding: 1rem 0;
         height: 100%;
+        position: relative;
+        z-index: 10;
+        pointer-events: auto !important;
     }
     .logo {
         display: block;
@@ -79,17 +86,21 @@
     .rlink {
         text-decoration: none;
         color: #000;
-        font-size: 1.7rem;
+        font-size: 1.4rem;
         font-weight: bold;
-        padding: 0 1rem;
-        cursor: help;
+        padding: 0 .5rem;
+        cursor: pointer;
+        position: relative;
+        z-index: 11;
+        pointer-events: auto !important;
     }
     .default-menu {
         display: flex;
-        gap: 1rem;
+        gap: .5rem;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        pointer-events: auto;
     }
     .rlink:hover {
         color: skyblue;
@@ -120,14 +131,14 @@
     /* toggle switch */
     #lang-switch {
         position: fixed;
-        bottom: 1rem;
-        right: 1rem;
+        bottom: 0;
+        right: 0;
         display: flex;
-        justify-content: left;
-        flex-direction: row;
+        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        z-index: 0;
-        transform: scale(1.5);
+        z-index: 2;
+        transform: scale(1.2);
     }
     .lang {
         font-size: 12px;
@@ -226,6 +237,8 @@
             display: flex;
             position: static;
             transform: scale(1.1);
+            flex-direction: row;
+            align-items: center;
         }
     }
 </style>
