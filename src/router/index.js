@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 // コンポーネント高速プリロードシステム（ユーザー体験改善）
 const AboutComponent = () => import('../views/About.vue');
 const CreativesComponent = () => import('../views/Creatives.vue');
+const ContactComponent = () => import('../views/Contact.vue');
 const NotFoundComponent = () => import('../views/404.vue');
 
 // 初期化時にコンポーネントをプリロード（遅延軽減）
@@ -14,6 +15,7 @@ const preloadComponents = () => {
   schedule(() => {
     AboutComponent();
     CreativesComponent();
+    ContactComponent();
     NotFoundComponent();
     console.log('Router: Components preloaded for instant navigation');
   });
@@ -44,6 +46,11 @@ const router = createRouter({
           top: '0',
         },
       },
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: ContactComponent,
     },
     { 
       path: '/:pathMatch(.*)*',
@@ -111,5 +118,42 @@ router.afterEach((to, from) => {
     }, 100);
   }
 });
+
+// ナビゲーションエラーハンドリング強化
+router.onError((error) => {
+  console.error('Router Navigation Error:', error);
+  
+  // エラー時のクリーンアップ
+  const progressBar = document.getElementById('navigation-progress');
+  if (progressBar) {
+    progressBar.style.display = 'none';
+    const progressFill = progressBar.querySelector('.progress-fill');
+    if (progressFill) {
+      progressFill.style.width = '0%';
+    }
+  }
+  
+  // ローディング状態の強制解除
+  document.body.style.cursor = '';
+  document.body.classList.remove('navigation-loading');
+  
+  // 重要: DOM操作エラーの場合は強制的にホームに戻す
+  if (error.message.includes('nextSibling') || error.message.includes('Cannot read properties of null')) {
+    console.warn('DOM consistency error detected, redirecting to home');
+    window.location.href = '/';
+  }
+});
+
+// 追加のエラーハンドリング: beforeEach内での例外処理
+const originalBeforeEach = router.beforeEach;
+router.beforeEach = (to, from, next) => {
+  try {
+    return originalBeforeEach.call(router, to, from, next);
+  } catch (error) {
+    console.error('BeforeEach Guard Error:', error);
+    // エラー発生時は安全にホームページに遷移
+    next('/');
+  }
+};
 
 export default router

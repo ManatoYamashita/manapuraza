@@ -11,16 +11,17 @@
                             width="250"
                             height="50"
                             class="logo" 
-                            v-show="currentPath 
-                            !== '/'"
+                            v-show="currentPath !== '/'"
+                            @error="handleLogoError"
                         />
                     </transition>
                 </RouterLink>
         </div>
         
         <nav class="default-menu">
-            <RouterLink to="/about" class="rlink" @click="handleAboutClick" :class="{ 'nav-animate': isInitialLoad }">About</RouterLink>
+            <RouterLink to="/about" class="rlink" :class="{ 'nav-animate': isInitialLoad }">About</RouterLink>
             <RouterLink to="/creatives" class="rlink" :class="{ 'nav-animate': isInitialLoad }">Creatives</RouterLink>
+            <RouterLink to="/contact" class="rlink" :class="{ 'nav-animate': isInitialLoad }">Contact</RouterLink>
         </nav>
 
         <div id="lang-switch">
@@ -48,23 +49,76 @@
         },
         watch: {
             $route(to, from) {
-                this.currentPath = to.path;
+                try {
+                    if (to && to.path) {
+                        this.currentPath = to.path;
+                        console.log(`Navbar: Route updated to ${to.path}`);
+                    } else {
+                        console.warn('Navbar: Invalid route object received');
+                    }
+                } catch (error) {
+                    console.error('Navbar: Route watcher failed:', error);
+                    // フォールバック: デフォルトパスを設定
+                    this.currentPath = '/';
+                }
             },
         },
         mounted() {
-            // 初回アニメーション実行後、フラグをリセット
-            setTimeout(() => {
-                this.isInitialLoad = false;
-            }, 2000); // アニメーション完了後にフラグ解除
+            try {
+                // 初回アニメーション実行後、フラグをリセット
+                setTimeout(() => {
+                    this.isInitialLoad = false;
+                }, 2000); // アニメーション完了後にフラグ解除
+            } catch (error) {
+                console.error('Navbar: Mount animation setup failed:', error);
+                this.isInitialLoad = false; // フォールバック
+            }
+        },
+        // ナビゲーションエラーハンドリング強化
+        errorCaptured(err, instance, info) {
+            console.error('Navbar: Component error captured:', {
+                error: err,
+                instance: instance?.$options?.name || 'Unknown',
+                info
+            });
+            
+            // エラーが発生してもコンポーネントを継続動作させる
+            return false;
         },
         methods: {
             toggleLanguage() {
-            this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';
+                try {
+                    if (this.$i18n && this.$i18n.locale) {
+                        this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';
+                        console.log(`Navbar: Language switched to ${this.$i18n.locale}`);
+                    } else {
+                        console.warn('Navbar: i18n not available for language toggle');
+                    }
+                } catch (error) {
+                    console.error('Navbar: Language toggle failed:', error);
+                    // ユーザーに視覚的フィードバックを提供
+                    const toggleLabel = document.querySelector('.toggle-label');
+                    if (toggleLabel) {
+                        toggleLabel.style.backgroundColor = '#ff4444';
+                        setTimeout(() => {
+                            toggleLabel.style.backgroundColor = '';
+                        }, 1000);
+                    }
+                }
             },
-            handleAboutClick() {
-                console.log('About link clicked!');
-                this.$router.push('/about');
-            }
+            handleLogoError(event) {
+                try {
+                    console.warn('Navbar: Logo image failed to load, hiding logo');
+                    event.target.style.display = 'none';
+                    // ロゴが読み込めない場合、テキストフォールバックを表示
+                    const logoContainer = event.target.parentElement?.parentElement;
+                    if (logoContainer) {
+                        logoContainer.innerHTML = '<span class="logo-fallback">manapuraza</span>';
+                    }
+                } catch (error) {
+                    console.error('Navbar: Logo error handler failed:', error);
+                }
+            },
         },
     };
 </script>
@@ -118,6 +172,10 @@
 
     .nav-animate:nth-child(2) {
         animation-delay: 1.2s; /* Creatives リンク用の追加遅延 */
+    }
+
+    .nav-animate:nth-child(3) {
+        animation-delay: 1.4s; /* Contact リンク用の追加遅延 */
     }
 
     @keyframes navFadeInUp {

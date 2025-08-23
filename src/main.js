@@ -17,7 +17,9 @@ import {
   faGlobe,
   faEnvelope, 
   faLink,
-  faUsers
+  faUsers,
+  faShareNodes,
+  faCalendar
 } from '@fortawesome/free-solid-svg-icons'
 import { 
   faGithub, 
@@ -45,7 +47,9 @@ library.add(
   faVideo,
   faPlay,
   faGlobe,
-  faUsers
+  faUsers,
+  faShareNodes,
+  faCalendar
 );
 
 // Vue-i18n最適化版を使用（Tree shaking最適化）

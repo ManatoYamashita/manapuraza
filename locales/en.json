@@ -182,6 +182,20 @@
         }
       }
     },
+
+    "contact": {
+        "title": "Contact",
+        "message": "If you have any questions, inquiries, or work requests, please feel free to contact me. I also work as a freelancer and accept requests for website development, animation production, illustration creation, and more.",
+        "methods": "Contact Methods",
+        "email": {
+            "title": "Email",
+            "description": "For work requests and inquiries, please send them to this email address. I will respond as quickly as possible."
+        },
+        "social": {
+            "title": "Social Media & Others",
+            "description": "Feel free to reach out on social media as well. I also share updates about my latest work and daily life."
+        }
+    },
     
     "404": {
       "title": "404",

@@ -18,11 +18,18 @@
       />
     </a>
   
-    <div class="app glass" :class="{'hidden': isHomePage}">
-      <router-view v-slot="{ Component }">
-        <transition name="slide" mode="out-in">
-          <component :is="Component" id="scrollable-aria" />
-        </transition>
+    <div class="app glass" :class="{'hidden': isHomePage}" :style="appStyles">
+      <router-view v-slot="{ Component }" :key="$route.fullPath">
+        <Suspense>
+          <template #default>
+            <transition name="slide" mode="out-in">
+              <component :is="Component" id="scrollable-aria" />
+            </transition>
+          </template>
+          <template #fallback>
+            <div class="loading-placeholder">Loading...</div>
+          </template>
+        </Suspense>
       </router-view>
     </div>
 
@@ -61,17 +68,26 @@
     updateHomePageState();
   };
 
+  // リアクティブなスタイル計算（直接DOM操作を排除）
+  const appStyles = computed(() => {
+    if (isHomePage.value) {
+      return {
+        top: '20vh',
+        opacity: '0',
+        pointerEvents: 'none'
+      };
+    } else {
+      return {
+        top: '0',
+        opacity: '1', 
+        pointerEvents: 'all'
+      };
+    }
+  });
+
   const updateHomePageState = () => {
     isHomePage.value = route.name === 'home';
-    if (isHomePage.value) {
-      document.querySelector('.app').style.top = '20vh';
-      document.querySelector('.app').style.opacity = '0';
-      document.querySelector('.app').style.pointerEvents = 'none';
-    } else {
-      document.querySelector('.app').style.top = '0';
-      document.querySelector('.app').style.opacity = '1';
-      document.querySelector('.app').style.pointerEvents = 'all';
-    }
+    // 直接DOM操作を削除 - リアクティブスタイルが自動更新
   };
 
   watch(route, () => {
@@ -344,6 +360,27 @@
     transition: all 0.2s ease-in-out;
   }
 
+  /* ローディングプレースホルダー */
+  .loading-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: rgba(17, 17, 17, 0.7);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* SpNav 強制有効化（親要素のpointer-events制限を上書き） */
+  #sp-nav, #sp-nav * {
+    pointer-events: auto !important;
+  }
+
   /* SP表示 */
   @media (max-width: 540px) {
     #main {
@@ -366,7 +403,8 @@
       position: fixed;
       right: 50%;
       bottom: 2.5rem;
-      pointer-events: all;
+      pointer-events: all !important;
+      z-index: 20;
     }
     
     /* SP用プログレスバー */

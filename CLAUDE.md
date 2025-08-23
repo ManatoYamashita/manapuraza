@@ -49,13 +49,15 @@ Portfolio items are centrally managed in this file with strict conventions:
 - **Static imports required** for all images (no dynamic paths due to Vite bundling)
 - **i18n keys** for titles/descriptions following pattern: `creatives.[category].[item].(title|description)`
 - **Categories**: `programming`, `graphics`, `video`
+- **CreativeItem modes**: Animation (section), Development/Illustration/Video (card li elements)
 - See `src/data/creatives-guide.md` for detailed data management procedures
 
 ### Core Architecture Components
-- **MetaBall.vue**: Three.js background animations (lazy loaded)
+- **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
 - **App.vue**: Progressive logo loading, main layout management
-- **Navbar.vue**: Separate Vue app instance mounted to `#navbar`
-- **CreativesHero.vue + CreativeItem.vue**: Portfolio display system
+- **Navbar.vue**: Navigation component with initial load animations and z-index layering
+- **CreativeItem.vue**: Unified portfolio component with 4 modes (Animation/Development/Illustration/Video)
+- **Multiple Vue instances**: Main app + Navbar + MetaBall (each with shared router/i18n)
 
 ### Internationalization
 - Files: `locales/ja.json`, `locales/en.json`
@@ -86,10 +88,11 @@ Portfolio items are centrally managed in this file with strict conventions:
 5. Test both languages and image display
 
 ### Component Development
-- Use Composition API with `<script setup>`
-- Follow existing patterns for Font Awesome icon usage
-- Components requiring heavy libraries (Three.js) should be lazy-loaded
-- Maintain responsive design principles (mobile-first)
+- **Primary**: Use Composition API with `<script setup>` syntax
+- **DOM manipulation**: Prefer reactive values over direct `document.querySelector()` for new code
+- **Icons**: Global `fa` and `font-awesome-icon` registered, use `<fa :icon="['fas','arrow-right']" />`
+- **Heavy dependencies**: Lazy-load with `requestIdleCallback` (Three.js pattern)
+- **Responsive design**: Mobile-first approach with proper breakpoints
 
 ### Performance Considerations
 - New components should consider lazy loading for non-critical path
@@ -173,11 +176,28 @@ const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 100));
 schedule(() => { AboutComponent(); });
 ```
 
+## Development Rules and Patterns
+
+### Cursor Rules Integration
+This codebase follows comprehensive development rules defined in `.cursor/rules/`:
+- **Architecture**: Component separation, SPA structure, multiple Vue instances
+- **Vue conventions**: `<script setup>`, Composition API, scoped styles
+- **Performance**: Lazy loading strategies, code splitting, requestIdleCallback usage
+- **Assets**: WebP optimization, static imports for Vite bundling
+- **i18n**: Lazy locale loading, fallback strategies
+- **Three.js**: Specific MetaBall sphere deformation solutions
+
+### PDCA Development Workflow
+- **PLAN**: Review relevant rules before changes, check deployment checklist
+- **DO**: Implement following rules, make small commits
+- **CHECK**: Test both build/preview environments, validate against checklist  
+- **ACTION**: Update rules with learnings, document in appropriate rule files
+
 ## Important Notes
 
-- **No testing framework**: Manual testing only
-- **FTP deployment**: Uses GitHub Actions with FTP-Deploy-Action
-- **Multiple Vue app instances**: Main app + Navbar + MetaBall (lazy)
-- **Image optimization critical**: All portfolio images must be WebP and properly imported
-- **i18n strict requirements**: All text must have translations in both languages
-- **Three.js sphere deformation**: Use inverse coordinate correction method only
+- **No testing framework**: Manual testing only via dev server and DevTools
+- **FTP deployment**: GitHub Actions with FTP-Deploy-Action to `/manapuraza/` directory
+- **Multiple Vue instances**: Main app + Navbar + MetaBall (each sharing router/i18n)
+- **Image optimization critical**: All portfolio images must be WebP and statically imported
+- **i18n strict requirements**: All text must have translations in both `ja.json` and `en.json`
+- **Three.js sphere deformation**: Use inverse coordinate correction method only (see above)

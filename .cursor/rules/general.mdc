@@ -53,6 +53,7 @@ alwaysApply: true
 - アーキテクチャと構成: `./architecture.mdc`
 - Vue 実装規約（SFC/Composition API/コンポーネント）: `./frontend-vue.mdc`
 - ルーティング（SPA/404/遅延読み込み）: `./routing.mdc`
+- 新規ページ追加管理（チェックリスト/統合手順）: `./frontend/page-management.mdc`
 - 国際化（i18nの遅延ロード/設定）: `./i18n/i18n.mdc`
 - パフォーマンス最適化（遅延/分割/LCP配慮）: `./performance.mdc`
 - ビルドとバンドル（Vite/Terser/manualChunks）: `./build-and-bundling.mdc`
