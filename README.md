@@ -64,6 +64,103 @@ npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
   - `fallbackLocale: 'en'`, `legacy: false`, `globalInjection: true`
   - 参考: [Vue I18n Lazy Loading](https://vue-i18n.intlify.dev/guide/advanced/lazy.html)
 
+## プロジェクト構成
+
+```
+manapuraza/
+├── public/                     # 静的ファイル
+│   ├── ogp.jpg                # OGPイメージ
+│   ├── robots.txt             # SEO設定
+│   └── sitemap.xml            # サイトマップ
+├── src/
+│   ├── components/            # Vueコンポーネント
+│   │   ├── MetaBall.vue      # Three.js背景アニメーション（遅延ロード）
+│   │   ├── Navbar.vue        # デスクトップナビゲーション
+│   │   ├── SpNav.vue         # モバイル円形メニュー
+│   │   ├── CreativeItem.vue  # ポートフォリオアイテム表示
+│   │   ├── Btn.vue           # 再利用可能ボタンコンポーネント
+│   │   └── Sns.vue           # SNSリンクコンポーネント
+│   ├── views/                # ページレベルコンポーネント
+│   │   ├── Home.vue          # トップページ
+│   │   ├── About.vue         # 自己紹介ページ
+│   │   ├── Creatives.vue     # ポートフォリオページ
+│   │   ├── Contact.vue       # お問い合わせページ
+│   │   └── 404.vue           # 404エラーページ
+│   ├── data/                 # 静的データ
+│   │   ├── creatives.js      # ポートフォリオデータ
+│   │   └── creatives-guide.md # データ管理ガイド
+│   ├── assets/               # アセット
+│   │   ├── main.css          # メインスタイルシート（遅延ロード）
+│   │   ├── logo.webp         # 高画質ロゴ
+│   │   ├── logo-low.webp     # 低画質ロゴ（初期表示）
+│   │   └── creatives-thumb/  # ポートフォリオサムネイル
+│   │       ├── programming/  # プログラミング作品
+│   │       ├── graphics/     # グラフィックデザイン
+│   │       └── video/        # 映像作品
+│   ├── router/
+│   │   └── index.js          # Vue Routerセットアップ
+│   ├── App.vue               # ルートコンポーネント
+│   └── main.js               # アプリケーションエントリ
+├── locales/                  # 国際化リソース
+│   ├── ja.json              # 日本語翻訳（初期ロード）
+│   └── en.json              # 英語翻訳（遅延ロード）
+├── .cursor/                 # Cursor IDEルール設定
+│   └── rules/               # 開発ルール定義
+├── .github/
+│   └── workflows/
+│       └── deploy.yml       # GitHub Actions デプロイ設定
+├── index.html               # HTMLエントリ（クリティカルCSS含む）
+├── vite.config.js          # Vite設定（コード分割・最適化）
+├── CLAUDE.md               # Claude Code開発ガイド
+└── README.md               # プロジェクト説明書
+```
+
+### 主要ディレクトリの詳細
+
+#### `src/components/`
+- **MetaBall.vue**: Three.js使用の3D背景。`requestIdleCallback`で遅延読み込み
+- **Navbar.vue**: デスクトップ用ナビゲーション。初回アニメーション対応
+- **SpNav.vue**: モバイル用円形メニュー。CSS transform使用
+- **CreativeItem.vue**: 統合ポートフォリオコンポーネント。4モード対応（Animation/Development/Illustration/Video）
+
+#### `src/views/`
+- **Home.vue**: ランディングページ。MetaBallとの連携
+- **Creatives.vue**: ポートフォリオ一覧。CreativeItemコンポーネント使用
+- **Contact.vue**: お問い合わせフォーム。GSAP animations対応
+
+#### `src/data/`
+- **creatives.js**: ポートフォリオデータの中央管理。静的インポート必須
+- **creatives-guide.md**: データ追加・変更手順の詳細ガイド
+
+#### アセット管理
+- **WebP形式**: 全画像をWebPで最適化
+- **プログレッシブローディング**: logo-low.webp → logo.webpの段階読み込み
+- **静的インポート**: Viteバンドリング対応のため、動的パスは使用不可
+
+### 技術仕様とアーキテクチャ
+
+#### Vue.js アーキテクチャ
+- **複数Vueインスタンス**: Main App, Navbar, MetaBall（各々独立にマウント）
+- **Composition API**: 新規コンポーネントは`<script setup>`記法使用
+- **Options API**: 既存コンポーネント（Navbar, SpNav）で継続使用
+- **共有リソース**: Vue Router, Vue I18nを全インスタンス間で共有
+
+#### 状態管理とデータフロー
+- **Props-based**: 親子間通信はProps/Emitsパターン
+- **中央データ**: `src/data/creatives.js`でポートフォリオ情報を一元管理
+- **リアクティブ**: `computed`, `ref`, `watch`でリアクティブ状態管理
+
+#### パフォーマンス戦略
+- **Code Splitting**: Vite `manualChunks`で依存を論理分割
+- **Lazy Loading**: ルート、コンポーネント、翻訳の段階的読み込み
+- **Critical Resource Priority**: 初期描画に必要な最小リソースを優先
+- **Idle Time Utilization**: `requestIdleCallback`でバックグラウンド処理
+
+#### エラーハンドリング
+- **コンポーネントレベル**: `errorCaptured`でエラー境界設定
+- **ルーターレベル**: `router.onError`でナビゲーションエラー処理  
+- **Promise/Async**: try-catch + フォールバック値で堅牢性確保
+
 ## パフォーマンス最適化
 
 <img width="1920" height="1080" alt="manapuraza-lighthouse-scores" src="https://github.com/user-attachments/assets/6c98a726-7aa3-4957-a58b-6a92b645c4af" />
