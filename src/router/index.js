@@ -17,7 +17,6 @@ const preloadComponents = () => {
     CreativesComponent();
     ContactComponent();
     NotFoundComponent();
-    console.log('Router: Components preloaded for instant navigation');
   });
 };
 
@@ -89,7 +88,6 @@ router.beforeEach((to, from, next) => {
       }, 200);
     }
     
-    console.log(`Navigation: Instant feedback activated for ${to.name}`);
   }
   next();
 });
@@ -114,14 +112,12 @@ router.afterEach((to, from) => {
       document.body.style.cursor = '';
       document.body.classList.remove('navigation-loading');
       
-      console.log(`Navigation: Loading completed for ${to.name}`);
     }, 100);
   }
 });
 
 // ナビゲーションエラーハンドリング強化
 router.onError((error) => {
-  console.error('Router Navigation Error:', error);
   
   // エラー時のクリーンアップ
   const progressBar = document.getElementById('navigation-progress');
@@ -139,7 +135,6 @@ router.onError((error) => {
   
   // 重要: DOM操作エラーの場合は強制的にホームに戻す
   if (error.message.includes('nextSibling') || error.message.includes('Cannot read properties of null')) {
-    console.warn('DOM consistency error detected, redirecting to home');
     window.location.href = '/';
   }
 });
@@ -150,7 +145,6 @@ router.beforeEach = (to, from, next) => {
   try {
     return originalBeforeEach.call(router, to, from, next);
   } catch (error) {
-    console.error('BeforeEach Guard Error:', error);
     // エラー発生時は安全にホームページに遷移
     next('/');
   }

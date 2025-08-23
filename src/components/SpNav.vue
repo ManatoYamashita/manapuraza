@@ -2,7 +2,7 @@
     <div id="spnav">
         <nav class="menu-circle-social">
             <input type="checkbox" to="#" class="menu-circle-open" name="menu-circle-open" id="menu-open"/>
-            <label class="menu-circle-open-button" for="menu-open" aria-label="メニューを開く">
+            <label class="menu-circle-open-button" :class="{ 'spnav-animate': isInitialLoad }" for="menu-open" aria-label="メニューを開く">
                         <svg class="mp icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" viewBox="0 0 1440 1439.999935" preserveAspectRatio="xMidYMid meet" version="1.0">
                                 <path fill="#fff" d="M 443.851562 436.566406 C 493.277344 455.742188 517.992188 511.808594 498.441406 561.238281 L 342.414062 962.191406 C 323.234375 1011.613281 267.164062 1036.324219 217.742188 1017.15625 C 168.679688 997.964844 143.964844 941.902344 163.144531 892.472656 L 319.179688 491.148438 C 338.359375 442.09375 394.421875 417.382812 443.851562 436.566406 " fill-opacity="1" fill-rule="evenodd"/><path fill="#dddddd" d="M 1066.859375 436.566406 C 1116.289062 455.742188 1141.003906 511.808594 1121.816406 561.238281 L 965.421875 962.191406 C 946.238281 1011.613281 890.171875 1036.324219 841.117188 1017.15625 C 791.683594 997.964844 766.972656 941.902344 786.15625 892.472656 L 942.179688 491.148438 C 961.363281 442.09375 1017.429688 417.382812 1066.859375 436.566406 " fill-opacity="1" fill-rule="evenodd"/><path fill="#ffffff" d="M 443.851562 436.566406 C 394.421875 417.382812 338.359375 442.09375 319.179688 491.148438 L 163.144531 892.472656 C 143.964844 941.902344 168.679688 997.964844 217.742188 1017.15625 C 267.164062 1036.324219 323.234375 1011.613281 342.414062 962.191406 L 498.441406 561.238281 C 517.992188 511.808594 493.277344 455.742188 443.851562 436.566406 Z M 996.03125 436.566406 C 946.613281 455.742188 921.898438 511.808594 941.070312 561.238281 L 1097.105469 962.191406 C 1116.652344 1011.613281 1172.714844 1036.324219 1221.785156 1017.15625 C 1271.203125 997.964844 1295.917969 941.902344 1276.742188 892.472656 L 1120.347656 491.148438 C 1101.160156 442.09375 1045.097656 417.382812 996.03125 436.566406 Z M 755.539062 436.566406 C 804.59375 455.742188 829.304688 511.808594 810.132812 561.238281 L 654.101562 962.191406 C 634.921875 1011.613281 578.851562 1036.324219 529.425781 1017.15625 C 479.996094 997.964844 455.285156 941.902344 474.464844 892.472656 L 630.863281 491.148438 C 650.042969 442.09375 706.109375 417.382812 755.539062 436.566406 " fill-opacity="1" fill-rule="evenodd"/>
                         </svg>
@@ -27,28 +27,41 @@
 </template>
 
 <script type="text/javascript">
+import { ref, onMounted } from 'vue';
+
 export default {
     name: 'SpNav',
+    setup() {
+        const isInitialLoad = ref(true);
+
+        onMounted(() => {
+            try {
+                // 初回アニメーション実行後、フラグをリセット
+                setTimeout(() => {
+                    isInitialLoad.value = false;
+                }, 2000); // アニメーション完了後にフラグ解除
+            } catch (error) {
+                isInitialLoad.value = false; // フォールバック
+            }
+        });
+
+        return {
+            isInitialLoad
+        };
+    },
     methods: {
         toggleLanguage() {
             try {
                 if (this.$i18n && this.$i18n.locale) {
                     this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';
                 } else {
-                    console.warn('SpNav: i18n not available for language toggle');
                 }
             } catch (error) {
-                console.error('SpNav: Language toggle failed:', error);
             }
         }
     },
     // ナビゲーションエラーハンドリング強化
     errorCaptured(err, instance, info) {
-        console.error('SpNav: Component error captured:', {
-            error: err,
-            instance: instance?.$options?.name || 'Unknown',
-            info
-        });
         
         // エラーが発生してもコンポーネントを継続動作させる
         return false;
@@ -62,7 +75,6 @@ export default {
             }
             next();
         } catch (error) {
-            console.error('SpNav: Navigation cleanup failed:', error);
             next(); // エラーでもナビゲーションは継続
         }
     }
@@ -182,5 +194,23 @@ export default {
         .mp {
                 width: 3rem;
                 height: 3rem;
+        }
+
+        /* SpNav初回アニメーション */
+        .spnav-animate {
+                opacity: 0;
+                transform: translateY(-20px);
+                animation: spnavFadeInUp 0.8s ease-out 1s forwards;
+        }
+
+        @keyframes spnavFadeInUp {
+                0% {
+                        opacity: 0;
+                        transform: translateY(-20px);
+                }
+                100% {
+                        opacity: 1;
+                        transform: translateY(0);
+                }
         }
 </style>

@@ -165,7 +165,6 @@
           }
           return props.thumbnail;
         } catch (error) {
-          console.error('画像パスの解決に失敗しました:', error);
           return 'https://via.placeholder.com/300x200?text=Image+Not+Found';
         }
       });
@@ -201,7 +200,6 @@
 
       // Animation mode用のiframe読み込み管理
       const onIframeLoad = () => {
-        console.log('CreativeItem: YouTube iframe loaded successfully');
         
         if (window.gsap) {
           window.gsap.to('.youtube-skeleton', {
@@ -227,7 +225,6 @@
         }
         
         loadingTimeout = setTimeout(() => {
-          console.log('CreativeItem: Loading timeout - forcing iframe display');
           isVideoLoading.value = false;
         }, 10000);
       };
@@ -238,7 +235,6 @@
         
         if (wasDesktop !== isDesktop.value) {
           resetLoadingState();
-          console.log(`CreativeItem: Device switched to ${isDesktop.value ? 'desktop' : 'mobile'}`);
         }
       };
 
@@ -248,84 +244,27 @@
         }
       }, { immediate: false });
 
-      // Composition API版 onMounted - Animation mode対応
+      // グローバルアニメーション実行済み管理
+      const animationKey = `${props.index}-${props.mode}`;
+      if (!window.creativeItemAnimations) {
+        window.creativeItemAnimations = new Set();
+      }
+
+      // アニメーション実行済みフラグ
+      const animationExecuted = ref(false);
+
+      // Composition API版 onMounted - 完全に無効化
       onMounted(async () => {
-        try {
-          const { gsap } = await import('gsap');
-          
-          if (props.mode === 'Animation') {
-            // Animation mode用の初期化
+        
+        // Animation mode用の最小限初期化のみ
+        if (props.mode === 'Animation') {
+          try {
             mediaQueryList = window.matchMedia('(min-width: 968px)');
             isDesktop.value = mediaQueryList.matches;
             resetLoadingState();
             mediaQueryList.addEventListener('change', handleMediaQueryChange);
-            
-            // Animation section用のアニメーション（要素存在確認付き）
-            const animationSection = document.getElementById('animation');
-            if (animationSection) {
-              gsap.from(animationSection, {
-                opacity: 0,
-                transform: 'translateY(50px)',
-                duration: 1,
-                ease: 'power3.out'
-              });
-            }
-            
-            const videoContainer = document.querySelector('.video-container');
-            if (videoContainer) {
-              gsap.from(videoContainer, {
-                opacity: 0,
-                scale: 0.9,
-                duration: 1.2,
-                delay: 0.3,
-                ease: 'back.out(1.7)'
-              });
-            }
-            
-            const animationInfo = document.querySelector('.animation-info');
-            if (animationInfo) {
-              gsap.from(animationInfo, {
-                opacity: 0,
-                transform: 'translateX(30px)',
-                duration: 1,
-                delay: 0.5,
-                ease: 'power2.out'
-              });
-            }
-            
-            const additionalElements = document.querySelectorAll('.info-grid, .credits-section, .animation-links');
-            if (additionalElements.length > 0) {
-              gsap.from(additionalElements, {
-                opacity: 0,
-                transform: 'translateY(20px)',
-                stagger: 0.15,
-                duration: 0.8,
-                delay: 0.7,
-                ease: 'power2.out'
-              });
-            }
-          } else {
-            // 他のmode用のアニメーション - より安全な要素取得
-            await new Promise(resolve => setTimeout(resolve, 100)); // DOM安定化待機
-            
-            const element = document.querySelector(`[data-creative-index="${props.index}"]`) || 
-                           document.querySelector('.creative-item:not(.animation-section)');
-            
-            if (element) {
-              gsap.from(element, {
-                opacity: 0,
-                transform: 'translateY(200px)',
-                duration: 1,
-                delay: props.index * 0.2,
-                ease: 'power4.out',
-              });
-            } else {
-              console.warn(`CreativeItem: Element not found for animation (index: ${props.index})`);
-            }
+          } catch (error) {
           }
-        } catch (error) {
-          console.error('CreativeItem: GSAP animation failed:', error);
-          // GSAPが失敗してもコンポーネントは正常に動作させる
         }
       });
 
@@ -358,7 +297,6 @@
     methods: {
       handleImageError(e) {
         e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-        console.warn(`画像の読み込みに失敗しました: ${this.thumbnail}`);
       }
     }
   };
@@ -917,10 +855,12 @@
   }
 }
   
-  /* カード形式の基本スタイル（前バージョン準拠） */
+  /* カード形式の基本スタイル */
   .creative-item:not(.animation-section) {
     margin: 1rem 0;
     overflow: hidden;
+    opacity: 1;
+    transform: translateY(0px);
   }
 
   .img-cover {

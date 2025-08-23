@@ -24,7 +24,7 @@
             <RouterLink to="/contact" class="rlink" :class="{ 'nav-animate': isInitialLoad }">Contact</RouterLink>
         </nav>
 
-        <div id="lang-switch">
+        <div id="lang-switch" :class="{ 'lang-switch-animate': isInitialLoad }">
             <span class="lang">{{ $t('navbar.toggle') }}</span>
             <div class="toggle-switch">
                 <input class="toggle-input" id="toggle" type="checkbox" @click="toggleLanguage">
@@ -52,12 +52,9 @@
                 try {
                     if (to && to.path) {
                         this.currentPath = to.path;
-                        console.log(`Navbar: Route updated to ${to.path}`);
                     } else {
-                        console.warn('Navbar: Invalid route object received');
                     }
                 } catch (error) {
-                    console.error('Navbar: Route watcher failed:', error);
                     // フォールバック: デフォルトパスを設定
                     this.currentPath = '/';
                 }
@@ -70,17 +67,11 @@
                     this.isInitialLoad = false;
                 }, 2000); // アニメーション完了後にフラグ解除
             } catch (error) {
-                console.error('Navbar: Mount animation setup failed:', error);
                 this.isInitialLoad = false; // フォールバック
             }
         },
         // ナビゲーションエラーハンドリング強化
         errorCaptured(err, instance, info) {
-            console.error('Navbar: Component error captured:', {
-                error: err,
-                instance: instance?.$options?.name || 'Unknown',
-                info
-            });
             
             // エラーが発生してもコンポーネントを継続動作させる
             return false;
@@ -90,12 +81,9 @@
                 try {
                     if (this.$i18n && this.$i18n.locale) {
                         this.$i18n.locale = this.$i18n.locale === 'en' ? 'ja' : 'en';
-                        console.log(`Navbar: Language switched to ${this.$i18n.locale}`);
                     } else {
-                        console.warn('Navbar: i18n not available for language toggle');
                     }
                 } catch (error) {
-                    console.error('Navbar: Language toggle failed:', error);
                     // ユーザーに視覚的フィードバックを提供
                     const toggleLabel = document.querySelector('.toggle-label');
                     if (toggleLabel) {
@@ -108,7 +96,6 @@
             },
             handleLogoError(event) {
                 try {
-                    console.warn('Navbar: Logo image failed to load, hiding logo');
                     event.target.style.display = 'none';
                     // ロゴが読み込めない場合、テキストフォールバックを表示
                     const logoContainer = event.target.parentElement?.parentElement;
@@ -116,7 +103,6 @@
                         logoContainer.innerHTML = '<span class="logo-fallback">manapuraza</span>';
                     }
                 } catch (error) {
-                    console.error('Navbar: Logo error handler failed:', error);
                 }
             },
         },
@@ -178,7 +164,25 @@
         animation-delay: 1.4s; /* Contact リンク用の追加遅延 */
     }
 
+    /* 言語トグルスイッチ初回アニメーション */
+    .lang-switch-animate {
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: langSwitchFadeInUp 0.8s ease-out 1s forwards;
+    }
+
     @keyframes navFadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes langSwitchFadeInUp {
         0% {
             opacity: 0;
             transform: translateY(-20px);

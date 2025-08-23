@@ -4,22 +4,14 @@
 
     <main>
       <div id="main-contents">
-        <CreativeItem
-          :url="'https://tcu-animation.jp/'"
-          :title="$t('creatives.animation.tcuAnimation.title')"
-          :description="$t('creatives.animation.paragraph')"
-          :thumbnail="''"
-          :index="0"
-          :mode="'Animation'"
-          :animationData="animationData"
-        />
-
-        <section id="developmnet">
-          <h2>Developmnet</h2>
+        
+        <!-- Development Section -->
+        <section id="development">
+          <h2>Development</h2>
           <p>{{ $t('creatives.dev.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in randomizeddevelopmnet"
+              v-for="(creative, index) in randomizedDevelopment"
               :key="creative.id"
               :url="creative.url"
               :title="$t(creative.title)"
@@ -90,9 +82,23 @@
 
   const { t } = useI18n();
 
-  // ランダムに並び替えられたプログラミング作品のリスト（developmnet作品は順番をランダムに並び替える）
-  const randomizeddevelopmnet = computed(() => {
-    return [...creativesData.developmnet].sort(() => Math.random() - 0.5);
+  // Fisher-Yatesアルゴリズムによる真のランダムシャッフル
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // ランダムに並び替えられたプログラミング作品のリスト
+  const randomizedDevelopment = computed(() => {
+    const items = creativesData?.development;
+    if (!items || !Array.isArray(items)) {
+      return [];
+    }
+    return shuffleArray(items);
   });
 
   // Animation section用のデータ
@@ -135,10 +141,6 @@
   }));
 
 
-  // Composition APIではデータを直接参照できる
-  defineExpose({
-    creativesData
-  });
 </script>
 
 <style scoped>
@@ -175,6 +177,7 @@
     height: 2px;
     background: linear-gradient(90deg, rgba(67, 153, 187, 0.8) 0%, rgba(67, 153, 187, 0.2) 100%);
   }
+
 
   /* 既存のスタイル */
   #main-contents {

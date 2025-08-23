@@ -91,7 +91,6 @@
   };
 
   watch(route, () => {
-    console.log('current route: ', route.name);
     updateHomePageState();
   });
 
@@ -116,7 +115,6 @@
     };
     
     highQualityImg.onerror = () => {
-      console.warn('高画質ロゴの読み込みに失敗しました。低画質版を使用します。');
     };
     
     highQualityImg.src = new URL('@/assets/logo.webp', import.meta.url).href;

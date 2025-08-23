@@ -31,7 +31,7 @@ import tcuDcYoutubeImg from '@/assets/creatives-thumb/video/youtube-tcudc.webp';
 export const creativesData = {
  
    // プログラミング / Web 作品
-   developmnet: [
+   development: [
      {
        id: 'manapuraza',  // MANAOURAZA.com
        title: 'creatives.dev.manapuraza.title',

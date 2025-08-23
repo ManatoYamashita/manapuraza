@@ -113,17 +113,14 @@ setupI18n().then(i18n => {
       link.rel = 'stylesheet';
       link.href = '/src/assets/main.css';
       document.head.appendChild(link);
-      console.log('MetaBall: CSS loaded dynamically (dev mode)');
     } else {
       // プロダクション環境：静的インポートで確実に読み込み
       import('/src/assets/main.css').catch(err => {
-        console.error('MetaBall: CSS import failed:', err);
         // フォールバック：基本スタイルの確保
         document.body.style.margin = '0';
         document.body.style.padding = '0';
         document.body.style.fontFamily = 'system-ui, sans-serif';
       });
-      console.log('MetaBall: CSS imported statically (prod mode)');
     }
   };
 
