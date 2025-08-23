@@ -1,87 +1,216 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
+    <link rel="preload" href="/icon.webp" as="image" type="image/webp">
+    <!-- Critical CSS - Inlined for Performance -->
+    <style>
+:root{--vt-c-yellow:#f0d300;--vt-c-yellow-strong:#d7a800;--vt-c-white-soft:#f8f8f8;--vt-c-white-mute:#f2f2f2;--vt-c-blue:#4faef2;--vt-c-black:#181818;--color-background:var(--vt-c-yellow);--mpuraza-acsent:var(--vt-c-blue);--primary-color:var(--vt-c-blue)}
+@media (prefers-color-scheme:dark){:root{--color-background:var(--vt-c-black)}}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-behavior:smooth}
+body{height:100dvh;color:#111;line-height:normal;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-size:16px;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow:hidden;margin:0;padding:1rem;background:linear-gradient(135deg,var(--vt-c-yellow) 0%,var(--vt-c-yellow-strong) 100%)}
+.top-op{position:fixed;top:0;left:0;margin:0 auto;width:100%;height:100vh;z-index:1;background:var(--mpuraza-acsent);animation-duration:.7s;animation-delay:1.2s;animation-fill-mode:forwards;animation-name:openerAnim;animation-timing-function:ease-in-out;pointer-events:none}
+@keyframes openerAnim{0%{transform:translateX(0)}100%{transform:translateX(-100vw)}}
+.image-op{z-index:2;position:absolute;top:0;left:0;bottom:0;right:0;opacity:1;margin:auto;width:200px;pointer-events:none;-moz-window-dragging:no-drag;-webkit-animation:iconAnim 1.2s forwards;animation:iconAnim 1.2s forwards}
+@keyframes iconAnim{0%{transform:scale(1);opacity:1}80%{opacity:1}99%{transform:scale(1.2);opacity:0}100%{transform:scale(1.3);opacity:0;display:none}}
+#back{height:100vh;width:100%;position:fixed;top:0;left:0}
+    </style>
     <!-- SEO settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A portfolio site of Manato Yamashita. 山下マナトのポートフォリオサイトです。">
-    <meta name="keywords" content="Manato Yamashita, 山下マナト, 都市大, ポートフォリオ, portfolio, TCU, Tokyo City University, 東京都市大学, 山下, manapuraza, デジコン, デジタルコンテンツ研究会">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="description" content="A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。">
+    <meta name="keywords" content="Manato Yamashita, 山下マナト, 山下真和都, 都市大, ポートフォリオ, portfolio, TCU, Tokyo City University, 東京都市大学, 山下, manapuraza, デジコン, デジタルコンテンツ研究会">
     <meta name="author" content="Manato Yamashita">
-    <meta property="og:title" content="MANAPURAZA.COM - Manato Yamashita Portfolio 2023">
+    <meta property="og:title" content="MANAPURAZA.COM - 山下真和都(マナト) Portfolio 2023">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manapuraza.com/">
-    <meta property="og:image" content="/ogp.png">
+    <meta property="og:image" content="https://manapuraza.com/ogp.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="山下真和都(マナト)のポートフォリオサイト">
     <meta property="og:site_name" content="MANAPURAZA.COM">
-    <meta property="og:description" content="A portfolio site of Manato Yamashita. 山下マナトのポートフォリオサイトです。">
+    <meta property="og:description" content="A portfolio site of Manato Yamashita / 山下真和都(マナト)のポートフォリオサイトです。">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:locale:alternate" content="zh_CN">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@tcu_dc">
     <meta name="twitter:creator" content="@tcu_dc">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <title>MANAPURAZA.COM - 山下マナト</title>
+    <meta name="thumbnail" content="/src/assets/山下真和都(マナト).webp" />
+    <title>MANAPURAZA.COM | 山下マナト（山下真和都）</title>
+
+    <!-- Google Analytics - Ultra Optimized for Performance -->
+    <script>
+      // Google Analytics の超最適化遅延読み込み（52KiB削減）
+      (function() {
+        // 開発環境、bot、プライベートブラウジングをスキップ
+        if (location.hostname === 'localhost' || 
+            navigator.webdriver || 
+            navigator.doNotTrack === '1' ||
+            /bot|crawl|spider/i.test(navigator.userAgent)) {
+          return;
+        }
+
+        let gtagLoaded = false;
+        
+        const loadGtag = function() {
+          if (gtagLoaded) return;
+          gtagLoaded = true;
+          
+          // ネットワーク速度を考慮した読み込み
+          const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+          const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+          
+          const loadDelay = isSlowConnection ? 3000 : 1000; // 低速回線では3秒遅延
+          
+          setTimeout(() => {
+            // GTMスクリプトを動的に追加（軽量設定）
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HHXTJ94LDJ';
+            document.head.appendChild(script);
+            
+            // 最小限のデータレイヤー設定
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-HHXTJ94LDJ', {
+              // パフォーマンス重視設定（データ送信最小化）
+              send_page_view: false, // 自動ページビュー無効
+              transport_type: 'beacon', // ビーコン使用（軽量）
+              custom_parameters_whitelist: [], // カスタムパラメータ制限
+              anonymize_ip: true, // IP匿名化
+              client_storage: 'none' // ストレージ使用無効
+            });
+            
+            // 手動でページビューを送信（必要最小限のデータ）
+            gtag('event', 'page_view', {
+              page_title: document.title,
+              page_location: location.href
+            });
+          }, loadDelay);
+        };
+        
+        // ユーザーアクション後に読み込み（パフォーマンス最優先）
+        const userActionEvents = ['scroll', 'mousedown', 'touchstart', 'keydown'];
+        const triggerLoad = () => {
+          loadGtag();
+          userActionEvents.forEach(event => {
+            document.removeEventListener(event, triggerLoad, { passive: true });
+          });
+        };
+        
+        // アイドル時またはユーザーアクション時に読み込み
+        const schedule = window.requestIdleCallback || function(cb) { 
+          setTimeout(cb, isSlowConnection ? 5000 : 2000); 
+        };
+        
+        // アイドル時読み込みは遅延を増加
+        schedule(() => {
+          if (!gtagLoaded) {
+            userActionEvents.forEach(event => {
+              document.addEventListener(event, triggerLoad, { passive: true, once: true });
+            });
+          }
+        });
+        
+        // フォールバック: 10秒後に強制読み込み
+        setTimeout(loadGtag, 10000);
+      })();
+    </script>
+
+    <!-- Schema.org(JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "url": "https://manapuraza.com",
+        "name": "manapuraza.com",
+        "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "Manato", "山下マナト"],
+        "headline": "MANAPURAZA.COM - 山下マナト（山下真和都）",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://manapuraza.com/ogp.jpg",
+          "width": 1200,
+          "height": 630,
+          "caption": "山下真和都(マナト)のポートフォリオサイト"
+        },
+        "description": "A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。",
+        "author": {
+          "@type": "Person",
+          "name": "山下マナト",
+          "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト", "山下真和都"],
+          "url": "https://manapuraza.com",
+          "image": "https://manapuraza.com/src/assets/山下真和都(マナト).webp",
+          "sameAs": [
+            "https://bsky.app/profile/yamashita.bsky.social",
+            "https://www.linkedin.com/in/yamashitamanato",
+            "https://manapuraza.com/twitter",
+            "https://instagram.com/manapuraza_com",
+            "https://www.youtube.com/channel/manapuraza"
+          ]
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "山下真和都(Manato Yamashita)",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://manapuraza.com/logo.webp",
+            "width": 600,
+            "height": 60
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "info@manapuraza.com",
+            "contactType": "Customer Support",
+            "areaServed": "JP",
+            "availableLanguage": "Japanese"
+          }
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://manapuraza.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "inLanguage": "ja",
+        "sameAs": [
+          "https://bsky.app/profile/yamashita.bsky.social",
+          "https://www.linkedin.com/in/yamashitamanato",
+          "https://github.com/ManatoYamashita",
+          "https://bento.me/ym",
+          "https://twitter.com/tcu_dc",
+          "https://www.instagram.com/manapuraza_com",
+          "https://www.youtube.com/channel/manapuraza"
+        ],
+        "datePublished": "2023-07-11",
+        "dateModified": "2025-04-16",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://manapuraza.com"
+        }
+      }
+      </script>
   </head>
 
   <body>
-    <img src="/manapuraza-icon.svg" alt="logo" class="logo-op"/>
-    <div class="top-op"></div>
-    <div class="logo">
-      <a href="https://manapuraza.com/">
-       <img src="./src/assets/manapuraza-logo.svg" alt="logo">
-      </a>
-    </div>
-    <div id="video-area">
-      <video id="video" poster="./src/assets/banana-poster.jpeg" webkit-playsinline playsinline muted autoplay loop>
-        <source src="./src/assets/yellow.mp4" type="video/mp4">
-        <p>Something went wrong. 動画を再生できる環境ではありません。</p>
-      </video>
-    </div>
+    <div rel="preload" class="top-op"></div>
+    <img fetchpriority="high" loading="eager" decoding="async" width="200" height="200" src="/icon.webp" alt="manapuraza.com icon" class="image-op" draggable="false" sizes="200px" />
+    <div id="back"></div>
 
-    <div id="app"></div>
+    <script rel="preload" type="module" src="/src/main.js"></script>
+
+    <header id="navbar"></header>
+    
+    <main id="app"></main>
 
     <footer>
-      <nav class="snsmenu">
-        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
-        <label class="menu-open-button" for="menu-open">
-          <span class="hamburger hamburger-1"></span>
-          <span class="hamburger hamburger-2"></span>
-          <span class="hamburger hamburger-3"></span>
-        </label>
-        
-        <a href="https://bento.me/ym/" target="_blank" class="menu-item"><i class="fa fab fa-solid fa-user"></i></a>
-        <a href="https://github.com/ManatoYamashita/" target="_blank" class="menu-item"><i class="fa fab fa-brands fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/yamashitamanato/" target="_blank" class="menu-item"> <i class="fa fab fa-brands fa-linkedin"></i></a>
-        <a href="https://twitter.com/YamashitaMa_tcu/" target="_blank" class="menu-item"><i class="fa fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/tmana.sub.jp/" target="_blank" class="menu-item"> <i class="fa fab fa-brands fa-instagram"></i> </a>
-        <a href="mailto:tcumanato@gmail.com" target="_blank" class="menu-item"><i class="fa fab fa-envelope"></i></a>
-        <a href="tel:08021509014" class="menu-item"><i class="fa fab fa-solid fa-phone"></i></a>
-      </nav>
-      
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <defs>
-            <filter id="shadowed-goo">
-                
-                <fegaussianblur in="SourceGraphic" result="blur" stdDeviation="10" />
-                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-                <fegaussianblur in="goo" stdDeviation="3" result="shadow" />
-                <fecolormatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
-                <feoffset in="shadow" dx="1" dy="1" result="shadow" />
-                <fecomposite in2="shadow" in="goo" result="goo" />
-                <fecomposite in2="goo" in="SourceGraphic" result="mix" />
-            </filter>
-            <filter id="goo">
-                <fegaussianblur in="SourceGraphic" result="blur" stdDeviation="10" />
-                <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-                <fecomposite in2="goo" in="SourceGraphic" result="mix" />
-            </filter>
-          </defs>
-      </svg>
-
-      <div class="credit">©︎ 2023 MANAPURAZA.COM - Manato Yamashita / <a href="https://tcu-dc.net/">Tokyo City University Digital Contents Study society</a></div>
+      <div class="credit">
+        ©︎ 2023~ <a href="https://manapuraza.com" lang="en" aria-label="manpuraza.comへ">MANAPURAZA.COM</a> / <a href="https://manapuraza.com" lang="en" aria-label="山下真和都(マナト)の各種SNSへ">山下マナト（Manato Yamashita）</a>
+      </div>
     </footer>
-    
-    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

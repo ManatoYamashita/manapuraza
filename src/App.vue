@@ -1,70 +1,415 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <div>
-    <header>
-      <div class="wrapper">
-        <nav>
-          <RouterLink to="/" class="rlink">Home</RouterLink>
-          <RouterLink to="/about" class="rlink">About</RouterLink>
-          <RouterLink to="/works" class="rlink">Works</RouterLink>
-          <RouterLink to="/contact" class="rlink">Contact</RouterLink>
-        </nav>
-      </div>
-    </header>
-    
-    <Transition name="slide" mode="out-in">
-        <router-view />
-    </Transition>
+  <div id="main">
+    <!-- ナビゲーション視覚フィードバック用プログレスバー -->
+    <div id="navigation-progress" class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <a href="https://manapuraza.com" aria-current="page" class="home-logo">
+      <img 
+        :fetchpriority="logoQuality === 'high' ? 'high' : 'low'" 
+        :src="currentLogoSrc" 
+        alt="ホームページに戻る" 
+        draggable="false" 
+        id="center-logo" 
+        :class="[className, logoTransitionClass]" 
+        :style="combinedStyleObject" 
+        @load="onLogoLoad"
+      />
+    </a>
+  
+    <div class="app glass" :class="{'hidden': isHomePage}" :style="appStyles">
+      <router-view v-slot="{ Component }" :key="$route.fullPath">
+        <Suspense>
+          <template #default>
+            <transition name="slide" mode="out-in">
+              <component :is="Component" id="scrollable-aria" />
+            </transition>
+          </template>
+          <template #fallback>
+            <div class="loading-placeholder">Loading...</div>
+          </template>
+        </Suspense>
+      </router-view>
+    </div>
+
+    <SpNav id="sp-nav" />
   </div>
 </template>
 
+<script type="text/javascript" setup>
+  import { watch, onMounted, computed, ref } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  import SpNav from '@/components/SpNav.vue';
+  
+  const route = useRoute();
+  const router = useRouter();
+  const isHomePage = ref(true);
+
+  // プログレッシブローディング用のロゴ管理
+  const logoQuality = ref('low'); // 'low' | 'high'
+  const isLogoTransitioning = ref(false);
+  const logoLoadAttempted = ref(false);
+
+  // ロゴソースの計算プロパティ
+  const currentLogoSrc = computed(() => {
+    return logoQuality.value === 'low' 
+      ? new URL('@/assets/logo-low.webp', import.meta.url).href
+      : new URL('@/assets/logo.webp', import.meta.url).href;
+  });
+
+  // ロゴ遷移用クラス
+  const logoTransitionClass = computed(() => {
+    return isLogoTransitioning.value ? 'logo-transitioning' : '';
+  });
+
+  const checkRouterReady = async () => {
+    await router.isReady();
+    updateHomePageState();
+  };
+
+  // リアクティブなスタイル計算（直接DOM操作を排除）
+  const appStyles = computed(() => {
+    if (isHomePage.value) {
+      return {
+        top: '20vh',
+        opacity: '0',
+        pointerEvents: 'none'
+      };
+    } else {
+      return {
+        top: '0',
+        opacity: '1', 
+        pointerEvents: 'all'
+      };
+    }
+  });
+
+  const updateHomePageState = () => {
+    isHomePage.value = route.name === 'home';
+    // 直接DOM操作を削除 - リアクティブスタイルが自動更新
+  };
+
+  watch(route, () => {
+    console.log('current route: ', route.name);
+    updateHomePageState();
+  });
+
+  // 高画質版ロゴの遅延読み込み
+  const loadHighQualityLogo = () => {
+    if (logoLoadAttempted.value) return;
+    
+    logoLoadAttempted.value = true;
+    const highQualityImg = new Image();
+    
+    highQualityImg.onload = () => {
+      // 遅延してスムーズな遷移を実現
+      setTimeout(() => {
+        isLogoTransitioning.value = true;
+        setTimeout(() => {
+          logoQuality.value = 'high';
+          setTimeout(() => {
+            isLogoTransitioning.value = false;
+          }, 300);
+        }, 100);
+      }, 200);
+    };
+    
+    highQualityImg.onerror = () => {
+      console.warn('高画質ロゴの読み込みに失敗しました。低画質版を使用します。');
+    };
+    
+    highQualityImg.src = new URL('@/assets/logo.webp', import.meta.url).href;
+  };
+
+  // ロゴ読み込み完了ハンドラー
+  const onLogoLoad = () => {
+    // 初期の低画質ロゴが読み込まれた後、高画質版を遅延読み込み
+    if (logoQuality.value === 'low' && !logoLoadAttempted.value) {
+      const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 100));
+      schedule(() => {
+        loadHighQualityLogo();
+      });
+    }
+  };
+
+  onMounted(() => {
+    checkRouterReady();
+    
+    // LCP改善: 高品質版ロゴのプリロードヒントを追加
+    const addLogoPreload = () => {
+      const logoPreloadLink = document.createElement('link');
+      logoPreloadLink.rel = 'preload';
+      logoPreloadLink.href = new URL('@/assets/logo.webp', import.meta.url).href;
+      logoPreloadLink.as = 'image';
+      logoPreloadLink.type = 'image/webp';
+      logoPreloadLink.fetchpriority = 'high';
+      document.head.appendChild(logoPreloadLink);
+    };
+    
+    // プリロードを即座に実行（LCP最適化）
+    addLogoPreload();
+  });
+
+  const path = computed(() => route.path);
+
+  const className = computed(() => {
+    if (path.value === '/') {
+      return 'route-home';
+    } else {
+      return 'route-other'; 
+    }
+  });
+
+  const styleObject = computed(() => {
+    if (path.value === '/') {
+      return {
+        opacity: '1',
+        transition: 'all .4s ease-in-out',
+      };
+    } else {
+      return {
+        opacity: '0',
+        filter: 'blur(2rem)',
+        transition: 'all .4s ease-in-out',
+      };
+    }
+  });
+
+  // ロゴのスタイルオブジェクト（遷移効果を含む）
+  const combinedStyleObject = computed(() => {
+    const baseStyle = styleObject.value;
+    const transitionStyle = isLogoTransitioning.value ? {
+      opacity: '0.7',
+      transform: baseStyle.transform ? `${baseStyle.transform} scale(1.02)` : 'scale(1.02)',
+    } : {};
+    
+    return {
+      ...baseStyle,
+      ...transitionStyle,
+      transition: `${baseStyle.transition || 'all .4s ease-in-out'}, opacity .3s ease-in-out, transform .3s ease-in-out`,
+    };
+  });
+</script>
+
 <style scoped>
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-nav a.router-link-exact-active {
-  color:  #4faef2;
-  font-weight: bolder;
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-  text-decoration-line: none;
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-.slide-enter-active {
-  transition: all 0.3s ease-out;
-}
-.slide-leave-active {
-  transition: all 0.3s ease-in;
-}
-.slide-enter-from, .slide-leave-to {
-  transform: translateX(-20px);
-}
-
-@media (min-width: 1024px) {
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  #main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: contents;
   }
-}
+  .home-logo {
+    pointer-events: all;
+    z-index: 1;
+    overflow-y: hidden;
+  }
+  #center-logo {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    width: 500px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    transition: all .5s ease-in-out;
+  }
+  
+  /* プログレッシブローディング遷移効果 */
+  .logo-transitioning {
+    filter: brightness(1.1) saturate(1.05);
+  }
+  #sp-nav {
+    display: none;
+  }
+  .route-home {
+    opacity: 1;
+    transition: all .4s ease-in-out;
+    animation-delay: 1s;
+  }
+  .route-other {
+    opacity: 0;
+    filter: blur(2rem);
+    transition: all .4s ease-in-out;
+    animation-delay: 1s;
+  }
+  .hidden {
+    visibility: hidden;
+    opacity: 0 !important;
+  }
+  .app {
+    width: 85vw;
+    height: 80vh;
+    max-width: 1280px;
+    max-height: 80vh;
+    padding: 2rem 2rem 0 2rem;
+    margin: 1rem auto;
+    border-radius: 10px;
+    transition: .5s ease-in-out;
+    /* scroll-behavior: auto; */
+    overflow-y: hidden;
+  }
+  .glass {
+    /* 背景を少し強めてコントラストを確保 */
+    background-color: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
+    border-right-color: rgba(255, 255, 255, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
+    backdrop-filter: blur(20px);
+    box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
+    color: #111; /* ガラス上のテキストは濃色で可読性を担保 */
+  }
+  #scrollable-aria {
+    overflow-y: auto;
+    height: 100%;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent;
+    z-index: 1;
+    pointer-events: all;
+  }
+  ::-webkit-scrollbar {
+    overflow: scroll;
+  }
+  .slide-enter {
+    transform: translateX(-2%);
+    opacity: 0;
+  }
+  .slide-leave-to {
+    transform: translateX(2%);
+    opacity: 0;
+  }
+  .slide-enter-active {
+    animation: slide-in .2s cubic-bezier(0,.94,.57,1.02);
+  }
+  .slide-leave-active {
+    animation: slide-out .2s cubic-bezier(0,.94,.57,1.02);
+  }
+
+  @keyframes slide-in {
+    0% {
+      transform: translateX(2%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-out {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-2%);
+      opacity: 0;
+    }
+  }
+  
+  /* ナビゲーション視覚フィードバックシステム */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 9999;
+    display: none;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4faef2, #ff984f, #4faef2);
+    background-size: 200% 100%;
+    animation: gradient-wave 1.5s ease-in-out infinite;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 10px rgba(79, 174, 242, 0.6);
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  @keyframes gradient-wave {
+    0% {
+      background-position: 200% 50%;
+    }
+    100% {
+      background-position: -200% 50%;
+    }
+  }
+
+  /* ナビゲーション中のローディング状態 */
+  :global(.navigation-loading) {
+    cursor: wait !important;
+  }
+
+  :global(.navigation-loading *) {
+    cursor: wait !important;
+  }
+
+  /* ナビゲーションリンクのローディングフィードバック */
+  :global(.navigation-loading .rlink) {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* ローディングプレースホルダー */
+  .loading-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: rgba(17, 17, 17, 0.7);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* SpNav 強制有効化（親要素のpointer-events制限を上書き） */
+  #sp-nav, #sp-nav * {
+    pointer-events: auto !important;
+  }
+
+  /* SP表示 */
+  @media (max-width: 540px) {
+    #main {
+      display: block;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    #center-logo {
+      top: 40%;
+      width: 60%;
+    }
+    .app {
+      width: 90vw;
+      height: 70vh;
+      padding: 1rem 0;
+      margin: 1rem auto;
+    }
+    #sp-nav {
+      display: block;
+      position: fixed;
+      right: 50%;
+      bottom: 2.5rem;
+      pointer-events: all !important;
+      z-index: 20;
+    }
+    
+    /* SP用プログレスバー */
+    .progress-bar {
+      height: 4px;
+    }
+  }
 </style>
