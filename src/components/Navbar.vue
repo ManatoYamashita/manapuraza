@@ -19,8 +19,8 @@
         </div>
         
         <nav class="default-menu">
-            <RouterLink to="/about" class="rlink" @click="handleAboutClick">About</RouterLink>
-            <RouterLink to="/creatives" class="rlink">Creatives</RouterLink>
+            <RouterLink to="/about" class="rlink" @click="handleAboutClick" :class="{ 'nav-animate': isInitialLoad }">About</RouterLink>
+            <RouterLink to="/creatives" class="rlink" :class="{ 'nav-animate': isInitialLoad }">Creatives</RouterLink>
         </nav>
 
         <div id="lang-switch">
@@ -43,12 +43,19 @@
         data() {
             return {
                 currentPath: this.$route.path,
+                isInitialLoad: true,
             };
         },
         watch: {
             $route(to, from) {
                 this.currentPath = to.path;
             },
+        },
+        mounted() {
+            // 初回アニメーション実行後、フラグをリセット
+            setTimeout(() => {
+                this.isInitialLoad = false;
+            }, 2000); // アニメーション完了後にフラグ解除
         },
         methods: {
             toggleLanguage() {
@@ -102,12 +109,43 @@
         flex-shrink: 0;
         pointer-events: auto;
     }
+    /* 初回アニメーション */
+    .nav-animate {
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: navFadeInUp 0.8s ease-out 1s forwards;
+    }
+
+    .nav-animate:nth-child(2) {
+        animation-delay: 1.2s; /* Creatives リンク用の追加遅延 */
+    }
+
+    @keyframes navFadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .rlink:hover {
         color: skyblue;
-	    text-shadow: #4faef2 0 0px 1rem;
+        text-shadow: #4faef2 0 0px 1rem;
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;
         animation: glow .3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            text-shadow: #4faef2 0 0px 1rem;
+        }
+        to {
+            text-shadow: #4faef2 0 0px 2rem, #4faef2 0 0px 3rem;
+        }
     }
 
     .slide-enter-from,
