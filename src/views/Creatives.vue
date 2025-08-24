@@ -5,6 +5,17 @@
     <main>
       <div id="main-contents">
         
+        <!-- Animation Section -->
+        <CreativeItem
+          :mode="'Animation'"
+          :url="'#'"
+          :title="$t('creatives.animation.tcuAnimation.title')"
+          :description="$t('creatives.animation.paragraph')"
+          :thumbnail="'#'"
+          :index="0"
+          :animationData="animationData"
+        />
+
         <!-- Development Section -->
         <section id="development">
           <h2>Development</h2>

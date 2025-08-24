@@ -66,9 +66,6 @@
           
           <div class="info-grid" v-if="animationData.productionYear">
             <div class="info-item">
-              <div class="info-icon">
-                <fa :icon="['fas', 'calendar']" />
-              </div>
               <div class="info-content">
                 <span class="info-label">制作年</span>
                 <span class="info-value">{{ animationData.productionYear }}</span>
@@ -349,10 +346,7 @@
   transition: all 0.4s ease;
 }
 
-.animation-item:hover {
-  /* box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); */
-  transform: translateY(-2px);
-}
+/* .animation-item:hover - deleted as requested */
 
 .content-wrapper {
   padding: 0;
@@ -709,14 +703,13 @@
 }
 
 .btn-primary {
-  /* background: linear-gradient(135deg, rgba(79, 174, 242, 0.9) 0%, rgba(79, 174, 242, 0.6) 100%); */
+  background: linear-gradient(135deg, rgba(79, 174, 242, 0.9) 0%, rgba(79, 174, 242, 0.6) 100%);
   box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
 .btn-primary:hover {
-  /* background: linear-gradient(135deg, rgba(255, 107, 107, 1) 0%, rgba(255, 142, 83, 1) 100%); */
+  background: linear-gradient(135deg, rgba(255, 107, 107, 1) 0%, rgba(255, 142, 83, 1) 100%);
   box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-  transform: translateY(-4px);
 }
 
 .btn-secondary {
@@ -727,10 +720,10 @@
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: #333;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transform: translateY(-4px);
+  background: rgba(67, 153, 187, 0.8);
+  border-color: rgba(67, 153, 187, 0.9);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(67, 153, 187, 0.3);
 }
 
 @media (max-width: 967px) {

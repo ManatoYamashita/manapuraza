@@ -55,7 +55,8 @@ Portfolio items are centrally managed in this file with strict conventions:
 ### Core Architecture Components
 - **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
 - **App.vue**: Progressive logo loading, main layout management
-- **Navbar.vue**: Navigation component with initial load animations and z-index layering
+- **Navbar.vue**: Desktop navigation component with initial load animations and z-index layering
+- **SpNav.vue**: Mobile circular floating menu with transform animations
 - **CreativeItem.vue**: Unified portfolio component with 4 modes (Animation/Development/Illustration/Video)
 - **Multiple Vue instances**: Main app + Navbar + MetaBall (each with shared router/i18n)
 
