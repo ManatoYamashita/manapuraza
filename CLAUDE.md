@@ -55,10 +55,12 @@ Portfolio items are centrally managed in this file with strict conventions:
 ### Core Architecture Components
 - **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
 - **App.vue**: Progressive logo loading, main layout management
-- **Navbar.vue**: Desktop navigation component with initial load animations and z-index layering
-- **SpNav.vue**: Mobile circular floating menu with transform animations
-- **CreativeItem.vue**: Unified portfolio component with 4 modes (Animation/Development/Illustration/Video)
-- **Multiple Vue instances**: Main app + Navbar + MetaBall (each with shared router/i18n)
+- **Navbar.vue**: Desktop navigation component with 1-second delay fade-in animations
+- **SpNav.vue**: Mobile circular floating menu with 1-second delay fade-in animations
+- **CreativeItem.vue**: Unified portfolio component with 4 modes:
+  - Animation mode: Full-section layout with YouTube iframe and metadata
+  - Development/Illustration/Video modes: Card-based grid layouts
+- **Multiple Vue instances**: Main app + Navbar + MetaBall (each sharing router/i18n)
 
 ### Internationalization
 - Files: `locales/ja.json`, `locales/en.json`
@@ -88,6 +90,39 @@ Portfolio items are centrally managed in this file with strict conventions:
 4. Add i18n keys to both `ja.json` and `en.json`
 5. Test both languages and image display
 
+### CreativeItem Component Modes
+**Animation Mode** (used in Creatives.vue):
+```vue
+<CreativeItem
+  :mode="'Animation'"
+  :url="'#'"
+  :title="$t('creatives.animation.tcuAnimation.title')"
+  :description="$t('creatives.animation.paragraph')"
+  :thumbnail="'#'"
+  :index="0"
+  :animationData="animationData"
+/>
+```
+- Renders as `<section>` element (full-width layout)
+- Includes YouTube iframe, metadata, credits, and action buttons
+- Responsive design with mobile optimizations
+
+**Card Modes** (Development/Illustration/Video):
+```vue
+<CreativeItem
+  v-for="(creative, index) in creativesData.development"
+  :key="creative.id"
+  :mode="'Development'"
+  :url="creative.url"
+  :title="$t(creative.title)"
+  :description="$t(creative.description)"
+  :thumbnail="creative.thumbnail"
+  :index="index"
+/>
+```
+- Renders as `<li>` elements in grid layout
+- Standard card design with thumbnail, title, description, and external link icon
+
 ### Component Development
 - **Primary**: Use Composition API with `<script setup>` syntax
 - **DOM manipulation**: Prefer reactive values over direct `document.querySelector()` for new code
@@ -109,10 +144,10 @@ Portfolio items are centrally managed in this file with strict conventions:
 - **vue-i18n**: 9.7.1 - Internationalization
 - **three**: 0.169.0 - 3D graphics library
 - **gsap**: 3.12.5 - Animation library
-- **@fortawesome/***: Icon system with selective imports
+- **@fortawesome/***: Icon system with selective imports (faArrowUpRightFromSquare, faPlay, faGlobe, etc.)
 
 ### Build Dependencies
-- **vite**: 6.2.3 - Build tool and dev server
+- **vite**: 6.2.3 - Build tool and dev server (upgraded from 6.2.3)
 - **@vitejs/plugin-vue**: 5.2.3 - Vue 3 support for Vite
 - **rollup-plugin-visualizer**: 5.14.0 - Bundle analysis
 - **terser**: 5.39.0 - JavaScript minification
@@ -202,3 +237,32 @@ This codebase follows comprehensive development rules defined in `.cursor/rules/
 - **Image optimization critical**: All portfolio images must be WebP and statically imported
 - **i18n strict requirements**: All text must have translations in both `ja.json` and `en.json`
 - **Three.js sphere deformation**: Use inverse coordinate correction method only (see above)
+- **Console logging**: All console statements removed from production code for clean UX
+
+## Console Management Policy
+
+**Development vs Production:**
+- Development: Console statements allowed for debugging
+- Production: All `console.log`, `console.warn`, `console.error` removed via Terser configuration
+- **Rationale**: Clean browser DevTools experience for end users
+
+**Implementation:**
+```javascript
+// vite.config.js - Terser configuration
+build: {
+  minify: 'terser',
+  terserOptions: {
+    compress: {
+      drop_console: true,
+      drop_debugger: true
+    }
+  }
+}
+```
+
+**Manual Removal Required:**
+When adding new features, manually remove console statements from:
+- Component lifecycle hooks (`onMounted`, `watch`)
+- Event handlers
+- Animation callbacks
+- API responses
