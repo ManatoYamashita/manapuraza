@@ -266,3 +266,19 @@ When adding new features, manually remove console statements from:
 - Event handlers
 - Animation callbacks
 - API responses
+
+## SPA Fallback Configuration
+
+**Apache .htaccess Configuration:**
+The project requires a `.htaccess` file in the `public/` directory for proper SPA routing on Apache servers:
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^.*$ /index.html [L]
+</IfModule>
+```
+
+This ensures that direct URL access to routes like `/about` or `/creatives` works correctly by falling back to `index.html`, allowing Vue Router to handle client-side routing.
