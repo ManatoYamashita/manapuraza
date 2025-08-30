@@ -19,7 +19,7 @@
   import Sns from '@/components/Sns.vue';
   
   const { t } = useI18n();
-  const imageSrc = new URL('@/assets/山下真和都(マナト).webp', import.meta.url).href;
+  const imageSrc = new URL('/public/山下真和都(マナト).webp', import.meta.url).href;
   
   onMounted(async () => {
     // GSAPを動的インポートして初期バンドルサイズを削減
@@ -75,6 +75,7 @@
     font-size: 1.2rem;
     line-height: 1.5rem;
     margin: 0;
+    white-space: pre-line;
   }
   
   /* レスポンシブ対応 */
