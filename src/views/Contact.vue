@@ -1,9 +1,122 @@
 <script setup>
-  import { onMounted } from 'vue';
+  import { onMounted, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import { useHead } from '@vueuse/head';
   import Sns from '@/components/Sns.vue';
 
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+
+  // SEOメタタグ設定
+  useHead({
+    title: computed(() => 
+      locale.value === 'ja' 
+        ? 'Contact - お問い合わせ | MANAPURAZA.COM'
+        : 'Contact | MANAPURAZA.COM'
+    ),
+    meta: [
+      {
+        name: 'description',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下真和都（山下マナト）へのお問い合わせページ。Web制作、アニメーション制作、イラスト制作、動画編集などのご依頼・ご相談はこちらから！'
+            : 'Contact page for Manato Yamashita. For inquiries about web development, animation production, illustration work and creative projects!'
+        )
+      },
+      {
+        name: 'keywords',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下真和都, 山下マナト, お問い合わせ, 連絡先, Web制作依頼, アニメーション制作, イラスト制作'
+            : 'Manato Yamashita, Contact, Web Development, Animation Production, Illustration, Creative Services'
+        )
+      },
+      {
+        property: 'og:title',
+        content: computed(() => 
+          locale.value === 'ja' 
+            ? 'Contact - お問い合わせ | MANAPURAZA.COM'
+            : 'Contact | MANAPURAZA.COM'
+        )
+      },
+      {
+        property: 'og:description',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下マナトへのお問い合わせ。Web制作、アニメーション、イラスト、動画編集などクリエイティブ制作のご相談はこちらから。'
+            : 'Contact Manato Yamashita for creative projects including web development, animation and illustration!'
+        )
+      },
+      {
+        property: 'og:url',
+        content: 'https://manapuraza.com/contact'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:image',
+        content: 'https://manapuraza.com/ogp.jpg'
+      },
+      {
+        name: 'twitter:title',
+        content: computed(() => 
+          locale.value === 'ja' 
+            ? 'Contact - お問い合わせ'
+            : 'Contact'
+        )
+      },
+      {
+        name: 'twitter:description',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下マナトへのお問い合わせ。Web制作、アニメーション、イラスト、動画編集などクリエイティブ制作のご相談はこちらから！'
+            : 'Contact Manato Yamashita for creative projects and collaborations!'
+        )
+      }
+    ],
+    link: [
+      {
+        rel: 'canonical',
+        href: 'https://manapuraza.com/contact'
+      }
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: computed(() => JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": locale.value === 'ja' ? "お問い合わせ" : "Contact",
+          "url": "https://manapuraza.com/contact",
+          "description": locale.value === 'ja' 
+            ? "山下真和都へのお問い合わせページ"
+            : "Contact page for Manato Yamashita",
+          "mainEntity": {
+            "@type": "Person",
+            "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
+            "email": "info@manapuraza.com",
+            "url": "https://manapuraza.com",
+            "sameAs": [
+              "https://bsky.app/profile/yamashita.bsky.social",
+              "https://www.linkedin.com/in/yamashitamanato",
+              "https://github.com/ManatoYamashita",
+              "https://bento.me/ym",
+              "https://twitter.com/tcu_dc",
+              "https://www.instagram.com/manapuraza",
+              "https://www.youtube.com/manapuraza"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": locale.value === 'ja' ? "お問い合わせ" : "General Inquiries",
+              "email": "info@manapuraza.com",
+              "availableLanguage": ["Japanese", "English"]
+            }
+          }
+        }))
+      }
+    ]
+  });
 
   onMounted(async () => {
     // GSAPを動的インポートして初期バンドルサイズを削減

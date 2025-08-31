@@ -112,7 +112,7 @@
   }
 
   .table-row:hover {
-    background-color: rgba(67, 153, 187, 0.1);
+    /* background-color: rgba(67, 153, 187, 0.1); */
     transform: translateY(-2px);
   }
   
@@ -160,9 +160,9 @@
       flex-direction: column;
       margin-bottom: 1.5rem;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
+      /* background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
     }
     
     th, td {

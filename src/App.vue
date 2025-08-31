@@ -5,6 +5,11 @@
       <div class="progress-fill"></div>
     </div>
 
+    <!-- Menu.vueをヘッダーとして統合 -->
+    <header id="navbar">
+      <Menu />
+    </header>
+
     <a href="https://manapuraza.com" aria-current="page" class="home-logo">
       <img 
         :fetchpriority="logoQuality === 'high' ? 'high' : 'low'" 
@@ -32,15 +37,13 @@
         </Suspense>
       </router-view>
     </div>
-
-    <SpNav id="sp-nav" />
   </div>
 </template>
 
 <script type="text/javascript" setup>
   import { watch, onMounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import SpNav from '@/components/SpNav.vue';
+  import Menu from '@/components/Menu.vue';
   
   const route = useRoute();
   const router = useRouter();

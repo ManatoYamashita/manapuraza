@@ -74,11 +74,11 @@
         "paragraph": "I have not only learned the basics of C language, Java language, and information science in the Department of Information Science, but also acquired web technology through self-study and engaged in web production as a hobby and commissioned work. Web frontend using Typescript, Next.js, Nuxt, and GSAP is my strongest area.",
         "manapuraza": {
             "title": "manapuraza.com",
-            "description": "A portfolio site showcasing some of my creative creative during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 and Three.js. responsive CI/CD (This site)"
+            "description": "A portfolio site showcasing some of my creative creative during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 + Vite 6, Typescript, Three.js, gsap. Responsive CI/CD (This site)"
         },
         "dcchanAi": {
             "title": "DC-chan AI",
-            "description": "An AI chat for DC-chan, the character of the Digital Content Research Society. Built with Next.js, GSAP, and ChatGPT API."
+            "description": "An AI chat for DC-chan, the character of the Digital Content Research Society. Built with Next.js, Typescript, GSAP, and ChatGPT API."
         },
         "numeron": {
             "title": "NUMERON - Logical Number Guessing Game",
@@ -86,7 +86,7 @@
         },
         "amauSyrup": {
             "title": "AmauSyrup.net - Unofficial Fan Site for AmauSyrup",
-            "description": "An unofficial website for a Vtuber featuring a blog function utilizing the Notion API. Built with Next.js with Typescript and GSAP's scrollTrigger."
+            "description": "An unofficial website for a Vtuber featuring a blog function utilizing the Notion API. Built with Next.js, Typescript, GSAP's scrollTrigger."
         },
         "tcuClubs": {
             "title": "Tokyo City University Asocciation of Clubs/Circles",
@@ -94,7 +94,7 @@
         },
         "tcuAlumni": {
             "title": "TCU Alumni Association(Demo)",
-            "description": "A minimal corporate site build with Next.js + microCMS + gsap"
+            "description": "A minimal corporate site build with Next.js, Typescript, microCMS, gsap"
         },
         "chaintence": {
             "title": "Chaintence",

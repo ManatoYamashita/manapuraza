@@ -90,8 +90,131 @@
   import { creativesData } from '@/data/creatives';
   import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import { useHead } from '@vueuse/head';
 
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+
+  // SEOメタタグ設定
+  useHead({
+    title: computed(() => 
+      locale.value === 'ja' 
+        ? 'Creatives - 作品集 | MANAPURAZA.COM'
+        : 'Creatives - Portfolio | MANAPURAZA.COM'
+    ),
+    meta: [
+      {
+        name: 'description',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下マナトの学生時代の作品集。世田谷区公式アニメ「新BOPへようこそ！」の監督作品、Web開発プロジェクト、イラストレーション、動画制作など大学時代のクリエイティブ作品を紹介。'
+            : 'Portfolio of Manato Yamashita. Director of Setagaya Ward official anime, web development projects, illustrations, video production and creative works from university.'
+        )
+      },
+      {
+        name: 'keywords',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下真和都, 山下マナト, ポートフォリオ, 作品集, 世田谷区アニメ, 新BOPへようこそ, Web開発, イラスト, 動画制作'
+            : 'Manato Yamashita, Portfolio, Setagaya Animation, Web Development, Illustration, Video Production'
+        )
+      },
+      {
+        property: 'og:title',
+        content: computed(() => 
+          locale.value === 'ja' 
+            ? 'Creatives - 作品集 | MANAPURAZA.COM'
+            : 'Creatives - Portfolio | MANAPURAZA.COM'
+        )
+      },
+      {
+        property: 'og:description',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下マナトの作品集。アニメーション監督作品、Web開発、イラスト、動画制作など幅広いクリエイティブ作品を掲載。'
+            : 'Portfolio of Manato Yamashita featuring animation direction, web development, illustrations and video production.'
+        )
+      },
+      {
+        property: 'og:url',
+        content: 'https://manapuraza.com/creatives'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:image',
+        content: 'https://manapuraza.com/ogp.jpg'
+      },
+      {
+        name: 'twitter:title',
+        content: computed(() => 
+          locale.value === 'ja' 
+            ? 'Creatives - 作品集'
+            : 'Creatives - Portfolio'
+        )
+      },
+      {
+        name: 'twitter:description',
+        content: computed(() => 
+          locale.value === 'ja'
+            ? '山下マナトの作品集。世田谷区公式アニメ監督作品、Web開発、イラスト、動画制作。'
+            : 'Portfolio of Manato Yamashita. Animation, web development, illustrations and more.'
+        )
+      }
+    ],
+    link: [
+      {
+        rel: 'canonical',
+        href: 'https://manapuraza.com/creatives'
+      }
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: computed(() => JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": locale.value === 'ja' ? "作品集" : "Portfolio",
+          "url": "https://manapuraza.com/creatives",
+          "description": locale.value === 'ja' 
+            ? "山下マナトのクリエイティブ作品集"
+            : "Creative portfolio of Manato Yamashita",
+          "creator": {
+            "@type": "Person",
+            "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
+            "url": "https://manapuraza.com/about"
+          },
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+              {
+                "@type": "CreativeWork",
+                "position": 1,
+                "name": locale.value === 'ja' 
+                  ? "世田谷区オリジナルアニメ「新BOPへようこそ！」"
+                  : "Setagaya Ward Original Anime 'Welcome to Shin-BOP!'",
+                "creator": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
+                "url": "https://tcu-animation.jp"
+              },
+              {
+                "@type": "WebSite",
+                "position": 2,
+                "name": "Web Development Projects",
+                "creator": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita"
+              },
+              {
+                "@type": "VisualArtwork",
+                "position": 3,
+                "name": locale.value === 'ja' ? "イラストレーション作品" : "Illustration Works",
+                "creator": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita"
+              }
+            ]
+          }
+        }))
+      }
+    ]
+  });
 
   // Fisher-Yatesアルゴリズムによる真のランダムシャッフル
   const shuffleArray = (array) => {

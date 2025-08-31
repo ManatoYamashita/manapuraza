@@ -36,7 +36,7 @@ export const creativesData = {
        id: 'manapuraza',  // MANAOURAZA.com
        title: 'creatives.dev.manapuraza.title',
        description: 'creatives.dev.manapuraza.description',
-       url: 'https://manapuraza.com',
+       url: 'https://github.com/ManatoYamashita/manapuraza',
        thumbnail: manapurazaImg
      },
      {

@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
-import Navbar from '@/components/Navbar.vue'
+import { createHead } from '@vueuse/head'
 // MetaBallは初期描画のクリティカルパス外なので、アイドル時に遅延読み込みする
 
 // FontAwesomeを必要なものだけに絞り込み
@@ -85,25 +85,22 @@ const setupI18n = async () => {
 }
 
 const app = createApp(App);
-const navbar = createApp(Navbar);
+const head = createHead();
 
 app.component('fa', FontAwesomeIcon);
 app.component('font-awesome-icon', FontAwesomeIcon);
-navbar.component('font-awesome-icon', FontAwesomeIcon);
 // metaball側のコンポーネント登録は遅延読み込み時に設定する
 
 app.use(router);
-navbar.use(router);
+app.use(head);
 // metaballのルーター適用は遅延読み込み時に設定する
 
 // i18nを遅延読み込み（$t関数エラー修正版）
 setupI18n().then(i18n => {
   // provide/injectパターンを削除し、通常の使用方法に復元
   app.use(i18n);
-  navbar.use(i18n);
 
   app.mount('#app');
-  navbar.mount('#navbar');
 
   // メインCSSの環境対応読み込み（開発・プロダクション統一）
   const loadMainCSS = () => {
@@ -138,6 +135,7 @@ setupI18n().then(i18n => {
     metaball.component('font-awesome-icon', FontAwesomeIcon);
     metaball.use(router);
     metaball.use(i18n);
+    metaball.use(head);
     metaball.mount('#back');
   });
 });

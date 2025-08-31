@@ -70,11 +70,11 @@
             "paragraph": "情報系学部でC言語、Java言語、情報学の基礎を学んだだけではなく、独学でWeb系の技術を習得し、趣味や業務委託でWeb制作を行っています。Typescript, Next.js, NuxtやGSAPを使用したWebフロントエンドが最も得意な領域です。",
             "manapuraza": {
                 "title": "manapuraza.com",
-                "description": "広告制作会社の4ヶ月のインターンの1ヶ月で作った、学生時代のクリエイティブの一部を紹介したポートフォリオサイト。Vue.js3とThree.jsで書かれています。（当サイト）"
+                "description": "当サイトは、広告制作会社の4ヶ月のインターンの1ヶ月で作った、学生時代のクリエイティブの一部を紹介したポートフォリオサイトです。Vue.js3+Vite6, Typescript, Three.js, gsapで書かれています。パフォーマンスとSEO対策に対応しています。（github）"
             },
             "dcchanAi": {
                 "title": "でじこんちゃんAI",
-                "description": "デジタルコンテンツ研究会のキャラクターであるでじこんちゃんのAIチャット。Next.js, GSAP, ChatGPT APIを使用しています。"
+                "description": "デジタルコンテンツ研究会のキャラクターであるでじこんちゃんのAIチャット。Next.js, Typescript, GSAP, ChatGPT APIを使用しています。"
             },
             "numeron": {
                 "title": "NUMERON - 論理数字あてゲーム",
@@ -82,7 +82,7 @@
             },
             "amauSyrup": {
                 "title": "AmauSyrup.net - 天羽しろっぷ非公式ファンサイト",
-                "description": "Vtuberの非公式ウェブサイトで、Notion APIを利用したブログ機能があるのでコーディングの知識がなくてもコンテンツの更新が可能。Next.js with TypescriptとGSAPのscrollTriggerを使っています。"
+                "description": "Vtuberの非公式ウェブサイトで、Notion APIを利用したブログ機能があるのでコーディングの知識がなくてもコンテンツの更新が可能。Next.js, Typescript, GSAPのscrollTriggerを使っています。"
             },
             "tcuClubs": {
                 "title": "東京都市大学 同好会連合",
@@ -90,11 +90,11 @@
             },
             "tcuAlumni": {
                 "title": "TCU Alumni Association(Demo)",
-                "description": "ミニマルなイメージのコーポレートサイト。コーディングを必要とせず、コンテンツを更新することが可能。提案で使用したデモ版です。Next.js + microCMS + gsapで構築。レスポンシブデザインに対応"
+                "description": "ミニマルなイメージのコーポレートサイト。コーディングを必要とせず、コンテンツを更新することが可能。提案で使用したデモ版です。Next.js, Typescript, microCMS, gsapで構築。レスポンシブデザインに対応"
             },
             "chaintence": {
                 "title": "Chaintence",
-                "description": "2日間の技育ハッカソンで開発した、テンプレートをつなげてメール文を作成するWebApp。NuxtJSとmicroCMSで構築されています。私はフロントエンドと発表を担当しました。"
+                "description": "2日間の技育ハッカソンで開発した、テンプレートをつなげてメール文を作成するWebApp。NuxtJS, Typescript, microCMSで構築されています。私はフロントエンドと発表を担当しました。"
             },
             "dcchanBot": {
                 "title": "でじこんちゃん Twitter BOT",
@@ -102,19 +102,19 @@
             },
             "sekiLab": {
                 "title": "関研究室（TCU情報セキュリティ研究室）",
-                "description": "研究室のWebサイトNuxt.js3とmicroCMSで構築"
+                "description": "研究室のWebサイトNuxt.js3, Typescript, microCMSで構築"
             },
             "officeTsuyuki": {
                 "title": "オフィス露木",
-                "description": "ミニマルなイメージのコーポレートサイトのプレビューです。コーディングを必要とせず、コンテンツを更新することが可能。 Next.js + microCMS + gsapで構築。レスポンシブデザインに対応"
+                "description": "ミニマルなイメージのコーポレートサイトのプレビューです。コーディングを必要とせず、コンテンツを更新することが可能。 Next.js, Typescript, microCMS, gsapで構築。レスポンシブデザインに対応"
             },
             "killerDie": {
                 "title": "キラキラ大学生研究会 1周年記念",
-                "description": "大学の非公認団体の1周年公式サイト。Vue.js3で構築"
+                "description": "大学の非公認団体の1周年公式サイト。Vue.js3, Typescriptで構築"
             },
             "populationGraph": {
                 "title": "都道府県別総人口推移グラフSPA",
-                "description": "データビジュアライゼーションをテストするためのWebアプリ。Highcharts.jsとNext.jsで構築。テスト(Jext)とGithubWorkflowも導入"
+                "description": "データビジュアライゼーションをテストするためのWebアプリ。Highcharts.jsとNext.js, Typescriptで構築。テスト(Jext)とGithubWorkflowも導入"
             },
             "wtmApp": {
                 "title": "wtm - おでかけ支援アプリ",
