@@ -55,12 +55,14 @@ Portfolio items are centrally managed in this file with strict conventions:
 ### Core Architecture Components
 - **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
 - **App.vue**: Progressive logo loading, main layout management
-- **Navbar.vue**: Desktop navigation component with 1-second delay fade-in animations
-- **SpNav.vue**: Mobile circular floating menu with 1-second delay fade-in animations
+- **Menu.vue**: Unified responsive navigation component (replaces Navbar.vue and SpNav.vue):
+  - Desktop: Flexbox layout with responsive logo sizing
+  - Mobile: Circular floating menu at screen bottom with 1-second delay fade-in
+  - Language toggle with vertical reading text (日本語/Eng display)
 - **CreativeItem.vue**: Unified portfolio component with 4 modes:
   - Animation mode: Full-section layout with YouTube iframe and metadata
   - Development/Illustration/Video modes: Card-based grid layouts
-- **Multiple Vue instances**: Main app + Navbar + MetaBall (each sharing router/i18n)
+- **Single Vue instance architecture**: Main app + MetaBall (sharing router/i18n/head)
 
 ### Internationalization
 - Files: `locales/ja.json`, `locales/en.json`
@@ -233,18 +235,18 @@ This codebase follows comprehensive development rules defined in `.cursor/rules/
 
 - **No testing framework**: Manual testing only via dev server and DevTools
 - **FTP deployment**: GitHub Actions with FTP-Deploy-Action to `/manapuraza/` directory
-- **Multiple Vue instances**: Main app + Navbar + MetaBall (each sharing router/i18n)
+- **Single Vue instance with MetaBall**: Main app + MetaBall (sharing router/i18n/head)
 - **Image optimization critical**: All portfolio images must be WebP and statically imported
 - **i18n strict requirements**: All text must have translations in both `ja.json` and `en.json`
 - **Three.js sphere deformation**: Use inverse coordinate correction method only (see above)
-- **Console logging**: All console statements removed from production code for clean UX
+- **Console logging**: Partial console removal in production (see Console Management Policy)
 
 ## Console Management Policy
 
 **Development vs Production:**
 - Development: Console statements allowed for debugging
-- Production: All `console.log`, `console.warn`, `console.error` removed via Terser configuration
-- **Rationale**: Clean browser DevTools experience for end users
+- Production: Selective console removal via Terser configuration
+- **Rationale**: Balance between debugging capability and clean UX
 
 **Implementation:**
 ```javascript
@@ -253,8 +255,11 @@ build: {
   minify: 'terser',
   terserOptions: {
     compress: {
-      drop_console: true,
-      drop_debugger: true
+      drop_console: false, // Console removal disabled
+      drop_debugger: true, // Debugger statements removed
+      pure_funcs: ['console.debug', 'console.trace'], // Only detailed logs removed
+      dead_code: true,
+      unused: true,
     }
   }
 }
@@ -282,3 +287,76 @@ The project requires a `.htaccess` file in the `public/` directory for proper SP
 ```
 
 This ensures that direct URL access to routes like `/about` or `/creatives` works correctly by falling back to `index.html`, allowing Vue Router to handle client-side routing.
+
+## Responsive Navigation System (Menu.vue)
+
+### Architecture Overview
+The unified Menu.vue component replaces the previous dual-component system (Navbar.vue + SpNav.vue) with a single responsive component that adapts to screen size.
+
+### Desktop Navigation (>540px)
+- **Flexbox Layout**: Uses `justify-content: space-between` with `gap: 1rem` for element spacing
+- **Responsive Logo**: Implements sophisticated logo sizing system:
+  ```css
+  .desktop-nav .logo {
+    flex: 1 1 auto; /* Allow shrinking/growing */
+    max-width: clamp(180px, 40vw, 300px);
+    min-width: 120px; /* Ensure minimum readability */
+  }
+  ```
+- **Screen Size Breakpoints**: 
+  - 720px: `clamp(100px, 25vw, 160px)` with gap: 0.25rem
+  - 760px: `clamp(120px, 30vw, 180px)` with gap: 0.5rem  
+  - 800px+: `clamp(180px, 38vw, 280px)` with gap: 1rem
+  - 1201px+: `clamp(200px, 42vw, 320px)`
+
+### Mobile Navigation (≤540px)
+- **Circular Menu**: Fixed position at screen bottom with expansion animation
+- **Position**: `bottom: 1rem; left: 50%; transform: translateX(-50%);`
+- **Expansion Pattern**: Items animate to form triangle pattern above main button
+
+### Language Toggle System
+- **Desktop**: Vertical toggle switch with vertical reading text (日本語/Eng)
+- **Mobile**: Horizontal layout in header area
+- **Logic**: `locale.value === 'ja' ? 'en' : 'ja'` (corrected from previous bug)
+- **Ultra-compact spacing**: `gap: 0.125rem` between switch and text
+
+### Logo Responsiveness Solution
+**Problem**: 760px width screens caused logo crushing due to Flexbox space competition.
+
+**Solution**: Multi-layered approach:
+1. **Flexible Container**: Logo uses `flex: 1 1 auto` to shrink when needed
+2. **Fixed Elements**: Navigation links and language toggle use `flex: 0 0 auto`
+3. **Responsive Images**: `width: 100%; height: auto; object-fit: contain;`
+4. **Staged Breakpoints**: Progressive size reduction with minimum guarantees
+
+## SEO & Meta Management
+
+### Dynamic SEO Implementation
+All main pages (About, Creatives, Contact) implement dynamic SEO using @vueuse/head:
+
+```javascript
+import { useHead } from '@vueuse/head';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
+
+useHead({
+  title: computed(() => 
+    locale.value === 'ja' 
+      ? '日本語タイトル | MANAPURAZA.COM'
+      : 'English Title | MANAPURAZA.COM'
+  ),
+  meta: [
+    {
+      name: 'description',
+      content: computed(() => locale.value === 'ja' ? '日本語説明' : 'English description')
+    }
+  ]
+});
+```
+
+### Structured Data
+- **Home**: Person + Organization schema
+- **About**: Person schema with detailed profile information
+- **Creatives**: CollectionPage schema for portfolio
+- **Contact**: ContactPage schema with contact information

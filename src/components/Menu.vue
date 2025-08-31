@@ -404,7 +404,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
 }
 
 .logo-img-mobile {

@@ -85,11 +85,19 @@
       align-items: center;
     }
     .self-image {
-      width: 75%;
-      height: 30vh;
-      object-fit: cover;
+      width: 50%; /* 75%から50%に縮小 */
+      aspect-ratio: 1 / 1; /* 親要素を正方形に強制 */
       margin: 0 auto;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .self-image img {
+      width: 100%; /* 親要素の幅に完全フィット */
+      height: 100%; /* 親要素の高さに完全フィット */
+      border-radius: 50%; /* モバイルでは円形に */
+      object-fit: cover; /* 画像を円内にフィット */
     }
     .message {
       width: 90%;
