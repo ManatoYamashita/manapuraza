@@ -132,9 +132,4 @@
     padding: 1rem;
     pointer-events: all;
   }
-
-  h2 {
-    font-size: 2.2rem;
-    margin-top: 5rem;
-  }
 </style>

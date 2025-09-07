@@ -20,11 +20,14 @@
         </RouterLink>
       </div>
       
-      <div class="nav-links">
-        <RouterLink to="/about" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">About</RouterLink>
-        <RouterLink to="/creatives" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">Creatives</RouterLink>
-        <RouterLink to="/contact" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">Contact</RouterLink>
-      </div>
+      <!-- 通常ページ用メニュー項目 -->
+      <transition name="menu-fade">
+        <div class="nav-links" v-show="currentPath !== '/'">
+          <RouterLink to="/about" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">About</RouterLink>
+          <RouterLink to="/creatives" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">Creatives</RouterLink>
+          <RouterLink to="/contact" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">Contact</RouterLink>
+        </div>
+      </transition>
 
       <div class="lang-switch desktop-lang" :class="{ 'lang-switch-animate': isInitialLoad }">
         <div class="toggle-switch vertical">
@@ -34,6 +37,7 @@
         <span class="current-lang vertical-text">{{ $i18n.locale.value === 'ja' ? '日本語' : 'Eng' }}</span>
       </div>
     </nav>
+    
 
     <!-- モバイルナビゲーション -->
     <nav class="mobile-nav">
@@ -192,7 +196,7 @@ export default {
 /* デスクトップナビゲーション */
 .desktop-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   pointer-events: auto !important;
@@ -201,11 +205,12 @@ export default {
 
 .desktop-nav .logo {
   display: block;
-  flex: 1 1 auto; /* 縮小・成長可能 */
+  flex: 0 0 auto; /* 固定サイズ */
   max-width: clamp(180px, 40vw, 300px);
   min-width: 120px; /* 最小サイズ保証 */
   overflow: hidden;
   cursor: alias;
+  margin-right: auto; /* ロゴを左側に固定 */
 }
 
 .logo-img {
@@ -222,6 +227,7 @@ export default {
   justify-content: center;
   flex: 0 0 auto; /* 固定サイズ、縮小しない */
   pointer-events: auto;
+  margin-right: 0.5rem; /* 言語切り替えとの間隔を狭く */
 }
 
 .nav-link {
@@ -292,6 +298,7 @@ export default {
   flex-direction: row;
   align-items: center;
   gap: 0;
+  margin-left: 0; /* ナビリンクとの間隔調整 */
 }
 
 .lang-switch-animate {
@@ -634,4 +641,23 @@ label {
   font-weight: bold;
   color: #4faef2;
 }
+
+
+/* メニューフェードアニメーション（ヘッダー用） */
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menu-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.menu-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+
 </style>

@@ -79,10 +79,10 @@ main#app {
   	overflow: hidden;
 }
 h1 {
-	font-size: 3rem;
+	font-size: 2.5rem;
 }
 h2 {
-	font-size: 2rem;
+	font-size: 1.8rem;
 }
 body {
 	margin: 0;
@@ -134,10 +134,10 @@ footer > div {
 /* スマートフォンの表示 */
 @media screen and (max-width: 540px) {
 	h1 {
-		font-size: 2.5rem;
+		font-size: 1.8rem;
 	}
 	h2 {
-		font-size: 1.5em;
+		font-size: 1.2em;
 	}
 	header {
 		height: 7vh;

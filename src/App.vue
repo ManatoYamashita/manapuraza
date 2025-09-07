@@ -22,6 +22,15 @@
         @load="onLogoLoad"
       />
     </a>
+    
+    <!-- ホームページ専用メニュー項目（中央ロゴの下） -->
+    <transition name="home-menu-fade">
+      <nav class="home-nav-links" v-show="isHomePage">
+        <RouterLink to="/about" class="home-nav-link">About</RouterLink>
+        <RouterLink to="/creatives" class="home-nav-link">Creatives</RouterLink>
+        <RouterLink to="/contact" class="home-nav-link">Contact</RouterLink>
+      </nav>
+    </transition>
   
     <div class="app glass" :class="{'hidden': isHomePage}" :style="appStyles">
       <router-view v-slot="{ Component }" :key="$route.fullPath">
@@ -411,6 +420,94 @@
     /* SP用プログレスバー */
     .progress-bar {
       height: 4px;
+    }
+  }
+  
+  /* ホームページ専用メニュー項目（中央ロゴの下） */
+  .home-nav-links {
+    position: absolute;
+    top: 55%; /* 中央ロゴ（43%）の下に配置 */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    z-index: 15;
+    pointer-events: auto;
+  }
+
+  .home-nav-link {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .home-nav-link:hover {
+    color: skyblue;
+    text-shadow: #4faef2 0 0px 1rem;
+    animation: glow 0.3s ease-in-out infinite alternate;
+  }
+
+  /* メニュー項目間の縦線 */
+  .home-nav-link:not(:last-child)::after {
+    content: "|";
+    position: absolute;
+    right: -1.5rem;
+    color: #666;
+    font-weight: normal;
+    user-select: none;
+  }
+
+  /* ホームメニューフェードアニメーション */
+  .home-menu-fade-enter-active,
+  .home-menu-fade-leave-active {
+    transition: opacity 0.4s ease, filter 0.4s ease;
+  }
+
+  .home-menu-fade-enter-from {
+    opacity: 0;
+  }
+
+  .home-menu-fade-leave-to {
+    opacity: 0;
+    filter: blur(2rem);
+  }
+
+  /* 初期表示時のアニメーション（ロゴと同期） */
+  .home-nav-links {
+    opacity: 0;
+    animation: homeMenuFadeIn 0.4s ease-in-out 1s forwards;
+  }
+
+  @keyframes homeMenuFadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* レスポンシブ対応 */
+  @media screen and (max-width: 768px) {
+    .home-nav-links {
+      top: 58%; /* タブレットサイズでは少し下に */
+      gap: 2rem;
+    }
+    
+    .home-nav-link {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .home-nav-links {
+      display: none; /* モバイルでは非表示 */
     }
   }
 </style>
