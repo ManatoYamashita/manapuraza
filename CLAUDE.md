@@ -294,13 +294,14 @@ This ensures that direct URL access to routes like `/about` or `/creatives` work
 The unified Menu.vue component replaces the previous dual-component system (Navbar.vue + SpNav.vue) with a single responsive component that adapts to screen size.
 
 ### Desktop Navigation (>540px)
-- **Flexbox Layout**: Uses `justify-content: space-between` with `gap: 1rem` for element spacing
-- **Responsive Logo**: Implements sophisticated logo sizing system:
+- **Flexbox Layout**: Uses `justify-content: flex-start` with compact spacing between menu links and language toggle
+- **Responsive Logo**: Fixed-size logo with sophisticated sizing system:
   ```css
   .desktop-nav .logo {
-    flex: 1 1 auto; /* Allow shrinking/growing */
+    flex: 0 0 auto; /* Fixed size */
     max-width: clamp(180px, 40vw, 300px);
     min-width: 120px; /* Ensure minimum readability */
+    margin-right: auto; /* Logo stays left-aligned */
   }
   ```
 - **Screen Size Breakpoints**: 
@@ -324,8 +325,8 @@ The unified Menu.vue component replaces the previous dual-component system (Navb
 **Problem**: 760px width screens caused logo crushing due to Flexbox space competition.
 
 **Solution**: Multi-layered approach:
-1. **Flexible Container**: Logo uses `flex: 1 1 auto` to shrink when needed
-2. **Fixed Elements**: Navigation links and language toggle use `flex: 0 0 auto`
+1. **Fixed Logo Container**: Logo uses `flex: 0 0 auto` with `margin-right: auto` for left alignment
+2. **Compact Right Section**: Navigation links and language toggle use minimal spacing (`margin-right: 0.5rem`)
 3. **Responsive Images**: `width: 100%; height: auto; object-fit: contain;`
 4. **Staged Breakpoints**: Progressive size reduction with minimum guarantees
 
@@ -360,3 +361,47 @@ useHead({
 - **About**: Person schema with detailed profile information
 - **Creatives**: CollectionPage schema for portfolio
 - **Contact**: ContactPage schema with contact information
+
+## Home Menu Architecture (App.vue)
+
+### Home-Specific Menu Implementation
+The home page features a unique menu layout where navigation items appear below the central logo:
+
+```vue
+<!-- In App.vue -->
+<transition name="home-menu-fade">
+  <nav class="home-nav-links" v-show="isHomePage">
+    <RouterLink to="/about" class="home-nav-link">About</RouterLink>
+    <RouterLink to="/creatives" class="home-nav-link">Creatives</RouterLink>
+    <RouterLink to="/contact" class="home-nav-link">Contact</RouterLink>
+  </nav>
+</transition>
+```
+
+### Key Implementation Details
+- **Position**: `top: 55%` (positioned below center logo at 43%)
+- **Z-index Priority**: `z-index: 15` (higher than Menu.vue components)
+- **Vertical Dividers**: Implemented using `::after` pseudo-elements with absolute positioning
+- **Animation Timing**: Synchronized with logo animation (`animation-delay: 1s`)
+- **Exit Animation**: Uses `filter: blur(2rem)` matching logo exit behavior
+
+### Styling Specifications
+```css
+.home-nav-link {
+  color: #000;           /* Black links for readability */
+  font-size: 1.3rem;     /* Smaller, refined size */
+  font-weight: bold;
+}
+
+.home-nav-link:not(:last-child)::after {
+  content: "|";
+  position: absolute;
+  right: -1.5rem;        /* Precisely centered between links */
+  color: #666;           /* Dark gray dividers */
+}
+```
+
+### Responsive Behavior
+- **Desktop**: Visible with full styling
+- **Tablet (≤768px)**: Adjusted positioning (`top: 58%`) with smaller font
+- **Mobile (≤540px)**: Hidden (mobile uses circular menu instead)
