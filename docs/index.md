@@ -14,10 +14,12 @@
 ## ドキュメント一覧
 - standards/architecture.md — エントリ/初期化/責務分離とフォールバック方針。
 - standards/frontend-guidelines.md — Vue SFC規約、ルーティング、i18n、新規ページ追加の手順。
+- standards/design.md — カラー/フォント/背景/モーションなどのデザイン指針。
 - standards/performance-and-build.md — 遅延/分割、アセット方針、Three.js、ビルド設定。
 - standards/security-and-seo.md — セキュリティ、アクセシビリティ、SEO/アナリティクス。
 - standards/coding-standards.md — コーディングスタイルとレビュー/コミットの基本。
 - ops/deployment-checklist.md — デプロイ前後の確認項目とトラブルシュート。
+- ops/creatives-guide.md — `src/data/creatives.js` の作品データ管理手順とチェック。
 
 ## 更新手順（PDCA）
 1. PLAN: 既存の配置と命名を本索引で確認し、追加箇所を決める。
