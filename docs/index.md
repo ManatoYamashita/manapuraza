@@ -10,6 +10,7 @@
 ## ディレクトリ構成（最小セット）
 - `standards/`: コーディング規約や共通ルール。
 - `ops/`: 運用・手順書やチェックリスト。
+- `analytics/`: アクセス解析・トラッキング設定ガイド。
 
 ## ドキュメント一覧
 - standards/architecture.md — エントリ/初期化/責務分離とフォールバック方針。
@@ -20,6 +21,9 @@
 - standards/coding-standards.md — コーディングスタイルとレビュー/コミットの基本。
 - ops/deployment-checklist.md — デプロイ前後の確認項目とトラブルシュート。
 - ops/creatives-guide.md — `src/data/creatives.js` の作品データ管理手順とチェック。
+- ops/branch.md — ブランチ戦略、GitHub Actions CI/CD、コミットメッセージ規約。
+- analytics/ga4-setup.md — Google Analytics 4 (GA4) の完全セットアップガイド（GTM経由、サブドメイン対応）。
+- analytics/ga4-vue-integration.md — Vue.js 3 × GA4 統合実装ガイド（Composable、イベント送信パターン）。
 
 ## 更新手順（PDCA）
 1. PLAN: 既存の配置と命名を本索引で確認し、追加箇所を決める。
