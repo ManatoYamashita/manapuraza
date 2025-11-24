@@ -1,6 +1,7 @@
 # CLAUDE.md（docs 連携・運用ルール）
 
 本プロジェクトにおける知見・ルールは `docs/` を唯一のソース・オブ・トゥルース（SoT）とします。エージェントや開発者が得た知見は、適切な `docs/` 配下の Markdown に追記、または新規作成し、索引である `docs/index.md` を必ず更新します。
+`docs/` 直下に配置できるファイルは `index.md` のみとし、その他のドキュメントはサブディレクトリに整理します。サブディレクトリは必要最小限に抑え、命名は `kebab-case` で統一してください。
 
 ## 基本方針
 - ルール/知見は `docs/` に集約。
@@ -24,8 +25,7 @@
 
 ## 索引（参照）
 - ドキュメントのエンドポイント: `docs/index.md`
-- コーディング規約: `docs/coding-standards.md`
-- Import移行ガイド: `docs/import-path-migration.md`
-- ブランチ戦略: `docs/branch-strategy.md`
+- コーディング規約: `docs/standards/coding-standards.md`
+- デプロイ手順: `docs/ops/deployment-checklist.md`
 
 最終更新日: 2025/11/24
