@@ -99,33 +99,62 @@ jobs:
           echo "$COMMITS" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+      - name: Check if PR exists
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${{ steps.extract_branch.outputs.branch_name }}"
+          PR_EXISTS=$(gh pr list --head "$BRANCH_NAME" --json number --jq '.[0].number' || echo "")
+          if [ -n "$PR_EXISTS" ]; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+            echo "pr_number=$PR_EXISTS" >> $GITHUB_OUTPUT
+            echo "✅ PR already exists: #$PR_EXISTS"
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            echo "📝 No existing PR found"
+          fi
+
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.extract_branch.outputs.branch_name }}
-          base: main
-          title: "🚀 [${{ steps.extract_branch.outputs.feature_name }}] Auto-generated PR"
-          body: |
-            ## 📋 Summary
-            This PR was automatically created from branch `${{ steps.extract_branch.outputs.branch_name }}`.
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${{ steps.extract_branch.outputs.branch_name }}"
+          FEATURE_NAME="${{ steps.extract_branch.outputs.feature_name }}"
+          COMMITS="${{ steps.commits.outputs.commits }}"
 
-            ## ✅ Quality Check Results
-            - **Lint**: ✅ Passed
-            - **Format Check**: ✅ Passed
-            - **Build**: ✅ Passed
+          gh pr create \
+            --title "🚀 [$FEATURE_NAME] Auto-generated PR" \
+            --body "$(cat <<EOF
+          ## 📋 Summary
+          This PR was automatically created from branch \`$BRANCH_NAME\`.
 
-            ## 📝 Recent Commits
-            ${{ steps.commits.outputs.commits }}
+          ## ✅ Quality Check Results
+          - **Lint**: ✅ Passed
+          - **Format Check**: ✅ Passed
+          - **Build**: ✅ Passed
 
-            ## 🤖 CI/CD Information
-            - **Workflow**: ${{ github.workflow }}
-            - **Run ID**: ${{ github.run_id }}
-            - **Triggered by**: ${{ github.actor }}
+          ## 📝 Recent Commits
+          $COMMITS
 
-            ---
-            🤖 Generated with [Claude Code](https://claude.com/claude-code)
-          labels: |
-            automated-pr
-            feature
-          draft: false
+          ## 🤖 CI/CD Information
+          - **Workflow**: ${{ github.workflow }}
+          - **Run ID**: ${{ github.run_id }}
+          - **Triggered by**: ${{ github.actor }}
+
+          ---
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+          EOF
+          )" \
+            --base main \
+            --head "$BRANCH_NAME" \
+            --label "automated-pr,feature"
+
+      - name: Update existing PR
+        if: steps.check_pr.outputs.pr_exists == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER="${{ steps.check_pr.outputs.pr_number }}"
+          echo "✅ PR #$PR_NUMBER already exists. Skipping creation."
