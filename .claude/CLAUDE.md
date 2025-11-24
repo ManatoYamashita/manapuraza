@@ -27,9 +27,11 @@
 - ドキュメントのエンドポイント: `docs/index.md`
 - アーキテクチャ: `docs/standards/architecture.md`
 - フロントエンド実装: `docs/standards/frontend-guidelines.md`
+- デザイン指針: `docs/standards/design.md`
 - パフォーマンス/ビルド: `docs/standards/performance-and-build.md`
 - セキュリティ/アクセシビリティ/SEO: `docs/standards/security-and-seo.md`
 - コーディング規約: `docs/standards/coding-standards.md`
 - デプロイ手順: `docs/ops/deployment-checklist.md`
+- Creatives データ管理: `docs/ops/creatives-guide.md`
 
 最終更新日: 2025/11/24
