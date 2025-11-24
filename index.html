@@ -9,8 +9,22 @@
     })(window,document,'script','dataLayer','GTM-WPNRVS6Q');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
+
+    <!-- Favicon & App Icons -->
     <link rel="icon" href="/favicon.ico">
-    <link rel="preload" href="/icon.webp" as="image" type="image/webp">
+    <link rel="apple-touch-icon" href="/icon.webp">
+
+    <!-- DNS Prefetch & Preconnect (Performance Optimization) -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+
+    <!-- Critical Resource Preload -->
+    <link rel="preload" href="/icon.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/src/main.js" as="script" type="module">
+    <link rel="preload" href="/山下真和都(マナト).webp" as="image" type="image/webp">
     <!-- Critical CSS - Inlined for Performance -->
     <style>
 :root{--vt-c-yellow:#ff6b35;--vt-c-yellow-strong:#e55a2b;--vt-c-white-soft:#f8f8f8;--vt-c-white-mute:#f2f2f2;--vt-c-blue:#4faef2;--vt-c-black:#181818;--color-background:var(--vt-c-yellow);--mpuraza-acsent:var(--vt-c-blue);--primary-color:var(--vt-c-blue)}
@@ -25,29 +39,62 @@ body{height:100dvh;color:#111;line-height:normal;font-family:Inter,-apple-system
 #back{height:100vh;width:100%;position:fixed;top:0;left:0}
     </style>
     <!-- SEO settings -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta name="description" content="A portfolio site of Manato Yamashita (山下真和都) / 山下真和都(山下マナト)のポートフォリオサイトです。Web, Animation, Illustration, Videoなど、大学生時代に制作したクリエイティブを一覧できます。">
-    <meta name="keywords" content="Manato Yamashita, 山下マナト, 山下真和都, 都市大, ポートフォリオ, portfolio, TCU, Tokyo City University, 東京都市大学, 山下, manapuraza, デジコン, デジタルコンテンツ研究会">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://manapuraza.com/">
+
+    <!-- Multi-language support (hreflang) -->
+    <link rel="alternate" hreflang="ja" href="https://manapuraza.com/" />
+    <link rel="alternate" hreflang="en" href="https://manapuraza.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://manapuraza.com/" />
+
+    <!-- Robots meta -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="山下真和都（マナト）のポートフォリオサイト。Web開発、アニメーション、イラスト、動画制作など、クリエイティブ作品を公開。東京都市大学デジタルコンテンツ研究会所属。">
+    <meta name="keywords" content="山下マナト, 山下真和都, Manato Yamashita, ポートフォリオ, portfolio, Web開発, フロントエンドエンジニア, アニメーション, 東京都市大学, TCU, manapuraza, デジコン, クリエイター">
     <meta name="author" content="Manato Yamashita">
-    <meta property="og:title" content="MANAPURAZA.COM - 山下真和都(マナト) Portfolio 2023">
+    <meta name="creator" content="Manato Yamashita">
+    <meta name="publisher" content="MANAPURAZA.COM">
+    <meta name="geo.region" content="JP-13">
+    <meta name="geo.placename" content="Tokyo">
+    <meta name="language" content="Japanese">
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manapuraza.com/">
+    <meta property="og:site_name" content="MANAPURAZA.COM">
+    <meta property="og:title" content="山下真和都（マナト）| MANAPURAZA.COM Portfolio 2025">
+    <meta property="og:description" content="山下真和都（マナト）のポートフォリオサイト。Web開発、アニメーション、イラスト、動画制作など、クリエイティブ作品を公開。東京都市大学デジタルコンテンツ研究会所属。">
     <meta property="og:image" content="https://manapuraza.com/ogp.jpg">
+    <meta property="og:image:secure_url" content="https://manapuraza.com/ogp.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="山下真和都(マナト) - MANAPURAZA.COM">
-    <meta property="og:site_name" content="MANAPURAZA.COM">
-    <meta property="og:description" content="A portfolio site of Manato Yamashita / 山下真和都(マナト)のポートフォリオサイトです。">
+    <meta property="og:image:alt" content="山下真和都（マナト）MANAPURAZA.COM - クリエイティブポートフォリオ">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@tcu_dc">
     <meta name="twitter:creator" content="@tcu_dc">
-    <meta name="thumbnail" content="https://manapuraza.com/山下真和都(マナト).webp" />
+    <meta name="twitter:title" content="山下真和都（マナト）| MANAPURAZA.COM Portfolio 2025">
+    <meta name="twitter:description" content="山下真和都（マナト）のポートフォリオサイト。Web開発、アニメーション、イラスト、動画制作。">
+    <meta name="twitter:image" content="https://manapuraza.com/ogp.jpg">
+    <meta name="twitter:image:alt" content="山下真和都（マナト）MANAPURAZA.COM Portfolio">
+    <meta name="twitter:domain" content="manapuraza.com">
+
+    <!-- Additional Meta -->
+    <meta name="thumbnail" content="https://manapuraza.com/山下真和都(マナト).webp">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <meta name="theme-color" content="#4faef2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MANAPURAZA">
     <title>MANAPURAZA.COM | 山下マナト（山下真和都）</title>
 
     <!-- Google Analytics - Ultra Optimized for Performance -->
@@ -130,54 +177,117 @@ body{height:100dvh;color:#111;line-height:normal;font-family:Inter,-apple-system
       })();
     </script>
 
-    <!-- Schema.org(JSON-LD) -->
+    <!-- Schema.org(JSON-LD) - Multiple Structured Data -->
+
+    <!-- WebSite Schema -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": ["WebPage", "ProfilePage"], 
-        "name": "MANAPURAZA.COM - 山下マナト（山下真和都）",
-        "url": "https://manapuraza.com/",
-        "description": "A portfolio site of Manato Yamashita (山下真和都). 山下マナト・山下真和都のポートフォリオサイトです。",
-        "inLanguage": "ja",
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "MANAPURAZA.COM",
+      "alternateName": "山下マナト ポートフォリオ",
+      "url": "https://manapuraza.com/",
+      "description": "山下真和都（マナト）のクリエイティブポートフォリオサイト",
+      "inLanguage": ["ja", "en"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://manapuraza.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "author": {
+        "@type": "Person",
+        "@id": "https://manapuraza.com/#person"
+      }
+    }
+    </script>
+
+    <!-- Person & ProfilePage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["WebPage", "ProfilePage"],
+      "@id": "https://manapuraza.com/#webpage",
+      "name": "山下真和都（マナト）| MANAPURAZA.COM Portfolio",
+      "url": "https://manapuraza.com/",
+      "description": "山下真和都（マナト）のポートフォリオサイト。Web開発、アニメーション、イラスト、動画制作など、クリエイティブ作品を公開。",
+      "inLanguage": "ja",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://manapuraza.com/#website"
+      },
+      "about": {
+        "@type": "Person",
+        "@id": "https://manapuraza.com/#person"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://manapuraza.com/ogp.jpg",
+        "width": 1200,
+        "height": 630,
+        "caption": "MANAPURAZA.COM - 山下マナト ポートフォリオ"
+      },
+      "datePublished": "2023-07-11T00:00:00+09:00",
+      "dateModified": "2025-11-24T00:00:00+09:00",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "https://manapuraza.com/#person",
+        "name": "山下真和都",
+        "alternateName": ["山下マナト", "Manato Yamashita", "ヤマシタマナト", "マナト", "MANATO"],
+        "givenName": "真和都",
+        "familyName": "山下",
+        "gender": "Male",
+        "url": "https://manapuraza.com",
         "image": {
           "@type": "ImageObject",
-          "url": "https://manapuraza.com/ogp.jpg",
-          "width": 1200,
-          "height": 630
+          "url": "https://manapuraza.com/山下真和都(マナト).webp",
+          "caption": "山下真和都（マナト）プロフィール写真"
         },
-        "publisher": {
+        "jobTitle": "Frontend Developer / Creative Designer",
+        "description": "東京都市大学所属のフロントエンドエンジニア・クリエイター。Web開発、アニメーション、イラスト、動画制作など幅広く活動。",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "東京都市大学",
+          "alternateName": "Tokyo City University",
+          "sameAs": "https://www.tcu.ac.jp/"
+        },
+        "memberOf": {
           "@type": "Organization",
-          "name": "manapuraza.com", 
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://manapuraza.com/logo.webp",
-            "width": 600,
-            "height": 60
-          }
+          "name": "東京都市大学 デジタルコンテンツ研究会",
+          "alternateName": "TCU Digital Contents Club"
         },
-        "mainEntity": {
-          "@type": "Person",
-          "name": "山下マナト",
-          "alternateName": ["山下真和都", "Manato Yamashita", "ヤマシタマナト", "マナト"],
-          "url": "https://manapuraza.com",
-          "image": {
-            "@type": "ImageObject",
-            "url": "https://manapuraza.com/src/assets/山下真和都(マナト).webp"
-          },
-          "sameAs": [
-            "https://bsky.app/profile/yamashita.bsky.social",
-            "https://www.linkedin.com/in/yamashitamanato",
-            "https://github.com/ManatoYamashita",
-            "https://bento.me/ym",
-            "https://twitter.com/tcu_dc",
-            "https://www.instagram.com/manapuraza",
-            "https://www.youtube.com/manapuraza"
-          ]
-        },
-        "datePublished": "2023-07-11",
-        "dateModified": "2025-08-24"
+        "sameAs": [
+          "https://bsky.app/profile/yamashita.bsky.social",
+          "https://www.linkedin.com/in/yamashitamanato",
+          "https://github.com/ManatoYamashita",
+          "https://bento.me/ym",
+          "https://twitter.com/tcu_dc",
+          "https://www.instagram.com/manapuraza",
+          "https://www.youtube.com/manapuraza"
+        ],
+        "knowsAbout": ["Web Development", "Frontend Engineering", "Vue.js", "Animation", "Graphic Design", "Video Editing"],
+        "knowsLanguage": ["ja", "en"]
       }
-      </script>
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://manapuraza.com/"
+        }
+      ]
+    }
+    </script>
   </head>
 
   <body>
