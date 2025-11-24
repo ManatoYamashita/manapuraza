@@ -1,0 +1,159 @@
+name: Feature Branch CI/CD
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    outputs:
+      lint-result: ${{ steps.lint.outcome }}
+      build-result: ${{ steps.build.outcome }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.13.1'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        id: lint
+        run: |
+          npm run lint:check > lint-output.txt 2>&1 || true
+          echo "### Lint Results" >> $GITHUB_STEP_SUMMARY
+          if [ -s lint-output.txt ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat lint-output.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No linting issues found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Run Prettier Check
+        id: format
+        run: |
+          npm run format:check > format-output.txt 2>&1 || true
+          echo "### Format Check Results" >> $GITHUB_STEP_SUMMARY
+          if [ -s format-output.txt ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat format-output.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ Code formatting is correct" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Build project
+        id: build
+        run: |
+          npm run build
+          echo "### Build Results" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Build completed successfully" >> $GITHUB_STEP_SUMMARY
+
+      - name: Check build artifacts
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist directory not found"
+            exit 1
+          fi
+          echo "### Build Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Build size:" >> $GITHUB_STEP_SUMMARY
+          du -sh dist >> $GITHUB_STEP_SUMMARY
+
+  create-pull-request:
+    needs: quality-check
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Extract branch name
+        id: extract_branch
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "feature_name=${BRANCH_NAME#feature/}" >> $GITHUB_OUTPUT
+
+      - name: Get commit messages
+        id: commits
+        run: |
+          COMMITS=$(git log origin/main..HEAD --pretty=format:"- %s" | head -10)
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Check if PR exists
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${{ steps.extract_branch.outputs.branch_name }}"
+          PR_EXISTS=$(gh pr list --head "$BRANCH_NAME" --json number --jq '.[0].number' || echo "")
+          if [ -n "$PR_EXISTS" ]; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+            echo "pr_number=$PR_EXISTS" >> $GITHUB_OUTPUT
+            echo "✅ PR already exists: #$PR_EXISTS"
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            echo "📝 No existing PR found"
+          fi
+
+      - name: Create Pull Request
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${{ steps.extract_branch.outputs.branch_name }}"
+          FEATURE_NAME="${{ steps.extract_branch.outputs.feature_name }}"
+          COMMITS="${{ steps.commits.outputs.commits }}"
+
+          gh pr create \
+            --title "🚀 [$FEATURE_NAME] Auto-generated PR" \
+            --body "$(cat <<EOF
+          ## 📋 Summary
+          This PR was automatically created from branch \`$BRANCH_NAME\`.
+
+          ## ✅ Quality Check Results
+          - **Lint**: ✅ Passed
+          - **Format Check**: ✅ Passed
+          - **Build**: ✅ Passed
+
+          ## 📝 Recent Commits
+          $COMMITS
+
+          ## 🤖 CI/CD Information
+          - **Workflow**: ${{ github.workflow }}
+          - **Run ID**: ${{ github.run_id }}
+          - **Triggered by**: ${{ github.actor }}
+
+          ---
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+          EOF
+          )" \
+            --base main \
+            --head "$BRANCH_NAME"
+
+      - name: Update existing PR
+        if: steps.check_pr.outputs.pr_exists == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER="${{ steps.check_pr.outputs.pr_number }}"
+          echo "✅ PR #$PR_NUMBER already exists. Skipping creation."

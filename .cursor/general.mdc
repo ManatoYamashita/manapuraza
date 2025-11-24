@@ -1,0 +1,7 @@
+# docs 運用ルール（SoT通知）
+
+- `docs/` が唯一のソース・オブ・トゥルース。作業前後に `docs/index.md` を確認・更新する。
+- `docs/` 直下に置けるファイルは `index.md` のみ。その他は既存サブディレクトリ（例: `standards/`, `ops/`）へ配置する。
+- サブディレクトリは必要最小限に抑え、ファイル名は `kebab-case.md`。新設時は `docs/index.md` へ追記する。
+- ドキュメント更新コミットは `DOC:` プレフィックスを推奨。機密情報は記載禁止。
+- 主要ドキュメント: `docs/standards/architecture.md`, `docs/standards/frontend-guidelines.md`, `docs/standards/performance-and-build.md`, `docs/standards/security-and-seo.md`, `docs/standards/coding-standards.md`, `docs/ops/deployment-checklist.md`。
