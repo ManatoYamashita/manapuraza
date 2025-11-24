@@ -148,8 +148,7 @@ jobs:
           EOF
           )" \
             --base main \
-            --head "$BRANCH_NAME" \
-            --label "automated-pr,feature"
+            --head "$BRANCH_NAME"
 
       - name: Update existing PR
         if: steps.check_pr.outputs.pr_exists == 'true'
