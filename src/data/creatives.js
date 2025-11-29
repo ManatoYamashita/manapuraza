@@ -37,77 +37,88 @@ export const creativesData = {
        title: 'creatives.dev.manapuraza.title',
        description: 'creatives.dev.manapuraza.description',
        url: 'https://github.com/ManatoYamashita/manapuraza',
-       thumbnail: manapurazaImg
+       thumbnail: manapurazaImg,
+       tags: ['Vue.js', 'Vite', 'Three.js', 'Portfolio']
      },
      {
        id: 'dcchan-net',  // でじこんちゃん.net
        title: 'creatives.dev.dcchanAi.title',
        description: 'creatives.dev.dcchanAi.description',
        url: 'https://でじこんちゃん.net/',
-       thumbnail: dcchanNetImg
+       thumbnail: dcchanNetImg,
+       tags: ['Next.js', 'AI', 'Vercel', 'Chatbot']
      },
      {
        id: 'numeron-game',  // NUMERON
        title: 'creatives.dev.numeron.title',
        description: 'creatives.dev.numeron.description',
        url: 'https://tmana.sub.jp/numeron/dirs/src/numeron.html',
-       thumbnail: numeronGameImg
+       thumbnail: numeronGameImg,
+       tags: ['Vanilla JS', 'Game', 'Logic']
      },
      {
        id: 'officeTsuyuki',  // オフィス露木 コーポレートサイト
        title: 'creatives.dev.officeTsuyuki.title',
        description: 'creatives.dev.officeTsuyuki.description',
        url: 'https://office-tsuyuki.pom.jp',
-       thumbnail: pomjpBetaImg
+       thumbnail: pomjpBetaImg,
+       tags: ['HTML', 'CSS', 'JavaScript', 'Corporate']
      },
      {
        id: 'tcudc-bot',  // でじこんちゃん TwitterBot
        title: 'creatives.dev.dcchanBot.title',
        description: 'creatives.dev.dcchanBot.description',
        url: 'https://tmana.sub.jp/tcudc-bot/dc-chan_twitterBot22_document.html',
-       thumbnail: tcudcBotImg
+       thumbnail: tcudcBotImg,
+       tags: ['Python', 'Twitter API', 'Bot']
      },
      {
        id: 'seki-ken',  // 東京都市大学 関研究室 情報セキュリティ
        title: 'creatives.dev.sekiLab.title',
        description: 'creatives.dev.sekiLab.description',
        url: 'https://www.comm.tcu.ac.jp/seki-ken',
-       thumbnail: sekiKenImg
+       thumbnail: sekiKenImg,
+       tags: ['WordPress', 'Security', 'Research']
      },
      {
        id: 'sysb-wtm',  // 天気行動提案アプリWTM
        title: 'creatives.dev.wtmApp.title',
        description: 'creatives.dev.wtmApp.description',
        url: 'https://github.com/ManatoYamashita/SysB_wtm',
-       thumbnail: sysbWtmImg
+       thumbnail: sysbWtmImg,
+       tags: ['HTML', 'CSS', 'JavaScript', 'Weather API']
      },
      {
        id: 'dum-manapuraza',  // DownUnderMountain TAPブログ
        title: 'creatives.dev.downUnder.title',
        description: 'creatives.dev.downUnder.description',
        url: 'https://dum.manapuraza.com',
-       thumbnail: dumManapurazaImg
+       thumbnail: dumManapurazaImg,
+       tags: ['WordPress', 'Blog', 'TAP']
      },
      {
        id: 'flickgame',  // フリックゲーム WAGIRI!!
        title: 'creatives.dev.wagiri.title',
        description: 'creatives.dev.wagiri.description',
        url: 'https://flickgame.tcu-dc.net/',
-       thumbnail: flickgameImg
+       thumbnail: flickgameImg,
+       tags: ['Vanilla JS', 'Game', 'Mobile']
      },
      {
        id: 'tcu-animation',  // 都市大アニメーション
        title: 'creatives.dev.tcuAnimation.title',
        description: 'creatives.dev.tcuAnimation.description',
        url: 'https://tcu-animation.jp/',
-       thumbnail: tcuAnimationImg
+       thumbnail: tcuAnimationImg,
+       tags: ['Next.js', 'SEO', 'Animation Site']
      },
      {
        id: 'text-layout',  // 文章自動レイアウトWebApp
        title: 'creatives.dev.textLayout.title',
        description: 'creatives.dev.textLayout.description',
        url: 'https://text-layout.manapuraza.com/',
-       thumbnail: textLayoutImg
+       thumbnail: textLayoutImg,
+       tags: ['Vanilla JS', 'Tool', 'Typography']
      },
      {
       id: 'k-kamiya', // 割烹神谷公式サイト
@@ -115,6 +126,7 @@ export const creativesData = {
       description: 'creatives.dev.k-kamiya.description',
       url: 'https://www.k-kamiya.net',
       thumbnail: kkamiyaImg,
+      tags: ['HTML', 'CSS', 'JavaScript', 'Restaurant']
      }
    ],
 
@@ -125,10 +137,11 @@ export const creativesData = {
         title: 'creatives.illustration.pixiv.title',
         description: 'creatives.illustration.pixiv.description',
         url: 'https://www.pixiv.net/users/87914659',
-        thumbnail: pixivGalleryImg
+        thumbnail: pixivGalleryImg,
+        tags: ['Digital Art', 'Illustration', 'Pixiv']
       },
     ],
- 
+
    // ビデオ / アニメーション作品
    video: [
     {
@@ -136,14 +149,16 @@ export const creativesData = {
       title: 'creatives.video.tcuDcChannel.title',
       description: 'creatives.video.tcuDcChannel.description',
       url: 'https://www.youtube.com/@tcu_dc',
-      thumbnail: tcuDcYoutubeImg
+      thumbnail: tcuDcYoutubeImg,
+      tags: ['YouTube', 'Animation', 'Club']
     },
     {
       id: 'manapuraza-youtube',  // manapuraza YouTubeチャンネル
       title: 'creatives.video.personalChannel.title',
       description: 'creatives.video.personalChannel.description',
       url: 'https://www.youtube.com/@manapuraza',
-      thumbnail: manapurazaYoutubeImg
+      thumbnail: manapurazaYoutubeImg,
+      tags: ['YouTube', 'Vlog', 'Personal']
     }
    ]
 };

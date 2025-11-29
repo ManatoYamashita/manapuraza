@@ -1,23 +1,26 @@
 <template>
   <div class="creatives">
-    <CreativesHero />
+    <CreativesHero @filter-change="handleFilterChange" />
 
     <main>
       <div id="main-contents">
-        
+
         <!-- Animation Section -->
-        <CreativeItem
-          :mode="'Animation'"
-          :url="'#'"
-          :title="$t('creatives.animation.tcuAnimation.title')"
-          :description="$t('creatives.animation.paragraph')"
-          :thumbnail="'#'"
-          :index="0"
-          :animationData="animationData"
-        />
+        <section v-if="activeFilter === 'all' || activeFilter === 'animation'" id="animation">
+          <CreativeItem
+            :mode="'Animation'"
+            :url="'#'"
+            :title="$t('creatives.animation.tcuAnimation.title')"
+            :description="$t('creatives.animation.paragraph')"
+            :thumbnail="'#'"
+            :index="0"
+            :animationData="animationData"
+            :tags="animationData.tags"
+          />
+        </section>
 
         <!-- Development Section -->
-        <section id="development">
+        <section v-if="activeFilter === 'all' || activeFilter === 'development'" id="development">
           <h2>Development</h2>
           <p>{{ $t('creatives.dev.paragraph') }}</p>
           <ul>
@@ -30,11 +33,12 @@
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Development'"
+              :tags="creative.tags"
             />
           </ul>
         </section>
 
-        <section id="illustration">
+        <section v-if="activeFilter === 'all' || activeFilter === 'illustration'" id="illustration">
           <h2>Illustration</h2>
           <p>{{ $t('creatives.illustration.paragraph') }}</p>
           <ul>
@@ -47,11 +51,12 @@
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Illustration'"
+              :tags="creative.tags"
             />
           </ul>
         </section>
 
-        <section id="video">
+        <section v-if="activeFilter === 'all' || activeFilter === 'video'" id="video">
           <h2>Video</h2>
           <p>{{ $t('creatives.video.paragraph') }}</p>
           <ul>
@@ -64,6 +69,7 @@
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Video'"
+              :tags="creative.tags"
             />
           </ul>
         </section>
@@ -88,11 +94,39 @@
   import CreativeItem from '@/components/CreativeItem.vue';
   import CreativesHero from '@/components/CreativesHero.vue';
   import { creativesData } from '@/data/creatives';
-  import { computed } from 'vue';
+  import { computed, ref, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
 
   const { t, locale } = useI18n();
+
+  // フィルター状態管理
+  const activeFilter = ref('all');
+
+  // フィルター変更ハンドラー
+  const handleFilterChange = (category) => {
+    activeFilter.value = category;
+
+    // DOM更新完了後にスクロール実行
+    nextTick(() => {
+      if (category === 'all') {
+        // 'All'の場合はページトップにスクロール
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      } else {
+        // 特定カテゴリーの場合は該当セクションにスクロール
+        const section = document.getElementById(category);
+        if (section) {
+          section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'  // セクションの上端を表示エリアの上端に配置
+          });
+        }
+      }
+    });
+  };
 
   // SEOメタタグ設定
   useHead({
@@ -237,7 +271,7 @@
 
   // Animation section用のデータ
   const animationData = computed(() => ({
-    videoUrls: { 
+    videoUrls: {
       mobile: 'https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M',
       desktop: 'https://www.youtube.com/embed/hdK1_B_Mef8?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=hdK1_B_Mef8'
     },
@@ -271,7 +305,8 @@
         alt: '公式サイトへ（都市大アニメーション）',
         variant: 'secondary'
       }
-    ]
+    ],
+    tags: ['Animation', 'Director', 'Setagaya Ward', 'Official']
   }));
 
 
@@ -343,7 +378,7 @@
     text-decoration: none;
   }
   a:hover {
-    color: rgb(67, 153, 187);
+    color: #f0d300;
   }
 
   /* Illustrationセクションの1列表示 */

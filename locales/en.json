@@ -1,6 +1,11 @@
 {
     "navbar": {
-      "toggle": "Eng"
+      "toggle": "Eng",
+      "menu": {
+        "about": "About",
+        "creatives": "Creatives",
+        "contact": "Contact"
+      }
     },
 
     "about": {

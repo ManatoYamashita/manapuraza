@@ -10,9 +10,9 @@
 }
 
 :root {
-  --color-background: var(--vt-c-yellow);
-  --mpuraza-acsent: var(--vt-c-blue);
-  --primary-color: var(--vt-c-blue);
+  --color-background: #ffffff;
+  --mpuraza-acsent: var(--vt-c-yellow);
+  --primary-color: var(--vt-c-yellow);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,8 +35,8 @@ html {
 body {
   height: 100dvh;
   color: var(--color-text);
-  /* より濃いイエローのグラデーション背景 */
-  background: linear-gradient(135deg, var(--vt-c-yellow) 0%, var(--vt-c-yellow-strong) 100%);
+  /* 白背景 */
+  background: #ffffff;
   /* 文字可読性のためのデフォルトテキスト色（ダーク） */
   --color-text: #111;
   line-height: normal;

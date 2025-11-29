@@ -1,8 +1,8 @@
 <style scoped>
   button {
-    --primary-gradient: linear-gradient(135deg, #4399BB 0%, #6EACF7 100%);
-    --hover-shadow: 0 8px 20px rgba(67, 153, 187, 0.4);
-    --default-shadow: 0 4px 15px rgba(67, 153, 187, 0.3);
+    --primary-gradient: linear-gradient(135deg, #f0d300 0%, #f5e050 100%);
+    --hover-shadow: 0 8px 20px rgba(240, 211, 0, 0.4);
+    --default-shadow: 0 4px 15px rgba(240, 211, 0, 0.3);
     
     display: inline-flex;
     align-items: center;
@@ -82,12 +82,12 @@
   }
 
   button.programming {
-    background: linear-gradient(135deg, rgba(67, 153, 187, 0.9) 0%, rgba(110, 172, 247, 0.9) 100%);
-    box-shadow: 0 4px 15px rgba(67, 153, 187, 0.3);
+    background: linear-gradient(135deg, rgba(240, 211, 0, 0.9) 0%, rgba(245, 224, 80, 0.9) 100%);
+    box-shadow: 0 4px 15px rgba(240, 211, 0, 0.3);
   }
 
   button.programming:hover {
-    box-shadow: 0 8px 20px rgba(67, 153, 187, 0.4);
+    box-shadow: 0 8px 20px rgba(240, 211, 0, 0.4);
   }
 
   button.graphics {
@@ -126,15 +126,15 @@
   }
 
   button.simple:focus-visible {
-    outline: 2px solid #4399BB;
+    outline: 2px solid #f0d300;
     outline-offset: 2px;
   }
 
   /* プライマリ/セカンダリ（シンプル） */
   button.primary {
-    background: var(--primary-color, #4399BB);
+    background: var(--primary-color, #f0d300);
     color: #ffffff;
-    border: 1px solid var(--primary-color, #4399BB);
+    border: 1px solid var(--primary-color, #f0d300);
     box-shadow: none;
     border-radius: 10px;
   }
@@ -147,8 +147,8 @@
 
   button.secondary {
     background: transparent;
-    color: var(--primary-color, #4399BB);
-    border: 1px solid var(--primary-color, #4399BB);
+    color: var(--primary-color, #f0d300);
+    border: 1px solid var(--primary-color, #f0d300);
     box-shadow: none;
     border-radius: 10px;
   }
@@ -156,7 +156,7 @@
   button.secondary:hover {
     transform: none;
     box-shadow: none;
-    background: rgba(67, 153, 187, 0.06);
+    background: rgba(240, 211, 0, 0.06);
   }
 </style>
 
