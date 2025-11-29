@@ -1,6 +1,11 @@
 {
     "navbar": {
-        "toggle": "日本語"
+        "toggle": "日本語",
+        "menu": {
+            "about": "概要",
+            "creatives": "作品紹介",
+            "contact": "お問い合わせ"
+        }
     },
     "about": {
         "ym": "山下真和都(マナト)",
