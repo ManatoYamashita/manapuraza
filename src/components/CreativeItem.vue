@@ -81,15 +81,22 @@
               </template>
             </dl>
           </div>
-          
+
+          <!-- タグ表示（Animation mode） -->
+          <div class="creative-tags" v-if="tags && tags.length > 0">
+            <span v-for="(tag, tagIndex) in tags" :key="tagIndex" class="creative-tag">
+              {{ tag }}
+            </span>
+          </div>
+
           <div class="animation-links" v-if="animationData.buttons && animationData.buttons.length > 0">
-            <Btn 
+            <Btn
               v-for="(button, btnIndex) in animationData.buttons"
               :key="btnIndex"
-              :href="button.href" 
-              :target="button.target" 
-              :icon="button.icon" 
-              :text="button.text" 
+              :href="button.href"
+              :target="button.target"
+              :icon="button.icon"
+              :text="button.text"
               :subText="button.subText"
               :alt="button.alt"
               :variant="button.variant"
@@ -108,6 +115,13 @@
       </div>
       <h3>{{ title }} <fa :icon="['fas', 'arrow-up-right-from-square']" class="fa" /></h3>
       <p>{{ description }}</p>
+
+      <!-- タグ表示（Card modes） -->
+      <div class="creative-tags" v-if="tags && tags.length > 0">
+        <span v-for="(tag, tagIndex) in tags" :key="tagIndex" class="creative-tag">
+          {{ tag }}
+        </span>
+      </div>
     </a>
   </li>
 </template>
@@ -127,8 +141,8 @@
       description: { type: String, required: true },
       thumbnail: { type: String, required: true },
       index: { type: Number, required: true },
-      mode: { 
-        type: String, 
+      mode: {
+        type: String,
         required: true,
         validator: (value) => ['Animation', 'Development', 'Illustration', 'Video'].includes(value)
       },
@@ -143,6 +157,11 @@
           titleMain: '',
           buttons: []
         })
+      },
+      tags: {
+        type: Array,
+        required: false,
+        default: () => []
       }
     },
     setup(props) {
@@ -168,10 +187,10 @@
 
       // Mode-based 設定システム
       const modeConfig = computed(() => ({
-        Animation: { icon: 'film', color: '#9333ea' },      
-        Development: { icon: 'code', color: '#4399BB' },     
-        Illustration: { icon: 'palette', color: '#f97316' }, 
-        Video: { icon: 'video', color: '#dc2626' }          
+        Animation: { icon: 'film', color: '#9333ea' },
+        Development: { icon: 'code', color: '#f0d300' },
+        Illustration: { icon: 'palette', color: '#f97316' },
+        Video: { icon: 'video', color: '#dc2626' }
       }));
 
       const currentModeConfig = computed(() => modeConfig.value[props.mode]);
@@ -899,7 +918,7 @@
   }
 
   a:hover {
-    color: rgb(67, 153, 187);
+    color: #f0d300;
     text-decoration: underline;
   }
 
@@ -926,6 +945,58 @@
     }
     p {
       font-size: 1rem;
+    }
+  }
+
+  /* タグスタイリング（共通） */
+  .creative-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .creative-tag {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    background: rgba(240, 211, 0, 0.15); /* Primary Yellow 半透明 */
+    border: 1.5px solid rgba(240, 211, 0, 0.4);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+
+  .creative-tag:hover {
+    background: rgba(240, 211, 0, 0.25);
+    border-color: rgba(240, 211, 0, 0.6);
+    transform: translateY(-1px);
+  }
+
+  /* Animation mode用のタグ調整 */
+  .animation-section .creative-tags {
+    margin-top: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  @media screen and (max-width: 967px) {
+    /* モバイルでタグサイズを縮小 */
+    .creative-tag {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.7rem;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .creative-tags {
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .creative-tag {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.65rem;
     }
   }
 </style>
