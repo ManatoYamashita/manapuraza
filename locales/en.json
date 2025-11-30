@@ -198,7 +198,7 @@
     },
     
     "404": {
-      "title": "Under Constraction",
+      "title": "404",
       "notfound": "Not Found",
       "message": "The page you are looking for does not exist."
     },
@@ -207,6 +207,6 @@
       "title": "Under Constraction",
       "subtitle": "This page is under construction.",
       "message": "We are preparing this page. Please check back soon.",
-      "back": "Back to Home"
+      "back": "Do you want to study?"
     }
 }

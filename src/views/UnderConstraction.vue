@@ -8,7 +8,7 @@
                     <p>{{ $t('underconstraction.message') }}</p>
                     <br>
                     <button class="goback">
-                        <a href="https://manapuraza.com">
+                        <a href="https://note.com/manato_yamashita">
                             <span class="circle" aria-hidden="true">
                             <span class="icon arrow"></span>
                             </span>
