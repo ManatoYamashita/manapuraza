@@ -8,7 +8,7 @@
                     <p>{{ $t('underconstraction.message') }}</p>
                     <br>
                     <button class="goback">
-                        <a href="https://manapuraza.com">
+                        <a href="https://note.com/manato_yamashita">
                             <span class="circle" aria-hidden="true">
                             <span class="icon arrow"></span>
                             </span>
@@ -35,7 +35,6 @@
 
     .container {
         width: 100%;
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -68,6 +67,7 @@
 
     .error .content h2 {
         font-size: 2.5rem;
+        margin: 1rem 0;
         font-weight: 700;
         color: #000;
     }
@@ -169,11 +169,11 @@
 
     @media (max-width: 768px) {
         .error .content h1 {
-            font-size: 6rem;
+            font-size: 3rem;
         }
 
         .error .content h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
         .error .content p {

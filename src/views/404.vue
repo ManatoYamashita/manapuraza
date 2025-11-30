@@ -35,7 +35,6 @@
 
     .container {
         width: 100%;
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -62,14 +61,13 @@
         font-size: 6rem;
         font-weight: 900;
         color: #000;
-        white-space: nowrap;
     }
 
     .error .content h2 {
         font-size: 2.5rem;
+        margin: 1rem 0;
         font-weight: 700;
         color: #000;
-        white-space: nowrap;
     }
 
     .error .content p {
@@ -169,11 +167,11 @@
 
     @media (max-width: 768px) {
         .error .content h1 {
-            font-size: 6rem;
+            font-size: 3rem;
         }
 
         .error .content h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
         .error .content p {
