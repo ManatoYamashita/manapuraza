@@ -5,6 +5,7 @@ import Home from '@/views/Home.vue'
 const AboutComponent = () => import('../views/About.vue');
 const CreativesComponent = () => import('../views/Creatives.vue');
 const ContactComponent = () => import('../views/Contact.vue');
+const UnderConstractionComponent = () => import('../views/UnderConstraction.vue');
 const NotFoundComponent = () => import('../views/404.vue');
 
 // 初期化時にコンポーネントをプリロード（遅延軽減）
@@ -16,6 +17,7 @@ const preloadComponents = () => {
     AboutComponent();
     CreativesComponent();
     ContactComponent();
+    UnderConstractionComponent();
     NotFoundComponent();
   });
 };
@@ -50,6 +52,11 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: ContactComponent,
+    },
+    {
+      path: '/underconstraction',
+      name: 'underconstraction',
+      component: UnderConstractionComponent,
     },
     { 
       path: '/:pathMatch(.*)*',

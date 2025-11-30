@@ -3,16 +3,16 @@
         <div class="container">
             <div class="error">
                 <div class="content">
-                    <h1>{{ $t('404.title') }}</h1>
-                    <h2>{{ $t('404.notfound') }}</h2>
-                    <p>{{ $t('404.message') }}</p>
+                    <h1>{{ $t('underconstraction.title') }}</h1>
+                    <h2>{{ $t('underconstraction.subtitle') }}</h2>
+                    <p>{{ $t('underconstraction.message') }}</p>
                     <br>
                     <button class="goback">
                         <a href="https://manapuraza.com">
                             <span class="circle" aria-hidden="true">
                             <span class="icon arrow"></span>
                             </span>
-                            <span class="button-text">Back to Home</span>
+                            <span class="button-text">{{ $t('underconstraction.back') }}</span>
                         </a>
                     </button>
                     </div>
@@ -44,6 +44,7 @@
     .error {
         width: 100%;
         max-width: 1200px;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,6 +53,7 @@
     .error .content {
         width: 100%;
         max-width: 600px;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -62,14 +64,12 @@
         font-size: 6rem;
         font-weight: 900;
         color: #000;
-        white-space: nowrap;
     }
 
     .error .content h2 {
         font-size: 2.5rem;
         font-weight: 700;
         color: #000;
-        white-space: nowrap;
     }
 
     .error .content p {
