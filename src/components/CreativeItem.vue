@@ -3,10 +3,20 @@
   <li :class="`creative-item creative-item--${mode.toLowerCase()}`" :data-creative-index="index">
     <router-link :to="`/creatives/${category}/${id}`">
       <div class="img-cover">
-        <img :src="resolvedThumbnail" :alt="title" loading="lazy" @error="handleImageError" />
+        <!-- YouTube iFrame表示（youtubeUrlがある場合） -->
+        <div v-if="youtubeUrl" class="video-container">
+          <iframe
+            :src="youtubeUrl"
+            :title="title"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <!-- 通常の画像表示 -->
+        <img v-else :src="resolvedThumbnail" :alt="title" loading="lazy" @error="handleImageError" />
       </div>
       <h3>{{ title }} <fa :icon="['fas', 'arrow-right']" class="fa" /></h3>
-      <p>{{ description }}</p>
 
       <!-- タグ表示（Card modes） -->
       <div class="creative-tags" v-if="tags && tags.length > 0">
@@ -39,6 +49,11 @@
         type: Array,
         required: false,
         default: () => []
+      },
+      youtubeUrl: {
+        type: String,
+        required: false,
+        default: null
       }
     },
     setup(props) {
@@ -98,6 +113,24 @@
     transform: scale(1.1);
   }
 
+  /* YouTube iFrame用のコンテナ */
+  .video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0.5rem;
+  }
+
   .fa {
     font-size: 0.8rem;
   }
@@ -105,11 +138,6 @@
   h3 {
     font-size: 1.2rem;
     margin: 0.5rem 0;
-  }
-
-  p {
-    font-size: 1rem;
-    margin: 0;
   }
 
   a {
@@ -142,9 +170,6 @@
     }
     h3 {
       font-size: 1.1rem;
-    }
-    p {
-      font-size: 1rem;
     }
   }
 

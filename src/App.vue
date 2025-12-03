@@ -247,7 +247,7 @@
     opacity: 0 !important;
   }
   .app {
-    /* width: 85vw; */
+    min-width: 85vw;
     height: 80vh;
     max-width: 1280px;
     max-height: 80vh;

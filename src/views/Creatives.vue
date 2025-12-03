@@ -21,6 +21,7 @@
               :thumbnail="creative.thumbnail"
               :index="index"
               :tags="creative.tags"
+              :youtubeUrl="creative.detail?.youtube?.desktop || null"
             />
           </ul>
         </section>
@@ -356,10 +357,23 @@
     grid-template-columns: 1fr;
   }
 
+  /* Animationセクションのサイズ縮小（50%程度） */
+  #animation ul {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* タブレット表示用 */
   @media screen and (max-width: 768px) {
     ul {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* アニメーションセクションのサイズ調整 */
+    #animation ul {
+      max-width: 500px;
+      grid-template-columns: 1fr;
     }
   }
 
@@ -367,6 +381,11 @@
   @media screen and (max-width: 480px) {
     ul {
       grid-template-columns: 1fr;
+    }
+
+    /* アニメーションセクションは全幅表示 */
+    #animation ul {
+      max-width: 100%;
     }
   }
 </style>
