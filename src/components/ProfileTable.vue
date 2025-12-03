@@ -101,7 +101,8 @@
   
   table {
     width: 100%;
-    margin: 0;
+    max-width: 800px; /* 最大幅を設定 */
+    margin: 0 auto;   /* センタリング */
     border-collapse: separate;
     border-spacing: 0 10px;
   }
@@ -118,7 +119,7 @@
   
   th,
   td {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.2rem; /* 左右パディングをやや縮小 */
   }
   
   th {
@@ -140,9 +141,9 @@
     align-items: center;
     gap: 0.3rem;
   }
-  
+
   td a:hover {
-    color: rgb(67, 153, 187);
+    color: #f0d300;
   }
 
   td a i {

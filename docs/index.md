@@ -20,7 +20,7 @@
 - standards/security-and-seo.md — セキュリティ、アクセシビリティ、SEO/アナリティクス。
 - standards/coding-standards.md — コーディングスタイルとレビュー/コミットの基本。
 - ops/deployment-checklist.md — デプロイ前後の確認項目とトラブルシュート。
-- ops/creatives-guide.md — `src/data/creatives.js` の作品データ管理手順とチェック。
+- ops/creatives-guide.md — `src/data/creatives.js` の作品データ管理手順（animation/development/illustration/video、detail オブジェクト、詳細ページルーティング `/creatives/:category/:id`）。
 - ops/branch.md — ブランチ戦略、GitHub Actions CI/CD、コミットメッセージ規約。
 - analytics/ga4-setup.md — Google Analytics 4 (GA4) の完全セットアップガイド（GTM経由、サブドメイン対応）。
 - analytics/ga4-vue-integration.md — Vue.js 3 × GA4 統合実装ガイド（Composable、イベント送信パターン）。
@@ -30,3 +30,7 @@
 2. DO: 対応するサブディレクトリに Markdown を作成・更新し、本索引へ追記。
 3. CHECK: リンク・命名・重複・文責の整合を確認。
 4. ACTION: 改善点を洗い出し、必要ならルールやテンプレートを強化する。
+
+---
+
+最終更新日: 2025-12-03

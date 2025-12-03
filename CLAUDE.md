@@ -18,11 +18,12 @@ No automated testing framework is configured. Manual testing involves running th
 This is a Vue.js 3 portfolio website using:
 - **Vue 3** with Composition API and `<script setup>` syntax
 - **Vite** as build tool with optimized chunking strategy
-- **Vue Router** for SPA navigation with lazy-loaded routes
+- **Vue Router** for SPA navigation with lazy-loaded routes and dynamic routing (`/creatives/:category/:id`)
 - **Vue I18n** for internationalization (Japanese/English)
 - **Three.js** for 3D background animations (MetaBall component)
 - **GSAP** for advanced animations
 - **Font Awesome** for icons
+- **marked** for Markdown rendering in creative detail pages
 
 ### Performance Optimizations
 The codebase implements aggressive performance optimizations:
@@ -35,11 +36,11 @@ The codebase implements aggressive performance optimizations:
 ### Project Structure
 ```
 src/
-├── components/     # Reusable Vue components
-├── views/          # Page-level components (Home, About, Creatives, 404)
-├── data/           # Static data (creatives portfolio items)
+├── components/     # Reusable Vue components (CreativeItem, Menu, Btn, etc.)
+├── views/          # Page-level components (Home, About, Creatives, CreativeDetail, 404)
+├── data/           # Static data (creatives.js with portfolio items and detailDefaults)
 ├── assets/         # Images, CSS, static assets
-└── router/         # Vue Router configuration
+└── router/         # Vue Router configuration (includes dynamic route /creatives/:category/:id)
 ```
 
 ## Key Components & Data Management
@@ -47,10 +48,17 @@ src/
 ### Portfolio Data (`src/data/creatives.js`)
 Portfolio items are centrally managed in this file with strict conventions:
 - **Static imports required** for all images (no dynamic paths due to Vite bundling)
-- **i18n keys** for titles/descriptions following pattern: `creatives.[category].[item].(title|description)`
-- **Categories**: `programming`, `graphics`, `video`
-- **CreativeItem modes**: Animation (section), Development/Illustration/Video (card li elements)
-- See `src/data/creatives-guide.md` for detailed data management procedures
+- **i18n keys** for titles/descriptions following pattern: `creatives.[category].[item].(title|description|detailDescription)`
+- **Categories**: `animation`, `development`, `illustration`, `video`
+- **Detail pages**: Each creative supports optional `detail` object for `/creatives/:category/:id` route
+  - `detail.images`: Image gallery (1+ images)
+  - `detail.descriptionMarkdown`: Markdown-formatted description (i18n key)
+  - `detail.youtube`: Animation-specific YouTube embed URLs (mobile/desktop)
+  - `detail.productionYear`: Production year string
+  - `detail.credits`: Credit information array (i18n keys)
+  - `detail.cta`: Call-to-action buttons array
+- **Fallback**: `detailDefaults` provides fallback values when `detail` is undefined
+- See `docs/ops/creatives-guide.md` for detailed data management procedures
 
 ### Core Architecture Components
 - **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
@@ -59,9 +67,14 @@ Portfolio items are centrally managed in this file with strict conventions:
   - Desktop: Flexbox layout with responsive logo sizing
   - Mobile: Circular floating menu at screen bottom with 1-second delay fade-in
   - Language toggle with vertical reading text (日本語/Eng display)
-- **CreativeItem.vue**: Unified portfolio component with 4 modes:
-  - Animation mode: Full-section layout with YouTube iframe and metadata
-  - Development/Illustration/Video modes: Card-based grid layouts
+- **CreativeItem.vue**: Unified portfolio card component
+  - All modes (Animation/Development/Illustration/Video) use consistent card layout
+  - Renders as `<li>` elements with router-link to detail pages
+  - Displays thumbnail, title, description, and tags
+- **CreativeDetail.vue**: Individual creative work detail page
+  - URL pattern: `/creatives/:category/:id`
+  - Markdown rendering for descriptions
+  - Image gallery, YouTube embed (Animation only), credits, and CTA buttons
 - **Single Vue instance architecture**: Main app + MetaBall (sharing router/i18n/head)
 
 ### Internationalization
@@ -86,44 +99,59 @@ Portfolio items are centrally managed in this file with strict conventions:
 ## Development Guidelines
 
 ### Adding Portfolio Items
+
+**Basic creative (list view only)**:
 1. Add WebP image to `src/assets/creatives-thumb/[category]/`
 2. Import image statically in `creatives.js`
-3. Add item object to appropriate category array
+3. Add item object to appropriate category array with required fields:
+   - `id`, `title`, `description`, `url`, `thumbnail`, `tags`
 4. Add i18n keys to both `ja.json` and `en.json`
 5. Test both languages and image display
 
-### CreativeItem Component Modes
-**Animation Mode** (used in Creatives.vue):
-```vue
-<CreativeItem
-  :mode="'Animation'"
-  :url="'#'"
-  :title="$t('creatives.animation.tcuAnimation.title')"
-  :description="$t('creatives.animation.paragraph')"
-  :thumbnail="'#'"
-  :index="0"
-  :animationData="animationData"
-/>
-```
-- Renders as `<section>` element (full-width layout)
-- Includes YouTube iframe, metadata, credits, and action buttons
-- Responsive design with mobile optimizations
+**Creative with detail page**:
+6. Add `detail` object to item with optional fields:
+   - `images`: Array of image imports
+   - `descriptionMarkdown`: i18n key for Markdown description
+   - `youtube`: Object with `mobile` and `desktop` URLs (Animation only)
+   - `productionYear`: String
+   - `credits`: Array of i18n keys (format: "Label: Value")
+   - `cta`: Array of button objects
+7. Add `detailDescription` i18n key in `ja.json` and `en.json`
+8. Test detail page at `/creatives/[category]/[id]`
 
-**Card Modes** (Development/Illustration/Video):
+See `docs/ops/creatives-guide.md` for comprehensive examples
+
+### CreativeItem Component Usage
+All creative items use a consistent card layout with router-link to detail pages:
+
 ```vue
 <CreativeItem
-  v-for="(creative, index) in creativesData.development"
+  v-for="(creative, index) in creativesData.animation"
   :key="creative.id"
-  :mode="'Development'"
-  :url="creative.url"
+  :mode="'Animation'"
+  :category="'animation'"
+  :id="creative.id"
   :title="$t(creative.title)"
   :description="$t(creative.description)"
   :thumbnail="creative.thumbnail"
   :index="index"
+  :tags="creative.tags"
 />
 ```
+
+**Props**:
+- `category`: Category name (`animation`, `development`, `illustration`, `video`)
+- `id`: Creative ID (used for routing)
+- `mode`: Display mode (affects styling only)
+- `title`, `description`: i18n keys
+- `thumbnail`: Static imported image
+- `tags`: Array of tag strings
+
+**Behavior**:
 - Renders as `<li>` elements in grid layout
-- Standard card design with thumbnail, title, description, and external link icon
+- Uses `<router-link>` to navigate to `/creatives/:category/:id`
+- Displays thumbnail, title, description, and tags
+- Icon changes from `arrow-up-right-from-square` to `arrow-right` for internal navigation
 
 ### Component Development
 - **Primary**: Use Composition API with `<script setup>` syntax
@@ -142,11 +170,12 @@ Portfolio items are centrally managed in this file with strict conventions:
 
 ### Runtime Dependencies
 - **vue**: 3.3.2 - Core framework
-- **vue-router**: 4.2.0 - SPA routing
+- **vue-router**: 4.2.0 - SPA routing with dynamic routes
 - **vue-i18n**: 9.7.1 - Internationalization
 - **three**: 0.169.0 - 3D graphics library
 - **gsap**: 3.12.5 - Animation library
-- **@fortawesome/***: Icon system with selective imports (faArrowUpRightFromSquare, faPlay, faGlobe, etc.)
+- **marked**: Latest - Markdown rendering for creative detail pages
+- **@fortawesome/***: Icon system with selective imports (faArrowLeft, faArrowRight, faArrowUpRightFromSquare, faPlay, faGlobe, etc.)
 
 ### Build Dependencies
 - **vite**: 6.2.3 - Build tool and dev server (upgraded from 6.2.3)

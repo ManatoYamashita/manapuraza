@@ -1,9 +1,9 @@
 # デザインガイド
 
 ## カラーパレット
-- 背景: `--vt-c-yellow` `#f0d300`（グラデーション開始）, `--vt-c-yellow-strong` `#d7a800`（終了）。
-- アクセント/プライマリ: `--vt-c-blue` `#4faef2`（`--mpuraza-acsent`, `--primary-color`）。
-- ベース: `--vt-c-black` `#181818`, `--vt-c-white-soft` `#f8f8f8`, `--vt-c-white-mute` `#f2f2f2`.
+- 背景: `--manapuraza-yellow` `#f0d300`（メインイエロー）, `--manapuraza-yellow-strong` `#d7a800`（濃いイエロー）。
+- アクセント/プライマリ: `--manapuraza-acsent` および `--manapuraza-primary-color` は `--manapuraza-yellow` を参照（統一イエロー）。
+- ベース: `--manapuraza-black` `#181818`, `--manapuraza-white-soft` `#f8f8f8`, `--manapuraza-white-mute` `#f2f2f2`.
 - 文字色: `#111` を基本。リンク hover はアクセントで強調。
 
 ## タイポグラフィ
@@ -12,7 +12,7 @@
 - テキストは `locales/` 経由で管理し、直書きを避ける。
 
 ## レイアウトと背景
-- 背景はイエロー系の135°グラデーション（`var(--vt-c-yellow)`→`var(--vt-c-yellow-strong)`）。
+- 背景は単色イエロー（`var(--manapuraza-yellow)` `#f0d300`）。点滅を避けるため、グラデーションは使用しない。
 - `App.vue` がルーティング枠を持ち、各ビューはコンテンツのみを描画。`#back` に MetaBall を固定配置。
 - 余白: body padding 1rem を基準に、セクションは内側で適宜調整。
 

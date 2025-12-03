@@ -1,0 +1,32 @@
+# MANAPURAZA.COM
+
+> 山下マナトのWebポートフォリオSPA。Vue 3 + Vite、Three.js背景、Vue Router/i18nでja/en対応。主要ページ: `/`, `/about`, `/creatives`, `/contact`。
+
+静的ホスティング向けにビルドし、Three.js背景は`requestIdleCallback`で遅延読込、英語ロケールやメインCSSも初期描画後にロードします。データは`src/data/creatives.js`で一元管理し、画像はWebP固定・静的インポート必須です。Vue SFCは`<script setup>`推奨、ナビゲーションはVue Router HTML5 History、i18nは`ja`同期・`en`遅延の二段構成です。
+
+## Core docs
+- [README](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/README.md): プロジェクト概要、起動/ビルド手順、構成図。
+- [CLAUDE.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/CLAUDE.md): 開発ガイドと主要コンポーネント・依存。
+- [docs/index.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/index.md): ドキュメント索引と命名/配置ルール。
+- [docs/dev/architecture.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/dev/architecture.md): エントリ/初期化/責務分離とフォールバック方針。
+- [docs/dev/frontend-guidelines.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/dev/frontend-guidelines.md): Vue SFC規約、ルーティング、i18n、新規ページ追加手順。
+- [docs/dev/performance-and-build.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/dev/performance-and-build.md): 遅延ロード、コード分割、Three.js対応、ビルド設定。
+- [docs/dev/security-and-seo.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/dev/security-and-seo.md): セキュリティ、アクセシビリティ、SEO/構造化データ。
+- [docs/dev/coding-standards.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/dev/coding-standards.md): コーディングスタイルとレビュー/コミット基本。
+
+## Data & i18n
+- [docs/ops/creatives-guide.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/ops/creatives-guide.md): `src/data/creatives.js`の管理手順とチェック項目。
+- [src/data/creatives.js](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/src/data/creatives.js): ポートフォリオデータ本体（静的インポート前提）。
+- [locales/ja.json](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/locales/ja.json): 日本語翻訳キー。
+- [locales/en.json](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/locales/en.json): 英語翻訳キー（遅延ロード用）。
+
+## Operations
+- [docs/ops/deployment-checklist.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/ops/deployment-checklist.md): デプロイ前後チェックとトラブルシュート。
+- [docs/ops/branch.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/ops/branch.md): ブランチ戦略、CI/CD、コミットメッセージ規約。
+- [public/robots.txt](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/public/robots.txt): クローラーポリシー。
+- [public/sitemap.xml](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/public/sitemap.xml): サイトマップ。
+
+## Optional
+- [docs/analytics/ga4-setup.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/analytics/ga4-setup.md): GA4セットアップ（GTM経由）。
+- [docs/analytics/ga4-vue-integration.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/analytics/ga4-vue-integration.md): Vue×GA4実装ガイド。
+- [docs/standards/design.md](https://raw.githubusercontent.com/ManatoYamashita/manapuraza/main/docs/standards/design.md): デザイン指針（カラー/フォント/モーション）。

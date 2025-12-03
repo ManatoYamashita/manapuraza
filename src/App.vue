@@ -26,9 +26,9 @@
     <!-- ホームページ専用メニュー項目（中央ロゴの下） -->
     <transition name="home-menu-fade">
       <nav class="home-nav-links" v-show="isHomePage">
-        <RouterLink to="/about" class="home-nav-link">About</RouterLink>
-        <RouterLink to="/creatives" class="home-nav-link">Creatives</RouterLink>
-        <RouterLink to="/contact" class="home-nav-link">Contact</RouterLink>
+        <RouterLink to="/about" class="home-nav-link">{{ $t('navbar.menu.about') }}</RouterLink>
+        <RouterLink to="/creatives" class="home-nav-link">{{ $t('navbar.menu.creatives') }}</RouterLink>
+        <RouterLink to="/contact" class="home-nav-link">{{ $t('navbar.menu.contact') }}</RouterLink>
       </nav>
     </transition>
   
@@ -247,11 +247,11 @@
     opacity: 0 !important;
   }
   .app {
-    width: 85vw;
+    min-width: 85vw;
     height: 80vh;
     max-width: 1280px;
     max-height: 80vh;
-    padding: 2rem 2rem 0 2rem;
+    /* padding: 2rem 2rem 0 2rem; */
     margin: 1rem auto;
     border-radius: 10px;
     transition: .5s ease-in-out;
@@ -264,10 +264,10 @@
     border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
     border-right-color: rgba(255, 255, 255, 0.2);
     border-bottom-color: rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
+    border-radius: 28px;
     -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
     backdrop-filter: blur(20px);
-    box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14), 0 1px 4px rgba(0, 0, 0, 0.06); /* 柔らかい二段影 */
     color: #111; /* ガラス上のテキストは濃色で可読性を担保 */
   }
   #scrollable-aria {
@@ -337,11 +337,11 @@
   .progress-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #4faef2, #ff984f, #4faef2);
+    background: linear-gradient(90deg, #f0d300, #ff984f, #f0d300);
     background-size: 200% 100%;
     animation: gradient-wave 1.5s ease-in-out infinite;
     border-radius: 0 2px 2px 0;
-    box-shadow: 0 0 10px rgba(79, 174, 242, 0.6);
+    box-shadow: 0 0 10px rgba(240, 211, 0, 0.6);
     transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
@@ -395,7 +395,7 @@
   @media (max-width: 540px) {
     #main {
       display: block;
-      overflow: hidden;
+      /* overflow: hidden; */
       pointer-events: none;
     }
     #center-logo {
@@ -403,7 +403,7 @@
       width: 60%;
     }
     .app {
-      width: 90vw;
+      /* width: 90vw; */
       height: 70vh;
       padding: 1rem 0;
       margin: 1rem auto;
@@ -448,8 +448,8 @@
   }
 
   .home-nav-link:hover {
-    color: skyblue;
-    text-shadow: #4faef2 0 0px 1rem;
+    color: #d7a800;
+    text-shadow: #f0d300 0 0px 1rem;
     animation: glow 0.3s ease-in-out infinite alternate;
   }
 

@@ -103,7 +103,7 @@
     margin: 0;
     width: 3rem;
     height: 3rem;
-    background: var(--vt-c-blue);
+    background: var(--manapuraza-acsent);
     border-radius: 1.625rem;
     }
 

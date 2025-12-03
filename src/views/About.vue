@@ -129,7 +129,7 @@
   main.about {
     width: 100%;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 3rem;
     pointer-events: all;
   }
 </style>

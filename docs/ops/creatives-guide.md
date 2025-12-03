@@ -1,35 +1,213 @@
 # Creatives データ管理手順
 
-対象: `src/data/creatives.js`（Programming / Graphics / Video の作品データ）
+対象: `src/data/creatives.js`（Animation / Development / Illustration / Video の作品データ）
 
 ## データ構造
-- `programming` / `graphics` / `video` の各配列を持つ。
-- 各要素:
-  - `id`: 一意な `kebab-case`
-  - `title`: i18nキー（例: `creatives.prog.foo.title`）
-  - `description`: i18nキー（例: `creatives.prog.foo.description`）
-  - `url`: 作品URL（`https://` 推奨）
-  - `thumbnail`: 静的 import したサムネイル変数
+
+### カテゴリ
+- `animation`: アニメーション作品
+- `development`: Web開発/プログラミング作品
+- `illustration`: イラスト/グラフィック作品
+- `video`: 動画作品
+
+### 必須フィールド
+各作品オブジェクトは以下のフィールドを持つ：
+
+- `id`: 一意な `kebab-case` 識別子
+- `title`: i18n キー（例: `creatives.dev.manapuraza.title`）
+- `description`: i18n キー（例: `creatives.dev.manapuraza.description`）
+- `url`: 作品の外部 URL（`https://` 推奨）
+- `thumbnail`: 静的 import したサムネイル変数
+- `tags`: タグの配列（例: `['Vue.js', 'Vite', 'Three.js']`）
+
+### オプション: detail オブジェクト
+詳細ページ（`/creatives/:category/:id`）用の追加情報：
+
+```javascript
+detail: {
+  images: [image1, image2, ...],           // 作品画像配列（1枚以上）
+  descriptionMarkdown: 'i18nキー',          // Markdown形式の詳細説明
+  youtube: {                               // Animation専用: YouTube動画URL
+    mobile: 'https://youtube.com/embed/...',
+    desktop: 'https://youtube.com/embed/...'
+  },
+  productionYear: '2024~2025',             // 制作年
+  credits: ['i18nキー1', 'i18nキー2'],       // クレジット情報
+  cta: [                                   // CTAボタン配列
+    {
+      href: 'https://...',
+      target: '_blank',
+      icon: ['fas', 'arrow-up-right-from-square'],
+      text: 'i18nキー',
+      subText: 'i18nキー',
+      variant: 'primary' // or 'secondary'
+    }
+  ]
+}
+```
+
+### Fallback動作
+`detail` オブジェクトが存在しない場合、`detailDefaults` により以下の fallback が適用される：
+
+- `images`: `[thumbnail]` を使用
+- `descriptionMarkdown`: `description` を使用
+- `youtube`: `null`（表示されない）
+- `productionYear`: 空文字列
+- `credits`: 空配列
+- `cta`: `url` への単一のプライマリボタン
 
 ## 追加手順
-1. 画像追加: `src/assets/creatives-thumb/{prog|graphics|video}/` に WebP を配置（`kebab-case.webp`）。
-2. 画像 import: `creatives.js` 先頭で静的 import する。
-3. データ追記: 該当カテゴリ配列へオブジェクトを追加。`id` と i18nキーは揃える。
-4. 翻訳追加: `locales/ja.json` と `locales/en.json` に `title` / `description` を追加。
-5. 動作確認: 画面で表示・リンク・コンソールエラーを確認。
+
+### 基本的な作品追加（詳細ページなし）
+
+1. **画像追加**: `src/assets/creatives-thumb/{category}/` に WebP を配置（`kebab-case.webp`）
+   - カテゴリ: `animation`, `development`, `illustration`, `video`
+
+2. **画像 import**: `creatives.js` 先頭で静的 import
+   ```javascript
+   import myWorkImg from '@/assets/creatives-thumb/development/my-work.webp';
+   ```
+
+3. **データ追記**: 該当カテゴリ配列へオブジェクトを追加
+   ```javascript
+   {
+     id: 'my-work',
+     title: 'creatives.dev.myWork.title',
+     description: 'creatives.dev.myWork.description',
+     url: 'https://example.com',
+     thumbnail: myWorkImg,
+     tags: ['Next.js', 'TypeScript']
+   }
+   ```
+
+4. **翻訳追加**: `locales/ja.json` と `locales/en.json` に追加
+   ```json
+   {
+     "creatives": {
+       "dev": {
+         "myWork": {
+           "title": "作品タイトル",
+           "description": "作品の説明文"
+         }
+       }
+     }
+   }
+   ```
+
+5. **動作確認**: `/creatives` で表示を確認
+
+### 詳細ページ付き作品追加
+
+上記1-4に加えて：
+
+6. **detail オブジェクト追加**:
+   ```javascript
+   {
+     id: 'my-work',
+     // ... 基本フィールド ...
+     detail: {
+       images: [myWorkImg, myWorkImg2],
+       descriptionMarkdown: 'creatives.dev.myWork.detailDescription',
+       productionYear: '2025',
+       credits: [
+         'creatives.dev.myWork.credits.production',
+         'creatives.dev.myWork.credits.director'
+       ],
+       cta: [
+         {
+           href: 'https://github.com/...',
+           target: '_blank',
+           icon: ['fas', 'arrow-up-right-from-square'],
+           text: 'creatives.common.viewProject',
+           subText: 'creatives.common.github',
+           variant: 'primary'
+         }
+       ]
+     }
+   }
+   ```
+
+7. **Markdown 説明文追加**: `locales/ja.json` と `locales/en.json`
+   ```json
+   {
+     "creatives": {
+       "dev": {
+         "myWork": {
+           "detailDescription": "## 概要\n\n詳細な説明...\n\n## 技術スタック\n\n- Vue.js 3\n- Vite"
+         }
+       }
+     }
+   }
+   ```
+
+8. **クレジット翻訳追加**: コロン区切りで「ラベル: 値」形式
+   ```json
+   {
+     "creatives": {
+       "dev": {
+         "myWork": {
+           "credits": {
+             "production": "制作: 会社名",
+             "director": "ディレクター: 山田太郎"
+           }
+         }
+       }
+     }
+   }
+   ```
+
+9. **動作確認**: `/creatives/development/my-work` で詳細ページを確認
+
+### Animation 作品の YouTube 追加
+
+Animation カテゴリの作品は、`detail.youtube` で動画を埋め込める：
+
+```javascript
+detail: {
+  youtube: {
+    mobile: 'https://www.youtube.com/embed/VIDEO_ID?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=VIDEO_ID',
+    desktop: 'https://www.youtube.com/embed/VIDEO_ID?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=VIDEO_ID'
+  },
+  // ... その他のフィールド ...
+}
+```
 
 ## 命名・品質チェック
-- `id` は推測可能な語で `kebab-case`、重複禁止。
-- サムネイルは 16:9 推奨。動的パス禁止、必ず静的 import。
-- URL は信頼できる外部先か確認し、原則 `https`。
-- すべての言語でキーが存在すること（ダングリングキー禁止）。
+
+- `id` は推測可能な語で `kebab-case`、カテゴリ内で重複禁止
+- サムネイルは 16:9 推奨。動的パス禁止、必ず静的 import
+- URL は信頼できる外部先か確認し、原則 `https`
+- すべての言語でキーが存在すること（ダングリングキー禁止）
+- Markdown 説明文は `##` で見出しを使用、改行は `\n\n` で段落分け
+- クレジットは「ラベル: 値」形式（コロンで区切る）
+- CTA の `variant` は `'primary'` または `'secondary'` のみ
 
 ## よくある不具合
-- 画像が出ない: 動的パスになっていないか、静的 import を確認。
-- 翻訳が出ない: i18nキーのタイプミスや `ja/en` 追加漏れを確認。
-- トリミング崩れ: サムネイルを中心クロップの16:9で用意する。
+
+- **画像が出ない**: 動的パスになっていないか、静的 import を確認
+- **翻訳が出ない**: i18n キーのタイプミスや `ja/en` 追加漏れを確認
+- **トリミング崩れ**: サムネイルを中心クロップの 16:9 で用意する
+- **詳細ページが 404**: `id` が URL と一致しているか、カテゴリが正しいか確認
+- **Markdown が表示されない**: `detailDescription` キーが存在するか、`marked` がインストールされているか確認
+- **YouTube が表示されない**: `detail.youtube` が null でないか、iframe URL が正しいか確認
+
+## ルーティング
+
+- 一覧ページ: `/creatives`
+- 詳細ページ: `/creatives/:category/:id`
+  - 例: `/creatives/animation/tcu-animation`
+  - 例: `/creatives/development/manapuraza`
 
 ## 参照コード
-- データ: `src/data/creatives.js`
-- 表示: `src/views/Creatives.vue`
-- アイテム描画: `src/components/CreativeItem.vue`
+
+- **データ**: `src/data/creatives.js`
+- **一覧表示**: `src/views/Creatives.vue`
+- **詳細ページ**: `src/views/CreativeDetail.vue`
+- **カード描画**: `src/components/CreativeItem.vue`
+- **ルーティング**: `src/router/index.js` (動的ルート `/creatives/:category/:id`)
+
+## 依存ライブラリ
+
+- **marked**: Markdown レンダリング（詳細ページの説明文用）
+  - インストール: `npm install marked`
+  - 使用箇所: `src/views/CreativeDetail.vue`

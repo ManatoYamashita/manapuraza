@@ -4,33 +4,44 @@
       <div class="hero-text">
         <h1>Creatives <span>based on</span> <span class="highlight">Design</span></h1>
         <p class="hero-description">{{ $t('creatives.paragraph') }}</p>
-        <div class="cta-button">
-          <Btn 
-            @click="toggleDropdown"
-            :text="'Explore Now'" 
-            :showArrow="true"
-            :alt="'コンテンツを探索する'"
-          />
-          
-          <!-- プルダウンメニュー -->
-          <div class="dropdown-menu" v-if="isDropdownOpen">
-            <a href="#animation" class="dropdown-item" @click="closeDropdown">
-              <span class="dropdown-text">Animation</span>
-              <font-awesome-icon :icon="['fas', 'film']" class="dropdown-icon" />
-            </a>
-            <a href="#programming" class="dropdown-item" @click="closeDropdown">
-              <span class="dropdown-text">Programming / Web</span>
-              <font-awesome-icon :icon="['fas', 'code']" class="dropdown-icon" />
-            </a>
-            <a href="#graphics" class="dropdown-item" @click="closeDropdown">
-              <span class="dropdown-text">Illustration / Graphics</span>
-              <font-awesome-icon :icon="['fas', 'palette']" class="dropdown-icon" />
-            </a>
-            <a href="#video" class="dropdown-item" @click="closeDropdown">
-              <span class="dropdown-text">Video / Animation</span>
-              <font-awesome-icon :icon="['fas', 'video']" class="dropdown-icon" />
-            </a>
-          </div>
+
+        <!-- カテゴリフィルターボタン -->
+        <div class="category-filters">
+          <button
+            @click="setFilter('all')"
+            :class="['filter-tag', { active: activeFilter === 'all' }]"
+          >
+            <fa :icon="['fas', 'th']" class="tag-icon" />
+            <span>All</span>
+          </button>
+          <button
+            @click="setFilter('animation')"
+            :class="['filter-tag', { active: activeFilter === 'animation' }]"
+          >
+            <fa :icon="['fas', 'film']" class="tag-icon" />
+            <span>Anime</span>
+          </button>
+          <button
+            @click="setFilter('development')"
+            :class="['filter-tag', { active: activeFilter === 'development' }]"
+          >
+            <fa :icon="['fas', 'code']" class="tag-icon" />
+            <span>Dev</span>
+          </button>
+          <button
+            @click="setFilter('illustration')"
+            :class="['filter-tag', { active: activeFilter === 'illustration' }]"
+          >
+            <fa :icon="['fas', 'palette']" class="tag-icon" />
+            <span>Illust</span>
+          </button>
+          <button
+            @click="setFilter('video')"
+            :class="['filter-tag', { active: activeFilter === 'video' }]"
+          >
+            <fa :icon="['fas', 'video']" class="tag-icon" />
+            <span>Video</span>
+          </button>
         </div>
       </div>
       <div class="hero-visual">
@@ -44,19 +55,17 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import Btn from '@/components/Btn.vue';
 
-// ドロップダウンの状態管理
-const isDropdownOpen = ref(false);
+// フィルター状態管理
+const activeFilter = ref('all');
 
-// ドロップダウンの表示/非表示を切り替える
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value;
-};
+// Emit定義
+const emit = defineEmits(['filter-change']);
 
-// ドロップダウンを閉じる
-const closeDropdown = () => {
-  isDropdownOpen.value = false;
+// フィルター設定関数
+const setFilter = (category) => {
+  activeFilter.value = category;
+  emit('filter-change', category); // 親コンポーネント（Creatives.vue）に通知
 };
 
 onMounted(async () => {
@@ -149,7 +158,7 @@ onMounted(async () => {
 }
 
 .hero-text h1 .highlight {
-  color: #4399BB;
+  color: #f0d300; /* Primary Yellow */
   position: relative;
 }
 
@@ -161,64 +170,46 @@ onMounted(async () => {
   color: #333;
 }
 
-.cta-button {
-  margin-top: 1.5rem;
-  position: relative;
-}
-
-/* ドロップダウンメニューのスタイル */
-.dropdown-menu {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 0;
-  width: 280px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  overflow: hidden;
-  opacity: 0;
-  animation: fadeInDropdown 0.3s ease-out forwards;
-}
-
-@keyframes fadeInDropdown {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.dropdown-item {
+/* カテゴリフィルターボタン */
+.category-filters {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  margin-top: 2rem;
+}
+
+.filter-tag {
+  display: inline-flex;
   align-items: center;
-  padding: 15px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  text-decoration: none;
-  color: inherit;
-}
-
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.dropdown-item:hover {
-  background-color: rgba(67, 153, 187, 0.1);
-}
-
-.dropdown-text {
-  font-size: 1rem;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(240, 211, 0, 0.15); /* Primary Yellow 半透明 */
+  border: 2px solid rgba(240, 211, 0, 0.4);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.dropdown-icon {
-  color: #4399BB;
-  font-size: 1.2rem;
+.filter-tag:hover {
+  background: rgba(240, 211, 0, 0.25);
+  border-color: rgba(240, 211, 0, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(240, 211, 0, 0.2);
+}
+
+.filter-tag.active {
+  background: #f0d300; /* Primary Yellow ソリッド */
+  border-color: #d7a800;
+  color: #000;
+  font-weight: 700;
+}
+
+.tag-icon {
+  font-size: 1rem;
 }
 
 .hero-visual {
@@ -269,35 +260,22 @@ onMounted(async () => {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-text h1 {
     font-size: 2.4rem;
   }
-  
+
   .hero-description {
     margin: 0 auto 2rem auto;
   }
-  
+
   .sphere-container {
     width: 200px;
     height: 200px;
   }
-  
-  .dropdown-menu {
-    left: 50%;
-    transform: translateX(-50%);
-    animation: fadeInDropdownMobile 0.3s ease-out forwards;
-  }
-  
-  @keyframes fadeInDropdownMobile {
-    from {
-      opacity: 0;
-      transform: translateX(-50%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(-50%);
-    }
+
+  .category-filters {
+    justify-content: center;
   }
 }
 
@@ -305,17 +283,17 @@ onMounted(async () => {
   .hero-section {
     padding: 2rem 1rem;
   }
-  
+
   .hero-text h1 {
     font-size: 2rem;
   }
-  
+
   .sphere-container {
     width: 150px;
     height: 150px;
   }
 
-  /* 要素順序: h1 → sphere → p → CTA（モバイル時） */
+  /* 要素順序: h1 → sphere → p → filters（モバイル時） */
   .hero-content {
     display: grid;
     grid-template-columns: 1fr;
@@ -323,7 +301,7 @@ onMounted(async () => {
       "title"
       "sphere"
       "desc"
-      "cta";
+      "filters";
     justify-items: center;
     text-align: center;
     gap: 1.25rem;
@@ -348,9 +326,20 @@ onMounted(async () => {
     margin: 0 0 0.5rem 0;
   }
 
-  .cta-button {
-    grid-area: cta;
+  .category-filters {
+    grid-area: filters;
     margin-top: 0.25rem;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .filter-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .tag-icon {
+    font-size: 0.9rem;
   }
 }
 </style> 

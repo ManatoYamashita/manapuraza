@@ -1,69 +1,85 @@
 <template>
   <div class="creatives">
-    <CreativesHero />
+    <CreativesHero @filter-change="handleFilterChange" />
 
     <main>
       <div id="main-contents">
-        
+
         <!-- Animation Section -->
-        <CreativeItem
-          :mode="'Animation'"
-          :url="'#'"
-          :title="$t('creatives.animation.tcuAnimation.title')"
-          :description="$t('creatives.animation.paragraph')"
-          :thumbnail="'#'"
-          :index="0"
-          :animationData="animationData"
-        />
+        <section v-if="activeFilter === 'all' || activeFilter === 'animation'" id="animation">
+          <h2>Animation</h2>
+          <p>{{ $t('creatives.animation.paragraph') }}</p>
+          <ul>
+            <CreativeItem
+              v-for="(creative, index) in creativesData.animation"
+              :key="creative.id"
+              :mode="'Animation'"
+              :category="'animation'"
+              :id="creative.id"
+              :title="$t(creative.title)"
+              :description="$t(creative.description)"
+              :thumbnail="creative.thumbnail"
+              :index="index"
+              :tags="creative.tags"
+              :youtubeUrl="creative.detail?.youtube?.desktop || null"
+            />
+          </ul>
+        </section>
 
         <!-- Development Section -->
-        <section id="development">
+        <section v-if="activeFilter === 'all' || activeFilter === 'development'" id="development">
           <h2>Development</h2>
           <p>{{ $t('creatives.dev.paragraph') }}</p>
           <ul>
             <CreativeItem
               v-for="(creative, index) in randomizedDevelopment"
               :key="creative.id"
-              :url="creative.url"
+              :category="'development'"
+              :id="creative.id"
               :title="$t(creative.title)"
               :description="$t(creative.description)"
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Development'"
+              :tags="creative.tags"
             />
           </ul>
         </section>
 
-        <section id="illustration">
+        <section v-if="activeFilter === 'all' || activeFilter === 'illustration'" id="illustration">
           <h2>Illustration</h2>
           <p>{{ $t('creatives.illustration.paragraph') }}</p>
           <ul>
             <CreativeItem
               v-for="(creative, index) in creativesData.illustration"
               :key="creative.id"
-              :url="creative.url"
+              :category="'illustration'"
+              :id="creative.id"
               :title="$t(creative.title)"
               :description="$t(creative.description)"
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Illustration'"
+              :tags="creative.tags"
             />
           </ul>
         </section>
 
-        <section id="video">
+        <section v-if="activeFilter === 'all' || activeFilter === 'video'" id="video">
           <h2>Video</h2>
           <p>{{ $t('creatives.video.paragraph') }}</p>
           <ul>
             <CreativeItem
               v-for="(creative, index) in creativesData.video"
               :key="creative.id"
-              :url="creative.url"
+              :category="'video'"
+              :id="creative.id"
               :title="$t(creative.title)"
               :description="$t(creative.description)"
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Video'"
+              :tags="creative.tags"
             />
           </ul>
         </section>
@@ -88,11 +104,39 @@
   import CreativeItem from '@/components/CreativeItem.vue';
   import CreativesHero from '@/components/CreativesHero.vue';
   import { creativesData } from '@/data/creatives';
-  import { computed } from 'vue';
+  import { computed, ref, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
 
   const { t, locale } = useI18n();
+
+  // フィルター状態管理
+  const activeFilter = ref('all');
+
+  // フィルター変更ハンドラー
+  const handleFilterChange = (category) => {
+    activeFilter.value = category;
+
+    // DOM更新完了後にスクロール実行
+    nextTick(() => {
+      if (category === 'all') {
+        // 'All'の場合はページトップにスクロール
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      } else {
+        // 特定カテゴリーの場合は該当セクションにスクロール
+        const section = document.getElementById(category);
+        if (section) {
+          section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'  // セクションの上端を表示エリアの上端に配置
+          });
+        }
+      }
+    });
+  };
 
   // SEOメタタグ設定
   useHead({
@@ -235,45 +279,6 @@
     return shuffleArray(items);
   });
 
-  // Animation section用のデータ
-  const animationData = computed(() => ({
-    videoUrls: { 
-      mobile: 'https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M',
-      desktop: 'https://www.youtube.com/embed/hdK1_B_Mef8?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=hdK1_B_Mef8'
-    },
-    credits: [
-      t('creatives.animation.tcuAnimation.description.production'),
-      t('creatives.animation.tcuAnimation.description.director'),
-      t('creatives.animation.tcuAnimation.description.animationProduction'),
-      t('creatives.animation.tcuAnimation.description.productionSupport'),
-      t('creatives.animation.tcuAnimation.description.voiceActors'),
-      t('creatives.animation.tcuAnimation.description.websiteProduction')
-    ],
-    productionYear: '2024~2025',
-    titleLabel: t('creatives.animation.tcuAnimation.titleLabel'),
-    titleMain: t('creatives.animation.tcuAnimation.titleMain'),
-    buttons: [
-      {
-        href: 'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu',
-        target: '_blank',
-        icon: ['fas', 'play'],
-        text: t('creatives.animation.tcuAnimation.watchMain'),
-        subText: t('creatives.animation.tcuAnimation.watchSub'),
-        alt: '本編動画を見る（世田谷区公式YouTube）',
-        variant: 'primary'
-      },
-      {
-        href: 'https://tcu-animation.jp',
-        target: '_blank',
-        icon: ['fas', 'globe'],
-        text: t('creatives.animation.tcuAnimation.siteMain'),
-        subText: t('creatives.animation.tcuAnimation.siteSub'),
-        alt: '公式サイトへ（都市大アニメーション）',
-        variant: 'secondary'
-      }
-    ]
-  }));
-
 
 </script>
 
@@ -343,12 +348,20 @@
     text-decoration: none;
   }
   a:hover {
-    color: rgb(67, 153, 187);
+    color: #f0d300;
   }
 
-  /* Illustrationセクションの1列表示 */
+  /* Animation, Illustrationセクションの1列表示 */
+  #animation ul,
   #illustration ul {
     grid-template-columns: 1fr;
+  }
+
+  /* Animationセクションのサイズ縮小（50%程度） */
+  #animation ul {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* タブレット表示用 */
@@ -356,12 +369,23 @@
     ul {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    /* アニメーションセクションのサイズ調整 */
+    #animation ul {
+      max-width: 500px;
+      grid-template-columns: 1fr;
+    }
   }
 
   /* モバイル表示用 */
   @media screen and (max-width: 480px) {
     ul {
       grid-template-columns: 1fr;
+    }
+
+    /* アニメーションセクションは全幅表示 */
+    #animation ul {
+      max-width: 100%;
     }
   }
 </style>

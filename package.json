@@ -25,6 +25,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@vueuse/head": "^2.0.0",
     "gsap": "^3.12.5",
+    "marked": "^17.0.1",
     "three": "^0.169.0",
     "vue": "^3.3.2",
     "vue-i18n": "^9.7.1",
