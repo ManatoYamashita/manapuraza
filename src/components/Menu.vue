@@ -226,6 +226,13 @@ export default {
   animation: glow 0.3s ease-in-out infinite alternate;
 }
 
+/* アクティブページのグロー効果 */
+.nav-link.router-link-active {
+  color: #d7a800; /* 濃い黄色 */
+  text-shadow: #f0d300 0 0px 1rem, #f0d300 0 0px 2rem;
+  font-weight: 900; /* より強調 */
+}
+
 @keyframes glow {
   from {
     text-shadow: #f0d300 0 0px 1rem;
@@ -407,13 +414,15 @@ export default {
   left: 50%;
   bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
-  width: min(92%, 460px);
+  /* width: 85vw; */
+  width: 90vw;
+  max-width: 1280px;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 18px;
   backdrop-filter: blur(16px) saturate(150%);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14), 0 1px 4px rgba(0, 0, 0, 0.06);
   padding: 0.35rem;
   z-index: 100;
   overflow: hidden;
@@ -473,11 +482,11 @@ export default {
 @keyframes mobileFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(-50%) translateY(20px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 }
 

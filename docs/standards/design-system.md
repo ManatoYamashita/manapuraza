@@ -459,22 +459,38 @@ box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5);
 
 ```css
 :root {
-  --vt-c-yellow: #f0d300;
-  --vt-c-yellow-strong: #d7a800;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-  --vt-c-blue: #4faef2; /* 旧カラー・非推奨 */
-  --vt-c-black: #181818;
+  --manapuraza-yellow: #f0d300; /* メインイエロー */
+  --manapuraza-yellow-strong: #d7a800; /* 濃いイエロー */
+  --manapuraza-white-soft: #f8f8f8;
+  --manapuraza-white-mute: #f2f2f2;
+  --manapuraza-black: #181818;
   --color-background: #ffffff;
-  --mpuraza-acsent: var(--vt-c-yellow);
-  --primary-color: var(--vt-c-yellow);
+  --manapuraza-acsent: var(--manapuraza-yellow);
+  --manapuraza-primary-color: var(--manapuraza-yellow);
   --color-text: #111;
 }
 ```
 
+**注意**: `--vt-c-*` プレフィックスは廃止されました。全てのCSS変数は `--manapuraza-*` プレフィックスに統一されています。
+
 ---
 
 ## 14. 変更履歴
+
+### 2025年12月 - CSS変数命名規則統一
+
+**変更内容:**
+- CSS変数プレフィックスを `--vt-c-*` から `--manapuraza-*` に統一
+- 背景グラデーションを単色イエロー（`#f0d300`）に変更（点滅防止）
+- `--mpuraza-acsent` のスペルミスを `--manapuraza-acsent` に修正
+- 不要な `--vt-c-blue` 定義を削除
+
+**影響範囲:**
+- `index.html` (インラインCSS)
+- `src/assets/base.css`
+- `src/assets/main.css`
+- `src/views/UnderConstraction.vue`
+- `src/views/404.vue`
 
 ### 2025年11月 - メジャーリブランド
 

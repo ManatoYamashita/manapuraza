@@ -247,11 +247,11 @@
     opacity: 0 !important;
   }
   .app {
-    width: 85vw;
+    /* width: 85vw; */
     height: 80vh;
     max-width: 1280px;
     max-height: 80vh;
-    padding: 2rem 2rem 0 2rem;
+    /* padding: 2rem 2rem 0 2rem; */
     margin: 1rem auto;
     border-radius: 10px;
     transition: .5s ease-in-out;
@@ -264,10 +264,10 @@
     border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
     border-right-color: rgba(255, 255, 255, 0.2);
     border-bottom-color: rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
+    border-radius: 28px;
     -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
     backdrop-filter: blur(20px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16); /* 自然なニュートラル影 */
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14), 0 1px 4px rgba(0, 0, 0, 0.06); /* 柔らかい二段影 */
     color: #111; /* ガラス上のテキストは濃色で可読性を担保 */
   }
   #scrollable-aria {
@@ -395,7 +395,7 @@
   @media (max-width: 540px) {
     #main {
       display: block;
-      overflow: hidden;
+      /* overflow: hidden; */
       pointer-events: none;
     }
     #center-logo {
@@ -403,7 +403,7 @@
       width: 60%;
     }
     .app {
-      width: 90vw;
+      /* width: 90vw; */
       height: 70vh;
       padding: 1rem 0;
       margin: 1rem auto;
