@@ -51,6 +51,16 @@
     },
 
     "creatives": {
+        "common": {
+            "viewProject": "View Project",
+            "github": "GitHub",
+            "backToList": "Back to List",
+            "productionYear": "Production Year",
+            "tags": "Tags",
+            "video": "Video",
+            "credits": "Credits",
+            "notFound": "Creative not found"
+        },
         "paragraph": "I have experience in commissioned work and paid requests, as well as hobbies in creating digital content (illustrations, animations, websites, etc.). I use my design skills as a foundation for my sense of creativity in web production, video editing, and illustration.",
         "animation": {
             "paragraph": "As a director, I created an original animation in collaboration with Setagaya Ward. I gathered 35 members, formed a volunteer group, and spent a year creating the setting, script, video, and music. With the cooperation of 81 Produce, we cast voice actors Kent Itou and Reina Ueda.",
@@ -71,7 +81,8 @@
                 "siteMain": "Landing Page",
                 "siteSub": "Tokyo City University Animation",
                 "titleLabel": "Official Animation of Setagaya City",
-                "titleMain": "Welcome to the New BOP!"
+                "titleMain": "Welcome to the New BOP!",
+                "detailDescription": "An original animation project created in collaboration with Setagaya Ward.\n\n## Project Overview\n\nGathered 35 members and formed 'Tokyo City University Animation'. Spent one year creating settings, scripts, video, and music.\n\n## Voice Cast\n\nWith the cooperation of 81 Produce, we cast the following talented voice actors:\n- **Kent Itou**\n- **Reina Ueda**\n\n## Production Philosophy\n\nTo convey the appeal of 'Shin-BOP', a new after-school place for children in Setagaya Ward, we expressed it through animation."
             }
         },
 
@@ -79,7 +90,8 @@
         "paragraph": "I have not only learned the basics of C language, Java language, and information science in the Department of Information Science, but also acquired web technology through self-study and engaged in web production as a hobby and commissioned work. Web frontend using Typescript, Next.js, Nuxt, and GSAP is my strongest area.",
         "manapuraza": {
             "title": "manapuraza.com",
-            "description": "A portfolio site showcasing some of my creative creative during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 + Vite 6, Typescript, Three.js, gsap. Responsive CI/CD (This site)"
+            "description": "A portfolio site showcasing some of my creative creative during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 + Vite 6, Typescript, Three.js, gsap. Responsive CI/CD (This site)",
+            "detailDescription": "A personal portfolio site built with Vue.js 3 + Vite 6.\n\n## Tech Stack\n\n- **Framework**: Vue.js 3 (Composition API)\n- **Build Tool**: Vite 6\n- **3D**: Three.js\n- **Animation**: GSAP\n\n## Features\n\n- Performance optimization (Code Splitting, Lazy Loading)\n- SEO optimization (Meta Tags, Structured Data)\n- Responsive design\n- i18n support (Japanese/English)"
         },
         "dcchanAi": {
             "title": "DC-chan AI",
@@ -206,5 +218,11 @@
       "title": "404",
       "notfound": "Not Found",
       "message": "The page you are looking for does not exist."
+    },
+    "underconstraction": {
+      "title": "Under Constraction",
+      "subtitle": "This page is under construction.",
+      "message": "We are preparing this page. Please check back soon.",
+      "back": "Do you want to study?"
     }
 }

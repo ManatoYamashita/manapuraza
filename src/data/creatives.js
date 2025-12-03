@@ -29,6 +29,58 @@ import manapurazaYoutubeImg from '@/assets/creatives-thumb/video/youtube-manapur
 import tcuDcYoutubeImg from '@/assets/creatives-thumb/video/youtube-tcudc.webp';
 
 export const creativesData = {
+
+   // アニメーション作品
+   animation: [
+     {
+       id: 'tcu-animation',  // 世田谷区オリジナルアニメ「新BOPへようこそ！」
+       title: 'creatives.animation.tcuAnimation.title',
+       description: 'creatives.animation.paragraph',
+       url: 'https://tcu-animation.jp',
+       thumbnail: tcuAnimationImg,
+       tags: ['Animation', 'Director', 'Setagaya Ward', 'Official'],
+
+       detail: {
+         images: [tcuAnimationImg],
+         descriptionMarkdown: 'creatives.animation.tcuAnimation.detailDescription',
+
+         youtube: {
+           mobile: 'https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M',
+           desktop: 'https://www.youtube.com/embed/hdK1_B_Mef8?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=hdK1_B_Mef8'
+         },
+
+         productionYear: '2024~2025',
+
+         credits: [
+           'creatives.animation.tcuAnimation.description.production',
+           'creatives.animation.tcuAnimation.description.director',
+           'creatives.animation.tcuAnimation.description.animationProduction',
+           'creatives.animation.tcuAnimation.description.productionSupport',
+           'creatives.animation.tcuAnimation.description.voiceActors',
+           'creatives.animation.tcuAnimation.description.websiteProduction'
+         ],
+
+         cta: [
+           {
+             href: 'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu',
+             target: '_blank',
+             icon: ['fas', 'play'],
+             text: 'creatives.animation.tcuAnimation.watchMain',
+             subText: 'creatives.animation.tcuAnimation.watchSub',
+             variant: 'primary'
+           },
+           {
+             href: 'https://tcu-animation.jp',
+             target: '_blank',
+             icon: ['fas', 'globe'],
+             text: 'creatives.animation.tcuAnimation.siteMain',
+             subText: 'creatives.animation.tcuAnimation.siteSub',
+             variant: 'secondary'
+           }
+         ]
+       }
+     }
+   ],
  
    // プログラミング / Web 作品
    development: [
@@ -38,7 +90,22 @@ export const creativesData = {
        description: 'creatives.dev.manapuraza.description',
        url: 'https://github.com/ManatoYamashita/manapuraza',
        thumbnail: manapurazaImg,
-       tags: ['Vue.js', 'Vite', 'Three.js', 'Portfolio']
+       tags: ['Vue.js', 'Vite', 'Three.js', 'Portfolio'],
+
+       detail: {
+         images: [manapurazaImg],
+         descriptionMarkdown: 'creatives.dev.manapuraza.detailDescription',
+         cta: [
+           {
+             href: 'https://github.com/ManatoYamashita/manapuraza',
+             target: '_blank',
+             icon: ['fas', 'arrow-up-right-from-square'],
+             text: 'creatives.common.viewProject',
+             subText: 'creatives.common.github',
+             variant: 'primary'
+           }
+         ]
+       }
      },
      {
        id: 'dcchan-net',  // でじこんちゃん.net
@@ -163,6 +230,27 @@ export const creativesData = {
    ]
 };
 
+/**
+ * 詳細ページのデフォルト値（fallback）
+ */
+export const detailDefaults = {
+  images: [],  // 空の場合は thumbnail を使用
+  descriptionMarkdown: '',  // 空の場合は description を使用
+  youtube: null,
+  productionYear: '',
+  credits: [],
+  cta: [
+    {
+      href: '',  // url を使用
+      target: '_blank',
+      icon: ['fas', 'arrow-up-right-from-square'],
+      text: 'creatives.common.viewProject',
+      subText: '',
+      variant: 'primary'
+    }
+  ]
+};
+
 // データ追加方法
 // 1. 画像ファイルを`assets/creatives-thumb/[category]/`に追加
 // 2. 作品データを`creatives.js`（このファイル）の`creativesData.[category]{}`に追加
@@ -171,12 +259,21 @@ export const creativesData = {
 //   c. 作品データの`description`は、作品の説明として使用されます。
 //   d. 作品データの`url`は、作品のURLとして使用されます。
 //   e. 作品データの`thumbnail`は、作品のサムネイル画像パスとして使用されます。（creatives.jpの冒頭で1で追加した画像をimport）
+//   f. 作品データの`detail`（オプション）は、詳細ページ用の追加データです。
+//     - `images`: 作品画像の配列（1枚以上）
+//     - `descriptionMarkdown`: Markdown形式の詳細説明文の翻訳キー
+//     - `youtube`: { mobile: 'URL', desktop: 'URL' } (Animation作品のみ)
+//     - `productionYear`: 制作年
+//     - `credits`: クレジット情報の翻訳キー配列
+//     - `cta`: CTAボタンの配列
 // 3. `/locales/ja.json`に作品データの`title`と`description`を追加
 //   a. 作品データの`title`は、作品のタイトルとして使用されます。
 //   b. 作品データの`description`は、作品の説明として使用されます。
+//   c. 作品データの`detailDescription`（オプション）は、詳細ページ用のMarkdown形式の説明文です。
 // 4. `/locales/en.json`に作品データの`title`と`description`を追加
 //   a. 作品データの`title`は、作品のタイトルとして使用されます。
 //   b. 作品データの`description`は、作品の説明として使用されます。
+//   c. 作品データの`detailDescription`（オプション）は、詳細ページ用のMarkdown形式の説明文です。
 
 
 

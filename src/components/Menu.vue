@@ -404,15 +404,19 @@ export default {
 /* モバイル下部メニュー */
 .mobile-bottom-menu {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  left: 50%;
+  bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: min(92%, 460px);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.35rem;
   z-index: 100;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .mobile-menu-list {
@@ -422,10 +426,14 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .mobile-menu-item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .mobile-menu-item:last-child {
@@ -434,23 +442,26 @@ export default {
 
 .mobile-menu-link {
   display: block;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.25rem;
   text-decoration: none;
-  color: #000;
+  color: #111;
   font-size: 1.1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
   text-align: center;
 }
 
 .mobile-menu-link:hover,
 .mobile-menu-link.router-link-active {
-  background-color: rgba(240, 211, 0, 0.1);
-  color: #d7a800;
+  background: rgba(240, 211, 0, 0.16);
+  color: #111;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .mobile-menu-link:active {
-  background-color: rgba(240, 211, 0, 0.2);
+  background: rgba(240, 211, 0, 0.22);
+  transform: translateY(1px);
 }
 
 /* フェードインアニメーション（初回表示用） */

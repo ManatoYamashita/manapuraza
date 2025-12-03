@@ -267,7 +267,7 @@
     border-radius: 15px;
     -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
     backdrop-filter: blur(20px);
-    box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16); /* 自然なニュートラル影 */
     color: #111; /* ガラス上のテキストは濃色で可読性を担保 */
   }
   #scrollable-aria {

@@ -4,7 +4,9 @@ import Home from '@/views/Home.vue'
 // コンポーネント高速プリロードシステム（ユーザー体験改善）
 const AboutComponent = () => import('../views/About.vue');
 const CreativesComponent = () => import('../views/Creatives.vue');
+const CreativeDetailComponent = () => import('../views/CreativeDetail.vue');
 const ContactComponent = () => import('../views/Contact.vue');
+const UnderConstractionComponent = () => import('../views/UnderConstraction.vue');
 const NotFoundComponent = () => import('../views/404.vue');
 
 // 初期化時にコンポーネントをプリロード（遅延軽減）
@@ -15,7 +17,9 @@ const preloadComponents = () => {
   schedule(() => {
     AboutComponent();
     CreativesComponent();
+    CreativeDetailComponent();
     ContactComponent();
+    UnderConstractionComponent();
     NotFoundComponent();
   });
 };
@@ -47,13 +51,32 @@ const router = createRouter({
       },
     },
     {
+      path: '/creatives/:category/:id',
+      name: 'creative-detail',
+      component: CreativeDetailComponent,
+      props: true,
+      beforeEnter: (to, from, next) => {
+        const validCategories = ['animation', 'development', 'illustration', 'video'];
+        if (!validCategories.includes(to.params.category)) {
+          next('/404');
+          return;
+        }
+        next();
+      }
+    },
+    {
       path: '/contact',
       name: 'contact',
       component: ContactComponent,
     },
-    { 
+    {
+      path: '/underconstraction',
+      name: 'underconstraction',
+      component: UnderConstractionComponent,
+    },
+    {
       path: '/:pathMatch(.*)*',
-      name: '404', 
+      name: '404',
       component: NotFoundComponent,
     },
   ]
