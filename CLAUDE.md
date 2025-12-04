@@ -64,7 +64,7 @@ Portfolio items are centrally managed in this file with strict conventions:
 - **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
 - **App.vue**: Progressive logo loading, main layout management
 - **Menu.vue**: Unified responsive navigation component (replaces Navbar.vue and SpNav.vue):
-  - Desktop: Flexbox layout with responsive logo sizing
+  - Desktop: Flexbox layout with responsive logo sizing, `white-space: nowrap` on nav links
   - Mobile: Circular floating menu at screen bottom with 1-second delay fade-in
   - Language toggle with vertical reading text (日本語/Eng display)
 - **CreativeItem.vue**: Unified portfolio card component
@@ -73,8 +73,11 @@ Portfolio items are centrally managed in this file with strict conventions:
   - Displays thumbnail, title, description, and tags
 - **CreativeDetail.vue**: Individual creative work detail page
   - URL pattern: `/creatives/:category/:id`
+  - **Layout**: 2-column Grid on desktop (≥769px): left column (images/videos), right column (description/metadata)
+  - **Responsive**: Single column on tablet/mobile (≤768px)
+  - **Structure**: Back link with arrow-left icon → Title → Tags (directly below title) → 2-column content → Fixed CTA footer
   - Markdown rendering for descriptions
-  - Image gallery, YouTube embed (Animation only), credits, and CTA buttons
+  - Image gallery (single column in left panel), YouTube embed (Animation only), credits, and CTA buttons
 - **Single Vue instance architecture**: Main app + MetaBall (sharing router/i18n/head)
 
 ### Internationalization

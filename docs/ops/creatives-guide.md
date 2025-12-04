@@ -206,6 +206,42 @@ detail: {
 - **カード描画**: `src/components/CreativeItem.vue`
 - **ルーティング**: `src/router/index.js` (動的ルート `/creatives/:category/:id`)
 
+## CreativeDetail ページレイアウト
+
+### デスクトップ表示（≥769px）
+- **2カラムGrid構造**:
+  - 左カラム: 画像ギャラリー（単一列）、YouTube動画（Animation専用）
+  - 右カラム: 説明文（Markdown）、制作年、クレジット情報
+- **ページ構造**:
+  1. 戻るリンク（`arrow-left`アイコン + テキスト）
+  2. タイトル
+  3. タグ（タイトル直下、ラベルなし）
+  4. 2カラムコンテンツ（`.content-wrapper`）
+  5. 固定CTAフッター（画面下部）
+
+### タブレット・モバイル表示（≤768px）
+- 単一カラムレイアウトに切り替え
+- 表示順: 戻るリンク → タイトル → タグ → 画像 → 動画 → 説明 → 制作年 → クレジット → CTA
+
+### CSS構造
+```css
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50:50配分 */
+  gap: 2.5rem;
+}
+
+.image-gallery {
+  grid-template-columns: 1fr; /* 左カラム用単一列 */
+}
+
+@media screen and (max-width: 768px) {
+  .content-wrapper {
+    grid-template-columns: 1fr; /* 単一カラム */
+  }
+}
+```
+
 ## 依存ライブラリ
 
 - **marked**: Markdown レンダリング（詳細ページの説明文用）
