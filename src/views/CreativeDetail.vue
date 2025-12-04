@@ -166,13 +166,66 @@
     isDesktop.value = e.matches;
   };
 
-  onMounted(() => {
+  onMounted(async () => {
     try {
       mediaQueryList = window.matchMedia('(min-width: 968px)');
       isDesktop.value = mediaQueryList.matches;
       mediaQueryList.addEventListener('change', handleMediaQueryChange);
+
+      // GSAP アニメーション（Contact.vueパターン踏襲）
+      const { gsap } = await import('gsap');
+
+      const tl = gsap.timeline();
+
+      // 1. 戻るボタン（最優先で表示）
+      tl.fromTo('.back-link',
+        { x: -20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }
+      );
+
+      // 2. タイトル
+      tl.fromTo('.creative-title',
+        { y: 15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+        '-=0.2'
+      );
+
+      // 3. タグ
+      tl.fromTo('.creative-tags',
+        { y: 10, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' },
+        '-=0.25'
+      );
+
+      // 4. 左カラム（画像ギャラリー）
+      tl.fromTo('.left-column',
+        { x: -30, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+        '-=0.2'
+      );
+
+      // 5. 右カラム（説明文・メタ情報）
+      tl.fromTo('.right-column > *',
+        { y: 15, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.45,
+          stagger: 0.06,
+          ease: 'power2.out'
+        },
+        '-=0.3'
+      );
+
+      // 6. CTAセクション（固定位置）
+      tl.fromTo('.cta-section',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' },
+        '-=0.2'
+      );
+
     } catch (error) {
-      console.error('Media query error:', error);
+      console.error('Animation or media query error:', error);
     }
   });
 
@@ -285,17 +338,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--manapuraza-yellow, #f0d300);
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
+    color: #2c2c2c;
+    text-decoration: none;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
   }
 
   .back-link:hover {
-    color: var(--manapuraza-yellow-strong, #d7a800);
-    text-shadow: var(--manapuraza-yellow, #f0d300) 0 0 1rem;
+    color: #555;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
   }
 
   .creative-title {

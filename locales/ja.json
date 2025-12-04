@@ -1,6 +1,6 @@
 {
     "navbar": {
-        "toggle": "日本語",
+        "selectLanguage": "言語を選択",
         "menu": {
             "about": "概要",
             "creatives": "作品紹介",
