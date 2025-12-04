@@ -6,16 +6,17 @@ import { createHead } from '@vueuse/head'
 
 // FontAwesomeを必要なものだけに絞り込み
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { 
-  faArrowUpRightFromSquare, 
-  faArrowRight, 
-  faFilm, 
-  faCode, 
-  faPalette, 
-  faVideo, 
-  faPlay, 
+import {
+  faArrowUpRightFromSquare,
+  faArrowRight,
+  faArrowLeft,
+  faFilm,
+  faCode,
+  faPalette,
+  faVideo,
+  faPlay,
   faGlobe,
-  faEnvelope, 
+  faEnvelope,
   faLink,
   faUsers,
   faShareNodes,
@@ -32,15 +33,16 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // アイコンをライブラリに追加
 library.add(
-  faLink, 
-  faEnvelope, 
-  faGithub, 
-  faTwitter, 
-  faLinkedin, 
-  faInstagram, 
-  faDiscord, 
-  faArrowUpRightFromSquare, 
+  faLink,
+  faEnvelope,
+  faGithub,
+  faTwitter,
+  faLinkedin,
+  faInstagram,
+  faDiscord,
+  faArrowUpRightFromSquare,
   faArrowRight,
+  faArrowLeft,
   faFilm,
   faCode,
   faPalette,

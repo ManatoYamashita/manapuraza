@@ -218,6 +218,7 @@ export default {
   position: relative;
   z-index: 11;
   pointer-events: auto !important;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
