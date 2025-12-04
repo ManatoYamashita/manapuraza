@@ -90,7 +90,7 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 export default {
-  name: 'Menu',
+  name: 'AppMenu',
   components: {
     RouterLink,
   },
@@ -413,7 +413,7 @@ export default {
 .mobile-bottom-menu {
   position: fixed;
   left: 50%;
-  bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   /* width: 85vw; */
   width: 90vw;
