@@ -1,6 +1,6 @@
 {
     "navbar": {
-      "toggle": "Eng",
+      "selectLanguage": "Select Language",
       "menu": {
         "about": "About",
         "creatives": "Creatives",

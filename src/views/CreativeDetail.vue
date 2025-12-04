@@ -338,17 +338,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--manapuraza-yellow, #f0d300);
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
+    color: #2c2c2c;
+    text-decoration: none;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
   }
 
   .back-link:hover {
-    color: var(--manapuraza-yellow-strong, #d7a800);
-    text-shadow: var(--manapuraza-yellow, #f0d300) 0 0 1rem;
+    color: #555;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
   }
 
   .creative-title {

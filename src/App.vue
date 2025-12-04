@@ -445,6 +445,7 @@
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease;
+    white-space: nowrap;
   }
 
   .home-nav-link:hover {

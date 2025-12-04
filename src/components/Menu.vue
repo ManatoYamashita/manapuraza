@@ -29,12 +29,41 @@
         </div>
       </transition>
 
-      <div class="lang-switch desktop-lang" :class="{ 'lang-switch-animate': isInitialLoad }">
-        <div class="toggle-switch vertical">
-          <input class="toggle-input" id="toggle-desktop" type="checkbox" @click="toggleLanguage">
-          <label class="toggle-label" for="toggle-desktop"></label>
-        </div>
-        <span class="current-lang vertical-text">{{ $i18n.locale.value === 'ja' ? '日本語' : 'Eng' }}</span>
+      <!-- 言語切り替えドロップダウン（デスクトップ） -->
+      <div class="lang-dropdown desktop-lang" ref="dropdownRef" v-show="currentPath !== '/'">
+        <button
+          class="lang-dropdown-toggle"
+          @click="toggleDropdown"
+          :aria-expanded="isDropdownOpen"
+          :aria-label="$t('navbar.selectLanguage')"
+        >
+          <fa :icon="['fas','globe']" class="globe-icon" />
+          <span class="current-lang-label">{{ currentLanguageLabel }}</span>
+          <fa
+            :icon="['fas','chevron-down']"
+            class="chevron-icon"
+            :class="{ 'rotated': isDropdownOpen }"
+          />
+        </button>
+
+        <transition name="dropdown-slide">
+          <ul class="lang-dropdown-menu" v-show="isDropdownOpen">
+            <li v-for="lang in languages" :key="lang.code">
+              <button
+                @click="selectLanguage(lang.code)"
+                :class="{ 'active': locale === lang.code }"
+                class="lang-option-btn"
+              >
+                <fa
+                  :icon="['fas','check']"
+                  class="check-icon"
+                  v-show="locale === lang.code"
+                />
+                <span>{{ lang.label }}</span>
+              </button>
+            </li>
+          </ul>
+        </transition>
       </div>
     </nav>
     
@@ -44,24 +73,53 @@
       <div class="mobile-header">
         <div class="logo">
           <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
-            <img 
-              src="@/assets/logo-low.webp" 
-              alt="manapuraza.com logo" 
-              loading="lazy" 
+            <img
+              src="@/assets/logo-low.webp"
+              alt="manapuraza.com logo"
+              loading="lazy"
               decoding="async"
-              class="logo-img-mobile" 
+              class="logo-img-mobile"
               v-show="currentPath !== '/'"
               @error="handleLogoError"
             />
           </RouterLink>
         </div>
-        
-        <div class="lang-switch mobile-lang" :class="{ 'lang-switch-animate': isInitialLoad }">
-          <span class="lang-label">{{ $t('navbar.toggle') }}</span>
-          <div class="toggle-switch">
-            <input class="toggle-input" id="toggle-mobile" type="checkbox" @click="toggleLanguage">
-            <label class="toggle-label" for="toggle-mobile"></label>
-          </div>
+
+        <!-- 言語切り替えドロップダウン（モバイル） -->
+        <div class="lang-dropdown mobile-lang" ref="dropdownRefMobile" v-show="currentPath !== '/'">
+          <button
+            class="lang-dropdown-toggle"
+            @click="toggleDropdown"
+            :aria-expanded="isDropdownOpen"
+            :aria-label="$t('navbar.selectLanguage')"
+          >
+            <fa :icon="['fas','globe']" class="globe-icon" />
+            <span class="current-lang-label">{{ currentLanguageLabel }}</span>
+            <fa
+              :icon="['fas','chevron-down']"
+              class="chevron-icon"
+              :class="{ 'rotated': isDropdownOpen }"
+            />
+          </button>
+
+          <transition name="dropdown-slide">
+            <ul class="lang-dropdown-menu" v-show="isDropdownOpen">
+              <li v-for="lang in languages" :key="lang.code">
+                <button
+                  @click="selectLanguage(lang.code)"
+                  :class="{ 'active': locale === lang.code }"
+                  class="lang-option-btn"
+                >
+                  <fa
+                    :icon="['fas','check']"
+                    class="check-icon"
+                    v-show="locale === lang.code"
+                  />
+                  <span>{{ lang.label }}</span>
+                </button>
+              </li>
+            </ul>
+          </transition>
         </div>
       </div>
 
@@ -84,9 +142,9 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { RouterLink } from "vue-router";
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 export default {
@@ -96,18 +154,79 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const { t, locale } = useI18n();
     const currentPath = ref(route.path);
     const isInitialLoad = ref(true);
+
+    // ドロップダウン状態管理
+    const isDropdownOpen = ref(false);
+    const dropdownRef = ref(null);
+    const dropdownRefMobile = ref(null);
+
+    // 言語リスト
+    const languages = [
+      { code: 'ja', label: '日本語' },
+      { code: 'en', label: 'English' }
+    ];
+
+    // 現在の言語ラベル
+    const currentLanguageLabel = computed(() => {
+      const current = languages.find(lang => lang.code === locale.value);
+      return current ? current.label : '日本語';
+    });
+
+    // ドロップダウン開閉
+    const toggleDropdown = () => {
+      isDropdownOpen.value = !isDropdownOpen.value;
+    };
+
+    // 言語選択
+    const selectLanguage = (langCode) => {
+      if (locale.value !== langCode) {
+        locale.value = langCode;
+      }
+      isDropdownOpen.value = false; // 自動クローズ
+    };
+
+    // 外側クリック検出
+    const handleClickOutside = (event) => {
+      if (dropdownRef.value && !dropdownRef.value.contains(event.target) &&
+          dropdownRefMobile.value && !dropdownRefMobile.value.contains(event.target)) {
+        isDropdownOpen.value = false;
+      }
+    };
+
+    // Escapeキーでクローズ
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && isDropdownOpen.value) {
+        isDropdownOpen.value = false;
+      }
+    };
 
     onMounted(() => {
       try {
         setTimeout(() => {
           isInitialLoad.value = false;
         }, 2000);
+
+        // イベントリスナー追加
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
+
+        // ルート変更時にドロップダウンをクローズ
+        router.afterEach(() => {
+          isDropdownOpen.value = false;
+        });
       } catch (error) {
         isInitialLoad.value = false;
       }
+    });
+
+    onUnmounted(() => {
+      // イベントリスナー削除
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     });
 
     const handleLogoError = (event) => {
@@ -122,29 +241,19 @@ export default {
       }
     };
 
-    const toggleLanguage = () => {
-      try {
-        if (locale && locale.value) {
-          // 修正: 'ja'なら'en'に、それ以外は'ja'に
-          locale.value = locale.value === 'ja' ? 'en' : 'ja';
-        }
-      } catch (error) {
-        const toggleLabel = document.querySelector('.toggle-label');
-        if (toggleLabel) {
-          toggleLabel.style.backgroundColor = '#ff4444';
-          setTimeout(() => {
-            toggleLabel.style.backgroundColor = '';
-          }, 1000);
-        }
-      }
-    };
-
     return {
       currentPath,
       isInitialLoad,
       handleLogoError,
-      toggleLanguage,
-      t
+      t,
+      locale,
+      isDropdownOpen,
+      dropdownRef,
+      dropdownRefMobile,
+      languages,
+      currentLanguageLabel,
+      toggleDropdown,
+      selectLanguage
     };
   },
   watch: {
@@ -269,123 +378,139 @@ export default {
   }
 }
 
-/* 言語切り替え */
-.lang-switch {
+/* 言語切り替えドロップダウン */
+.lang-dropdown {
+  position: relative;
+  flex: 0 0 auto;
+  z-index: 200;
+}
+
+.lang-dropdown-toggle {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
   align-items: center;
-  z-index: 2;
-  gap: 0;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 2px solid #111;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  color: #111;
+  font-size: 1rem;
 }
 
-.desktop-lang {
-  flex: 0 0 auto; /* 固定サイズ、縮小しない */
-  flex-direction: row;
-  align-items: center;
-  gap: 0;
-  margin-left: 0; /* ナビリンクとの間隔調整 */
+.lang-dropdown-toggle:hover {
+  background: #f0d300;
+  border-color: #d7a800;
+  transform: translateY(-2px);
 }
 
-.lang-switch-animate {
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: langSwitchFadeInUp 0.8s ease-out 1s forwards;
+.globe-icon {
+  font-size: 1.2rem;
 }
 
-@keyframes langSwitchFadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.lang-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.vertical-text {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  letter-spacing: 0.1em;
-  line-height: 1.2;
+.current-lang-label {
+  font-size: 1rem;
   white-space: nowrap;
 }
 
-
-.current-lang {
+.chevron-icon {
   font-size: 0.8rem;
-  font-weight: 600;
-  color: #333;
+  transition: transform 0.3s ease;
 }
 
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 24px;
-  margin: 10px;
+.chevron-icon.rotated {
+  transform: rotate(180deg);
 }
 
-.toggle-switch.vertical {
-  width: 24px;
-  height: 40px;
-}
-
-.toggle-switch .toggle-input {
-  display: none;
-}
-
-.toggle-switch .toggle-label {
+.lang-dropdown-menu {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 24px;
-  background-color: #BC002D;
-  border-radius: 34px;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 150px;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+}
+
+.lang-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.2s ease;
+  font-size: 1rem;
+  color: #111;
 }
 
-.toggle-switch.vertical .toggle-label {
-  width: 24px;
-  height: 40px;
+.lang-option-btn:hover {
+  background: #f0d300;
 }
 
-.toggle-switch .toggle-label::before {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  top: 2px;
-  left: 2px;
-  background-color: #fff;
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s;
+.lang-option-btn.active {
+  font-weight: bold;
+  background: #fef9e0;
 }
 
-.toggle-switch.vertical .toggle-label::before {
-  top: 2px;
-  left: 2px;
+.check-icon {
+  font-size: 0.9rem;
+  color: #d7a800;
+  flex-shrink: 0;
+  width: 1rem;
 }
 
-.toggle-switch .toggle-input:checked + .toggle-label {
-  background-color: #f0d300;
+/* ドロップダウンアニメーション */
+.dropdown-slide-enter-active,
+.dropdown-slide-leave-active {
+  transition: all 0.25s ease;
+  transform-origin: top center;
 }
 
-.toggle-switch .toggle-input:checked + .toggle-label::before {
-  transform: translateX(16px);
+.dropdown-slide-enter-from {
+  opacity: 0;
+  transform: translateY(-10px) scaleY(0.8);
 }
 
-.toggle-switch.vertical .toggle-input:checked + .toggle-label::before {
-  transform: translateY(16px);
+.dropdown-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scaleY(0.8);
+}
+
+/* デスクトップ言語切り替え */
+.desktop-lang {
+  margin-left: 0;
+}
+
+/* モバイル言語切り替え */
+.mobile-lang .current-lang-label {
+  display: inline;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+  /* モバイルで言語ラベルを非表示、地球アイコンのみ */
+  .mobile-lang .current-lang-label {
+    display: none;
+  }
+
+  .mobile-lang .lang-dropdown-toggle {
+    padding: 0.5rem;
+  }
+
+  .mobile-lang .lang-dropdown-menu {
+    min-width: 110px;
+  }
 }
 
 /* モバイルナビゲーション */
@@ -401,12 +526,6 @@ export default {
 
 .logo-img-mobile {
   width: 10rem;
-}
-
-.mobile-lang {
-  transform: scale(1.1);
-  flex-direction: row;
-  align-items: center;
 }
 
 /* モバイル下部メニュー */
@@ -491,8 +610,8 @@ export default {
   }
 }
 
-/* レスポンシブ対応 - 540px境界 */
-@media screen and (max-width: 540px) {
+/* レスポンシブ対応 - 768px境界 */
+@media screen and (max-width: 768px) {
   .desktop-nav {
     display: none;
   }
@@ -502,7 +621,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 541px) {
+@media screen and (min-width: 769px) {
   .mobile-nav {
     display: none;
   }
@@ -513,33 +632,14 @@ export default {
 }
 
 /* デスクトップロゴのレスポンシブサイズ調整 */
-@media screen and (min-width: 541px) and (max-width: 768px) {
-  .desktop-nav .logo {
-    max-width: clamp(150px, 35vw, 220px);
-  }
-}
-
-/* 760px辺りの特別対応（押しつぶし問題解決） */
-@media screen and (min-width: 541px) and (max-width: 800px) {
+@media screen and (min-width: 769px) and (max-width: 800px) {
   .desktop-nav {
     gap: 0.5rem; /* より狭い間隔 */
   }
-  
-  .desktop-nav .logo {
-    max-width: clamp(120px, 30vw, 180px);
-    min-width: 100px;
-  }
-}
 
-/* 720px辺りの更なる圧迫対応 */
-@media screen and (min-width: 541px) and (max-width: 720px) {
-  .desktop-nav {
-    gap: 0.25rem; /* さらに狭い間隔 */
-  }
-  
   .desktop-nav .logo {
-    max-width: clamp(100px, 25vw, 160px);
-    min-width: 80px; /* 極小でも視認性確保 */
+    max-width: clamp(150px, 35vw, 220px);
+    min-width: 120px;
   }
 }
 

@@ -16,6 +16,8 @@ import {
   faVideo,
   faPlay,
   faGlobe,
+  faChevronDown,
+  faCheck,
   faEnvelope,
   faLink,
   faUsers,
@@ -49,6 +51,8 @@ library.add(
   faVideo,
   faPlay,
   faGlobe,
+  faChevronDown,
+  faCheck,
   faUsers,
   faShareNodes,
   faCalendar
