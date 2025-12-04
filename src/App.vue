@@ -293,10 +293,10 @@
     opacity: 0;
   }
   .slide-enter-active {
-    animation: slide-in .2s cubic-bezier(0,.94,.57,1.02);
+    animation: slide-in .5s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
   .slide-leave-active {
-    animation: slide-out .2s cubic-bezier(0,.94,.57,1.02);
+    animation: slide-out .4s cubic-bezier(0.4, 0, 1, 1);
   }
 
   @keyframes slide-in {
