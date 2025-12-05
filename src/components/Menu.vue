@@ -69,7 +69,7 @@
     
 
     <!-- モバイルナビゲーション -->
-    <nav class="mobile-nav">
+    <nav class="mobile-nav" v-show="shouldShowMobileNav">
       <div class="mobile-header">
         <div class="logo">
           <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
@@ -159,6 +159,16 @@ export default {
     const currentPath = ref(route.path);
     const isInitialLoad = ref(true);
 
+    // モバイルメニューの表示判定（ホームページでは非表示）
+    const shouldShowMobileNav = computed(() => {
+      // ホームページでは常にモバイルメニューを非表示
+      // （App.vueの.home-nav-linksが表示されるため）
+      if (currentPath.value === '/') {
+        return false;
+      }
+      return true;
+    });
+
     // ドロップダウン状態管理
     const isDropdownOpen = ref(false);
     const dropdownRef = ref(null);
@@ -244,6 +254,7 @@ export default {
     return {
       currentPath,
       isInitialLoad,
+      shouldShowMobileNav,
       handleLogoError,
       t,
       locale,
@@ -282,7 +293,7 @@ export default {
 
 /* デスクトップナビゲーション */
 .desktop-nav {
-  display: flex;
+  display: none; /* デフォルトは非表示（モバイル優先） */
   justify-content: flex-start;
   align-items: center;
   height: 100%;
@@ -515,7 +526,7 @@ export default {
 
 /* モバイルナビゲーション */
 .mobile-nav {
-  display: none;
+  display: block; /* デフォルトは表示（モバイル優先） */
 }
 
 .mobile-header {
@@ -610,17 +621,7 @@ export default {
   }
 }
 
-/* レスポンシブ対応 - 768px境界 */
-@media screen and (max-width: 768px) {
-  .desktop-nav {
-    display: none;
-  }
-
-  .mobile-nav {
-    display: block;
-  }
-}
-
+/* レスポンシブ対応 - 768px境界で明確に切り替え */
 @media screen and (min-width: 769px) {
   .mobile-nav {
     display: none;
