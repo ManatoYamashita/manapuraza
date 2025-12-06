@@ -402,7 +402,7 @@ export default {
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 2px solid #111;
+  border: 1px solid #111; /* 1pxボーダー */
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -441,7 +441,7 @@ export default {
   right: 0;
   min-width: 150px;
   background: #fff;
-  border: 2px solid #111;
+  border: 1px solid #111; /* 1pxボーダー */
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 0.5rem 0;

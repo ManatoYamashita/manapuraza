@@ -29,6 +29,43 @@
         <RouterLink to="/about" class="home-nav-link">{{ $t('navbar.menu.about') }}</RouterLink>
         <RouterLink to="/creatives" class="home-nav-link">{{ $t('navbar.menu.creatives') }}</RouterLink>
         <RouterLink to="/contact" class="home-nav-link">{{ $t('navbar.menu.contact') }}</RouterLink>
+
+        <!-- 言語切り替えドロップダウン -->
+        <div class="home-lang-dropdown" ref="dropdownRef">
+          <button
+            class="home-lang-dropdown-toggle"
+            @click="toggleDropdown"
+            :aria-expanded="isDropdownOpen"
+            :aria-label="$t('navbar.selectLanguage')"
+          >
+            <fa :icon="['fas','globe']" class="globe-icon" />
+            <span class="current-lang-label">{{ currentLanguageLabel }}</span>
+            <fa
+              :icon="['fas','chevron-down']"
+              class="chevron-icon"
+              :class="{ 'rotated': isDropdownOpen }"
+            />
+          </button>
+
+          <transition name="dropdown-slide">
+            <ul class="home-lang-dropdown-menu" v-show="isDropdownOpen">
+              <li v-for="lang in languages" :key="lang.code">
+                <button
+                  @click="selectLanguage(lang.code)"
+                  :class="{ 'active': locale === lang.code }"
+                  class="home-lang-option-btn"
+                >
+                  <fa
+                    :icon="['fas','check']"
+                    class="check-icon"
+                    v-show="locale === lang.code"
+                  />
+                  <span>{{ lang.label }}</span>
+                </button>
+              </li>
+            </ul>
+          </transition>
+        </div>
       </nav>
     </transition>
   
@@ -50,13 +87,52 @@
 </template>
 
 <script type="text/javascript" setup>
-  import { watch, onMounted, computed, ref } from 'vue';
+  import { watch, onMounted, onUnmounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
   import Menu from '@/components/Menu.vue';
-  
+
   const route = useRoute();
   const router = useRouter();
+  const { t, locale } = useI18n();
   const isHomePage = ref(true);
+
+  // 言語切り替えドロップダウン管理
+  const isDropdownOpen = ref(false);
+  const dropdownRef = ref(null);
+
+  const languages = [
+    { code: 'ja', label: '日本語' },
+    { code: 'en', label: 'English' }
+  ];
+
+  const currentLanguageLabel = computed(() => {
+    const current = languages.find(lang => lang.code === locale.value);
+    return current ? current.label : '日本語';
+  });
+
+  const toggleDropdown = () => {
+    isDropdownOpen.value = !isDropdownOpen.value;
+  };
+
+  const selectLanguage = (langCode) => {
+    if (locale.value !== langCode) {
+      locale.value = langCode;
+    }
+    isDropdownOpen.value = false;
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+      isDropdownOpen.value = false;
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape' && isDropdownOpen.value) {
+      isDropdownOpen.value = false;
+    }
+  };
 
   // プログレッシブローディング用のロゴ管理
   const logoQuality = ref('low'); // 'low' | 'high'
@@ -145,7 +221,7 @@
 
   onMounted(() => {
     checkRouterReady();
-    
+
     // LCP改善: 高品質版ロゴのプリロードヒントを追加
     const addLogoPreload = () => {
       const logoPreloadLink = document.createElement('link');
@@ -156,9 +232,18 @@
       logoPreloadLink.fetchpriority = 'high';
       document.head.appendChild(logoPreloadLink);
     };
-    
+
     // プリロードを即座に実行（LCP最適化）
     addLogoPreload();
+
+    // 言語切り替えドロップダウンのイベントリスナー
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+  });
+
+  onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('keydown', handleKeyDown);
   });
 
   const path = computed(() => route.path);
@@ -454,14 +539,123 @@
     animation: glow 0.3s ease-in-out infinite alternate;
   }
 
-  /* メニュー項目間の縦線 */
-  .home-nav-link:not(:last-child)::after {
+  /* メニュー項目間の縦線（最後のリンクにも適用） */
+  .home-nav-link::after {
     content: "|";
     position: absolute;
     right: -1.5rem;
     color: #666;
     font-weight: normal;
     user-select: none;
+  }
+
+  /* 言語切り替えドロップダウン（ホームページ専用） */
+  .home-lang-dropdown {
+    position: relative;
+    z-index: 200;
+    margin-left: 1.5rem; /* 縦線との間隔 */
+  }
+
+  .home-lang-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid #111; /* 1pxボーダー */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color: #111;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .home-lang-dropdown-toggle:hover {
+    background: #f0d300;
+    border-color: #d7a800;
+    transform: translateY(-2px);
+  }
+
+  .home-lang-dropdown .globe-icon {
+    font-size: 1.2rem;
+  }
+
+  .home-lang-dropdown .current-lang-label {
+    font-size: 1rem;
+  }
+
+  .home-lang-dropdown .chevron-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .home-lang-dropdown .chevron-icon.rotated {
+    transform: rotate(180deg);
+  }
+
+  .home-lang-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 150px;
+    background: #fff;
+    border: 1px solid #111; /* 1pxボーダー */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem 0;
+    z-index: 200;
+    list-style: none;
+    margin: 0;
+  }
+
+  .home-lang-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 1rem;
+    color: #111;
+  }
+
+  .home-lang-option-btn:hover {
+    background: #f0d300;
+  }
+
+  .home-lang-option-btn.active {
+    font-weight: bold;
+    background: #fef9e0;
+  }
+
+  .home-lang-dropdown .check-icon {
+    font-size: 0.9rem;
+    color: #d7a800;
+    flex-shrink: 0;
+    width: 1rem;
+  }
+
+  /* ドロップダウンアニメーション */
+  .dropdown-slide-enter-active,
+  .dropdown-slide-leave-active {
+    transition: all 0.25s ease;
+    transform-origin: top center;
+  }
+
+  .dropdown-slide-enter-from {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.8);
+  }
+
+  .dropdown-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.8);
   }
 
   /* ホームメニューフェードアニメーション */
