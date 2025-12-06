@@ -30,7 +30,7 @@
       </transition>
 
       <!-- 言語切り替えドロップダウン（デスクトップ） -->
-      <div class="lang-dropdown desktop-lang" ref="dropdownRef" :class="{ 'home-page-lang': currentPath === '/' }">
+      <div class="lang-dropdown desktop-lang" ref="dropdownRef" v-show="currentPath !== '/'">
         <button
           class="lang-dropdown-toggle"
           @click="toggleDropdown"
@@ -86,7 +86,7 @@
         </div>
 
         <!-- 言語切り替えドロップダウン（モバイル） -->
-        <div class="lang-dropdown mobile-lang" ref="dropdownRefMobile" :class="{ 'home-page-lang': currentPath === '/' }">
+        <div class="lang-dropdown mobile-lang" ref="dropdownRefMobile" v-show="currentPath !== '/'">
           <button
             class="lang-dropdown-toggle"
             @click="toggleDropdown"
@@ -402,7 +402,7 @@ export default {
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: transparent;
-  border: 2px solid #111;
+  border: 1px solid #111; /* 1pxボーダー */
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -441,7 +441,7 @@ export default {
   right: 0;
   min-width: 150px;
   background: #fff;
-  border: 2px solid #111;
+  border: 1px solid #111; /* 1pxボーダー */
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 0.5rem 0;
@@ -621,26 +621,6 @@ export default {
   }
 }
 
-/* ホームページ専用の言語切り替え配置 */
-.home-page-lang {
-  position: fixed !important;
-  top: 61% !important;
-  left: 50% !important;
-  transform: translateX(-50%);
-  z-index: 20;
-  opacity: 0;
-  animation: homeMenuFadeIn 0.4s ease-in-out 1.2s forwards;
-}
-
-@keyframes homeMenuFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 /* レスポンシブ対応 - 768px境界で明確に切り替え */
 @media screen and (min-width: 769px) {
   .mobile-nav {
@@ -649,19 +629,6 @@ export default {
 
   .desktop-nav {
     display: flex;
-  }
-}
-
-/* ホームページ専用の言語切り替え - レスポンシブ対応 */
-@media screen and (max-width: 768px) {
-  .home-page-lang {
-    top: 66% !important; /* タブレットサイズでは少し下に */
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .home-page-lang {
-    display: none !important; /* モバイルでは非表示 */
   }
 }
 
