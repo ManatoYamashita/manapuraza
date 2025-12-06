@@ -53,7 +53,7 @@
   import { watch, onMounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import Menu from '@/components/Menu.vue';
-  
+
   const route = useRoute();
   const router = useRouter();
   const isHomePage = ref(true);

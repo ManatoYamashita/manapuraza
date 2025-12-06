@@ -84,19 +84,7 @@
   
   h2 {
     font-size: 2.2rem;
-    margin: 3rem 0 1.5rem 0;
-    position: relative;
-    display: inline-block;
-  }
-
-  h2::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(67, 153, 187, 0.8) 0%, rgba(67, 153, 187, 0.2) 100%);
+    margin: 3rem 0 1.5rem 0; /* 下マージン維持 */
   }
   
   table {
@@ -143,7 +131,11 @@
   }
 
   td a:hover {
-    color: #f0d300;
+    color: #000;
+    text-shadow: 0 0 8px rgba(240, 211, 0, 0.7);
+    text-decoration: underline;
+    text-decoration-color: rgba(240, 211, 0, 0.8);
+    text-underline-offset: 0.2em;
   }
 
   td a i {

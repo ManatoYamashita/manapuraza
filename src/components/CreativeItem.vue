@@ -106,11 +106,13 @@
     height: 100%;
     object-fit: cover;
     border-radius: 0.5rem;
-    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    border: 1px solid #000; /* 黒の1pxボーダー追加 */
+    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 0.3s ease;
   }
 
   .img-cover img:hover {
     transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* ホバー時の影で立体感 */
   }
 
   /* YouTube iFrame用のコンテナ */
@@ -146,8 +148,11 @@
   }
 
   a:hover {
-    color: #f0d300;
+    color: #000; /* グローバルルールと統一 */
+    text-shadow: 0 0 8px rgba(240, 211, 0, 0.7);
     text-decoration: underline;
+    text-decoration-color: rgba(240, 211, 0, 0.8);
+    text-underline-offset: 0.2em;
   }
 
   /* Illustration mode専用の画像制限 */
@@ -162,6 +167,7 @@
     max-height: 250px;
     height: auto;
     object-fit: cover;
+    border: 1px solid #000; /* 黒の1pxボーダー追加 */
   }
 
   @media screen and (max-width: 768px) {
@@ -185,7 +191,7 @@
     display: inline-block;
     padding: 0.35rem 0.8rem;
     background: rgba(240, 211, 0, 0.15); /* Primary Yellow 半透明 */
-    border: 1.5px solid rgba(240, 211, 0, 0.4);
+    border: 1.5px solid #000; /* 黒ボーダー */
     border-radius: 12px;
     font-size: 0.75rem;
     font-weight: 600;
@@ -195,8 +201,9 @@
 
   .creative-tag:hover {
     background: rgba(240, 211, 0, 0.25);
-    border-color: rgba(240, 211, 0, 0.6);
+    border-color: #000; /* ホバー時も黒を維持 */
     transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 微細な影で立体感追加 */
   }
 
   @media screen and (max-width: 967px) {

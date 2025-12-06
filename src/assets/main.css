@@ -1,5 +1,10 @@
 @import './base.css';
 
+/* ボーダー追加時のレイアウト安定化 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .top-op{
 	position: fixed;
 	top: 0;
@@ -95,8 +100,7 @@ div.logo > a > img {
 a {
   text-decoration: none;
   color: rgb(17, 17, 17);
-  transition: 0.2s;
-  text-decoration: underline;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 footer {
@@ -117,8 +121,11 @@ footer > div {
 
 @media (hover: hover) {
   a:hover {
-	color: var(--mpuraza-acsent);
-	text-shadow: var(--mpuraza-acsent) 0px 0px 1rem;
+	color: #000; /* 黒を明示的に指定 */
+	text-shadow: 0 0 8px rgba(240, 211, 0, 0.7); /* 黄色グロー */
+	text-decoration: underline;
+	text-decoration-color: rgba(240, 211, 0, 0.8); /* 黄色アンダーライン */
+	text-underline-offset: 0.2em;
   }
 }
 
