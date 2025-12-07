@@ -333,15 +333,15 @@
   }
   .app {
     min-width: 85vw;
-    height: 80vh;
+    /* height: 80vh; */
     max-width: 1280px;
-    max-height: 80vh;
+    max-height: 75vh;
     /* padding: 2rem 2rem 0 2rem; */
     margin: 1rem auto;
     border-radius: 10px;
     transition: .5s ease-in-out;
     /* scroll-behavior: auto; */
-    overflow-y: hidden;
+    overflow-y: auto; /* スクロール可能に変更 */
   }
   .glass {
     /* 背景を少し強めてコントラストを確保 */
@@ -516,7 +516,9 @@
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
+    flex-wrap: nowrap; /* 明示的にデフォルト設定 */
     gap: 3rem;
+    max-width: 90vw; /* 横幅制限 */
     z-index: 15;
     pointer-events: auto;
   }
@@ -688,21 +690,65 @@
     }
   }
 
-  /* レスポンシブ対応 */
-  @media screen and (max-width: 768px) {
+  /* レスポンシブ対応 - 3段階ブレークポイント */
+
+  /* Desktop: 769px以上 - ホームメニュー表示（一行レイアウト） */
+  @media screen and (min-width: 769px) {
     .home-nav-links {
-      top: 58%; /* タブレットサイズでは少し下に */
-      gap: 2rem;
-    }
-    
-    .home-nav-link {
-      font-size: 1.4rem;
+      display: flex; /* 常に表示、改行しない */
+      flex-wrap: nowrap;
+      gap: 3rem;
+      top: 55%;
     }
   }
 
+  /* Tablet: 541px - 768px - メニューリンク一行 + 言語ボタン中央配置 */
+  @media screen and (max-width: 768px) and (min-width: 541px) {
+    .home-nav-links {
+      top: 56%;
+      flex-wrap: wrap; /* 二段表示（言語ボタンのみ） */
+      gap: 0.5rem; /* リンク間隔をさらに削減 */
+      row-gap: 1.5rem; /* 行間を拡大 */
+      max-width: 95vw; /* 最大幅を拡大 */
+      justify-content: center; /* センタリング */
+    }
+
+    .home-nav-link {
+      font-size: 1rem; /* フォントサイズをさらに削減 */
+      padding: 0.3rem 0.6rem; /* パディングをさらに削減 */
+      flex-shrink: 0; /* 縮小禁止 */
+      white-space: nowrap; /* 改行禁止 */
+    }
+
+    /* 全ての縦線を削除（一行表示のため） */
+    .home-nav-link::after {
+      content: none;
+    }
+
+    /* 言語ボタンを二段目の中央配置 */
+    .home-lang-dropdown {
+      margin-left: 0; /* リセット */
+      margin-top: 0;
+      flex-basis: 100%; /* 強制的に新しい行へ */
+      width: 100%;
+      display: flex;
+      justify-content: center; /* 水平中央配置 */
+    }
+  }
+
+  /* Mobile: 540px以下 - 完全非表示 */
   @media screen and (max-width: 540px) {
     .home-nav-links {
-      display: none; /* モバイルでは非表示 */
+      display: none;
+    }
+  }
+
+  /* 言語ドロップダウン中央配置（541-768px） */
+  @media screen and (max-width: 768px) and (min-width: 541px) {
+    .home-lang-dropdown-menu {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%); /* ドロップダウンを中央配置 */
     }
   }
 </style>

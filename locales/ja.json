@@ -2,6 +2,7 @@
     "navbar": {
         "selectLanguage": "言語を選択",
         "menu": {
+            "home": "ホーム",
             "about": "概要",
             "creatives": "作品紹介",
             "contact": "お問い合わせ"
@@ -49,7 +50,7 @@
     },
     "creatives": {
         "common": {
-            "viewProject": "プロジェクトを見る",
+            "viewProject": "作品を見る",
             "github": "GitHub",
             "backToList": "作品一覧に戻る",
             "productionYear": "制作年",

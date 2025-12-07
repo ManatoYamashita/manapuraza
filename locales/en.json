@@ -2,6 +2,7 @@
     "navbar": {
       "selectLanguage": "Select Language",
       "menu": {
+        "home": "Home",
         "about": "About",
         "creatives": "Creatives",
         "contact": "Contact"
@@ -52,7 +53,7 @@
 
     "creatives": {
         "common": {
-            "viewProject": "View Project",
+            "viewProject": "View Work",
             "github": "GitHub",
             "backToList": "Back to List",
             "productionYear": "Production Year",
