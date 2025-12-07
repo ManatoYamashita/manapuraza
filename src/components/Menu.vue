@@ -124,28 +124,79 @@
       </div>
 
       <!-- モバイル下部メニュー -->
-      <nav class="mobile-bottom-menu" :class="{ 'mobile-menu-animate': isInitialLoad }">
-        <ul class="mobile-menu-list">
-          <li class="mobile-menu-item">
-            <RouterLink to="/about" class="mobile-menu-link">{{ $t('navbar.menu.about') }}</RouterLink>
-          </li>
-          <li class="mobile-menu-item">
-            <RouterLink to="/creatives" class="mobile-menu-link">{{ $t('navbar.menu.creatives') }}</RouterLink>
-          </li>
-          <li class="mobile-menu-item">
-            <RouterLink to="/contact" class="mobile-menu-link">{{ $t('navbar.menu.contact') }}</RouterLink>
-          </li>
-        </ul>
+      <nav
+        class="mobile-bottom-menu"
+        :class="{ 'mobile-menu-animate': isInitialLoad }"
+        v-show="shouldShowMobileNav"
+      >
+        <div class="mobile-menu-shell" :class="{ open: isMobileMenuOpen }">
+          <!-- 左側: トグルボタン（円形） -->
+          <button
+            class="mobile-toggle-button"
+            @click="handleMorphButtonClick"
+            role="button"
+            :aria-expanded="isMobileMenuOpen"
+            aria-controls="mobile-menu-links"
+            :aria-label="isMobileMenuOpen ? 'メニューを閉じる' : 'メニューを開く'"
+            tabindex="0"
+            @keydown.enter="handleMorphButtonClick"
+            @keydown.space.prevent="handleMorphButtonClick"
+          >
+            <div class="toggle-icon-container">
+              <fa
+                :icon="['fas','bars']"
+                class="toggle-icon toggle-icon-bars"
+                :class="{ 'icon-hidden': isMobileMenuOpen }"
+              />
+              <fa
+                :icon="['fas','times']"
+                class="toggle-icon toggle-icon-times"
+                :class="{ 'icon-visible': isMobileMenuOpen }"
+              />
+            </div>
+          </button>
+
+          <!-- 右側: ページタイトルボタン（カプセル型） -->
+          <div
+            v-show="!isMobileMenuOpen"
+            class="mobile-page-title"
+            @click="handleMorphButtonClick"
+            role="button"
+            tabindex="0"
+            @keydown.enter="handleMorphButtonClick"
+            @keydown.space.prevent="handleMorphButtonClick"
+          >
+            <span class="page-title-label">{{ currentPageLabel }}</span>
+          </div>
+
+          <!-- メニューリスト -->
+          <ul
+            v-show="isMobileMenuOpen"
+            class="mobile-menu-card"
+            id="mobile-menu-links"
+          >
+            <li class="mobile-menu-item">
+              <RouterLink to="/about" class="mobile-menu-link">{{ $t('navbar.menu.about') }}</RouterLink>
+            </li>
+            <li class="mobile-menu-item">
+              <RouterLink to="/creatives" class="mobile-menu-link">{{ $t('navbar.menu.creatives') }}</RouterLink>
+            </li>
+            <li class="mobile-menu-item">
+              <RouterLink to="/contact" class="mobile-menu-link">{{ $t('navbar.menu.contact') }}</RouterLink>
+            </li>
+          </ul>
+        </div>
       </nav>
     </nav>
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { RouterLink } from "vue-router";
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { gsap } from 'gsap';
 
 export default {
   name: 'AppMenu',
@@ -158,6 +209,8 @@ export default {
     const { t, locale } = useI18n();
     const currentPath = ref(route.path);
     const isInitialLoad = ref(true);
+    const isMobileMenuOpen = ref(false);
+    const isAnimating = ref(false);
 
     // モバイルメニューの表示判定（ホームページでは非表示）
     const shouldShowMobileNav = computed(() => {
@@ -167,6 +220,24 @@ export default {
         return false;
       }
       return true;
+    });
+
+    const currentPageLabel = computed(() => {
+      const path = route.path;
+
+      const pathMap = {
+        '/': 'home',
+        '/about': 'about',
+        '/creatives': 'creatives',
+        '/contact': 'contact'
+      };
+
+      if (path.startsWith('/creatives/')) {
+        return t('navbar.menu.creatives');
+      }
+
+      const key = pathMap[path] || 'home';
+      return t(`navbar.menu.${key}`);
     });
 
     // ドロップダウン状態管理
@@ -199,6 +270,82 @@ export default {
       isDropdownOpen.value = false; // 自動クローズ
     };
 
+    const handleMorphButtonClick = () => {
+      if (isAnimating.value) return; // 連打防止
+
+      isAnimating.value = true;
+      const willOpen = !isMobileMenuOpen.value;
+
+      if (willOpen) {
+        // クローズ → オープン
+        isMobileMenuOpen.value = true;
+
+        nextTick(() => {
+          gsap.timeline({
+            defaults: { ease: 'power2.out' },
+            onComplete: () => { isAnimating.value = false; }
+          })
+          // ページタイトルを後ろに引っ込める（完全には消さない）
+          .to('.mobile-page-title', {
+            opacity: 0.3,           // 薄く残す
+            scale: 0.92,
+            y: -10,                 // 上方向に押し込む
+            zIndex: 1,
+            duration: 0.2
+          })
+          // メニューカードを手前に引き出す
+          .to('.mobile-menu-card', {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            zIndex: 5,
+            duration: 0.25,
+            ease: 'back.out(1.2)'
+          }, '-=0.1');
+        });
+      } else {
+        // オープン → クローズ
+        gsap.timeline({
+          defaults: { ease: 'power2.in' },
+          onComplete: () => {
+            isMobileMenuOpen.value = false;
+            isAnimating.value = false;
+
+            // 状態リセット
+            gsap.set('.mobile-page-title', {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              zIndex: 5
+            });
+            gsap.set('.mobile-menu-card', {
+              opacity: 0,
+              y: 8,
+              scale: 0.95,
+              zIndex: 1
+            });
+          }
+        })
+        // メニューカードを後ろに押し込む
+        .to('.mobile-menu-card', {
+          opacity: 0.3,           // 薄く残す
+          y: 12,
+          scale: 0.95,
+          zIndex: 1,
+          duration: 0.2
+        })
+        // ページタイトルを手前に引き出す
+        .to('.mobile-page-title', {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          zIndex: 5,
+          duration: 0.25,
+          ease: 'back.out(1.3)'
+        }, '-=0.12');
+      }
+    };
+
     // 外側クリック検出
     const handleClickOutside = (event) => {
       if (dropdownRef.value && !dropdownRef.value.contains(event.target) &&
@@ -224,9 +371,17 @@ export default {
         document.addEventListener('click', handleClickOutside);
         document.addEventListener('keydown', handleKeyDown);
 
-        // ルート変更時にドロップダウンをクローズ
+        // ルート変更時にドロップダウンとモバイルメニューをクローズ
         router.afterEach(() => {
           isDropdownOpen.value = false;
+          if (isMobileMenuOpen.value) {
+            isMobileMenuOpen.value = false;
+            // ページタイトルを確実に表示状態に戻す
+            nextTick(() => {
+              gsap.set('.mobile-page-title', { opacity: 1, scale: 1 });
+              gsap.set('.mobile-menu-card', { opacity: 0, y: 8 });
+            });
+          }
         });
       } catch (error) {
         isInitialLoad.value = false;
@@ -264,7 +419,11 @@ export default {
       languages,
       currentLanguageLabel,
       toggleDropdown,
-      selectLanguage
+      selectLanguage,
+      isMobileMenuOpen,
+      currentPageLabel,
+      isAnimating,
+      handleMorphButtonClick
     };
   },
   watch: {
@@ -542,38 +701,232 @@ export default {
 /* モバイル下部メニュー */
 .mobile-bottom-menu {
   position: fixed;
-  left: 50%;
+  left: 1rem;
   bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
-  /* width: 85vw; */
-  width: 90vw;
-  max-width: 1280px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 18px;
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14), 0 1px 4px rgba(0, 0, 0, 0.06);
+  width: min(60vw, 420px);
+  min-width: 280px;
+  max-width: 480px;
   padding: 0.35rem;
   z-index: 100;
-  overflow: hidden;
+  overflow: visible;
+  transition: width 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
 }
 
-.mobile-menu-list {
-  list-style: none;
-  margin: 0;
+.mobile-menu-shell {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row; /* 横並び */
+  align-items: center;
+  gap: 0.75rem; /* ボタン間の間隔 */
+  max-width: 480px;
+  margin: 0 auto;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 62px;
+  padding: 0.15rem 0.1rem;
+}
+
+.mobile-menu-shell.open {
+  max-height: 520px;
+  padding: 0.15rem 0.1rem 0.4rem;
+}
+
+/* 左側: トグルボタン（円形） */
+.mobile-toggle-button {
+  /* ボタンリセット */
+  background: none;
+  border: none;
+  cursor: pointer;
   padding: 0;
+
+  /* 絶対配置で左側に固定 */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+
+  /* 円形デザイン */
+  width: 3rem;
+  height: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* グラスモーフィズム + 細めのボーダー */
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%; /* 完全な円形 */
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* タッチ最適化 */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.mobile-toggle-button:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* アイコンコンテナ */
+.toggle-icon-container {
+  position: relative;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 基本アイコンスタイル */
+.toggle-icon {
+  font-size: 1.6rem;
+  color: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+/* 初期状態: bars表示、times非表示 */
+.toggle-icon-bars {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+.toggle-icon-times {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.8);
+}
+
+/* アクティブ状態: bars非表示、times表示 */
+.toggle-icon-bars.icon-hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scale(0.8);
+}
+
+.toggle-icon-times.icon-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+/* ホバー効果 */
+.mobile-toggle-button:hover .toggle-icon {
+  filter: brightness(0.8);
+}
+
+/* 右側: ページタイトルボタン（カプセル型） */
+.mobile-page-title {
+  flex: 1; /* 残り幅を使用 */
+  min-width: 0; /* flexboxのオーバーフロー対策 */
+  margin-left: 3.75rem; /* トグルボタン(3rem) + 間隔(0.75rem) */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* カプセル型デザイン */
+  height: 3rem;
+  padding: 0.6rem 1.5rem;
+
+  /* グラスモーフィズム + 細めのボーダー */
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px; /* カプセル型 */
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+
+  /* 初期状態（GSAP アニメーション用） */
+  opacity: 1;
+  transform: scale(1);
+
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* アニメーション制御用 */
+  z-index: 5; /* デフォルトで前面 */
+  will-change: opacity, transform; /* GPU加速 */
+}
+
+.mobile-page-title:hover {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.mobile-page-title:active {
+  transform: scale(0.98);
+}
+
+.page-title-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* メニューリスト */
+.mobile-menu-card {
+  flex: 1; /* ページタイトルと同じ幅 */
+  min-width: 0;
+  margin-left: 3.75rem; /* トグルボタン(3rem) + 間隔(0.75rem) */
+
+  position: relative;
+  list-style: none;
+  margin-bottom: 0;
+  margin-right: 0;
+  padding: 0;
+
   display: flex;
   flex-direction: column;
-  gap: 0;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  gap: 0; /* 区切り線表示のため */
+
+  /* グラスモーフィズム + 細めのボーダー */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+
+  /* GSAP アニメーション用の初期状態 */
+  opacity: 0;
+  transform: translateY(8px);
+
+  /* アニメーション制御用 */
+  z-index: 1; /* デフォルトで背面 */
+  will-change: opacity, transform; /* GPU加速 */
 }
 
 .mobile-menu-item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .mobile-menu-item:last-child {
@@ -582,26 +935,56 @@ export default {
 
 .mobile-menu-link {
   display: block;
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.5rem;
   text-decoration: none;
   color: #111;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
+  position: relative; /* 下線エフェクト用 */
 }
 
-.mobile-menu-link:hover,
+.mobile-menu-link:hover {
+  background: rgba(240, 240, 240, 0.4);
+  color: #d7a800;
+  text-shadow: 0 0 8px rgba(240, 211, 0, 0.5);
+}
+
+/* アクティブページスタイル */
 .mobile-menu-link.router-link-active {
-  background: rgba(240, 211, 0, 0.16);
-  color: #111;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: rgba(240, 211, 0, 0.15); /* 薄いイエロー背景 */
+  color: #d7a800; /* ダークイエロー */
+  font-weight: 900;
+  text-shadow:
+    0 0 12px rgba(240, 211, 0, 0.8),   /* 内側の強いグロー */
+    0 0 24px rgba(240, 211, 0, 0.4);   /* 外側の柔らかいグロー */
+}
+
+/* 下線エフェクト */
+.mobile-menu-link.router-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 160px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d7a800 20%,
+    #d7a800 80%,
+    transparent
+  );
+  box-shadow: 0 0 8px rgba(240, 211, 0, 0.6);
 }
 
 .mobile-menu-link:active {
-  background: rgba(240, 211, 0, 0.22);
-  transform: translateY(1px);
+  background: rgba(230, 230, 230, 0.8);
+  transform: scale(0.98);
 }
 
 /* フェードインアニメーション（初回表示用） */
@@ -613,11 +996,81 @@ export default {
 @keyframes mobileFadeIn {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(20px);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
+  }
+}
+
+/* GPU加速の明示的な有効化 */
+.mobile-page-title,
+.mobile-menu-card,
+.toggle-icon {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* アクセシビリティ対応（モーション低減設定） */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-page-title,
+  .mobile-menu-card,
+  .toggle-icon,
+  .mobile-menu-link {
+    transition-duration: 0.05s !important;
+    animation: none !important;
+  }
+
+  .mobile-menu-link.router-link-active::after {
+    animation: none;
+  }
+}
+
+/* モバイルメニューのレスポンシブ対応 */
+@media screen and (max-width: 400px) {
+  .mobile-toggle-button {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .toggle-icon {
+    font-size: 1.1rem;
+  }
+
+  .mobile-page-title {
+    height: 2.75rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  .page-title-label {
+    font-size: 0.95rem;
+  }
+
+  .mobile-menu-link {
+    font-size: 1rem;
+    padding: 0.9rem 1.2rem;
+  }
+
+  /* アクティブ状態の下線調整（小画面用） */
+  .mobile-menu-link.router-link-active::after {
+    width: 70%;
+    height: 1.5px;
+    bottom: 0.4rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .mobile-menu-shell {
+    gap: 0.5rem;
+  }
+
+  .mobile-page-title {
+    padding: 0.5rem 1rem;
+  }
+
+  .page-title-label {
+    font-size: 0.9rem;
   }
 }
 
