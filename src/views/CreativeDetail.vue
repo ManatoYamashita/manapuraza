@@ -750,23 +750,31 @@
     }
 
     .cta-section {
-      position: sticky !important;
-      top: auto !important;
-      left: 0;
-      right: 0;
-      bottom: 0; /* コンテンツ領域内で下部に固定 */
-      width: 100%;
+      position: fixed !important;
+      bottom: calc((100vh - 75vh) / 2); /* .app.glassの下端に合わせる */
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(85vw, 1280px); /* .app.glassの幅に合わせる */
+      max-width: calc(100% - 4rem); /* 左右パディング分を考慮 */
+      z-index: 100;
+
       flex-direction: row;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.98);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(250, 250, 250, 0.98) 100%
+      );
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.12);
-      padding: 1.25rem 2rem;
+      border-top: 1px solid rgba(240, 240, 240, 0.8);
+      box-shadow:
+        0 -4px 20px rgba(0, 0, 0, 0.08),
+        0 -2px 8px rgba(0, 0, 0, 0.04);
+      padding: 1.5rem 2rem;
       gap: 1rem;
       border-radius: 0;
-      margin-top: 2.5rem; /* コンテンツとの間隔 */
+      margin: 0; /* margin-topを削除 */
     }
 
     .cta-section > * {
@@ -776,8 +784,10 @@
     }
 
     .creative-detail {
-      position: relative; /* sticky の親要素として必須 */
-      padding: 2.5rem 2rem 2rem 2rem;  /* 下部パディング削減（CTA が sticky のため） */
+      position: relative;
+      padding: 2.5rem 2rem;
+      /* CTAボタンの高さ分の余白を確保 */
+      padding-bottom: calc(80px + 2rem); /* CTA高さ約80px + 余白2rem */
     }
 
     .creative-title {
