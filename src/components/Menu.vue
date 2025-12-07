@@ -795,8 +795,6 @@ export default {
   font-size: 1.6rem;
   color: #000;
   position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
@@ -805,7 +803,8 @@ export default {
 /* 初期状態: bars表示、times非表示 */
 .toggle-icon-bars {
   opacity: 1;
-  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  /* Font Awesome bars アイコンの視覚的中央配置のための微調整 */
+  transform: translate(-50%, calc(-50% + 3px)) rotate(0deg) scale(1);
 }
 
 .toggle-icon-times {
@@ -816,12 +815,13 @@ export default {
 /* アクティブ状態: bars非表示、times表示 */
 .toggle-icon-bars.icon-hidden {
   opacity: 0;
-  transform: translate(-50%, -50%) rotate(90deg) scale(0.8);
+  /* bars アイコンの微調整を維持 */
+  transform: translate(-50%, calc(-50% + 3px)) rotate(90deg) scale(0.8);
 }
 
 .toggle-icon-times.icon-visible {
   opacity: 1;
-  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  /* transform: translate(-50%, -50%) rotate(0deg) scale(1); */
 }
 
 /* ホバー効果 */

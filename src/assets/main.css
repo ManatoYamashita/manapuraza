@@ -107,8 +107,10 @@ footer {
   position: fixed;
   bottom: 0;
 }
-footer > div {
+footer > div.credit,
+footer > div.credit a {
 	font-size: 12px;
+	color: gray;
 }
 
 #back {
