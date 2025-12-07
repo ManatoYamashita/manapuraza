@@ -750,12 +750,9 @@
     }
 
     .cta-section {
-      position: fixed !important;
-      bottom: calc((100vh - 75vh) / 2); /* .app.glassの下端に合わせる */
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(85vw, 1280px); /* .app.glassの幅に合わせる */
-      max-width: calc(100% - 4rem); /* 左右パディング分を考慮 */
+      position: sticky !important;
+      bottom: 0;
+      width: 100%;
       z-index: 100;
 
       flex-direction: row;
@@ -774,7 +771,7 @@
       padding: 1.5rem 2rem;
       gap: 1rem;
       border-radius: 0;
-      margin: 0; /* margin-topを削除 */
+      margin: 0;
     }
 
     .cta-section > * {

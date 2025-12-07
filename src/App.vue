@@ -337,6 +337,7 @@
     max-width: 1280px;
     max-height: 75vh;
     /* padding: 2rem 2rem 0 2rem; */
+    padding: 1.4rem;
     margin: 1rem auto;
     border-radius: 10px;
     transition: .5s ease-in-out;
@@ -356,8 +357,6 @@
     color: #111; /* ガラス上のテキストは濃色で可読性を担保 */
   }
   #scrollable-aria {
-    overflow-y: auto;
-    height: 100%;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
