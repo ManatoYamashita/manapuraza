@@ -330,7 +330,8 @@
   .creative-detail {
     max-width: 900px;
     margin: 0 auto;
-    padding: 2.5rem 2rem 5rem 2rem;
+    padding: 2.5rem 2rem 11rem 2rem;
+    min-height: 100vh;
     color: var(--color-text, #111);
   }
 
@@ -533,21 +534,24 @@
   }
 
   .cta-section {
-    position: fixed;
-    bottom: 0;
+    position: fixed !important;
+    top: auto !important;
     left: 0;
     right: 0;
+    bottom: max(0, env(safe-area-inset-bottom, 0));
+    width: 100vw;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: rgba(255, 255, 255, 0.95);
+    padding: 1.25rem 2rem;
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-    z-index: 100;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+    z-index: 1000;
   }
 
   .cta-section > * {
@@ -746,20 +750,23 @@
     }
 
     .cta-section {
-      position: fixed;
-      bottom: 0;
+      position: sticky !important;
+      top: auto !important;
       left: 0;
       right: 0;
-      top: auto;
+      bottom: 0; /* コンテンツ領域内で下部に固定 */
       width: 100%;
       flex-direction: row;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-      padding: 1rem 1.5rem;
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.12);
+      padding: 1.25rem 2rem;
       gap: 1rem;
+      border-radius: 0;
+      margin-top: 2.5rem; /* コンテンツとの間隔 */
     }
 
     .cta-section > * {
@@ -769,7 +776,8 @@
     }
 
     .creative-detail {
-      padding: 2.5rem 2rem 5rem 2rem;  /* 元の状態 */
+      position: relative; /* sticky の親要素として必須 */
+      padding: 2.5rem 2rem 2rem 2rem;  /* 下部パディング削減（CTA が sticky のため） */
     }
 
     .creative-title {
