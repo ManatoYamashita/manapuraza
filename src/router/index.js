@@ -29,6 +29,14 @@ preloadComponents();
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior(to, from, savedPosition) {
+    // ブラウザの戻る/進む時は保存位置を復元
+    if (savedPosition) {
+      return savedPosition;
+    }
+    // それ以外はページ上部へスクロール
+    return { top: 0 };
+  },
   routes: [
     {
       path: '/',

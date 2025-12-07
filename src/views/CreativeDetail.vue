@@ -330,8 +330,11 @@
   .creative-detail {
     max-width: 900px;
     margin: 0 auto;
-    padding: 2.5rem 2rem 5rem 2rem;
+    padding: 2rem;
+    min-height: 100%;
     color: var(--color-text, #111);
+    display: flex;
+    flex-direction: column;
   }
 
   .back-link {
@@ -533,21 +536,13 @@
   }
 
   .cta-section {
-    position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-    z-index: 100;
+    gap: 0.75rem;
   }
 
   .cta-section > * {
@@ -599,6 +594,8 @@
 
     .back-link svg {
       font-size: 1.2rem; /* アイコンサイズを明示的に指定 */
+      /* Font Awesome arrow-left アイコンの視覚的中央配置 */
+      transform: translateX(2px);
     }
 
     .back-link:hover {
@@ -642,36 +639,6 @@
     .credit-label {
       opacity: 0.8;
     }
-
-    /* Phase 2: CTA 右上固定配置 */
-    .cta-section {
-      position: fixed;
-      top: 1rem;
-      right: 1.25rem;
-      bottom: auto;  /* bottom: 0 を上書き */
-      left: auto;    /* left: 0 を上書き */
-
-      /* 配置と方向 */
-      flex-direction: column;
-      align-items: flex-end;  /* 右寄せ */
-      width: auto;
-      gap: 0.75rem;
-
-      /* 背景・透明化（下部固定から変更） */
-      background: transparent;
-      backdrop-filter: none;
-      border: none;
-      box-shadow: none;
-      padding: 0;
-
-      z-index: 100;
-    }
-
-    .cta-section > * {
-      width: auto;
-      min-width: auto;
-      flex: none;
-    }
   }
 
   @media screen and (max-width: 480px) {
@@ -686,12 +653,8 @@
 
     .back-link svg {
       font-size: 1.1rem; /* アイコンサイズを縮小 */
-    }
-
-    .cta-section {
-      top: 0.75rem;
-      right: 0.75rem;
-      gap: 0.5rem;
+      /* 視覚的中央配置を維持 */
+      transform: translateX(2px);
     }
 
     .cta-section > * {
@@ -720,60 +683,6 @@
     .creative-description {
       font-size: 1rem;
       line-height: 1.8;
-    }
-
-    .cta-section {
-      padding: 0.5rem 0.75rem;
-    }
-  }
-
-  /* Phase 5: デスクトップ表示時は完全に元の状態に戻す */
-  @media screen and (min-width: 769px) {
-    .back-link {
-      position: static;
-      background: transparent;
-      backdrop-filter: none;
-      padding: 0;
-      box-shadow: none;
-      margin-bottom: 1.5rem;  /* 元の状態 */
-      width: auto;
-      height: auto;
-      font-size: inherit; /* テキストを表示 */
-    }
-
-    .back-link svg {
-      font-size: inherit; /* アイコンサイズを元に戻す */
-    }
-
-    .cta-section {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: auto;
-      width: 100%;
-      flex-direction: row;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-      padding: 1rem 1.5rem;
-      gap: 1rem;
-    }
-
-    .cta-section > * {
-      flex: 1;
-      min-width: 200px;
-      width: auto;
-    }
-
-    .creative-detail {
-      padding: 2.5rem 2rem 5rem 2rem;  /* 元の状態 */
-    }
-
-    .creative-title {
-      padding-right: 0;  /* パディング削除 */
     }
   }
 </style>
