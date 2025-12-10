@@ -11,6 +11,7 @@
 - `standards/`: コーディング規約や共通ルール。
 - `ops/`: 運用・手順書やチェックリスト。
 - `analytics/`: アクセス解析・トラッキング設定ガイド。
+- `dev/`: 開発環境構築とパフォーマンス最適化。
 
 ## ドキュメント一覧
 - standards/architecture.md — エントリ/初期化/責務分離とフォールバック方針。
@@ -22,6 +23,8 @@
 - ops/deployment-checklist.md — デプロイ前後の確認項目とトラブルシュート。
 - ops/creatives-guide.md — `src/data/creatives.js` の作品データ管理手順（animation/development/illustration/video、detail オブジェクト、詳細ページルーティング `/creatives/:category/:id`）。
 - ops/branch.md — ブランチ戦略、GitHub Actions CI/CD、コミットメッセージ規約。
+- dev/devcontainer-setup.md — Devcontainer 環境構築ガイド（VS Code + Docker、Node.js 22.13.1、Vue 3 + Vite 対応）。
+- dev/docker-performance.md — Docker パフォーマンス最適化（Named Volume による高速化、CHOKIDAR_USEPOLLING 設定）。
 - analytics/ga4-setup.md — Google Analytics 4 (GA4) の完全セットアップガイド（GTM経由、サブドメイン対応）。
 - analytics/ga4-vue-integration.md — Vue.js 3 × GA4 統合実装ガイド（Composable、イベント送信パターン）。
 
@@ -33,4 +36,4 @@
 
 ---
 
-最終更新日: 2025-12-04
+最終更新日: 2025-12-10
