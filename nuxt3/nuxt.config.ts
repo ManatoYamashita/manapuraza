@@ -43,7 +43,10 @@ export default defineNuxtConfig({
   },
 
   // CSS
-  css: ['~/assets/main.css'],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    '~/assets/main.css'
+  ],
 
   // モジュール
   modules: [
