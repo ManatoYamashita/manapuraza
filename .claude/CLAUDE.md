@@ -24,6 +24,8 @@
   - `docs/branch-strategy.md`（ブランチ/CI）
 
 ## 索引（参照）
+
+### 標準ドキュメント
 - ドキュメントのエンドポイント: `docs/index.md`
 - アーキテクチャ: `docs/standards/architecture.md`
 - フロントエンド実装: `docs/standards/frontend-guidelines.md`
@@ -31,7 +33,23 @@
 - パフォーマンス/ビルド: `docs/standards/performance-and-build.md`
 - セキュリティ/アクセシビリティ/SEO: `docs/standards/security-and-seo.md`
 - コーディング規約: `docs/standards/coding-standards.md`
+
+### 運用ドキュメント
 - デプロイ手順: `docs/ops/deployment-checklist.md`
 - Creatives データ管理: `docs/ops/creatives-guide.md`
 
-最終更新日: 2025/11/24
+### 移行ドキュメント（NEW）
+- **Nuxt 3 移行ガイド**: `docs/migration-nuxt3.md`
+- **TypeScript 導入ガイド**: `docs/typescript-guide.md`
+- **移行プラン**: `/Users/manatoy_mba/.claude/plans/sunny-snacking-blum.md`
+
+## 重要な変更履歴
+
+### 2025/12/14 - Nuxt 3 + TypeScript 移行計画策定
+- Vue 3 (JavaScript) → Nuxt 3 (TypeScript + SSR) への移行プロジェクト開始
+- TypeScript Strict Mode 導入、完全型安全化
+- SSR (Universal Rendering) 対応
+- Nitro Server デプロイ環境構築（Vercel/Netlify）
+- 関連ドキュメント: `docs/migration-nuxt3.md`, `docs/typescript-guide.md`
+
+最終更新日: 2025/12/14

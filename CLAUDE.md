@@ -2,6 +2,32 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+---
+
+## ⚠️ MIGRATION IN PROGRESS: Vue 3 → Nuxt 3 + TypeScript
+
+**Current Status**: Migration to Nuxt 3 with TypeScript Strict Mode and SSR support is planned.
+
+**Migration Plan**: See `/Users/manatoy_mba/.claude/plans/sunny-snacking-blum.md` for detailed migration strategy.
+
+**Key Changes**:
+- Framework: Vue 3 (SPA) → **Nuxt 3 (SSR/Universal Rendering)**
+- Language: JavaScript → **TypeScript (Strict Mode)**
+- Routing: Vue Router → **Nuxt File-based Routing**
+- Build: Vite → **Nitro Server**
+- Deployment: FTP → **Vercel/Netlify (Node.js environment)**
+- Optimization: Manual → **Nuxt 3 Standard Features**
+
+**Reference Documentation**:
+- Migration Guide: `docs/migration-nuxt3.md`
+- TypeScript Guide: `docs/typescript-guide.md`
+
+---
+
+## Current Architecture (Vue 3 - Legacy)
+
+> **Note**: The information below describes the current Vue 3 implementation. This will be replaced by Nuxt 3 architecture.
+
 ## Development Commands
 
 ### Build & Development
@@ -437,3 +463,269 @@ The home page features a unique menu layout where navigation items appear below 
 - **Desktop**: Visible with full styling
 - **Tablet (≤768px)**: Adjusted positioning (`top: 58%`) with smaller font
 - **Mobile (≤540px)**: Hidden (mobile uses circular menu instead)
+
+---
+
+## Future Architecture (Nuxt 3 + TypeScript)
+
+> **Note**: The information below describes the planned Nuxt 3 architecture after migration.
+
+### Development Commands (Nuxt 3)
+
+```bash
+# Development
+npm run dev          # Start Nuxt development server (SSR enabled)
+
+# Build
+npm run build        # Build for production (Nitro server)
+npm run generate     # Generate static site (SSG mode)
+
+# Preview
+npm run preview      # Preview production build locally
+
+# Type Checking
+npm run typecheck    # Run TypeScript type checking (vue-tsc)
+
+# Linting & Formatting
+npm run lint         # ESLint check
+npm run format       # Prettier format
+```
+
+### Project Structure (Nuxt 3)
+
+```
+manapuraza-nuxt3/
+├── app.vue                      # Root component
+├── nuxt.config.ts               # Nuxt configuration
+├── tsconfig.json                # TypeScript configuration
+├── types/
+│   ├── index.ts                 # Main type definitions (Creative, CreativeDetail, etc.)
+│   └── router.ts                # Router parameter types
+├── components/
+│   ├── Menu.vue                 # Unified navigation (SSR-safe)
+│   ├── CreativeItem.vue         # Portfolio card
+│   ├── MetaBall.vue             # Three.js background (ClientOnly required)
+│   └── ...
+├── pages/
+│   ├── index.vue                # Home page
+│   ├── about.vue                # About page
+│   ├── creatives/
+│   │   ├── index.vue            # Creatives list
+│   │   └── [category]/
+│   │       └── [id].vue         # Creative detail (dynamic route)
+│   ├── contact.vue              # Contact page
+│   └── underconstraction.vue    # Under construction
+├── layouts/
+│   └── default.vue              # Main layout (includes MetaBall)
+├── composables/
+│   ├── useCreatives.ts          # Creatives data management
+│   └── ...
+├── plugins/
+│   └── fontawesome.ts           # Font Awesome configuration
+├── public/
+│   ├── robots.txt               # SEO configuration
+│   ├── sitemap.xml              # Sitemap
+│   └── ...
+├── assets/
+│   ├── main.css                 # Global CSS
+│   └── creatives-thumb/         # Portfolio images (WebP)
+├── locales/
+│   ├── ja.json                  # Japanese translations
+│   └── en.json                  # English translations
+└── server/
+    └── (Nitro server files)
+```
+
+### TypeScript Configuration
+
+**Strict Mode Enabled**:
+```typescript
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
+  }
+}
+```
+
+**Type Definitions** (`types/index.ts`):
+```typescript
+export interface Creative {
+  id: string;
+  title: string;              // i18n key
+  description: string;        // i18n key
+  url: string;
+  thumbnail: string;
+  tags: string[];
+  detail?: CreativeDetail;
+}
+
+export interface CreativeDetail {
+  images: string[];
+  descriptionMarkdown: string;
+  youtube?: { mobile: string; desktop: string };
+  productionYear?: string;
+  credits?: string[];
+  cta?: CtaButton[];
+}
+
+export type CreativeCategory = 'animation' | 'development' | 'illustration' | 'video';
+```
+
+### SSR-Specific Considerations
+
+**Client-Only Components**:
+```vue
+<!-- layouts/default.vue -->
+<template>
+  <div>
+    <ClientOnly>
+      <MetaBall />  <!-- Three.js requires client-side only -->
+    </ClientOnly>
+    <slot />
+  </div>
+</template>
+```
+
+**Process Guards**:
+```typescript
+// In components using browser APIs
+if (process.client) {
+  // Browser-only code (window, document, requestIdleCallback, etc.)
+}
+```
+
+**Async Data Fetching**:
+```typescript
+// pages/creatives/[category]/[id].vue
+const { data: creative } = await useAsyncData<Creative>(() => {
+  const { getCreativeById } = useCreatives();
+  return getCreativeById(category, id);
+});
+```
+
+### Nuxt 3 Configuration Highlights
+
+**nuxt.config.ts**:
+```typescript
+export default defineNuxtConfig({
+  typescript: {
+    strict: true,
+    typeCheck: true
+  },
+  ssr: true,  // Universal Rendering enabled
+
+  modules: ['@nuxtjs/i18n'],
+
+  i18n: {
+    locales: [
+      { code: 'ja', file: 'ja.json' },
+      { code: 'en', file: 'en.json' }
+    ],
+    defaultLocale: 'ja',
+    lazy: true,
+    langDir: 'locales/'
+  },
+
+  nitro: {
+    preset: 'vercel',  // or 'netlify'
+    compressPublicAssets: true
+  }
+});
+```
+
+### Deployment (Nitro Server)
+
+**GitHub Actions** (`.github/workflows/deploy.yml`):
+```yaml
+- name: Build Nuxt 3
+  run: npm run build
+
+- name: Deploy to Vercel
+  uses: amondnet/vercel-action@v20
+  with:
+    vercel-token: ${{ secrets.VERCEL_TOKEN }}
+    vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+    vercel-args: '--prod'
+```
+
+**Deployment Targets**:
+- **Vercel** (推奨): Automatic SSR + Edge Functions
+- **Netlify**: SSR + Netlify Functions
+- **Static Generation** (`nuxt generate`): SSG mode for FTP deployment
+
+### Migration Checklist
+
+- [ ] New branch created: `feature/nuxt3-typescript-migration`
+- [ ] Nuxt 3 project initialized
+- [ ] TypeScript type definitions created
+- [ ] Components migrated with SSR compatibility
+- [ ] Routes converted to file-based routing
+- [ ] i18n configured with @nuxtjs/i18n
+- [ ] Three.js MetaBall wrapped in ClientOnly
+- [ ] All tests passed (type check, build, preview)
+- [ ] Deployment configured (Vercel/Netlify)
+- [ ] Documentation updated
+
+### Performance Benefits (Expected)
+
+**SSR Advantages**:
+- Faster First Contentful Paint (FCP)
+- Improved SEO indexing
+- Better social media previews (OGP)
+- Enhanced Core Web Vitals scores
+
+**Nuxt 3 Optimizations**:
+- Automatic code splitting
+- Built-in image optimization
+- Nitro server compression
+- Edge-side rendering support
+
+### Development Guidelines (Nuxt 3)
+
+**Component Development**:
+- Use `<script setup lang="ts">` syntax
+- Define props with type arguments: `defineProps<{ title: string }>()`
+- Use `useAsyncData` for data fetching
+- Wrap browser-only code in `process.client` guards
+
+**Type Safety**:
+- Avoid `any` type usage
+- Define interfaces for all data models
+- Use type assertions carefully: `route.params as CreativeDetailParams`
+- Run `npm run typecheck` before commits
+
+**SEO Management**:
+```typescript
+// Use useHead() for dynamic meta tags
+useHead({
+  title: computed(() => t(creative.value.title)),
+  meta: [
+    { name: 'description', content: computed(() => t(creative.value.description)) }
+  ]
+});
+```
+
+**Error Handling**:
+```typescript
+// Page validation
+definePageMeta({
+  validate: async (route): Promise<boolean> => {
+    const validCategories: CreativeCategory[] = ['animation', 'development', 'illustration', 'video'];
+    return validCategories.includes(route.params.category as CreativeCategory);
+  }
+});
+```
+
+---
+
+## References
+
+- **Migration Plan**: `/Users/manatoy_mba/.claude/plans/sunny-snacking-blum.md`
+- **Migration Guide**: `docs/migration-nuxt3.md`
+- **TypeScript Guide**: `docs/typescript-guide.md`
+- **Nuxt 3 Documentation**: https://nuxt.com/docs
+- **Official Guide (日本語)**: https://nuxt.com/docs/getting-started/introduction

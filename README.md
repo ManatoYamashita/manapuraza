@@ -3,13 +3,41 @@
 
 <div align="center">
   <img src="./public/ogp.jpg" alt="OGP image" width="520" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
-  
+
   <br/>
+
+  ### Current Stack (Vue 3)
   <a href="https://vuejs.org/" target="_blank"><img alt="Vue.js" src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat-square&logo=vue.js"></a>
   <a href="https://vitejs.dev/" target="_blank"><img alt="Vite" src="https://img.shields.io/badge/Vite-6.x-646CFF?style=flat-square&logo=vite"></a>
   <a href="https://threejs.org/" target="_blank"><img alt="Three.js" src="https://img.shields.io/badge/Three.js-latest-000000?style=flat-square&logo=three.js"></a>
   <a href="https://vue-i18n.intlify.dev/" target="_blank"><img alt="i18n" src="https://img.shields.io/badge/i18n-vue--i18n%209-green?style=flat-square"></a>
+
+  ### Migration Target (Nuxt 3 + TypeScript)
+  <a href="https://nuxt.com/" target="_blank"><img alt="Nuxt" src="https://img.shields.io/badge/Nuxt-3.x-00DC82?style=flat-square&logo=nuxt.js"></a>
+  <a href="https://www.typescriptlang.org/" target="_blank"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript"></a>
+  <img alt="SSR" src="https://img.shields.io/badge/SSR-Universal%20Rendering-brightgreen?style=flat-square">
+  <a href="https://nitro.unjs.io/" target="_blank"><img alt="Nitro" src="https://img.shields.io/badge/Nitro-Server-yellow?style=flat-square"></a>
 </div>
+
+---
+
+## ⚠️ Migration Notice
+
+**Status**: 🚧 Vue 3 → Nuxt 3 + TypeScript migration is planned.
+
+**Migration Plan**: See [Migration Plan](./.claude/plans/sunny-snacking-blum.md)
+
+**Key Changes**:
+- Framework: Vue 3 (SPA) → **Nuxt 3 (SSR/Universal Rendering)**
+- Language: JavaScript → **TypeScript (Strict Mode)**
+- Build: Vite → **Nitro Server**
+- Deployment: FTP → **Vercel/Netlify**
+
+**Documentation**:
+- [Nuxt 3 Migration Guide](./docs/migration-nuxt3.md)
+- [TypeScript Guide](./docs/typescript-guide.md)
+
+---
 
 ## About
 
@@ -40,12 +68,25 @@ Node.js 要件（Vite準拠）: Node 20.19+ または 22.12+。参考: [Vite Get
 
 ## Quick Start
 
+### Current (Vue 3)
+
 ```bash
 npm install
 npm run dev      # http://localhost:5173
 npm run build    # プロダクションビルド（/dist）
 npm run preview  # ローカルで/prodを確認
 npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
+```
+
+### After Migration (Nuxt 3)
+
+```bash
+npm install
+npm run dev        # http://localhost:3000 (SSR enabled)
+npm run build      # プロダクションビルド（Nitro server）
+npm run generate   # 静的サイト生成（SSG mode）
+npm run preview    # ローカルで本番環境確認
+npm run typecheck  # TypeScript型チェック
 ```
 
 ## アーキテクチャ概要

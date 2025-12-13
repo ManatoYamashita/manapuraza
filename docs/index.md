@@ -11,6 +11,7 @@
 - `standards/`: コーディング規約や共通ルール。
 - `ops/`: 運用・手順書やチェックリスト。
 - `analytics/`: アクセス解析・トラッキング設定ガイド。
+- `migration/`: 技術スタック移行ガイド。（NEW - 2025/12/14）
 
 ## ドキュメント一覧
 - standards/architecture.md — エントリ/初期化/責務分離とフォールバック方針。
@@ -24,6 +25,8 @@
 - ops/branch.md — ブランチ戦略、GitHub Actions CI/CD、コミットメッセージ規約。
 - analytics/ga4-setup.md — Google Analytics 4 (GA4) の完全セットアップガイド（GTM経由、サブドメイン対応）。
 - analytics/ga4-vue-integration.md — Vue.js 3 × GA4 統合実装ガイド（Composable、イベント送信パターン）。
+- **migration/nuxt3-migration.md** — **Nuxt 3 + TypeScript 完全移行ガイド**（SSR対応、型定義、Nitro Server、デプロイ戦略）。（NEW - 2025/12/14）
+- **migration/typescript-guide.md** — **TypeScript Strict Mode 導入ガイド**（型定義設計、ベストプラクティス、既存コードの型付け戦略）。（NEW - 2025/12/14）
 
 ## 更新手順（PDCA）
 1. PLAN: 既存の配置と命名を本索引で確認し、追加箇所を決める。
@@ -33,4 +36,16 @@
 
 ---
 
-最終更新日: 2025-12-04
+## 重要な変更履歴
+
+### 2025/12/14 - Nuxt 3 + TypeScript 移行プロジェクト開始
+- Vue 3 (JavaScript) → Nuxt 3 (TypeScript + SSR) への大規模移行を計画
+- 移行ドキュメント（`migration/`）カテゴリを新設
+- 関連ドキュメント:
+  - `migration/nuxt3-migration.md`: 移行手順とアーキテクチャ設計
+  - `migration/typescript-guide.md`: TypeScript導入ガイドライン
+  - `.claude/plans/sunny-snacking-blum.md`: 詳細な移行プラン
+
+---
+
+最終更新日: 2025/12/14
