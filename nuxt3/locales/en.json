@@ -226,5 +226,12 @@
       "subtitle": "This page is under construction.",
       "message": "We are preparing this page. Please check back soon.",
       "back": "Do you want to study?"
+    },
+    "error": {
+      "notFound": "Page Not Found",
+      "notFoundDescription": "The page you are looking for doesn't exist or has been moved. Please check the URL.",
+      "serverError": "Server Error",
+      "serverErrorDescription": "We apologize, but a server error has occurred. Please try again later.",
+      "backToHome": "Back to Home"
     }
 }
