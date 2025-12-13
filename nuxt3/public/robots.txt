@@ -1,2 +1,49 @@
-User-Agent: *
-Disallow:
+# robots.txt for manapuraza.com
+# 最終更新: 2025-11-24
+
+# 全てのクローラーに対する基本設定
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dist/
+Disallow: /node_modules/
+
+# Googlebotの特別設定（優先度高）
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# Bingbotの設定
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Crawl-delay: 0
+
+# Yahoo Japanの設定
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# AI学習クローラーのブロック（オプション）
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# サイトマップの場所
+Sitemap: https://manapuraza.com/sitemap.xml
+
+# ホスト指定（推奨）
+Host: https://manapuraza.com
