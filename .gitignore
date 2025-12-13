@@ -29,3 +29,9 @@ coverage
 dist/
 
 stats.html
+
+## Nuxt 3
+nuxt3/.nuxt/
+nuxt3/.output/
+.nuxt/
+.output/

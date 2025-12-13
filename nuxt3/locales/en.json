@@ -1,0 +1,230 @@
+{
+    "navbar": {
+      "selectLanguage": "Select Language",
+      "menu": {
+        "home": "Home",
+        "about": "About",
+        "creatives": "Creatives",
+        "contact": "Contact"
+      }
+    },
+
+    "about": {
+      "ym": "Yamashita Manato",
+      "passage": "I'm Manato Yamashita.\nStudying computer science at the Department of Informatics, at Tokyo City University.\n\nMy hobbies are create digital contents (ex: illustration, animation, web and so on...) and reading.\nMy favorite writer is Sayaka Murata!\n\nThis site is for my portfolio named MANAPURAZA.COM from Manato (my name) + Tamaplaza (the station near my living).\n\nI love all of creative activities! And banana.",
+      "name": "Name",
+      "name-co": "Manato Yamashita",
+      "sex": "Sex / Gender",
+      "sex-co": "Man",
+      "birth": "Birthday",
+      "birth-co": "2002/04/17",
+      "country": "Country",
+      "country-co": "Japan",
+      "live": "Live-in",
+      "live-co": "Kanagawa | Tokyo | Kumamoto",
+      "study": "studying",
+      "study-co": "Tokyo City University, Department of Informatics / System Engineering",
+      "research": "Research",
+      "research-co": "Information Security",
+      "like": "Like",
+      "like-co": "Banana"
+    },
+
+    "his": {
+      "02": "Born in Kumamoto",
+      "02-de": "2002, Kumamoto / Japan",
+      "03": "Moved to Tokyo",
+      "03-de": "2003~, Tokyo / Japan",
+      "15": "Entered TATEISHI Junior High School",
+      "15-de": "2015 ~ 2018, Tokyo / Japan",
+      "18": "Entered HONJO High School",
+      "18-de": "2018 ~ 2021, Tokyo / Japan",
+      "21": "Entered Tokyo City University",
+      "21-de": "2021 ~ 2025, Tokyo / Japan",
+      "21-2": "Live in Miyazakidai, Kawasaki",
+      "21-2-de": "2021 ~ 2022, Kawasaki / Japan",
+      "22": "Entered Edith Cowan University",
+      "22-de": "2022 ~ 2023, Perth, WA / Australia",
+      "23": "Live in Saginuma, Kawasaki",
+      "23-de": "2023 ~ 2025, Kawasaki / Japan",
+      "25": "Joined MONO-X",
+      "25-de": "2025 ~, Tokyo / Minato-ku, Roppongi Hills"
+    },
+
+    "creatives": {
+        "common": {
+            "viewProject": "View Work",
+            "github": "GitHub",
+            "backToList": "Back to List",
+            "productionYear": "Production Year",
+            "tags": "Tags",
+            "video": "Video",
+            "credits": "Credits",
+            "notFound": "Creative not found"
+        },
+        "paragraph": "I have experience in commissioned work and paid requests, as well as hobbies in creating digital content (illustrations, animations, websites, etc.). I use my design skills as a foundation for my sense of creativity in web production, video editing, and illustration.",
+        "animation": {
+            "paragraph": "As a director, I created an original animation in collaboration with Setagaya Ward. I gathered 35 members, formed a volunteer group, and spent a year creating the setting, script, video, and music. With the cooperation of 81 Produce, we cast voice actors Kent Itou and Reina Ueda.",
+            "tcuAnimation": {
+                "title": "Setagaya-city Original Animation \"Welcome to the New BOP!\"",
+                "description": {
+                    "production": "Production: Setagaya Ward",
+                    "director": "Director & Representative: Manato Yamashita",
+                    "animationProduction": "Animation Production: Tokyo City University Animation",
+                    "productionSupport": "Production Support: 81 Produce",
+                    "voiceActors": "Voice Actors: Kent Itou, Reina Ueda",
+                    "websiteProduction": "Website Production: Manato Yamashita"
+                },
+                "watch": "Watch the video(Setagaya City Official YouTube)",
+                "site": "Official Site - Tokyo City University Animation",
+                "watchMain": "Watch",
+                "watchSub": "Setagaya City Official YouTube",
+                "siteMain": "Landing Page",
+                "siteSub": "Tokyo City University Animation",
+                "titleLabel": "Official Animation of Setagaya City",
+                "titleMain": "Welcome to the New BOP!",
+                "detailDescription": "An original animation project created in collaboration with Setagaya Ward.\n\n## Project Overview\n\nGathered 35 members and formed 'Tokyo City University Animation'. Spent one year creating settings, scripts, video, and music.\n\n## Voice Cast\n\nWith the cooperation of 81 Produce, we cast the following talented voice actors:\n- **Kent Itou**\n- **Reina Ueda**\n\n## Production Philosophy\n\nTo convey the appeal of 'Shin-BOP', a new after-school place for children in Setagaya Ward, we expressed it through animation."
+            }
+        },
+
+      "dev": {
+        "paragraph": "I have not only learned the basics of C language, Java language, and information science in the Department of Information Science, but also acquired web technology through self-study and engaged in web production as a hobby and commissioned work. Web frontend using Typescript, Next.js, Nuxt, and GSAP is my strongest area.",
+        "manapuraza": {
+            "title": "manapuraza.com",
+            "description": "A portfolio site showcasing some of my creative creative during my student years, created during a one-month period as part of a four-month internship at an advertising production company. Built with Vue.js 3 + Vite 6, Typescript, Three.js, gsap. Responsive CI/CD (This site)",
+            "detailDescription": "A personal portfolio site built with Vue.js 3 + Vite 6.\n\n## Tech Stack\n\n- **Framework**: Vue.js 3 (Composition API)\n- **Build Tool**: Vite 6\n- **3D**: Three.js\n- **Animation**: GSAP\n\n## Features\n\n- Performance optimization (Code Splitting, Lazy Loading)\n- SEO optimization (Meta Tags, Structured Data)\n- Responsive design\n- i18n support (Japanese/English)"
+        },
+        "dcchanAi": {
+            "title": "DC-chan AI",
+            "description": "An AI chat for DC-chan, the character of the Digital Content Research Society. Built with Next.js, Typescript, GSAP, and ChatGPT API."
+        },
+        "numeron": {
+            "title": "NUMERON - Logical Number Guessing Game",
+            "description": "A number guessing game developed during my first year of university as practice for HTML, CSS, and Javascript, created in collaboration with an acquaintance."
+        },
+        "amauSyrup": {
+            "title": "AmauSyrup.net - Unofficial Fan Site for AmauSyrup",
+            "description": "An unofficial website for a Vtuber featuring a blog function utilizing the Notion API. Built with Next.js, Typescript, GSAP's scrollTrigger."
+        },
+        "tcuClubs": {
+            "title": "Tokyo City University Asocciation of Clubs/Circles",
+            "description": "A site I created while serving as the president of the Tokyo City University Federation of Student Clubs. It uses a CMS. I was responsible for development, maintenance, and operation. Deployed on the university's shared WWW server."
+        },
+        "tcuAlumni": {
+            "title": "TCU Alumni Association(Demo)",
+            "description": "A minimal corporate site build with Next.js, Typescript, microCMS, gsap"
+        },
+        "chaintence": {
+            "title": "Chaintence",
+            "description": "A WebApp for creating email texts by connecting templates, developed during a two-day hackathon. Built with NuxtJS and microCMS. I was responsible for frontend development and presentation."
+        },
+        "dcchanBot": {
+            "title": "DC-chan Twitter BOT",
+            "description": "A Twitter BOT for the official character of my club, DC-chan. Built with Google Apps Script (GAS) to interact with the Twitter API. Currently inactive due to the API becoming paid."
+        },
+        "sekiLab": {
+            "title": "Seki Laboratory (TCU Information Security Laboratory)",
+            "description": "The website for the lab, built with Nuxt.js 3 and microCMS."
+        },
+        "officeTsuyuki": {
+            "title": "Office TSUYUKI",
+            "description": "A minimal corporate site build with Next.js + microCMS + gsap"
+        },
+        "killerDie": {
+            "title": "KillerDie 1st Anniversary",
+            "description": "The official site for the 1st anniversary of a university's unofficial group. Built with Vue.js 3."
+        },
+        "populationGraph": {
+            "title": "Population Transition Graph by Prefecture SPA",
+            "description": "A web app for testing data visualization. Built with Highcharts.js and Next.js, with Jest and Github Workflow implemented."
+        },
+        "wtmApp": {
+            "title": "wtm - Outing Support App for Android",
+            "description": "An Android app developed by a team, 4members. Built with Android Studio (Java + Gradle). I was responsible for leadership, development, and design."
+        },
+        "downUnder": {
+            "title": "Down Under Mountain - Australia Study Abroad Blog",
+            "description": "A blog I wrote during my four-month study abroad at Edith Cowan University in Western Australia in 2023. Built with WordPress."
+        },
+        "wagiri": {
+            "title": "WAGIRI!! - Japanese Style Flick Game",
+            "description": "A Japanese-style flick game that won the grand prize in a hackathon hosted by devate. Built with Next.js (Typescript) and Go, supporting online battles. I was responsible for frontend, design, and animations."
+        },
+        "hpbToMe": {
+            "title": "HPB to me! 2023 - 21 Years Old, With a Fist.",
+            "description": "A joke site I created to celebrate my own birthday. Music and voice acting were created by acquaintances. Presumptuous."
+        },
+        "tcuAnimation": {
+            "title": "Tokyo City University Animation Studio",
+            "description": "A site for promoting an animation co-produced with Setagaya City, where I am the general director. Built with Astro.js and MDX."
+        },
+        "tcuSto": {
+            "title": "Tokyo City University Student Organization",
+            "description": "The official site of the Student Union Headquarters. Built with HTML, CSS, Javascript, and GAS."
+        },
+        "textLayout": {
+            "title": "Text auto-laytout WebApp",
+            "description": "A webApp for my resarch in TCU Seki lab. based on reseach by DNP. Buiilt with Next.js+Typescript, shadcn-ui and GSAP using BudouX for Machine learning"
+        },
+        "cococareer-lp": {
+            "title": "Cococareer LP",
+            "description": "A LP for Cococareer, a job hunting service. Built with Next.js, Typescript, GSAP, FramerMotion, microCMS."
+        },
+        "k-kamiya": {
+            "title": "Kappou KAMIYA Website",
+            "description": "A Website for Kappou-KAMIYA, a Japanese traditional restaurant at Kawaguchi, Saitama Using Next.js15(Typescript), microCMS, framer-motion, gsap and Stripe builling."
+        }
+      },
+
+      "illustration": {
+        "paragraph": "Drawing is a hobby of mine, and I am good at graphic design and animation. Currently (2024~), I am working as a general director and original drawing + animation for an animation produced in collaboration with Setagaya Ward.",
+            "pixiv": {
+                "title": "Pixiv",
+                "description": "A portfolio compiling my graphic design and illustration creative."
+            },
+            "webPortfolio": {
+                "title": "Web Portfolio Showcasing Overall Creative creative",
+                "description": "A web-based portfolio that gathers all my creative creative."
+            }
+        },
+
+      "video": {
+        "paragraph": "I have experience in video editing and have created videos for various purposes. I have experience in creating videos for clubs and circles, as well as personal videos uploaded to YouTube. The YouTube channel I used during my university days has been deleted, but I have another channel where I uploaded Yukkuri videos during high school, which I am currently using.",
+        "tcuDcChannel": {
+            "title": "TCU-DC (Club) YouTube Channel",
+            "description": "A YouTube channel showcasing the activities of the club. Some of the videos were not created by me."
+        },
+        "personalChannel": {
+            "title": "Personal YouTube Channel 2",
+            "description": "A channel where I uploaded Yukkuri videos during high school. Currently in use after the main channel was banned."
+        }
+      }
+    },
+
+    "contact": {
+        "title": "Contact",
+        "message": "If you have any questions, inquiries, or work requests, please feel free to contact me. I also work as a freelancer and accept requests for website development, animation production, illustration creation, and more.",
+        "methods": "Contact Methods",
+        "email": {
+            "title": "Email",
+            "description": "For work requests and inquiries, please send them to this email address. I will respond as quickly as possible."
+        },
+        "social": {
+            "title": "Social Media & Others",
+            "description": "Feel free to reach out on social media as well. I also share updates about my latest work and daily life."
+        }
+    },
+    
+    "404": {
+      "title": "404",
+      "notfound": "Not Found",
+      "message": "The page you are looking for does not exist."
+    },
+
+    "underconstraction": {
+      "title": "Under Constraction",
+      "subtitle": "This page is under construction.",
+      "message": "We are preparing this page. Please check back soon.",
+      "back": "Do you want to study?"
+    }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "manapuraza-nuxt3",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/vue-fontawesome": "^3.1.2",
+    "@nuxtjs/i18n": "^10.2.1",
+    "gsap": "^3.14.2",
+    "marked": "^17.0.1",
+    "nuxt": "^4.2.2",
+    "three": "^0.182.0",
+    "vue": "^3.5.25",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@types/marked": "^5.0.2",
+    "@types/three": "^0.182.0",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.1.8"
+  }
+}
