@@ -5,7 +5,7 @@
     <!-- Home Page -->
     <url>
         <loc>https://manapuraza.com/</loc>
-        <lastmod>2025-11-24</lastmod>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/" />
@@ -21,7 +21,7 @@
     <!-- About Page -->
     <url>
         <loc>https://manapuraza.com/about</loc>
-        <lastmod>2025-11-24</lastmod>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/about" />
@@ -36,7 +36,7 @@
     <!-- Creatives Page -->
     <url>
         <loc>https://manapuraza.com/creatives</loc>
-        <lastmod>2025-11-24</lastmod>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/creatives" />
@@ -51,7 +51,7 @@
     <!-- Contact Page -->
     <url>
         <loc>https://manapuraza.com/contact</loc>
-        <lastmod>2025-11-24</lastmod>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
         <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/contact" />

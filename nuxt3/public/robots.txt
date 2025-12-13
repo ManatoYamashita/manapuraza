@@ -5,8 +5,7 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /_next/
-Disallow: /dist/
+Disallow: /_nuxt/
 Disallow: /node_modules/
 
 # Googlebotの特別設定（優先度高）

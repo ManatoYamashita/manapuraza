@@ -74,6 +74,38 @@ export default defineNuxtConfig({
   vite: {
     build: {
       sourcemap: true,
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: false,  // console.logは保持（デバッグ用）
+          drop_debugger: true,  // debugger文は削除
+          pure_funcs: ['console.debug', 'console.trace'],  // 詳細ログのみ削除
+          dead_code: true,
+          unused: true,
+        },
+        mangle: {
+          safari10: true,  // Safari 10互換性
+        },
+        format: {
+          comments: /^!|@preserve|@license|@cc_on|MetaBall:/i,
+        }
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Vue/Nuxt関連（Nuxtが自動最適化するため最小限）
+            'vendor-three': ['three'],
+            'vendor-fontawesome': [
+              '@fortawesome/fontawesome-svg-core',
+              '@fortawesome/free-solid-svg-icons',
+              '@fortawesome/free-brands-svg-icons',
+              '@fortawesome/vue-fontawesome'
+            ],
+            'vendor-gsap': ['gsap'],
+            'vendor-markdown': ['marked'],
+          }
+        }
+      }
     },
     define: {
       __VUE_I18N_FULL_INSTALL__: false,
