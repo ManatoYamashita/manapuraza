@@ -1,4 +1,9 @@
 /**
+ * Type definitions for MANAPURAZA.COM
+ * Nuxt 3 + TypeScript migration
+ */
+
+/**
  * Creative作品の基本型定義
  */
 export interface Creative {
@@ -17,18 +22,13 @@ export interface Creative {
 export interface CreativeDetail {
   images: string[];
   descriptionMarkdown: string;  // i18n key
-  youtube?: YoutubeEmbed;
+  youtube?: {
+    mobile: string;
+    desktop: string;
+  };
   productionYear?: string;
   credits?: string[];           // i18n key array
   cta?: CtaButton[];
-}
-
-/**
- * YouTube埋め込みの型定義
- */
-export interface YoutubeEmbed {
-  mobile: string;
-  desktop: string;
 }
 
 /**
@@ -57,8 +57,3 @@ export interface CreativesData {
  * カテゴリー型（Union Type）
  */
 export type CreativeCategory = 'animation' | 'development' | 'illustration' | 'video';
-
-/**
- * Font Awesome アイコン定義型
- */
-export type FontAwesomeIcon = [string, string]; // [prefix, iconName]
