@@ -1,6 +1,5 @@
 <script setup>
   import { useI18n } from 'vue-i18n';
-  import { useHead } from '@vueuse/head';
   import { computed } from 'vue';
   import SelfImageAndMessage from '@/components/SelfImageAndMessage.vue';
   import ProfileTable from '@/components/ProfileTable.vue';

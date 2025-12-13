@@ -1,7 +1,6 @@
 <script setup>
   import { onMounted, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { useHead } from '@vueuse/head';
   import Sns from '@/components/Sns.vue';
 
   const { t, locale } = useI18n();

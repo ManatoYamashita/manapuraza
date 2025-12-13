@@ -106,7 +106,6 @@
   import { creativesData } from '@/data/creatives';
   import { computed, ref, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { useHead } from '@vueuse/head';
 
   const { t, locale } = useI18n();
 
