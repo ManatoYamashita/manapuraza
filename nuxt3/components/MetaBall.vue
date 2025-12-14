@@ -22,9 +22,12 @@ import type { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes.js'
 let PerspectiveCameraClass: any, SceneClass: any, WebGLRendererClass: any, ClockClass: any;
 let AmbientLightClass: any, DirectionalLightClass: any, MeshPhongMaterialClass: any;
 
-if (process.client) {
-  // クライアントサイドでのみThree.jsをインポート
-  import('three').then((THREE) => {
+// Three.js動的インポート関数（非同期安全）
+const loadThreeJS = async () => {
+  if (!process.client) return false;
+
+  try {
+    const THREE = await import('three');
     PerspectiveCameraClass = THREE.PerspectiveCamera;
     SceneClass = THREE.Scene;
     WebGLRendererClass = THREE.WebGLRenderer;
@@ -32,8 +35,12 @@ if (process.client) {
     AmbientLightClass = THREE.AmbientLight;
     DirectionalLightClass = THREE.DirectionalLight;
     MeshPhongMaterialClass = THREE.MeshPhongMaterial;
-  });
-}
+    return true;
+  } catch (error) {
+    console.error('MetaBall: Failed to load Three.js', error);
+    return false;
+  }
+};
 
 // Vue3 Composition API + Three.js ベストプラクティス実装
 // Three.jsオブジェクトを非リアクティブ化してパフォーマンス最適化
@@ -321,13 +328,21 @@ const init = async () => {
 // Vue3 ライフサイクル
 onMounted(async () => {
     await nextTick(); // DOM更新完了を待機
-    
+
+    // Three.js読み込み完了を待機
+    const loaded = await loadThreeJS();
+    if (!loaded) {
+        console.error('MetaBall: Three.js loading failed, aborting initialization');
+        return;
+    }
+
+    // Three.js読み込み完了後に初期化
     void await init(); // updateCanvasSize returned but handled by handleResize
     animate();
-    
+
     // リサイズイベント登録
     window.addEventListener('resize', handleResize);
-    
+
     console.log('MetaBall: Vue3 Composition API fully activated!');
 });
 
