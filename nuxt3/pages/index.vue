@@ -75,8 +75,8 @@ const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 
 const languages = [
-  { code: 'ja', label: '日本語' },
-  { code: 'en', label: 'English' }
+  { code: 'ja' as const, label: '日本語' },
+  { code: 'en' as const, label: 'English' }
 ];
 
 const currentLanguageLabel = computed(() => {
