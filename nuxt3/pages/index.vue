@@ -68,7 +68,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const { locale, t } = useI18n();
+const { locale } = useI18n();
 
 // 言語切り替えドロップダウン管理
 const isDropdownOpen = ref(false);
@@ -88,7 +88,7 @@ const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
 
-const selectLanguage = (langCode: string) => {
+const selectLanguage = (langCode: 'ja' | 'en') => {
   if (locale.value !== langCode) {
     locale.value = langCode;
   }
@@ -137,7 +137,7 @@ const combinedStyleObject = computed(() => {
   const baseStyle = styleObject.value;
   const transitionStyle = isLogoTransitioning.value ? {
     opacity: '0.7',
-    transform: baseStyle.transform ? `${baseStyle.transform} scale(1.02)` : 'scale(1.02)',
+    transform: 'scale(1.02)',
   } : {};
 
   return {
@@ -194,7 +194,7 @@ onMounted(() => {
       logoPreloadLink.href = '/logo.webp';
       logoPreloadLink.as = 'image';
       logoPreloadLink.type = 'image/webp';
-      logoPreloadLink.fetchPriority = 'high';
+      logoPreloadLink.setAttribute('fetchpriority', 'high');
       document.head.appendChild(logoPreloadLink);
     };
 
