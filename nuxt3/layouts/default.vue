@@ -33,13 +33,13 @@ const appStyles = computed(() => {
     return {
       top: '20vh',
       opacity: '0',
-      pointerEvents: 'none'
+      pointerEvents: 'none' as const
     };
   } else {
     return {
       top: '0',
       opacity: '1',
-      pointerEvents: 'all'
+      pointerEvents: 'all' as const
     };
   }
 });
