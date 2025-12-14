@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head {{ HEAD_ATTRS }}>
+    {{ HEAD }}
+  </head>
+  <body {{ BODY_ATTRS }}>
+    <!-- オープニングアニメーション（初回読み込み時のみ表示） -->
+    <div class="top-op"></div>
+    <img
+      fetchpriority="high"
+      loading="eager"
+      decoding="async"
+      width="200"
+      height="200"
+      src="/icon_white.webp"
+      alt="manapuraza.com icon"
+      class="image-op"
+      draggable="false"
+      sizes="200px"
+    />
+
+    {{ APP }}
+  </body>
+</html>
