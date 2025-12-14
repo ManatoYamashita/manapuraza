@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "analyze": "nuxt build --analyze"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "@types/marked": "^5.0.2",
+    "@types/node": "^25.0.1",
     "@types/three": "^0.182.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.1.8"

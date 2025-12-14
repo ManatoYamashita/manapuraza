@@ -61,8 +61,8 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'ja',
     strategy: 'no_prefix',
-    langDir: 'locales/',
-    lazy: true,
+    langDir: 'locales',
+    // Nuxt 3 + @nuxtjs/i18n v10: lazy loading is enabled by default with file-based locales
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',

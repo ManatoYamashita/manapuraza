@@ -38,7 +38,7 @@
       <div class="video-container">
         <iframe
           v-if="!isDesktop"
-          :src="detailData.youtube.mobile"
+          :src="detailData.youtube?.mobile"
           :title="$t(creative.title)"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -46,7 +46,7 @@
         ></iframe>
         <iframe
           v-else
-          :src="detailData.youtube.desktop"
+          :src="detailData.youtube?.desktop"
           :title="$t(creative.title)"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -116,9 +116,11 @@
   import { marked } from 'marked';
   import Btn from '~/components/Btn.vue';
 
+  import type { CreativeCategory, CreativeDetail } from '~/types';
+
   // Nuxt 3自動インポート: useRoute, useI18n, useHead
   const route = useRoute();
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
 
   // Creativesデータ取得
   const { creativesData } = useCreatives();
@@ -134,20 +136,20 @@
   };
 
   // URL パラメータから作品データを取得
-  const category = computed(() => route.params.category);
-  const id = computed(() => route.params.id);
+  const category = computed(() => route.params.category as CreativeCategory);
+  const id = computed(() => route.params.id as string);
 
   const creative = computed(() => {
     const categoryData = creativesData[category.value];
     if (!categoryData) return null;
-    return categoryData.find(item => item.id === id.value);
+    return categoryData.find((item) => item.id === id.value);
   });
 
   // Detail データの取得（fallback 対応）
   const detailData = computed(() => {
     if (!creative.value) return detailDefaults;
 
-    const detail = creative.value.detail || {};
+    const detail: Partial<CreativeDetail> = creative.value.detail || {};
 
     return {
       images: detail.images && detail.images.length > 0
@@ -177,9 +179,9 @@
 
   // デスクトップ判定
   const isDesktop = ref(false);
-  let mediaQueryList = null;
+  let mediaQueryList: MediaQueryList | null = null;
 
-  const handleMediaQueryChange = (e) => {
+  const handleMediaQueryChange = (e: MediaQueryListEvent) => {
     isDesktop.value = e.matches;
   };
 
@@ -266,7 +268,7 @@
     }
 
     return detailData.value.credits
-      .map((credit) => {
+      .map((credit: string) => {
         const translatedCredit = t(credit);
         if (!translatedCredit) return null;
 
@@ -282,7 +284,7 @@
         const value = translatedCredit.slice(splitIndex + 1).trim();
         return { label, value };
       })
-      .filter(Boolean);
+      .filter((item): item is { label: string, value: string } => item !== null);
   });
 
   // SEO メタタグ設定

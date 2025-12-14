@@ -1,12 +1,12 @@
 <template>
   <div class="error-page">
     <div class="error-content">
-      <h1 class="error-code">{{ error.statusCode }}</h1>
+      <h1 class="error-code">{{ error?.statusCode || 500 }}</h1>
       <h2 class="error-message">
-        {{ error.statusCode === 404 ? $t('error.notFound') : $t('error.serverError') }}
+        {{ error?.statusCode === 404 ? $t('error.notFound') : $t('error.serverError') }}
       </h2>
       <p class="error-description">
-        {{ error.statusCode === 404 ? $t('error.notFoundDescription') : $t('error.serverErrorDescription') }}
+        {{ error?.statusCode === 404 ? $t('error.notFoundDescription') : $t('error.serverErrorDescription') }}
       </p>
       <NuxtLink to="/" class="back-home-link">
         <fa :icon="['fas', 'arrow-left']" />

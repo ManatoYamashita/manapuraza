@@ -14,22 +14,24 @@
  * - Three.js動的インポート
  */
 
-import { ref, shallowRef, markRaw, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, shallowRef, markRaw, onMounted, onUnmounted, nextTick, type ShallowRef } from 'vue';
+import type { PerspectiveCamera, Scene, WebGLRenderer, Clock } from 'three';
+import type { MarchingCubes } from 'three/examples/jsm/objects/MarchingCubes.js';
 
-// Three.jsは動的インポート（SSR対応）
-let PerspectiveCamera: any, Scene: any, WebGLRenderer: any, Clock: any;
-let AmbientLight: any, DirectionalLight: any, MeshPhongMaterial: any;
+// Three.jsは動的インポート（SSR対応）- ランタイム用
+let PerspectiveCameraClass: any, SceneClass: any, WebGLRendererClass: any, ClockClass: any;
+let AmbientLightClass: any, DirectionalLightClass: any, MeshPhongMaterialClass: any;
 
 if (process.client) {
   // クライアントサイドでのみThree.jsをインポート
   import('three').then((THREE) => {
-    PerspectiveCamera = THREE.PerspectiveCamera;
-    Scene = THREE.Scene;
-    WebGLRenderer = THREE.WebGLRenderer;
-    Clock = THREE.Clock;
-    AmbientLight = THREE.AmbientLight;
-    DirectionalLight = THREE.DirectionalLight;
-    MeshPhongMaterial = THREE.MeshPhongMaterial;
+    PerspectiveCameraClass = THREE.PerspectiveCamera;
+    SceneClass = THREE.Scene;
+    WebGLRendererClass = THREE.WebGLRenderer;
+    ClockClass = THREE.Clock;
+    AmbientLightClass = THREE.AmbientLight;
+    DirectionalLightClass = THREE.DirectionalLight;
+    MeshPhongMaterialClass = THREE.MeshPhongMaterial;
   });
 }
 
@@ -47,30 +49,30 @@ const effectController = ref({
 
 // アニメーション状態（リアクティブ）
 const time = ref(0);
-const isVisible = ref(true);
+// const isVisible = ref(true);  // 未使用のため一時的にコメントアウト
 const isPaused = ref(false);
 
 // Three.jsオブジェクト（非リアクティブ - パフォーマンス重視）
-const container = shallowRef(null);
-const camera = shallowRef(null);
-const scene = shallowRef(null);  
-const renderer = shallowRef(null);
-const effect = shallowRef(null);
-const clock = shallowRef(null);
+const container = shallowRef<HTMLCanvasElement | null>(null);
+const camera: ShallowRef<PerspectiveCamera | null> = shallowRef(null);
+const scene: ShallowRef<Scene | null> = shallowRef(null);  
+const renderer: ShallowRef<WebGLRenderer | null> = shallowRef(null);
+const effect: ShallowRef<MarchingCubes | null> = shallowRef(null);
+const clock: ShallowRef<Clock | null> = shallowRef(null);
 
 // パフォーマンス管理
-const targetFPS = ref(30);
+// const targetFPS = ref(30);  // 未使用のため一時的にコメントアウト
 const frameInterval = ref(1000 / 30);
 const lastFrameTime = ref(0);
 
 // アニメーション制御
-let animationFrameId = null;
-let resizeTimeout = null;
+let animationFrameId: number | null = null;
+let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 
 // マテリアル生成（非リアクティブ）
 const generateMaterials = () => {
     return {
-        plastic: markRaw(new MeshPhongMaterial({
+        plastic: markRaw(new MeshPhongMaterialClass({
             color: 0xffa500,
             emissive: 0xffa500,
             emissiveIntensity: 0.75,
@@ -88,8 +90,8 @@ const setupCamera = () => {
     const fov = 50; // シンプル固定FOV
     const aspect = window.innerWidth / window.innerHeight;
     
-    camera.value = markRaw(new PerspectiveCamera(fov, aspect, 1, 700));
-    camera.value.position.set(100, 100, 400);
+    camera.value = markRaw(new PerspectiveCameraClass(fov, aspect, 1, 700));
+    camera.value!.position.set(100, 100, 400);
     
     console.log('MetaBall: Camera initialized with Vue3 best practices');
 };
@@ -101,7 +103,7 @@ const setupRenderer = () => {
         return;
     }
 
-    renderer.value = markRaw(new WebGLRenderer({ 
+    renderer.value = markRaw(new WebGLRendererClass({ 
         canvas: container.value,
         antialias: false, 
         alpha: true,
@@ -116,8 +118,8 @@ const setupRenderer = () => {
         
         // CSS解像度とCanvas解像度の完全同期
         const pixelRatio = Math.min(devicePixelRatio, 2); // 最大2xまで
-        renderer.value.setSize(width, height, false);
-        renderer.value.setPixelRatio(pixelRatio);
+        renderer.value!.setSize(width, height, false);
+        renderer.value!.setPixelRatio(pixelRatio);
         
         console.log(`MetaBall: Canvas resolution synchronized - ${width}x${height} @ ${pixelRatio}x`);
     };
@@ -128,7 +130,6 @@ const setupRenderer = () => {
 
 // シンプル統一解像度システム（逆補正座標変換法対応）
 const getOptimalResolution = () => {
-    const aspectRatio = window.innerWidth / window.innerHeight;
     // パフォーマンス最適化：画面サイズに応じた動的解像度
     const screenArea = window.innerWidth * window.innerHeight;
     const baseResolution = screenArea > 1920 * 1080 ? 32 : 28;
@@ -154,7 +155,7 @@ const setupMarchingCubes = async () => {
         
         effect.value.position.set(0, 0, 0);
         effect.value.scale.set(300, 300, 300); // 統一スケール（逆補正で正円実現）
-        scene.value.add(effect.value);
+        scene.value!.add(effect.value);
         
         console.log(`MetaBall: Uniform scale MarchingCubes initialized - Resolution: ${resolution}, Scale: 300x300x300`);
     } catch (error) {
@@ -213,7 +214,7 @@ const animate = () => {
     const elapsed = now - lastFrameTime.value;
     
     if (elapsed >= frameInterval.value) {
-        time.value += clock.value.getDelta() * effectController.value.speed * 0.5;
+        time.value += clock.value!.getDelta() * effectController.value.speed * 0.5;
         updateCubes();
         
         if (renderer.value && camera.value && scene.value) {
@@ -268,7 +269,14 @@ const cleanupThreeJS = () => {
     
     if (effect.value) {
         effect.value.geometry?.dispose();
-        effect.value.material?.dispose();
+        const material = effect.value.material;
+        if (material) {
+            if (Array.isArray(material)) {
+                material.forEach(m => m.dispose());
+            } else {
+                material.dispose();
+            }
+        }
         effect.value = null;
     }
     
@@ -289,17 +297,17 @@ const init = async () => {
     console.log('MetaBall: Initializing with Vue3 Composition API...');
     
     // Clockの初期化
-    clock.value = markRaw(new Clock());
+    clock.value = markRaw(new ClockClass());
     
     // シーンとライトの設定
-    scene.value = markRaw(new Scene());
+    scene.value = markRaw(new SceneClass());
     
-    const ambient = markRaw(new AmbientLight(0xffffff, 0.9));
-    const directional = markRaw(new DirectionalLight(0xffffff, 0.7));
+    const ambient = markRaw(new AmbientLightClass(0xffffff, 0.9));
+    const directional = markRaw(new DirectionalLightClass(0xffffff, 0.7));
     directional.position.set(1, 1, 1);
     
-    scene.value.add(ambient);
-    scene.value.add(directional);
+    scene.value!.add(ambient);
+    scene.value!.add(directional);
     
     // 各コンポーネントの初期化
     setupCamera();
@@ -314,7 +322,7 @@ const init = async () => {
 onMounted(async () => {
     await nextTick(); // DOM更新完了を待機
     
-    const updateCanvasSize = await init();
+    void await init(); // updateCanvasSize returned but handled by handleResize
     animate();
     
     // リサイズイベント登録

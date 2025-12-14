@@ -21,7 +21,7 @@
               :thumbnail="creative.thumbnail"
               :index="index"
               :tags="creative.tags"
-              :youtubeUrl="creative.detail?.youtube?.desktop || null"
+              :youtubeUrl="creative.detail?.youtube?.desktop || undefined"
             />
           </ul>
         </section>
@@ -100,20 +100,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import CreativeItem from '@/components/CreativeItem.vue';
   import CreativesHero from '@/components/CreativesHero.vue';
-  import { creativesData } from '@/data/creatives';
   import { computed, ref, nextTick } from 'vue';
   import { useI18n } from 'vue-i18n';
 
-  const { t, locale } = useI18n();
+  // Nuxt 3: useCreatives composableを使用
+  const { creativesData } = useCreatives();
+  
+  const { locale } = useI18n();
 
   // フィルター状態管理
   const activeFilter = ref('all');
 
   // フィルター変更ハンドラー
-  const handleFilterChange = (category) => {
+  const handleFilterChange = (category: string) => {
     activeFilter.value = category;
 
     // DOM更新完了後にスクロール実行
@@ -260,11 +262,11 @@
   });
 
   // Fisher-Yatesアルゴリズムによる真のランダムシャッフル
-  const shuffleArray = (array) => {
+  const shuffleArray = <T>(array: T[]): T[] => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      [shuffled[i]!, shuffled[j]!] = [shuffled[j]!, shuffled[i]!];
     }
     return shuffled;
   };

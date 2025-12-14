@@ -11,8 +11,8 @@ import type { CreativesData, Creative, CreativeCategory } from '~/types';
 // NOTE: 実際の移行時には既存のcreatives.jsから全画像インポートをコピーする必要がある
 import tcuAnimationImg from '~/assets/creatives-thumb/animation/tcu-animation.webp';
 import manapurazaImg from '~/assets/creatives-thumb/dev/manapuraza.webp';
-import dcchanNetImg from '~/assets/creatives-thumb/dev/dcchan-ai.webp';
-import numeronGameImg from '~/assets/creatives-thumb/dev/numeron.webp';
+// import dcchanNetImg from '~/assets/creatives-thumb/dev/dcchan-ai.webp';  // TODO: 未使用
+// import numeronGameImg from '~/assets/creatives-thumb/dev/numeron.webp';  // TODO: 未使用
 import pixivGalleryImg from '~/assets/creatives-thumb/illustration/pixiv.webp';
 import manapurazaYoutubeImg from '~/assets/creatives-thumb/video/youtube-manapuraza.webp';
 
