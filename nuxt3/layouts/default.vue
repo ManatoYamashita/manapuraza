@@ -5,19 +5,27 @@
       <MetaBall />
     </ClientOnly>
 
-    <!-- ナビゲーションメニュー -->
-    <Menu />
+    <!-- ナビゲーションメニュー（ホームページ以外で表示） -->
+    <Menu v-if="!isHomePage" />
 
-    <!-- メインコンテンツエリア -->
-    <div class="app glass">
+    <!-- メインコンテンツエリア（ホームページ以外でglassラッパー表示） -->
+    <div v-if="!isHomePage" class="app glass">
       <slot />
     </div>
+
+    <!-- ホームページは直接slot表示 -->
+    <slot v-else />
   </div>
 </template>
 
 <script setup lang="ts">
-// レイアウトはSSR対応のため、特別な設定不要
-// MetaBallはClientOnlyでラップされているため、クライアントサイドのみで実行される
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+// ホームページ判定
+const isHomePage = computed(() => route.path === '/');
 </script>
 
 <style scoped>
