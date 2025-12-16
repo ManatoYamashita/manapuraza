@@ -53,7 +53,7 @@ const isHomePage = computed(() => route.path === '/');
 /* Glassmorphism効果 */
 .glass {
   /* 背景を少し強めてコントラストを確保 */
-  background-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.9); /* デバッグ用に一時的に濃くする */
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-right-color: rgba(255, 255, 255, 0.2);
   border-bottom-color: rgba(255, 255, 255, 0.2);

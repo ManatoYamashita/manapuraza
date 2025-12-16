@@ -4,33 +4,29 @@
     <nav class="desktop-nav">
       <div class="logo">
         <NuxtLink to="/" aria-current="page" aria-label="ホームページに戻る">
-          <transition name="slide" mode="out-in">
-            <img 
-              src="~/assets/logo-low.webp" 
-              alt="manapuraza.com logo" 
-              loading="lazy" 
-              decoding="async"
-              width="250"
-              height="50"
-              class="logo-img" 
-              v-show="currentPath !== '/'"
-              @error="handleLogoError"
-            />
-          </transition>
+          <img
+            src="~/assets/logo-low.webp"
+            alt="manapuraza.com logo"
+            loading="lazy"
+            decoding="async"
+            width="250"
+            height="50"
+            class="logo-img"
+            v-if="currentPath !== '/'"
+            @error="handleLogoError"
+          />
         </NuxtLink>
       </div>
       
       <!-- 通常ページ用メニュー項目 -->
-      <transition name="menu-fade">
-        <div class="nav-links" v-show="currentPath !== '/'">
-          <NuxtLink to="/about" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">{{ $t('navbar.menu.about') }}</NuxtLink>
-          <NuxtLink to="/creatives" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">{{ $t('navbar.menu.creatives') }}</NuxtLink>
-          <NuxtLink to="/contact" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">{{ $t('navbar.menu.contact') }}</NuxtLink>
-        </div>
-      </transition>
+      <div class="nav-links" v-if="currentPath !== '/'">
+        <NuxtLink to="/about" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">{{ $t('navbar.menu.about') }}</NuxtLink>
+        <NuxtLink to="/creatives" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">{{ $t('navbar.menu.creatives') }}</NuxtLink>
+        <NuxtLink to="/contact" class="nav-link" :class="{ 'nav-animate': isInitialLoad }">{{ $t('navbar.menu.contact') }}</NuxtLink>
+      </div>
 
       <!-- 言語切り替えドロップダウン（デスクトップ） -->
-      <div class="lang-dropdown desktop-lang" ref="dropdownRef" v-show="currentPath !== '/'">
+      <div class="lang-dropdown desktop-lang" ref="dropdownRef" v-if="currentPath !== '/'">
         <button
           class="lang-dropdown-toggle"
           @click="toggleDropdown"
@@ -79,14 +75,14 @@
               loading="lazy"
               decoding="async"
               class="logo-img-mobile"
-              v-show="currentPath !== '/'"
+              v-if="currentPath !== '/'"
               @error="handleLogoError"
             />
           </NuxtLink>
         </div>
 
         <!-- 言語切り替えドロップダウン（モバイル） -->
-        <div class="lang-dropdown mobile-lang" ref="dropdownRefMobile" v-show="currentPath !== '/'">
+        <div class="lang-dropdown mobile-lang" ref="dropdownRefMobile" v-if="currentPath !== '/'">
           <button
             class="lang-dropdown-toggle"
             @click="toggleDropdown"
@@ -210,7 +206,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const { t, locale } = useI18n();
-    const currentPath = ref(route.path);
+    const currentPath = computed(() => route.path);
     const isInitialLoad = ref(true);
     const isMobileMenuOpen = ref(false);
     const isAnimating = ref(false);
@@ -428,17 +424,6 @@ export default {
       isAnimating,
       handleMorphButtonClick
     };
-  },
-  watch: {
-    $route(to) {
-      try {
-        if (to && to.path) {
-          this.currentPath = to.path;
-        }
-      } catch (error) {
-        this.currentPath = '/';
-      }
-    },
   },
   errorCaptured(err, instance, info) {
     return false;
