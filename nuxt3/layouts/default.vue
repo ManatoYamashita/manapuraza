@@ -9,7 +9,7 @@
     <Menu v-if="!isHomePage" />
 
     <!-- メインコンテンツエリア（ホームページ以外でglassラッパー表示） -->
-    <div v-if="!isHomePage" class="app glass" :style="appStyles">
+    <div v-if="!isHomePage" class="app glass">
       <slot />
     </div>
 
@@ -26,31 +26,14 @@ const route = useRoute();
 
 // ホームページ判定
 const isHomePage = computed(() => route.path === '/');
-
-// 動的スタイル（元のVue 3実装を再現）
-const appStyles = computed(() => {
-  if (isHomePage.value) {
-    return {
-      top: '20vh',
-      opacity: '0',
-      pointerEvents: 'none' as const
-    };
-  } else {
-    return {
-      top: '0',
-      opacity: '1',
-      pointerEvents: 'all' as const
-    };
-  }
-});
 </script>
 
 <style scoped>
 #main {
   position: relative;
   width: 100%;
-  height: 100%;
-  display: contents;
+  min-height: 100vh;
+  /* display: contents; */ /* デバッグ用に一時的にコメントアウト */
 }
 
 /* Glassラッパーコンテナ */
