@@ -28,57 +28,43 @@
   </li>
 </template>
 
-<script>
-  import { computed } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { CreativeCategory } from '@/types';
 
-  export default {
-    name: 'creativeItem',
-    props: {
-      category: { type: String, required: true },
-      id: { type: String, required: true },
-      title: { type: String, required: true },
-      description: { type: String, required: true },
-      thumbnail: { type: String, required: true },
-      index: { type: Number, required: true },
-      mode: {
-        type: String,
-        required: true,
-        validator: (value) => ['Animation', 'Development', 'Illustration', 'Video'].includes(value)
-      },
-      tags: {
-        type: Array,
-        required: false,
-        default: () => []
-      },
-      youtubeUrl: {
-        type: String,
-        required: false,
-        default: null
-      }
-    },
-    setup(props) {
-      // サムネイル画像パスを解決
-      const resolvedThumbnail = computed(() => {
-        try {
-          if (props.thumbnail.startsWith('@/')) {
-            return new URL(props.thumbnail, import.meta.url).href;
-          }
-          return props.thumbnail;
-        } catch (error) {
-          return 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-        }
-      });
+interface Props {
+  category: CreativeCategory;
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  index: number;
+  mode: 'Animation' | 'Development' | 'Illustration' | 'Video';
+  tags?: string[];
+  youtubeUrl?: string | null;
+}
 
-      return {
-        resolvedThumbnail
-      };
-    },
-    methods: {
-      handleImageError(e) {
-        e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
-      }
+const props = withDefaults(defineProps<Props>(), {
+  tags: () => [],
+  youtubeUrl: null
+});
+
+// サムネイル画像パスを解決
+const resolvedThumbnail = computed<string>(() => {
+  try {
+    if (props.thumbnail.startsWith('@/')) {
+      return new URL(props.thumbnail, import.meta.url).href;
     }
-  };
+    return props.thumbnail;
+  } catch (error) {
+    return 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+  }
+});
+
+const handleImageError = (e: Event): void => {
+  const target = e.target as HTMLImageElement;
+  target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+};
 </script>
 
 <style scoped>

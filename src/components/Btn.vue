@@ -169,64 +169,41 @@
   </button>
 </template>
 
-<script setup>
-const props = defineProps({
-  text: {
-    type: String,
-    default: 'View More'
-  },
-  subText: {
-    type: String,
-    default: ''
-  },
-  link: {
-    type: String,
-    default: ''
-  },
-  href: {
-    type: String,
-    default: ''
-  },
-  target: {
-    type: String,
-    default: ''
-  },
-  icon: {
-    type: Array,
-    default: null
-  },
-  alt: {
-    type: String,
-    default: 'button link(view more)'
-  },
-  showArrow: {
-    type: Boolean,
-    default: false
-  },
-  category: {
-    type: String,
-    default: '',
-    validator: (value) => {
-      return ['', 'animation', 'programming', 'graphics', 'video'].includes(value)
-    }
-  },
-  variant: {
-    type: String,
-    default: '',
-    validator: (value) => {
-      return ['', 'simple', 'primary', 'secondary'].includes(value)
-    }
-  }
-})
+<script setup lang="ts">
+interface Props {
+  text?: string;
+  subText?: string;
+  link?: string;
+  href?: string;
+  target?: string;
+  icon?: string[] | null;
+  alt?: string;
+  showArrow?: boolean;
+  category?: '' | 'animation' | 'programming' | 'graphics' | 'video';
+  variant?: '' | 'simple' | 'primary' | 'secondary';
+}
 
-const handleClick = () => {
-  const url = props.href || props.link
+const props = withDefaults(defineProps<Props>(), {
+  text: 'View More',
+  subText: '',
+  link: '',
+  href: '',
+  target: '',
+  icon: null,
+  alt: 'button link(view more)',
+  showArrow: false,
+  category: '',
+  variant: ''
+});
+
+const handleClick = (): void => {
+  const url = props.href || props.link;
   if (url) {
     if (props.target === '_blank') {
-      window.open(url, '_blank')
+      window.open(url, '_blank');
     } else {
-      window.location.href = url
+      window.location.href = url;
     }
   }
-}
+};
 </script>
