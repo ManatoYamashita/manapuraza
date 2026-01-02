@@ -1,7 +1,9 @@
-import { createApp } from 'vue'
-import App from '@/App.vue'
-import router from '@/router'
-import { createHead } from '@vueuse/head'
+import { createApp } from 'vue';
+import type { I18n } from 'vue-i18n';
+import App from '@/App.vue';
+import router from '@/router';
+import { createHead } from '@vueuse/head';
+import type { Locale } from '@/types';
 // MetaBallは初期描画のクリティカルパス外なので、アイドル時に遅延読み込みする
 
 // FontAwesomeを必要なものだけに絞り込み
@@ -65,17 +67,17 @@ library.add(
 );
 
 // Vue-i18n最適化版を使用（Tree shaking最適化）
-const setupI18n = async () => {
+const setupI18n = async (): Promise<I18n> => {
   // 標準版を使用（message-compiler含む、但し遅延読み込みで最適化）
   const { createI18n } = await import('vue-i18n');
-  
+
   // 初期は日本語のみ読み込み、英語はアイドル時に遅延読み込み
   const ja = await import('/locales/ja.json');
-  
+
   const i18n = createI18n({
     legacy: false, // Vue2の互換性を無効化（軽量化）
-    locale: 'ja',
-    fallbackLocale: 'en',
+    locale: 'ja' as Locale,
+    fallbackLocale: 'en' as Locale,
     globalInjection: true, // $t関数エラー修正のため有効化に復元
     silentTranslationWarn: true, // 警告メッセージを削減
     silentFallbackWarn: true,
@@ -85,16 +87,16 @@ const setupI18n = async () => {
       ja: ja.default
     }
   });
-  
+
   // アイドル時に英語辞書を読み込み、フォールバックを有効化
-  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+  const schedule = window.requestIdleCallback || ((cb: IdleRequestCallback) => setTimeout(cb, 1));
   schedule(async () => {
     const en = await import('/locales/en.json');
-    i18n.global.setLocaleMessage('en', en.default);
+    i18n.global.setLocaleMessage('en' as Locale, en.default);
   });
 
   return i18n;
-}
+};
 
 const app = createApp(App);
 const head = createHead();
@@ -115,7 +117,7 @@ setupI18n().then(i18n => {
   app.mount('#app');
 
   // メインCSSの環境対応読み込み（開発・プロダクション統一）
-  const loadMainCSS = () => {
+  const loadMainCSS = (): void => {
     if (import.meta.env.DEV) {
       // 開発環境：従来の動的読み込み
       const link = document.createElement('link');
@@ -124,7 +126,7 @@ setupI18n().then(i18n => {
       document.head.appendChild(link);
     } else {
       // プロダクション環境：静的インポートで確実に読み込み
-      import('/src/assets/main.css').catch(err => {
+      import('/src/assets/main.css').catch((err: Error) => {
         // フォールバック：基本スタイルの確保
         document.body.style.margin = '0';
         document.body.style.padding = '0';
@@ -134,7 +136,7 @@ setupI18n().then(i18n => {
   };
 
   // 画面の初期描画完了後に背景の重いthree.jsを読み込む
-  const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+  const schedule = window.requestIdleCallback || ((cb: IdleRequestCallback) => setTimeout(cb, 1));
   
   // CSSを先に読み込み
   schedule(() => {

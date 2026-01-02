@@ -33,6 +33,12 @@ declare module '*.svg' {
   export default src;
 }
 
+// JSON imports type declaration
+declare module '*.json' {
+  const value: any;
+  export default value;
+}
+
 // Vite environment variables
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
