@@ -1,0 +1,166 @@
+{
+  "name": "MANAPURAZA Vue.js 3 Development",
+
+  // ========================================
+  // Docker Compose 連携
+  // ========================================
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  // ========================================
+  // ポートフォワーディング
+  // ========================================
+  "forwardPorts": [5173, 4173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "4173": {
+      "label": "Vite Preview Server",
+      "onAutoForward": "silent"
+    }
+  },
+
+  // ========================================
+  // VS Code カスタマイゼーション
+  // ========================================
+  "customizations": {
+    "vscode": {
+      // 拡張機能（Vue 3 最適化）
+      "extensions": [
+        // Vue.js 開発必須
+        "Vue.volar",
+        "Vue.vscode-typescript-vue-plugin",
+
+        // Linter / Formatter
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+
+        // Vite 開発支援
+        "antfu.vite",
+
+        // 開発体験向上
+        "eamodio.gitlens",
+        "mhutchie.git-graph",
+        "wayou.vscode-todo-highlight",
+        "usernamehw.errorlens",
+
+        // Three.js サポート
+        "slevesque.shader",
+
+        // i18n サポート
+        "lokalise.i18n-ally",
+
+        // マークダウン（docs/ 編集）
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint"
+      ],
+
+      // エディタ設定
+      "settings": {
+        // ========================================
+        // Editor 基本設定
+        // ========================================
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.rulers": [100],
+        "files.eol": "\n",
+
+        // ========================================
+        // Prettier 設定（.prettierrc 準拠）
+        // ========================================
+        "prettier.semi": true,
+        "prettier.singleQuote": true,
+        "prettier.tabWidth": 2,
+        "prettier.useTabs": false,
+        "prettier.trailingComma": "es5",
+        "prettier.printWidth": 100,
+        "prettier.arrowParens": "always",
+        "prettier.endOfLine": "lf",
+
+        // ========================================
+        // ESLint 設定（Flat Config 対応）
+        // ========================================
+        "eslint.enable": true,
+        "eslint.format.enable": true,
+        "eslint.useFlatConfig": true,
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "vue"
+        ],
+
+        // ========================================
+        // Vue 設定
+        // ========================================
+        "[vue]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "volar.autoCompleteRefs": true,
+        "volar.codeLens.pugTools": false,
+
+        // ========================================
+        // ファイル監視除外（パフォーマンス）
+        // ========================================
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/**": true,
+          "**/dist/**": true,
+          "**/stats.html": true
+        },
+
+        // ========================================
+        // Git 設定
+        // ========================================
+        "git.autofetch": true,
+        "git.confirmSync": false,
+
+        // ========================================
+        // ターミナル設定
+        // ========================================
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "icon": "terminal-bash"
+          }
+        }
+      }
+    }
+  },
+
+  // ========================================
+  // ライフサイクルコマンド
+  // ========================================
+  "postCreateCommand": "npm install",
+  "postStartCommand": "git config --global core.autocrlf false && git config --global --add safe.directory /workspace",
+
+  // ========================================
+  // コンテナユーザー設定
+  // ========================================
+  "remoteUser": "node",
+
+  // ========================================
+  // 機能追加（オプション）
+  // ========================================
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    }
+  },
+
+  // ========================================
+  // マウント設定追加（SSH キー共有）
+  // ========================================
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+  ]
+}

@@ -1,0 +1,89 @@
+# ========================================
+# Vue.js 3 + Vite Devcontainer Compose
+# Named Volume による node_modules 最適化
+# ========================================
+
+version: '3.8'
+
+services:
+  # ========================================
+  # Vue.js 開発環境
+  # ========================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: manapuraza-dev
+
+    # ========================================
+    # ボリュームマウント設定
+    # ========================================
+    volumes:
+      # プロジェクトルート（bind mount）
+      - ../:/workspace:cached
+
+      # node_modules を Named Volume 化（パフォーマンス最適化の核心）
+      - node_modules:/workspace/node_modules
+
+      # Bash 履歴永続化（開発体験向上）
+      - bash_history:/home/node/.bash_history
+
+    # ========================================
+    # ポートフォワーディング
+    # ========================================
+    ports:
+      - "5173:5173"  # Vite 開発サーバー
+      - "4173:4173"  # Vite プレビューサーバー
+
+    # ========================================
+    # 環境変数
+    # ========================================
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true  # ホットリロード確実性向上
+
+    # ========================================
+    # コンテナ起動設定
+    # ========================================
+    command: sleep infinity
+
+    # ========================================
+    # リソース制限（オプション: MacBook 環境推奨値）
+    # ========================================
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+        reservations:
+          cpus: '2.0'
+          memory: 2G
+
+    # ========================================
+    # ネットワーク設定（将来の DB 連携用）
+    # ========================================
+    networks:
+      - dev-network
+
+# ========================================
+# Named Volumes 定義
+# ========================================
+volumes:
+  # node_modules 専用 Volume（I/O 高速化）
+  node_modules:
+    driver: local
+    name: manapuraza-node-modules
+
+  # Bash 履歴永続化
+  bash_history:
+    driver: local
+    name: manapuraza-bash-history
+
+# ========================================
+# ネットワーク定義（将来の拡張用）
+# ========================================
+networks:
+  dev-network:
+    driver: bridge
+    name: manapuraza-dev-network
