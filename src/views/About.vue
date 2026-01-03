@@ -1,12 +1,13 @@
-<script setup>
-  import { useI18n } from 'vue-i18n';
-  import { useHead } from '@vueuse/head';
-  import { computed } from 'vue';
-  import SelfImageAndMessage from '@/components/SelfImageAndMessage.vue';
-  import ProfileTable from '@/components/ProfileTable.vue';
-  import History from '@/components/History.vue';
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import { useHead } from '@vueuse/head';
+import { computed } from 'vue';
+import type { Locale } from '@/types';
+import SelfImageAndMessage from '@/components/SelfImageAndMessage.vue';
+import ProfileTable from '@/components/ProfileTable.vue';
+import History from '@/components/History.vue';
 
-  const { t, locale } = useI18n();
+const { t, locale } = useI18n<{ message: string }, Locale>();
 
   // SEOメタタグ設定
   useHead({

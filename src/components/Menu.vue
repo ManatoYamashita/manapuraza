@@ -191,256 +191,238 @@
   </div>
 </template>
 
-<script>
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
-import { RouterLink } from "vue-router";
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted, nextTick, watch, onErrorCaptured } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { gsap } from 'gsap';
+import type { Locale } from '@/types';
 
-export default {
-  name: 'AppMenu',
-  components: {
-    RouterLink,
-  },
-  setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const { t, locale } = useI18n();
-    const currentPath = ref(route.path);
-    const isInitialLoad = ref(true);
-    const isMobileMenuOpen = ref(false);
-    const isAnimating = ref(false);
+const route = useRoute();
+const router = useRouter();
+const { t, locale } = useI18n<{ message: string }, Locale>();
 
-    // モバイルメニューの表示判定（ホームページでは非表示）
-    const shouldShowMobileNav = computed(() => {
-      // ホームページでは常にモバイルメニューを非表示
-      // （App.vueの.home-nav-linksが表示されるため）
-      if (currentPath.value === '/') {
-        return false;
-      }
-      return true;
+const currentPath = ref<string>(route.path);
+const isInitialLoad = ref<boolean>(true);
+const isMobileMenuOpen = ref<boolean>(false);
+const isAnimating = ref<boolean>(false);
+
+// ドロップダウン状態管理
+const isDropdownOpen = ref<boolean>(false);
+const dropdownRef = ref<HTMLElement | null>(null);
+const dropdownRefMobile = ref<HTMLElement | null>(null);
+
+// モバイルメニューの表示判定（ホームページでは非表示）
+const shouldShowMobileNav = computed<boolean>(() => {
+  // ホームページでは常にモバイルメニューを非表示
+  // （App.vueの.home-nav-linksが表示されるため）
+  if (currentPath.value === '/') {
+    return false;
+  }
+  return true;
+});
+
+const currentPageLabel = computed<string>(() => {
+  const path = route.path;
+
+  const pathMap: Record<string, string> = {
+    '/': 'home',
+    '/about': 'about',
+    '/creatives': 'creatives',
+    '/contact': 'contact'
+  };
+
+  if (path.startsWith('/creatives/')) {
+    return t('navbar.menu.creatives');
+  }
+
+  const key = pathMap[path] || 'home';
+  return t(`navbar.menu.${key}`);
+});
+
+// 言語リスト
+interface Language {
+  code: Locale;
+  label: string;
+}
+
+const languages: Language[] = [
+  { code: 'ja', label: '日本語' },
+  { code: 'en', label: 'English' }
+];
+
+// 現在の言語ラベル
+const currentLanguageLabel = computed<string>(() => {
+  const current = languages.find(lang => lang.code === locale.value);
+  return current ? current.label : '日本語';
+});
+
+// ドロップダウン開閉
+const toggleDropdown = (): void => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+// 言語選択
+const selectLanguage = (langCode: Locale): void => {
+  if (locale.value !== langCode) {
+    locale.value = langCode;
+  }
+  isDropdownOpen.value = false; // 自動クローズ
+};
+
+const handleMorphButtonClick = (): void => {
+  if (isAnimating.value) return; // 連打防止
+
+  isAnimating.value = true;
+  const willOpen = !isMobileMenuOpen.value;
+
+  if (willOpen) {
+    // クローズ → オープン
+    isMobileMenuOpen.value = true;
+
+    nextTick(() => {
+      gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        onComplete: () => { isAnimating.value = false; }
+      })
+      // ページタイトルを後ろに引っ込める（完全には消さない）
+      .to('.mobile-page-title', {
+        opacity: 0.3,           // 薄く残す
+        scale: 0.92,
+        y: -10,                 // 上方向に押し込む
+        zIndex: 1,
+        duration: 0.2
+      })
+      // メニューカードを手前に引き出す
+      .to('.mobile-menu-card', {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        zIndex: 5,
+        duration: 0.25,
+        ease: 'back.out(1.2)'
+      }, '-=0.1');
     });
+  } else {
+    // オープン → クローズ
+    gsap.timeline({
+      defaults: { ease: 'power2.in' },
+      onComplete: () => {
+        isMobileMenuOpen.value = false;
+        isAnimating.value = false;
 
-    const currentPageLabel = computed(() => {
-      const path = route.path;
-
-      const pathMap = {
-        '/': 'home',
-        '/about': 'about',
-        '/creatives': 'creatives',
-        '/contact': 'contact'
-      };
-
-      if (path.startsWith('/creatives/')) {
-        return t('navbar.menu.creatives');
-      }
-
-      const key = pathMap[path] || 'home';
-      return t(`navbar.menu.${key}`);
-    });
-
-    // ドロップダウン状態管理
-    const isDropdownOpen = ref(false);
-    const dropdownRef = ref(null);
-    const dropdownRefMobile = ref(null);
-
-    // 言語リスト
-    const languages = [
-      { code: 'ja', label: '日本語' },
-      { code: 'en', label: 'English' }
-    ];
-
-    // 現在の言語ラベル
-    const currentLanguageLabel = computed(() => {
-      const current = languages.find(lang => lang.code === locale.value);
-      return current ? current.label : '日本語';
-    });
-
-    // ドロップダウン開閉
-    const toggleDropdown = () => {
-      isDropdownOpen.value = !isDropdownOpen.value;
-    };
-
-    // 言語選択
-    const selectLanguage = (langCode) => {
-      if (locale.value !== langCode) {
-        locale.value = langCode;
-      }
-      isDropdownOpen.value = false; // 自動クローズ
-    };
-
-    const handleMorphButtonClick = () => {
-      if (isAnimating.value) return; // 連打防止
-
-      isAnimating.value = true;
-      const willOpen = !isMobileMenuOpen.value;
-
-      if (willOpen) {
-        // クローズ → オープン
-        isMobileMenuOpen.value = true;
-
-        nextTick(() => {
-          gsap.timeline({
-            defaults: { ease: 'power2.out' },
-            onComplete: () => { isAnimating.value = false; }
-          })
-          // ページタイトルを後ろに引っ込める（完全には消さない）
-          .to('.mobile-page-title', {
-            opacity: 0.3,           // 薄く残す
-            scale: 0.92,
-            y: -10,                 // 上方向に押し込む
-            zIndex: 1,
-            duration: 0.2
-          })
-          // メニューカードを手前に引き出す
-          .to('.mobile-menu-card', {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            zIndex: 5,
-            duration: 0.25,
-            ease: 'back.out(1.2)'
-          }, '-=0.1');
-        });
-      } else {
-        // オープン → クローズ
-        gsap.timeline({
-          defaults: { ease: 'power2.in' },
-          onComplete: () => {
-            isMobileMenuOpen.value = false;
-            isAnimating.value = false;
-
-            // 状態リセット
-            gsap.set('.mobile-page-title', {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              zIndex: 5
-            });
-            gsap.set('.mobile-menu-card', {
-              opacity: 0,
-              y: 8,
-              scale: 0.95,
-              zIndex: 1
-            });
-          }
-        })
-        // メニューカードを後ろに押し込む
-        .to('.mobile-menu-card', {
-          opacity: 0.3,           // 薄く残す
-          y: 12,
-          scale: 0.95,
-          zIndex: 1,
-          duration: 0.2
-        })
-        // ページタイトルを手前に引き出す
-        .to('.mobile-page-title', {
+        // 状態リセット
+        gsap.set('.mobile-page-title', {
           opacity: 1,
           scale: 1,
           y: 0,
-          zIndex: 5,
-          duration: 0.25,
-          ease: 'back.out(1.3)'
-        }, '-=0.12');
-      }
-    };
-
-    // 外側クリック検出
-    const handleClickOutside = (event) => {
-      if (dropdownRef.value && !dropdownRef.value.contains(event.target) &&
-          dropdownRefMobile.value && !dropdownRefMobile.value.contains(event.target)) {
-        isDropdownOpen.value = false;
-      }
-    };
-
-    // Escapeキーでクローズ
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape' && isDropdownOpen.value) {
-        isDropdownOpen.value = false;
-      }
-    };
-
-    onMounted(() => {
-      try {
-        setTimeout(() => {
-          isInitialLoad.value = false;
-        }, 2000);
-
-        // イベントリスナー追加
-        document.addEventListener('click', handleClickOutside);
-        document.addEventListener('keydown', handleKeyDown);
-
-        // ルート変更時にドロップダウンとモバイルメニューをクローズ
-        router.afterEach(() => {
-          isDropdownOpen.value = false;
-          if (isMobileMenuOpen.value) {
-            isMobileMenuOpen.value = false;
-            // ページタイトルを確実に表示状態に戻す
-            nextTick(() => {
-              gsap.set('.mobile-page-title', { opacity: 1, scale: 1 });
-              gsap.set('.mobile-menu-card', { opacity: 0, y: 8 });
-            });
-          }
+          zIndex: 5
         });
-      } catch (error) {
-        isInitialLoad.value = false;
+        gsap.set('.mobile-menu-card', {
+          opacity: 0,
+          y: 8,
+          scale: 0.95,
+          zIndex: 1
+        });
       }
-    });
-
-    onUnmounted(() => {
-      // イベントリスナー削除
-      document.removeEventListener('click', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    });
-
-    const handleLogoError = (event) => {
-      try {
-        event.target.style.display = 'none';
-        const logoContainer = event.target.parentElement?.parentElement;
-        if (logoContainer) {
-          logoContainer.innerHTML = '<span class="logo-fallback">manapuraza</span>';
-        }
-      } catch (error) {
-        console.warn('Logo error handling failed');
-      }
-    };
-
-    return {
-      currentPath,
-      isInitialLoad,
-      shouldShowMobileNav,
-      handleLogoError,
-      t,
-      locale,
-      isDropdownOpen,
-      dropdownRef,
-      dropdownRefMobile,
-      languages,
-      currentLanguageLabel,
-      toggleDropdown,
-      selectLanguage,
-      isMobileMenuOpen,
-      currentPageLabel,
-      isAnimating,
-      handleMorphButtonClick
-    };
-  },
-  watch: {
-    $route(to) {
-      try {
-        if (to && to.path) {
-          this.currentPath = to.path;
-        }
-      } catch (error) {
-        this.currentPath = '/';
-      }
-    },
-  },
-  errorCaptured(err, instance, info) {
-    return false;
+    })
+    // メニューカードを後ろに押し込む
+    .to('.mobile-menu-card', {
+      opacity: 0.3,           // 薄く残す
+      y: 12,
+      scale: 0.95,
+      zIndex: 1,
+      duration: 0.2
+    })
+    // ページタイトルを手前に引き出す
+    .to('.mobile-page-title', {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      zIndex: 5,
+      duration: 0.25,
+      ease: 'back.out(1.3)'
+    }, '-=0.12');
   }
-}
+};
+
+// 外側クリック検出
+const handleClickOutside = (event: MouseEvent): void => {
+  const target = event.target as Node;
+  if (dropdownRef.value && !dropdownRef.value.contains(target) &&
+      dropdownRefMobile.value && !dropdownRefMobile.value.contains(target)) {
+    isDropdownOpen.value = false;
+  }
+};
+
+// Escapeキーでクローズ
+const handleKeyDown = (event: KeyboardEvent): void => {
+  if (event.key === 'Escape' && isDropdownOpen.value) {
+    isDropdownOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  try {
+    setTimeout(() => {
+      isInitialLoad.value = false;
+    }, 2000);
+
+    // イベントリスナー追加
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
+    // ルート変更時にドロップダウンとモバイルメニューをクローズ
+    router.afterEach(() => {
+      isDropdownOpen.value = false;
+      if (isMobileMenuOpen.value) {
+        isMobileMenuOpen.value = false;
+        // ページタイトルを確実に表示状態に戻す
+        nextTick(() => {
+          gsap.set('.mobile-page-title', { opacity: 1, scale: 1 });
+          gsap.set('.mobile-menu-card', { opacity: 0, y: 8 });
+        });
+      }
+    });
+  } catch {
+    isInitialLoad.value = false;
+  }
+});
+
+onUnmounted(() => {
+  // イベントリスナー削除
+  document.removeEventListener('click', handleClickOutside);
+  document.removeEventListener('keydown', handleKeyDown);
+});
+
+const handleLogoError = (event: Event): void => {
+  try {
+    const target = event.target as HTMLImageElement;
+    target.style.display = 'none';
+    const logoContainer = target.parentElement?.parentElement;
+    if (logoContainer) {
+      logoContainer.innerHTML = '<span class="logo-fallback">manapuraza</span>';
+    }
+  } catch {
+    console.warn('Logo error handling failed');
+  }
+};
+
+// ルート変更の監視（watch）
+watch(() => route.path, (newPath: string) => {
+  try {
+    if (newPath) {
+      currentPath.value = newPath;
+    }
+  } catch {
+    currentPath.value = '/';
+  }
+});
+
+// エラーキャプチャ
+onErrorCaptured(() => {
+  return false;
+});
 </script>
 
 <style lang="css" scoped>

@@ -9,21 +9,42 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` - Build production bundle with Vite
 - `npm run preview` - Preview production build locally
 - `npm run analyze` - Build with bundle analyzer (generates stats.html)
+- `npm run typecheck` - Run TypeScript type checking (vue-tsc)
 
 ### Testing & Quality
-No automated testing framework is configured. Manual testing involves running the development server and checking browser console/DevTools.
+- **Type Checking**: `npm run typecheck` - TypeScript compilation check (zero errors required)
+- **Linting**: `npm run lint` - ESLint validation (zero errors required)
+- **Manual Testing**: Run development server and check browser console/DevTools
+- No automated testing framework is configured
 
 ## Architecture Overview
 
 This is a Vue.js 3 portfolio website using:
-- **Vue 3** with Composition API and `<script setup>` syntax
-- **Vite** as build tool with optimized chunking strategy
-- **Vue Router** for SPA navigation with lazy-loaded routes and dynamic routing (`/creatives/:category/:id`)
-- **Vue I18n** for internationalization (Japanese/English)
-- **Three.js** for 3D background animations (MetaBall component)
-- **GSAP** for advanced animations
-- **Font Awesome** for icons
+- **Vue 3** with Composition API and `<script setup lang="ts">` syntax
+- **TypeScript 5.3.3** with Strict Mode enabled (100% TypeScript coverage)
+- **Vite 6.2.3** as build tool with TypeScript configuration and optimized chunking strategy
+- **Vue Router 4** for SPA navigation with type-safe lazy-loaded routes and dynamic routing (`/creatives/:category/:id`)
+- **Vue I18n 9** for internationalization (Japanese/English) with typed locale support
+- **Three.js 0.169.0** for 3D background animations (MetaBall component with typed Three.js objects)
+- **GSAP 3.12.5** for advanced animations
+- **Font Awesome** for icons (selective imports with tree-shaking)
 - **marked** for Markdown rendering in creative detail pages
+
+### TypeScript Configuration
+
+**Strict Mode Enabled** (`tsconfig.json`):
+- `strict: true` - All strict type-checking options enabled
+- `noUnusedLocals: true` - Report errors on unused local variables
+- `noUnusedParameters: true` - Report errors on unused parameters
+- `noImplicitReturns: true` - Ensure all code paths return a value
+- `noUncheckedIndexedAccess: true` - Add undefined to index signature results
+- `noFallthroughCasesInSwitch: true` - Report errors for fallthrough cases
+
+**Type Coverage**: 100% TypeScript across all components, utilities, and configuration files
+- Zero type errors required for commits
+- Zero ESLint errors required for commits
+- See `docs/typescript-migration.md` for migration details
+- See `docs/standards/typescript-coding-standards.md` for coding standards
 
 ### Performance Optimizations
 The codebase implements aggressive performance optimizations:
@@ -36,17 +57,24 @@ The codebase implements aggressive performance optimizations:
 ### Project Structure
 ```
 src/
-├── components/     # Reusable Vue components (CreativeItem, Menu, Btn, etc.)
-├── views/          # Page-level components (Home, About, Creatives, CreativeDetail, 404)
-├── data/           # Static data (creatives.js with portfolio items and detailDefaults)
+├── components/     # Reusable Vue components (CreativeItem, Menu, Btn, etc.) - TypeScript
+├── views/          # Page-level components (Home, About, Creatives, CreativeDetail, 404) - TypeScript
+├── data/           # Static data (creatives.ts with portfolio items and detailDefaults) - TypeScript
+├── types/          # TypeScript type definitions (centralized)
+│   ├── index.ts              # Export aggregation
+│   ├── creatives.ts          # Creative/portfolio types
+│   ├── router.ts             # Router parameter types
+│   ├── i18n.ts               # Internationalization types
+│   └── components.ts         # Component props types
 ├── assets/         # Images, CSS, static assets
-└── router/         # Vue Router configuration (includes dynamic route /creatives/:category/:id)
+├── router/         # Vue Router configuration (index.ts with type-safe dynamic routing)
+└── main.ts         # Application entry point (TypeScript)
 ```
 
 ## Key Components & Data Management
 
-### Portfolio Data (`src/data/creatives.js`)
-Portfolio items are centrally managed in this file with strict conventions:
+### Portfolio Data (`src/data/creatives.ts`)
+Portfolio items are centrally managed in this TypeScript file with strict type safety and conventions:
 - **Static imports required** for all images (no dynamic paths due to Vite bundling)
 - **i18n keys** for titles/descriptions following pattern: `creatives.[category].[item].(title|description|detailDescription)`
 - **Categories**: `animation`, `development`, `illustration`, `video`
@@ -181,8 +209,14 @@ All creative items use a consistent card layout with router-link to detail pages
 - **@fortawesome/***: Icon system with selective imports (faArrowLeft, faArrowRight, faArrowUpRightFromSquare, faPlay, faGlobe, etc.)
 
 ### Build Dependencies
-- **vite**: 6.2.3 - Build tool and dev server (upgraded from 6.2.3)
+- **vite**: 6.2.3 - Build tool and dev server with TypeScript support
 - **@vitejs/plugin-vue**: 5.2.3 - Vue 3 support for Vite
+- **typescript**: 5.3.3 - TypeScript compiler
+- **vue-tsc**: 2.0.6 - Vue TypeScript type checker
+- **@types/node**: 20.11.0 - Node.js type definitions
+- **@types/three**: 0.169.0 - Three.js type definitions
+- **@typescript-eslint/eslint-plugin**: 7.0.0 - TypeScript ESLint rules
+- **@typescript-eslint/parser**: 7.0.0 - TypeScript ESLint parser
 - **rollup-plugin-visualizer**: 5.14.0 - Bundle analysis
 - **terser**: 5.39.0 - JavaScript minification
 

@@ -100,43 +100,44 @@
   </div>
 </template>
 
-<script setup>
-  import CreativeItem from '@/components/CreativeItem.vue';
-  import CreativesHero from '@/components/CreativesHero.vue';
-  import { creativesData } from '@/data/creatives';
-  import { computed, ref, nextTick } from 'vue';
-  import { useI18n } from 'vue-i18n';
-  import { useHead } from '@vueuse/head';
+<script setup lang="ts">
+import CreativeItem from '@/components/CreativeItem.vue';
+import CreativesHero from '@/components/CreativesHero.vue';
+import { creativesData } from '@/data/creatives';
+import { computed, ref, nextTick } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useHead } from '@vueuse/head';
+import type { Locale, Creative, CreativeCategory } from '@/types';
 
-  const { t, locale } = useI18n();
+const { locale } = useI18n<{ message: string }, Locale>();
 
-  // フィルター状態管理
-  const activeFilter = ref('all');
+// フィルター状態管理
+const activeFilter = ref<'all' | CreativeCategory>('all');
 
-  // フィルター変更ハンドラー
-  const handleFilterChange = (category) => {
-    activeFilter.value = category;
+// フィルター変更ハンドラー
+const handleFilterChange = (category: 'all' | CreativeCategory): void => {
+  activeFilter.value = category;
 
-    // DOM更新完了後にスクロール実行
-    nextTick(() => {
-      if (category === 'all') {
-        // 'All'の場合はページトップにスクロール
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
+  // DOM更新完了後にスクロール実行
+  nextTick(() => {
+    if (category === 'all') {
+      // 'All'の場合はページトップにスクロール
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      // 特定カテゴリーの場合は該当セクションにスクロール
+      const section = document.getElementById(category);
+      if (section) {
+        section.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'  // セクションの上端を表示エリアの上端に配置
         });
-      } else {
-        // 特定カテゴリーの場合は該当セクションにスクロール
-        const section = document.getElementById(category);
-        if (section) {
-          section.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'  // セクションの上端を表示エリアの上端に配置
-          });
-        }
       }
-    });
-  };
+    }
+  });
+};
 
   // SEOメタタグ設定
   useHead({
@@ -261,17 +262,17 @@
   });
 
   // Fisher-Yatesアルゴリズムによる真のランダムシャッフル
-  const shuffleArray = (array) => {
+  const shuffleArray = <T>(array: T[]): T[] => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      [shuffled[i]!, shuffled[j]!] = [shuffled[j]!, shuffled[i]!];
     }
     return shuffled;
   };
 
   // ランダムに並び替えられたプログラミング作品のリスト
-  const randomizedDevelopment = computed(() => {
+  const randomizedDevelopment = computed<Creative[]>(() => {
     const items = creativesData?.development;
     if (!items || !Array.isArray(items)) {
       return [];

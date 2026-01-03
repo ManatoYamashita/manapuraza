@@ -1,10 +1,11 @@
-<script setup>
-  import { onMounted, computed } from 'vue';
-  import { useI18n } from 'vue-i18n';
-  import { useHead } from '@vueuse/head';
-  import Sns from '@/components/Sns.vue';
+<script setup lang="ts">
+import { onMounted, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useHead } from '@vueuse/head';
+import type { Locale } from '@/types';
+import Sns from '@/components/Sns.vue';
 
-  const { t, locale } = useI18n();
+const { t, locale } = useI18n<{ message: string }, Locale>();
 
   // SEOメタタグ設定
   useHead({

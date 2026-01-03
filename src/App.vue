@@ -86,78 +86,95 @@
   </div>
 </template>
 
-<script type="text/javascript" setup>
+<script setup lang="ts">
   import { watch, onMounted, onUnmounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
   import Menu from '@/components/Menu.vue';
+  import type { Locale } from '@/types';
 
   const route = useRoute();
   const router = useRouter();
-  const { t, locale } = useI18n();
-  const isHomePage = ref(true);
+  const { locale } = useI18n<{ message: string }, Locale>();
+  const isHomePage = ref<boolean>(true);
 
   // 言語切り替えドロップダウン管理
-  const isDropdownOpen = ref(false);
-  const dropdownRef = ref(null);
+  const isDropdownOpen = ref<boolean>(false);
+  const dropdownRef = ref<HTMLElement | null>(null);
 
-  const languages = [
+  interface Language {
+    code: Locale;
+    label: string;
+  }
+
+  const languages: Language[] = [
     { code: 'ja', label: '日本語' },
     { code: 'en', label: 'English' }
   ];
 
-  const currentLanguageLabel = computed(() => {
+  const currentLanguageLabel = computed<string>(() => {
     const current = languages.find(lang => lang.code === locale.value);
     return current ? current.label : '日本語';
   });
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (): void => {
     isDropdownOpen.value = !isDropdownOpen.value;
   };
 
-  const selectLanguage = (langCode) => {
+  const selectLanguage = (langCode: Locale): void => {
     if (locale.value !== langCode) {
       locale.value = langCode;
     }
     isDropdownOpen.value = false;
   };
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent): void => {
+    const target = event.target as Node;
+    if (dropdownRef.value && !dropdownRef.value.contains(target)) {
       isDropdownOpen.value = false;
     }
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape' && isDropdownOpen.value) {
       isDropdownOpen.value = false;
     }
   };
 
   // プログレッシブローディング用のロゴ管理
-  const logoQuality = ref('low'); // 'low' | 'high'
-  const isLogoTransitioning = ref(false);
-  const logoLoadAttempted = ref(false);
+  type LogoQuality = 'low' | 'high';
+  const logoQuality = ref<LogoQuality>('low');
+  const isLogoTransitioning = ref<boolean>(false);
+  const logoLoadAttempted = ref<boolean>(false);
 
   // ロゴソースの計算プロパティ
-  const currentLogoSrc = computed(() => {
-    return logoQuality.value === 'low' 
+  const currentLogoSrc = computed<string>(() => {
+    return logoQuality.value === 'low'
       ? new URL('@/assets/logo-low.webp', import.meta.url).href
       : new URL('@/assets/logo.webp', import.meta.url).href;
   });
 
   // ロゴ遷移用クラス
-  const logoTransitionClass = computed(() => {
+  const logoTransitionClass = computed<string>(() => {
     return isLogoTransitioning.value ? 'logo-transitioning' : '';
   });
 
-  const checkRouterReady = async () => {
+  const checkRouterReady = async (): Promise<void> => {
     await router.isReady();
     updateHomePageState();
   };
 
+  interface StyleObject extends Partial<Record<string, string>> {
+    top?: string;
+    opacity?: string;
+    pointerEvents?: 'auto' | 'none' | 'all';
+    filter?: string;
+    transition?: string;
+    transform?: string;
+  }
+
   // リアクティブなスタイル計算（直接DOM操作を排除）
-  const appStyles = computed(() => {
+  const appStyles = computed<StyleObject>(() => {
     if (isHomePage.value) {
       return {
         top: '20vh',
@@ -167,13 +184,13 @@
     } else {
       return {
         top: '0',
-        opacity: '1', 
+        opacity: '1',
         pointerEvents: 'all'
       };
     }
   });
 
-  const updateHomePageState = () => {
+  const updateHomePageState = (): void => {
     isHomePage.value = route.name === 'home';
     // 直接DOM操作を削除 - リアクティブスタイルが自動更新
   };
@@ -183,12 +200,12 @@
   });
 
   // 高画質版ロゴの遅延読み込み
-  const loadHighQualityLogo = () => {
+  const loadHighQualityLogo = (): void => {
     if (logoLoadAttempted.value) return;
-    
+
     logoLoadAttempted.value = true;
     const highQualityImg = new Image();
-    
+
     highQualityImg.onload = () => {
       // 遅延してスムーズな遷移を実現
       setTimeout(() => {
@@ -201,18 +218,18 @@
         }, 100);
       }, 200);
     };
-    
+
     highQualityImg.onerror = () => {
     };
-    
+
     highQualityImg.src = new URL('@/assets/logo.webp', import.meta.url).href;
   };
 
   // ロゴ読み込み完了ハンドラー
-  const onLogoLoad = () => {
+  const onLogoLoad = (): void => {
     // 初期の低画質ロゴが読み込まれた後、高画質版を遅延読み込み
     if (logoQuality.value === 'low' && !logoLoadAttempted.value) {
-      const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 100));
+      const schedule = window.requestIdleCallback || ((cb: IdleRequestCallback) => setTimeout(cb, 100));
       schedule(() => {
         loadHighQualityLogo();
       });
@@ -223,13 +240,13 @@
     checkRouterReady();
 
     // LCP改善: 高品質版ロゴのプリロードヒントを追加
-    const addLogoPreload = () => {
+    const addLogoPreload = (): void => {
       const logoPreloadLink = document.createElement('link');
       logoPreloadLink.rel = 'preload';
       logoPreloadLink.href = new URL('@/assets/logo.webp', import.meta.url).href;
       logoPreloadLink.as = 'image';
       logoPreloadLink.type = 'image/webp';
-      logoPreloadLink.fetchpriority = 'high';
+      logoPreloadLink.fetchPriority = 'high';
       document.head.appendChild(logoPreloadLink);
     };
 
@@ -246,17 +263,17 @@
     document.removeEventListener('keydown', handleKeyDown);
   });
 
-  const path = computed(() => route.path);
+  const path = computed<string>(() => route.path);
 
-  const className = computed(() => {
+  const className = computed<string>(() => {
     if (path.value === '/') {
       return 'route-home';
     } else {
-      return 'route-other'; 
+      return 'route-other';
     }
   });
 
-  const styleObject = computed(() => {
+  const styleObject = computed<StyleObject>(() => {
     if (path.value === '/') {
       return {
         opacity: '1',
@@ -272,13 +289,13 @@
   });
 
   // ロゴのスタイルオブジェクト（遷移効果を含む）
-  const combinedStyleObject = computed(() => {
+  const combinedStyleObject = computed<StyleObject>(() => {
     const baseStyle = styleObject.value;
-    const transitionStyle = isLogoTransitioning.value ? {
+    const transitionStyle: StyleObject = isLogoTransitioning.value ? {
       opacity: '0.7',
       transform: baseStyle.transform ? `${baseStyle.transform} scale(1.02)` : 'scale(1.02)',
     } : {};
-    
+
     return {
       ...baseStyle,
       ...transitionStyle,

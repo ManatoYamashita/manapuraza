@@ -1,6 +1,6 @@
 /**
  * ポートフォリオ作品データファイル
- * 
+ *
  * 各作品カテゴリごとに、作品情報を一元管理するファイルです。
  * title: 翻訳キー（i18nで管理）
  * description: 説明文の翻訳キー
@@ -8,6 +8,8 @@
  * thumbnail: 作品のサムネイル画像パス
  * id: 作品の識別子（ファイル名として使用）
  */
+
+import type { Creative, CreativesData, CreativeDetail } from '@/types';
 
 // 画像のインポート
 import manapurazaImg from '@/assets/creatives-thumb/dev/manapuraza.webp';
@@ -28,7 +30,7 @@ import pixivGalleryImg from '@/assets/creatives-thumb/illustration/pixiv.webp';
 import manapurazaYoutubeImg from '@/assets/creatives-thumb/video/youtube-manapuraza.webp';
 import tcuDcYoutubeImg from '@/assets/creatives-thumb/video/youtube-tcudc.webp';
 
-export const creativesData = {
+export const creativesData: CreativesData = {
 
    // アニメーション作品
    animation: [
@@ -231,12 +233,31 @@ export const creativesData = {
 };
 
 /**
+ * カテゴリとIDから作品を検索
+ */
+export function getCreativeById(
+  category: keyof CreativesData,
+  id: string
+): Creative | undefined {
+  return creativesData[category].find((item) => item.id === id);
+}
+
+/**
+ * カテゴリの全作品を取得
+ */
+export function getCreativesByCategory(
+  category: keyof CreativesData
+): Creative[] {
+  return creativesData[category];
+}
+
+/**
  * 詳細ページのデフォルト値（fallback）
  */
-export const detailDefaults = {
+export const detailDefaults: Required<CreativeDetail> = {
   images: [],  // 空の場合は thumbnail を使用
   descriptionMarkdown: '',  // 空の場合は description を使用
-  youtube: null,
+  youtube: { mobile: '', desktop: '' },
   productionYear: '',
   credits: [],
   cta: [
