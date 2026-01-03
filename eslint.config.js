@@ -26,7 +26,7 @@ export default [
     },
     rules: {
       // Vue specific rules
-      'vue/multi-word-component-names': 'warn',
+      'vue/multi-word-component-names': 'off',
       'vue/no-unused-vars': 'warn',
       'vue/no-unused-components': 'warn',
       'vue/require-v-for-key': 'error',
@@ -61,6 +61,9 @@ export default [
       '@typescript-eslint': tseslint,
     },
     rules: {
+      // Vue specific rules
+      'vue/multi-word-component-names': 'off',
+
       // Disable conflicting ESLint rules
       'no-unused-vars': 'off',
       'no-undef': 'off',
@@ -103,7 +106,7 @@ export default [
     },
     rules: {
       // Vue specific rules
-      'vue/multi-word-component-names': 'warn',
+      'vue/multi-word-component-names': 'off',
       'vue/no-unused-vars': 'warn',
       'vue/no-unused-components': 'warn',
       'vue/require-v-for-key': 'error',

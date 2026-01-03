@@ -12,7 +12,7 @@ export interface CtaButton {
   icon?: string[];
   text: string;        // i18n key (e.g., "creatives.cta.viewSite")
   subText: string;     // i18n key (e.g., "creatives.cta.viewSiteSub")
-  variant: string;
+  variant: '' | 'primary' | 'secondary' | 'simple';
 }
 
 // Creative detail page data

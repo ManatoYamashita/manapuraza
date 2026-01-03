@@ -56,7 +56,7 @@ const resolvedThumbnail = computed<string>(() => {
       return new URL(props.thumbnail, import.meta.url).href;
     }
     return props.thumbnail;
-  } catch (error) {
+  } catch {
     return 'https://via.placeholder.com/300x200?text=Image+Not+Found';
   }
 });

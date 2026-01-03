@@ -12,11 +12,12 @@
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
 
-    // 型チェックレベル（Phase 0: 緩やか / Phase 5でstrict化）
-    "strict": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": false,
+    // 型チェックレベル（Phase 5: Strict Mode有効化）
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": true,
 
     // Vue 3特有設定

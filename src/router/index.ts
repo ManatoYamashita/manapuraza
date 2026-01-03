@@ -62,7 +62,7 @@ const routes: RouteRecordRaw[] = [
       props: true,
       beforeEnter: (
         to: RouteLocationNormalized,
-        from: RouteLocationNormalized,
+        _from: RouteLocationNormalized,
         next: NavigationGuardNext
       ) => {
         const { category } = to.params;
@@ -93,7 +93,7 @@ const routes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_to, _from, savedPosition) {
     // ブラウザの戻る/進む時は保存位置を復元
     if (savedPosition) {
       return savedPosition;
@@ -107,7 +107,7 @@ const router = createRouter({
 // 完璧ナビゲーション視覚フィードバックシステム
 router.beforeEach((
   to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
+  _from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) => {
   // lazy loading開始時の瞬時視覚フィードバック
@@ -143,7 +143,7 @@ router.beforeEach((
 
 router.afterEach((
   to: RouteLocationNormalized,
-  from: RouteLocationNormalized
+  _from: RouteLocationNormalized
 ) => {
   // lazy loading完了時の視覚フィードバック解除
   if (to.name !== 'home') {

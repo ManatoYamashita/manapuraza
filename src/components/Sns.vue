@@ -2,7 +2,7 @@
 <template>
     <div id="icons">
       <a
-        v-for="(icon, index) in icons"
+        v-for="icon in icons"
         :key="icon.id"
         :href="icon.href"
         :id="icon.id"

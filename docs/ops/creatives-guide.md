@@ -1,6 +1,6 @@
 # Creatives データ管理手順
 
-対象: `src/data/creatives.js`（Animation / Development / Illustration / Video の作品データ）
+対象: `src/data/creatives.ts`（Animation / Development / Illustration / Video の作品データ - TypeScript）
 
 ## データ構造
 
@@ -23,24 +23,47 @@
 ### オプション: detail オブジェクト
 詳細ページ（`/creatives/:category/:id`）用の追加情報：
 
-```javascript
+```typescript
+// TypeScript型定義 (src/types/creatives.ts)
+export interface CreativeDetail {
+  images: string[];                         // 作品画像配列（1枚以上）
+  descriptionMarkdown: string;              // Markdown形式の詳細説明（i18nキー）
+  youtube?: {                               // Animation専用: YouTube動画URL
+    mobile: string;
+    desktop: string;
+  };
+  productionYear?: string;                  // 制作年
+  credits?: string[];                       // クレジット情報（i18nキー配列）
+  cta?: CtaButton[];                        // CTAボタン配列
+}
+
+export interface CtaButton {
+  href: string;
+  target: string;
+  icon?: string[];
+  text: string;                             // i18nキー
+  subText: string;                          // i18nキー
+  variant: '' | 'primary' | 'secondary' | 'simple';
+}
+
+// 実装例
 detail: {
-  images: [image1, image2, ...],           // 作品画像配列（1枚以上）
-  descriptionMarkdown: 'i18nキー',          // Markdown形式の詳細説明
-  youtube: {                               // Animation専用: YouTube動画URL
+  images: [image1, image2],
+  descriptionMarkdown: 'creatives.dev.myWork.detailDescription',
+  youtube: {
     mobile: 'https://youtube.com/embed/...',
     desktop: 'https://youtube.com/embed/...'
   },
-  productionYear: '2024~2025',             // 制作年
-  credits: ['i18nキー1', 'i18nキー2'],       // クレジット情報
-  cta: [                                   // CTAボタン配列
+  productionYear: '2024~2025',
+  credits: ['creatives.common.credits.director', 'creatives.common.credits.developer'],
+  cta: [
     {
       href: 'https://...',
       target: '_blank',
       icon: ['fas', 'arrow-up-right-from-square'],
-      text: 'i18nキー',
-      subText: 'i18nキー',
-      variant: 'primary' // or 'secondary'
+      text: 'creatives.cta.viewSite',
+      subText: 'creatives.cta.viewSiteSub',
+      variant: 'primary'
     }
   ]
 }
@@ -63,13 +86,15 @@ detail: {
 1. **画像追加**: `src/assets/creatives-thumb/{category}/` に WebP を配置（`kebab-case.webp`）
    - カテゴリ: `animation`, `development`, `illustration`, `video`
 
-2. **画像 import**: `creatives.js` 先頭で静的 import
-   ```javascript
+2. **画像 import**: `creatives.ts` 先頭で静的 import
+   ```typescript
    import myWorkImg from '@/assets/creatives-thumb/development/my-work.webp';
    ```
 
-3. **データ追記**: 該当カテゴリ配列へオブジェクトを追加
-   ```javascript
+3. **データ追記**: 該当カテゴリ配列へオブジェクトを追加（型安全性のため `satisfies Creative` を使用）
+   ```typescript
+   import type { Creative } from '@/types';
+
    {
      id: 'my-work',
      title: 'creatives.dev.myWork.title',
@@ -77,7 +102,7 @@ detail: {
      url: 'https://example.com',
      thumbnail: myWorkImg,
      tags: ['Next.js', 'TypeScript']
-   }
+   } satisfies Creative,
    ```
 
 4. **翻訳追加**: `locales/ja.json` と `locales/en.json` に追加

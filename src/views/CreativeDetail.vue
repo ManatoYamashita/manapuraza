@@ -37,7 +37,7 @@
       <h2>{{ $t('creatives.common.video') }}</h2>
       <div class="video-container">
         <iframe
-          v-if="!isDesktop"
+          v-if="!isDesktop && detailData.youtube"
           :src="detailData.youtube.mobile"
           :title="$t(creative.title)"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -45,7 +45,7 @@
           loading="lazy"
         ></iframe>
         <iframe
-          v-else
+          v-else-if="detailData.youtube"
           :src="detailData.youtube.desktop"
           :title="$t(creative.title)"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -104,33 +104,44 @@
   </div>
 </template>
 
-<script setup>
-  import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+<script setup lang="ts">
+  import { computed, ref, onMounted, onBeforeUnmount, type Ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
   import { marked } from 'marked';
   import { creativesData, detailDefaults } from '@/data/creatives';
   import Btn from '@/components/Btn.vue';
+  import type { Locale, Creative, CreativeCategory, CreativeDetail, CtaButton } from '@/types';
 
   const route = useRoute();
-  const { t, locale } = useI18n();
+  const { t } = useI18n<{ message: string }, Locale>();
 
   // URL パラメータから作品データを取得
-  const category = computed(() => route.params.category);
-  const id = computed(() => route.params.id);
+  const category = computed<string>(() => route.params.category as string);
+  const id = computed<string>(() => route.params.id as string);
 
-  const creative = computed(() => {
-    const categoryData = creativesData[category.value];
+  const creative = computed<Creative | null>(() => {
+    const categoryData = creativesData[category.value as CreativeCategory];
     if (!categoryData) return null;
-    return categoryData.find(item => item.id === id.value);
+    return categoryData.find(item => item.id === id.value) || null;
   });
 
-  // Detail データの取得（fallback 対応）
-  const detailData = computed(() => {
-    if (!creative.value) return detailDefaults;
+  // Detail データの構造型定義
+  interface DetailData {
+    images: string[];
+    descriptionMarkdown: string;
+    youtube: { mobile: string; desktop: string } | null;
+    productionYear: string;
+    credits: string[];
+    cta: CtaButton[];
+  }
 
-    const detail = creative.value.detail || {};
+  // Detail データの取得（fallback 対応）
+  const detailData = computed<DetailData>(() => {
+    if (!creative.value) return detailDefaults as DetailData;
+
+    const detail: Partial<CreativeDetail> = creative.value.detail || {};
 
     return {
       images: detail.images && detail.images.length > 0
@@ -154,15 +165,15 @@
   });
 
   // YouTube セクションの表示判定
-  const hasYoutube = computed(() => {
+  const hasYoutube = computed<boolean>(() => {
     return detailData.value.youtube !== null;
   });
 
   // デスクトップ判定
-  const isDesktop = ref(false);
-  let mediaQueryList = null;
+  const isDesktop: Ref<boolean> = ref(false);
+  let mediaQueryList: MediaQueryList | null = null;
 
-  const handleMediaQueryChange = (e) => {
+  const handleMediaQueryChange = (e: MediaQueryListEvent): void => {
     isDesktop.value = e.matches;
   };
 
@@ -236,20 +247,26 @@
   });
 
   // Markdown レンダリング
-  const renderedDescription = computed(() => {
+  const renderedDescription = computed<string>(() => {
     if (!creative.value) return '';
     const markdownText = t(detailData.value.descriptionMarkdown);
-    return marked(markdownText, { breaks: true });
+    return marked(markdownText, { breaks: true }) as string;
   });
 
+  // クレジット情報のパース用の型定義
+  interface ParsedCredit {
+    label: string;
+    value: string;
+  }
+
   // クレジット情報のパース
-  const parsedCredits = computed(() => {
+  const parsedCredits = computed<ParsedCredit[]>(() => {
     if (!detailData.value.credits || detailData.value.credits.length === 0) {
       return [];
     }
 
     return detailData.value.credits
-      .map((credit) => {
+      .map((credit): ParsedCredit | null => {
         const translatedCredit = t(credit);
         if (!translatedCredit) return null;
 
@@ -265,7 +282,7 @@
         const value = translatedCredit.slice(splitIndex + 1).trim();
         return { label, value };
       })
-      .filter(Boolean);
+      .filter((credit): credit is ParsedCredit => credit !== null);
   });
 
   // SEO メタタグ設定

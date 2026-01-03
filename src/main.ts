@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import type { I18n } from 'vue-i18n';
 import App from '@/App.vue';
 import router from '@/router';
 import { createHead } from '@vueuse/head';
@@ -67,7 +66,7 @@ library.add(
 );
 
 // Vue-i18n最適化版を使用（Tree shaking最適化）
-const setupI18n = async (): Promise<I18n> => {
+const setupI18n = async () => {
   // 標準版を使用（message-compiler含む、但し遅延読み込みで最適化）
   const { createI18n } = await import('vue-i18n');
 
@@ -126,7 +125,7 @@ setupI18n().then(i18n => {
       document.head.appendChild(link);
     } else {
       // プロダクション環境：静的インポートで確実に読み込み
-      import('/src/assets/main.css').catch((err: Error) => {
+      import('/src/assets/main.css').catch((_err: Error) => {
         // フォールバック：基本スタイルの確保
         document.body.style.margin = '0';
         document.body.style.padding = '0';
