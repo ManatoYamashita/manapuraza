@@ -229,7 +229,10 @@ export const creativesData: CreativesData = {
       thumbnail: manapurazaYoutubeImg,
       tags: ['YouTube', 'Vlog', 'Personal']
     }
-   ]
+   ],
+
+   // グラフィックデザイン作品（移行後にCMSで管理）
+   graphic: []
 };
 
 /**

@@ -7,6 +7,7 @@ export * from './creatives';
 export * from './router';
 export * from './i18n';
 export * from './components';
+export * from './microcms';
 
 // Default exports for common use
 export type {
@@ -28,3 +29,10 @@ export type {
 export type {
   CreativeItemProps
 } from './components';
+
+export type {
+  CategoryData,
+  CreativeData,
+  MicroCMSListResponse,
+  CategoryType
+} from './microcms';
