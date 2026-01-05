@@ -328,7 +328,7 @@
         content: computed(() =>
           creative.value
             ? creative.value.thumbnail
-            : 'https://manapuraza.com/ogp.jpg'
+            : 'https://manapuraza.com/ogp.webp'
         )
       }
     ],

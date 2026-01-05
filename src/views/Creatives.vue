@@ -189,7 +189,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
       },
       {
         property: 'og:image',
-        content: 'https://manapuraza.com/ogp.jpg'
+        content: 'https://manapuraza.com/ogp.webp'
       },
       {
         name: 'twitter:title',

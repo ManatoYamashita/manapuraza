@@ -12,7 +12,7 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://manapuraza.com/" />
         <xhtml:link rel="alternate" hreflang="x-default" href="https://manapuraza.com/" />
         <image:image>
-            <image:loc>https://manapuraza.com/ogp.jpg</image:loc>
+            <image:loc>https://manapuraza.com/ogp.webp</image:loc>
             <image:caption>MANAPURAZA.COM - 山下マナト（山下真和都）ポートフォリオ</image:caption>
             <image:title>山下マナト Portfolio</image:title>
         </image:image>
@@ -42,7 +42,7 @@
         <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/creatives" />
         <xhtml:link rel="alternate" hreflang="en" href="https://manapuraza.com/creatives" />
         <image:image>
-            <image:loc>https://manapuraza.com/ogp.jpg</image:loc>
+            <image:loc>https://manapuraza.com/ogp.webp</image:loc>
             <image:caption>山下マナト クリエイティブ作品集</image:caption>
             <image:title>Creatives Portfolio</image:title>
         </image:image>

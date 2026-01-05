@@ -40,7 +40,7 @@
 /icon.webp
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
-/ogp.jpg
+/ogp.webp
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
 /*.webp

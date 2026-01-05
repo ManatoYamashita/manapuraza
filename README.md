@@ -2,7 +2,7 @@
 山下マナト Webポートフォリオ
 
 <div align="center">
-  <img src="./public/ogp.jpg" alt="OGP image" width="520" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
+  <img src="./public/ogp.webp" alt="OGP image" width="520" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 152, 79, 0.5);">
   
   <br/>
   <a href="https://vuejs.org/" target="_blank"><img alt="Vue.js" src="https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat-square&logo=vue.js"></a>
@@ -69,7 +69,7 @@ npm run analyze  # バンドル可視化（rollup-plugin-visualizer）
 ```
 manapuraza/
 ├── public/                     # 静的ファイル
-│   ├── ogp.jpg                # OGPイメージ
+│   ├── ogp.webp                # OGPイメージ
 │   ├── robots.txt             # SEO設定
 │   └── sitemap.xml            # サイトマップ
 ├── src/

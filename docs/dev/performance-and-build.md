@@ -9,7 +9,7 @@
 - 画像は WebP を基本。大サイズはサムネイルを別用意（例: `assets/creatives-thumb/`）。
 - ロゴは low→high の段階的切替。`<link rel=\"preload\" as=\"image\" fetchpriority=\"high\">` で LCP を最適化。
 - 参照は `new URL('@/assets/foo.webp', import.meta.url).href` を使用。命名は用途別ディレクトリ + ハイフン区切り。
-- `public/favicon.ico` と `public/ogp.jpg` はキャッシュ更新時にバージョン付けを検討。
+- `public/favicon.ico` と `public/ogp.webp` はキャッシュ更新時にバージョン付けを検討。
 
 ## Three.js / MetaBall
 - 動的 import 失敗時は `console.error` に詳細を残し、他 UI を阻害しない。

@@ -57,7 +57,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:image',
-        content: 'https://manapuraza.com/ogp.jpg'
+        content: 'https://manapuraza.com/ogp.webp'
       },
       {
         name: 'twitter:title',
