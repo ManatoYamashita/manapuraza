@@ -54,5 +54,4 @@
   command = "npm run build"
 
   [context.production.environment]
-    NODE_ENV = "production"
     VITE_APP_ENV = "production"
