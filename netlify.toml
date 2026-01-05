@@ -1,0 +1,58 @@
+# Netlify Build Settings for MANAPURAZA Legacy Design (v1.0)
+# Base Commit: d1e2fb8954833bdc3b72465a5cc9a50d96364220 (2025-11-25)
+
+[build]
+  # ビルドコマンド
+  command = "npm run build"
+
+  # 公開ディレクトリ（Vite のデフォルト出力先）
+  publish = "dist"
+
+  # Node.js バージョン指定
+  environment = { NODE_VERSION = "22.13.1" }
+
+# SPA リダイレクト設定（Vue Router 対応）
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# セキュリティヘッダー
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# 静的アセット（長期キャッシュ）
+[[headers]]
+  for = "/assets/*"
+
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML ファイル（キャッシュなし）
+[[headers]]
+  for = "/*.html"
+
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# WebP 画像（中期キャッシュ）
+[[headers]]
+  for = "/*.webp"
+
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# コンテキスト別設定
+[context.production]
+  command = "npm run build"
+
+  [context.production.environment]
+    NODE_ENV = "production"
+    VITE_APP_ENV = "production"
