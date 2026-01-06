@@ -252,4 +252,4 @@ manapuraza/
 © 2023– Manato Yamashita. All Rights Reserved.
 
 ---
-最終更新: 2025-08-10
+最終更新: 2026-08-10

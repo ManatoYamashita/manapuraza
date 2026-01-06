@@ -147,7 +147,7 @@ docker volume inspect manapuraza-node-modules
 ```json
 [
   {
-    "CreatedAt": "2025-12-10T10:00:00Z",
+    "CreatedAt": "2026-12-10T10:00:00Z",
     "Driver": "local",
     "Labels": {
       "com.docker.compose.project": "devcontainer",
@@ -528,4 +528,4 @@ Docker 環境でのパフォーマンス最適化は、以下の3つの手法の
 
 ## 更新履歴
 
-- 2025/12/10: 初版作成（Named Volume、CHOKIDAR_USEPOLLING の詳細解説）
+- 2026/12/10: 初版作成（Named Volume、CHOKIDAR_USEPOLLING の詳細解説）

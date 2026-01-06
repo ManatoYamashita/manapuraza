@@ -354,4 +354,4 @@ git push origin feature-add-gtm
 
 ## 更新履歴
 
-- 2025-11-24: 初版作成（feature/quality-tools ブランチでの運用実績を反映）
+- 2026-11-24: 初版作成（feature/quality-tools ブランチでの運用実績を反映）

@@ -54,7 +54,7 @@ detail: {
     mobile: 'https://youtube.com/embed/...',
     desktop: 'https://youtube.com/embed/...'
   },
-  productionYear: '2024~2025',
+  productionYear: '2024~2026',
   credits: ['creatives.common.credits.director', 'creatives.common.credits.developer'],
   cta: [
     {
@@ -133,7 +133,7 @@ detail: {
      detail: {
        images: [myWorkImg, myWorkImg2],
        descriptionMarkdown: 'creatives.dev.myWork.detailDescription',
-       productionYear: '2025',
+       productionYear: '2026',
        credits: [
          'creatives.dev.myWork.credits.production',
          'creatives.dev.myWork.credits.director'

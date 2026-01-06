@@ -34,4 +34,4 @@
 - デプロイ手順: `docs/ops/deployment-checklist.md`
 - Creatives データ管理: `docs/ops/creatives-guide.md`
 
-最終更新日: 2025/11/24
+最終更新日: 2026/11/24

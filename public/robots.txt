@@ -1,5 +1,5 @@
 # robots.txt for manapuraza.com
-# 最終更新: 2025-11-24
+# 最終更新: 2026-11-24
 
 # 全てのクローラーに対する基本設定
 User-agent: *

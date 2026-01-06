@@ -517,12 +517,14 @@
     color: #777;
     font-weight: 600;
     text-align: left;
+    letter-spacing: -0.03em;
   }
 
   .credit-value {
     margin: 0;
     font-size: 1rem;
     color: #333;
+    letter-spacing: -0.03em;
   }
 
   .creative-tags {

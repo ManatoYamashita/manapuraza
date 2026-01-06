@@ -51,7 +51,7 @@ export const creativesData: CreativesData = {
            desktop: 'https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M'
          },
 
-         productionYear: '2024~2025',
+         productionYear: '2024~2026',
 
          credits: [
            'creatives.animation.tcuAnimation.description.production',

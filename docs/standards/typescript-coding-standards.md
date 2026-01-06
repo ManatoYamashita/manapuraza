@@ -6,7 +6,7 @@ This document defines TypeScript coding standards for the manapuraza portfolio p
 
 **TypeScript Version**: 5.3.3
 **Strict Mode**: Enabled
-**Last Updated**: January 2, 2025
+**Last Updated**: January 2, 2026
 
 ## Table of Contents
 
@@ -629,4 +629,4 @@ Before submitting code for review, verify:
 
 ## Updates
 
-This document will be updated as new TypeScript patterns emerge in the project. Last updated: January 2, 2025.
+This document will be updated as new TypeScript patterns emerge in the project. Last updated: January 2, 2026.

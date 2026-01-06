@@ -724,7 +724,7 @@ onErrorCaptured(() => {
   /* 絶対配置で左側に固定 */
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 2px;
   z-index: 10;
 
   /* 円形デザイン */

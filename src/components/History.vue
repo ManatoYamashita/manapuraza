@@ -36,7 +36,7 @@ export default {
       { year: '2021', titleKey: 'his.21-2', descriptionKey: 'his.21-2-de' },
       { year: '2022', titleKey: 'his.22', descriptionKey: 'his.22-de' },
       { year: '2023', titleKey: 'his.23', descriptionKey: 'his.23-de' },
-      { year: '2025', titleKey: 'his.25', descriptionKey: 'his.25-de' },
+      { year: '2026', titleKey: 'his.25', descriptionKey: 'his.25-de' },
       
     ]);
 
@@ -157,7 +157,7 @@ export default {
   .p8 { /* 2023年 */
     margin-bottom: 1rem;
   }
-  .p9 { /* 2025年 */
+  .p9 { /* 2026年 */
     margin-bottom: 1rem;
   }
 </style>

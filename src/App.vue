@@ -752,10 +752,45 @@
     }
   }
 
-  /* Mobile: 540px以下 - 完全非表示 */
+  /* Mobile: 540px以下 - コンパクトな縦並びレイアウト */
   @media screen and (max-width: 540px) {
     .home-nav-links {
-      display: none;
+      display: flex;
+      flex-direction: column; /* 縦並び */
+      gap: 1rem;
+      top: 58%; /* ロゴの下に配置 */
+      align-items: center;
+      padding: 0 1rem;
+      max-width: 90vw;
+    }
+
+    .home-nav-link {
+      font-size: 1.1rem; /* やや小さめ */
+      padding: 0.4rem 0.8rem;
+    }
+
+    /* 縦線を削除（縦並びのため不要） */
+    .home-nav-link::after {
+      content: none;
+    }
+
+    /* 言語ボタンをコンパクトに */
+    .home-lang-dropdown {
+      margin-left: 0;
+      width: auto;
+    }
+
+    .home-lang-dropdown-toggle {
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .home-lang-dropdown .globe-icon {
+      font-size: 1rem;
+    }
+
+    .home-lang-dropdown .current-lang-label {
+      font-size: 0.9rem;
     }
   }
 

@@ -114,9 +114,25 @@ const setupRenderer = (): (() => void) | undefined => {
 const getOptimalResolution = (): number => {
     // パフォーマンス最適化：画面サイズに応じた動的解像度
     const screenArea = window.innerWidth * window.innerHeight;
-    const baseResolution = screenArea > 1920 * 1080 ? 32 : 28;
 
-    return Math.min(baseResolution, 35); // 統一解像度（立方体維持）
+    // 超高解像度設定 - 極限の滑らかさを追求
+    // パフォーマンスコストが高いため、画面サイズによる厳密な制御
+    let baseResolution: number;
+    if (screenArea > 2560 * 1440) {
+        // 4K/高解像度ディスプレイ - 最高品質
+        baseResolution = 58;
+    } else if (screenArea > 1920 * 1080) {
+        // フルHD以上 - 高品質
+        baseResolution = 50;
+    } else if (screenArea > 1280 * 720) {
+        // HD - 標準品質
+        baseResolution = 42;
+    } else {
+        // モバイル/小画面 - パフォーマンス優先
+        baseResolution = 38;
+    }
+
+    return Math.min(baseResolution, 65); // 統一解像度（立方体維持、最大65）
 };
 
 // MarchingCubes初期化（統一スケールシステム）

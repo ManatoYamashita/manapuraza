@@ -23,7 +23,7 @@ export interface CreativeDetail {
     mobile: string;              // YouTube embed URL for mobile
     desktop: string;             // YouTube embed URL for desktop
   };
-  productionYear?: string;       // e.g., "2023", "2024~2025"
+  productionYear?: string;       // e.g., "2023", "2024~2026"
   credits?: string[];            // i18n keys (e.g., "creatives.credits.director")
   cta?: CtaButton[];             // Call-to-action buttons
 }
