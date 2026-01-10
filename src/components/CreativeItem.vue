@@ -39,7 +39,7 @@ interface Props {
   description: string;
   thumbnail: string;
   index: number;
-  mode: 'Animation' | 'Development' | 'Illustration' | 'Video';
+  mode: 'Animation' | 'Development' | 'Illustration' | 'Video' | 'Graphic';
   tags?: string[];
   youtubeUrl?: string | null;
 }

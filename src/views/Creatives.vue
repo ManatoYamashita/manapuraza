@@ -11,13 +11,13 @@
           <p>{{ $t('creatives.animation.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in creativesData.animation"
+              v-for="(creative, index) in animationCreatives"
               :key="creative.id"
               :mode="'Animation'"
               :category="'animation'"
               :id="creative.id"
-              :title="$t(creative.title)"
-              :description="$t(creative.description)"
+              :title="creative.title"
+              :description="creative.description"
               :thumbnail="creative.thumbnail"
               :index="index"
               :tags="creative.tags"
@@ -36,8 +36,8 @@
               :key="creative.id"
               :category="'development'"
               :id="creative.id"
-              :title="$t(creative.title)"
-              :description="$t(creative.description)"
+              :title="creative.title"
+              :description="creative.description"
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Development'"
@@ -46,17 +46,18 @@
           </ul>
         </section>
 
+        <!-- Illustration Section -->
         <section v-if="activeFilter === 'all' || activeFilter === 'illustration'" id="illustration">
           <h2>Illustration</h2>
           <p>{{ $t('creatives.illustration.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in creativesData.illustration"
+              v-for="(creative, index) in illustrationCreatives"
               :key="creative.id"
               :category="'illustration'"
               :id="creative.id"
-              :title="$t(creative.title)"
-              :description="$t(creative.description)"
+              :title="creative.title"
+              :description="creative.description"
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Illustration'"
@@ -65,20 +66,41 @@
           </ul>
         </section>
 
+        <!-- Video Section -->
         <section v-if="activeFilter === 'all' || activeFilter === 'video'" id="video">
           <h2>Video</h2>
           <p>{{ $t('creatives.video.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in creativesData.video"
+              v-for="(creative, index) in videoCreatives"
               :key="creative.id"
               :category="'video'"
               :id="creative.id"
-              :title="$t(creative.title)"
-              :description="$t(creative.description)"
+              :title="creative.title"
+              :description="creative.description"
               :thumbnail="creative.thumbnail"
               :index="index"
               :mode="'Video'"
+              :tags="creative.tags"
+            />
+          </ul>
+        </section>
+
+        <!-- Graphic Section -->
+        <section v-if="activeFilter === 'all' || activeFilter === 'graphic'" id="graphic">
+          <h2>Graphic</h2>
+          <p>{{ $t('creatives.graphic.paragraph') }}</p>
+          <ul>
+            <CreativeItem
+              v-for="(creative, index) in graphicCreatives"
+              :key="creative.id"
+              :category="'graphic'"
+              :id="creative.id"
+              :title="creative.title"
+              :description="creative.description"
+              :thumbnail="creative.thumbnail"
+              :index="index"
+              :mode="'Graphic'"
               :tags="creative.tags"
             />
           </ul>
@@ -103,13 +125,42 @@
 <script setup lang="ts">
 import CreativeItem from '@/components/CreativeItem.vue';
 import CreativesHero from '@/components/CreativesHero.vue';
-import { creativesData } from '@/data/creatives';
-import { computed, ref, nextTick } from 'vue';
+import { useCreativesAPI } from '@/composables/useCreativesAPI';
+import { computed, ref, nextTick, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useHead } from '@vueuse/head';
-import type { Locale, Creative, CreativeCategory } from '@/types';
+import type { Locale, CreativeCategory, CMSCreative } from '@/types';
 
 const { locale } = useI18n<{ message: string }, Locale>();
+
+// microCMS API統合
+const { fetchCreatives, getCreativesByCategory } = useCreativesAPI();
+
+// 各カテゴリの作品を取得
+const animationCreatives = computed(() =>
+  getCreativesByCategory('animation', locale.value as 'ja' | 'en').value
+);
+const developmentCreatives = computed(() =>
+  getCreativesByCategory('development', locale.value as 'ja' | 'en').value
+);
+const illustrationCreatives = computed(() =>
+  getCreativesByCategory('illustration', locale.value as 'ja' | 'en').value
+);
+const videoCreatives = computed(() =>
+  getCreativesByCategory('video', locale.value as 'ja' | 'en').value
+);
+const graphicCreatives = computed(() =>
+  getCreativesByCategory('graphic', locale.value as 'ja' | 'en').value
+);
+
+// データ取得
+onMounted(async () => {
+  try {
+    await fetchCreatives();
+  } catch (err) {
+    console.error('Failed to fetch creatives:', err);
+  }
+});
 
 // フィルター状態管理
 const activeFilter = ref<'all' | CreativeCategory>('all');
@@ -272,8 +323,8 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
   };
 
   // ランダムに並び替えられたプログラミング作品のリスト
-  const randomizedDevelopment = computed<Creative[]>(() => {
-    const items = creativesData?.development;
+  const randomizedDevelopment = computed<CMSCreative[]>(() => {
+    const items = developmentCreatives.value;
     if (!items || !Array.isArray(items)) {
       return [];
     }
