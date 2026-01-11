@@ -5,6 +5,7 @@
 This document describes the TypeScript migration process for the manapuraza portfolio website (Vue 3 SPA). The project was successfully migrated from JavaScript to TypeScript with Strict Mode enabled across all components and configuration files.
 
 **Migration Completion Date**: January 2, 2025
+**microCMS Integration Date**: January 11, 2026
 
 ## Migration Results
 
@@ -131,13 +132,13 @@ src/types/
 - ✅ All 5 type definition files created
 - ✅ `npm run typecheck` no errors
 
-### Phase 2: Data Layer Migration (Completed)
+### Phase 2: Data Layer Migration (Completed → Deprecated by microCMS)
 
 **Objective**: Type-safe migration of `src/data/creatives.js` → `src/data/creatives.ts`.
 
-**Implemented Changes**:
+**Historical Implementation** (Deprecated January 11, 2026):
 
-1. **Type-safe data structure**:
+1. **Type-safe data structure** (DELETED):
    ```typescript
    import type { Creative, CreativesData, CreativeDetail } from '@/types';
 
@@ -155,7 +156,7 @@ src/types/
    };
    ```
 
-2. **Utility functions with type guards**:
+2. **Utility functions with type guards** (DELETED):
    ```typescript
    export function getCreativeById(
      category: keyof CreativesData,
@@ -165,10 +166,16 @@ src/types/
    }
    ```
 
+**microCMS Integration (January 11, 2026)**:
+- ✅ `src/data/creatives.ts` deleted - replaced by microCMS API
+- ✅ Static images directory deleted - replaced by microCMS Media
+- ✅ Data fetching via `src/composables/useCreativesAPI.ts`
+- ✅ Types defined in `src/types/microcms.ts`
+
 **Success Criteria Met**:
-- ✅ `creatives.ts` has zero type errors
-- ✅ All Creative data uses `satisfies Creative`
-- ✅ Browser displays list/detail pages correctly
+- ✅ `creatives.ts` had zero type errors (historical)
+- ✅ All Creative data used `satisfies Creative` (historical)
+- ✅ Browser displays list/detail pages correctly (current: microCMS-based)
 
 ### Phase 3: Core Configuration Files Migration (Completed)
 
@@ -456,10 +463,10 @@ Type 'T | undefined' is not assignable to type 'T'.
 
 ```typescript
 // Use 'import type' for type-only imports
-import type { Creative, CreativeCategory } from '@/types';
+import type { CMSCreative, CreativeCategory } from '@/types';
 
-// Use regular import for runtime values
-import { creativesData } from '@/data/creatives';
+// Use regular import for runtime values (microCMS integration)
+import { useCreativesAPI } from '@/composables/useCreativesAPI';
 ```
 
 ### 2. Generic Functions
@@ -528,8 +535,8 @@ try {
 ### Immediate Tasks
 
 1. ✅ Update documentation (this file)
-2. ⏳ Update `CLAUDE.md` with TypeScript information
-3. ⏳ Update coding standards documentation
+2. ✅ Update `CLAUDE.md` with TypeScript information
+3. ✅ Update coding standards documentation
 4. ⏳ Test production build (`npm run build`)
 5. ⏳ Browser compatibility testing
 

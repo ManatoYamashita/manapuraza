@@ -59,10 +59,11 @@ The codebase implements aggressive performance optimizations:
 src/
 ├── components/     # Reusable Vue components (CreativeItem, Menu, Btn, etc.) - TypeScript
 ├── views/          # Page-level components (Home, About, Creatives, CreativeDetail, 404) - TypeScript
-├── data/           # Static data (creatives.ts with portfolio items and detailDefaults) - TypeScript
+├── composables/    # Vue composables (useCreativesAPI.ts for microCMS integration) - TypeScript
 ├── types/          # TypeScript type definitions (centralized)
 │   ├── index.ts              # Export aggregation
 │   ├── creatives.ts          # Creative/portfolio types
+│   ├── microcms.ts           # microCMS API types
 │   ├── router.ts             # Router parameter types
 │   ├── i18n.ts               # Internationalization types
 │   └── components.ts         # Component props types
@@ -73,20 +74,45 @@ src/
 
 ## Key Components & Data Management
 
-### Portfolio Data (`src/data/creatives.ts`)
-Portfolio items are centrally managed in this TypeScript file with strict type safety and conventions:
-- **Static imports required** for all images (no dynamic paths due to Vite bundling)
-- **i18n keys** for titles/descriptions following pattern: `creatives.[category].[item].(title|description|detailDescription)`
-- **Categories**: `animation`, `development`, `illustration`, `video`
-- **Detail pages**: Each creative supports optional `detail` object for `/creatives/:category/:id` route
-  - `detail.images`: Image gallery (1+ images)
-  - `detail.descriptionMarkdown`: Markdown-formatted description (i18n key)
-  - `detail.youtube`: Animation-specific YouTube embed URLs (mobile/desktop)
-  - `detail.productionYear`: Production year string
-  - `detail.credits`: Credit information array (i18n keys)
-  - `detail.cta`: Call-to-action buttons array
-- **Fallback**: `detailDefaults` provides fallback values when `detail` is undefined
-- See `docs/ops/creatives-guide.md` for detailed data management procedures
+### microCMS Integration
+
+**Overview:**
+Portfolio creative works are managed through microCMS headless CMS instead of static TypeScript files. Data is fetched dynamically from microCMS API and cached locally.
+
+**Architecture:**
+- **API Client**: `src/composables/useCreativesAPI.ts` - Composable for microCMS data fetching
+- **Type Definitions**: `src/types/microcms.ts` - microCMS API response types
+- **Caching Strategy**: LocalStorage with 30-minute TTL for performance
+- **Data Adapter**: `adaptCreativeData()` transforms `CreativeData` → `CMSCreative` with locale support
+
+**Data Flow:**
+```
+microCMS API → useCreativesAPI composable → LocalStorage cache → Vue components
+```
+
+**Key Files:**
+- `src/composables/useCreativesAPI.ts` - Data fetching, caching, and adaptation logic
+- `src/types/microcms.ts` - Type definitions for categories and creatives APIs
+- `.env` - Environment variables (`VITE_MICROCMS_API_ENDPOINT`, `VITE_MICROCMS_API_KEY`)
+
+**Categories:**
+- 5 major categories: `animation`, `development`, `illustration`, `video`, `design`
+- Minor categories (tags): Managed as CMS content, referenced by creatives
+
+**Setup Guide:**
+See `docs/ops/microcms-setup.md` for complete setup instructions including:
+- Account creation and API configuration
+- Schema definitions for categories and creatives APIs
+- Environment variable setup
+- Initial data registration
+- Troubleshooting
+
+**Data Management:**
+See `docs/ops/creatives-guide.md` for operational procedures:
+- Adding new creative works via microCMS interface
+- Image upload and management
+- Content publishing workflow
+- Common issues and solutions
 
 ### Core Architecture Components
 - **MetaBall.vue**: Three.js background animations (lazy loaded using `requestIdleCallback`)
@@ -131,56 +157,72 @@ Portfolio items are centrally managed in this TypeScript file with strict type s
 
 ### Adding Portfolio Items
 
-**Basic creative (list view only)**:
-1. Add WebP image to `src/assets/creatives-thumb/[category]/`
-2. Import image statically in `creatives.js`
-3. Add item object to appropriate category array with required fields:
-   - `id`, `title`, `description`, `url`, `thumbnail`, `tags`
-4. Add i18n keys to both `ja.json` and `en.json`
-5. Test both languages and image display
+**microCMS Workflow:**
+1. **Upload images**: Go to microCMS Media management and upload WebP images
+2. **Create content**: In microCMS creatives API, click "New Content"
+3. **Fill required fields**:
+   - `majorCategory`: Select from dropdown (animation/development/illustration/video/design)
+   - `title`: Japanese title
+   - `thumbnail`: Select uploaded image from Media
+4. **Fill optional fields**:
+   - `titleEn`: English title
+   - `description`/`descriptionEn`: SEO descriptions
+   - `detail`/`detailEn`: Markdown-formatted detailed descriptions
+   - `images`: Select multiple images for gallery
+   - `youtubeUrl`: YouTube embed URL (Animation only)
+   - `year`: Production year
+   - `url`: External project URL
+   - `minorCategory`: Select tags (multiple selection)
+5. **Publish**: Click "Save and Publish"
+6. **Verify**: Check `/creatives` page and detail page at `/creatives/:category/:microCMS-ID`
 
-**Creative with detail page**:
-6. Add `detail` object to item with optional fields:
-   - `images`: Array of image imports
-   - `descriptionMarkdown`: i18n key for Markdown description
-   - `youtube`: Object with `mobile` and `desktop` URLs (Animation only)
-   - `productionYear`: String
-   - `credits`: Array of i18n keys (format: "Label: Value")
-   - `cta`: Array of button objects
-7. Add `detailDescription` i18n key in `ja.json` and `en.json`
-8. Test detail page at `/creatives/[category]/[id]`
+**Note**: Content IDs are auto-generated by microCMS (e.g., `abc123def`), not kebab-case slugs.
 
-See `docs/ops/creatives-guide.md` for comprehensive examples
+See `docs/ops/creatives-guide.md` for detailed workflow and examples
 
 ### CreativeItem Component Usage
 All creative items use a consistent card layout with router-link to detail pages:
 
 ```vue
-<CreativeItem
-  v-for="(creative, index) in creativesData.animation"
-  :key="creative.id"
-  :mode="'Animation'"
-  :category="'animation'"
-  :id="creative.id"
-  :title="$t(creative.title)"
-  :description="$t(creative.description)"
-  :thumbnail="creative.thumbnail"
-  :index="index"
-  :tags="creative.tags"
-/>
+<script setup lang="ts">
+import { useCreativesAPI } from '@/composables/useCreativesAPI';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
+const { getCreativesByCategory } = useCreativesAPI();
+
+const animationCreatives = computed(() =>
+  getCreativesByCategory('animation', locale.value as 'ja' | 'en').value
+);
+</script>
+
+<template>
+  <CreativeItem
+    v-for="(creative, index) in animationCreatives"
+    :key="creative.id"
+    :mode="'Animation'"
+    :category="'animation'"
+    :id="creative.id"
+    :title="creative.title"
+    :description="creative.description"
+    :thumbnail="creative.thumbnail"
+    :index="index"
+    :tags="creative.tags"
+  />
+</template>
 ```
 
 **Props**:
-- `category`: Category name (`animation`, `development`, `illustration`, `video`)
-- `id`: Creative ID (used for routing)
+- `category`: Category name (`animation`, `development`, `illustration`, `video`, `design`)
+- `id`: microCMS content ID (auto-generated, e.g., `abc123def`)
 - `mode`: Display mode (affects styling only)
-- `title`, `description`: i18n keys
-- `thumbnail`: Static imported image
-- `tags`: Array of tag strings
+- `title`, `description`: Direct text strings (not i18n keys)
+- `thumbnail`: microCMS image URL
+- `tags`: Array of tag strings (localized by adapter)
 
 **Behavior**:
 - Renders as `<li>` elements in grid layout
-- Uses `<router-link>` to navigate to `/creatives/:category/:id`
+- Uses `<router-link>` to navigate to `/creatives/:category/:microCMS-ID`
 - Displays thumbnail, title, description, and tags
 - Icon changes from `arrow-up-right-from-square` to `arrow-right` for internal navigation
 
@@ -302,8 +344,10 @@ This codebase follows comprehensive development rules defined in `.cursor/rules/
 - **No testing framework**: Manual testing only via dev server and DevTools
 - **FTP deployment**: GitHub Actions with FTP-Deploy-Action to `/manapuraza/` directory
 - **Single Vue instance with MetaBall**: Main app + MetaBall (sharing router/i18n/head)
-- **Image optimization critical**: All portfolio images must be WebP and statically imported
-- **i18n strict requirements**: All text must have translations in both `ja.json` and `en.json`
+- **microCMS Integration**: Portfolio data managed via microCMS API, not static files
+- **Image optimization**: All portfolio images hosted on microCMS, must be WebP format
+- **LocalStorage caching**: 30-minute TTL for microCMS API responses
+- **i18n requirements**: AnimationSection.vue uses static i18n keys, other content from microCMS
 - **Three.js sphere deformation**: Use inverse coordinate correction method only (see above)
 - **Console logging**: Partial console removal in production (see Console Management Policy)
 
