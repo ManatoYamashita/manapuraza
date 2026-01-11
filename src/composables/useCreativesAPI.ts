@@ -225,9 +225,9 @@ export function useCreativesAPI() {
         .filter((creative) => {
           const majorCategoryType = creative.majorCategory.type;
           // typeは配列なので、'major'を含むかチェック
+          // カテゴリIDで比較（name/nameEnではなくIDを使用）
           return majorCategoryType.includes('major') &&
-                 (creative.majorCategory.name === category ||
-                  creative.majorCategory.nameEn === category);
+                 creative.majorCategory.id === category;
         })
         .map((creative) => adaptCreativeData(creative, locale));
     });

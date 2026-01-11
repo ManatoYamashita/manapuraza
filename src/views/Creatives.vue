@@ -86,21 +86,21 @@
           </ul>
         </section>
 
-        <!-- Graphic Section -->
-        <section v-if="activeFilter === 'all' || activeFilter === 'graphic'" id="graphic">
-          <h2>Graphic</h2>
-          <p>{{ $t('creatives.graphic.paragraph') }}</p>
+        <!-- Design Section -->
+        <section v-if="activeFilter === 'all' || activeFilter === 'design'" id="design">
+          <h2>Design</h2>
+          <p>{{ $t('creatives.design.paragraph') }}</p>
           <ul>
             <CreativeItem
-              v-for="(creative, index) in graphicCreatives"
+              v-for="(creative, index) in designCreatives"
               :key="creative.id"
-              :category="'graphic'"
+              :category="'design'"
               :id="creative.id"
               :title="creative.title"
               :description="creative.description"
               :thumbnail="creative.thumbnail"
               :index="index"
-              :mode="'Graphic'"
+              :mode="'Design'"
               :tags="creative.tags"
             />
           </ul>
@@ -149,8 +149,8 @@ const illustrationCreatives = computed(() =>
 const videoCreatives = computed(() =>
   getCreativesByCategory('video', locale.value as 'ja' | 'en').value
 );
-const graphicCreatives = computed(() =>
-  getCreativesByCategory('graphic', locale.value as 'ja' | 'en').value
+const designCreatives = computed(() =>
+  getCreativesByCategory('design', locale.value as 'ja' | 'en').value
 );
 
 // データ取得

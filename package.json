@@ -17,7 +17,10 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "format": "prettier --write \"src/**/*.{js,ts,vue,css}\"",
-    "format:check": "prettier --check \"src/**/*.{js,ts,vue,css}\""
+    "format:check": "prettier --check \"src/**/*.{js,ts,vue,css}\"",
+    "generate-csv": "tsx scripts/generate-microcms-csv.ts",
+    "update-csv-images": "tsx scripts/update-csv-image-urls.ts",
+    "update-csv-from-urls": "tsx scripts/update-csv-from-urls.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",

@@ -42,6 +42,13 @@
             <fa :icon="['fas', 'video']" class="tag-icon" />
             <span>Video</span>
           </button>
+          <button
+            @click="setFilter('design')"
+            :class="['filter-tag', { active: activeFilter === 'design' }]"
+          >
+            <fa :icon="['fas', 'pencil']" class="tag-icon" />
+            <span>Design</span>
+          </button>
         </div>
       </div>
       <div class="hero-visual">
