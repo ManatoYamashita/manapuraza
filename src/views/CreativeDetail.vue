@@ -110,8 +110,7 @@
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
   import { marked } from 'marked';
-  import { detailDefaults } from '@/data/creatives';
-import { useCreativesAPI } from '@/composables/useCreativesAPI';
+  import { useCreativesAPI } from '@/composables/useCreativesAPI';
   import Btn from '@/components/Btn.vue';
   import type { Locale, CreativeDetail, CtaButton } from '@/types';
 
@@ -149,7 +148,14 @@ import { useCreativesAPI } from '@/composables/useCreativesAPI';
 
   // Detail データの取得（fallback 対応）
   const detailData = computed<DetailData>(() => {
-    if (!creative.value) return detailDefaults as DetailData;
+    if (!creative.value) return {
+      images: [],
+      descriptionMarkdown: '',
+      youtube: null,
+      productionYear: '',
+      credits: [],
+      cta: []
+    } as DetailData;
 
     const detail: Partial<CreativeDetail> = creative.value.detail || {};
 

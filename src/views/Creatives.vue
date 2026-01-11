@@ -100,7 +100,7 @@
               :description="creative.description"
               :thumbnail="creative.thumbnail"
               :index="index"
-              :mode="'Design'"
+              :mode="'Graphic'"
               :tags="creative.tags"
             />
           </ul>
