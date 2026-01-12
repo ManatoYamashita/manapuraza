@@ -3,11 +3,11 @@ import { useI18n } from 'vue-i18n';
 import { useHead } from '@vueuse/head';
 import { computed } from 'vue';
 import type { Locale } from '@/types';
-import SelfImageAndMessage from '@/components/SelfImageAndMessage.vue';
-import ProfileTable from '@/components/ProfileTable.vue';
-import History from '@/components/History.vue';
+import AboutHero from '@/components/AboutHero.vue';
+import AboutProfile from '@/components/AboutProfile.vue';
+import AboutHistory from '@/components/AboutHistory.vue';
 
-const { t, locale } = useI18n<{ message: string }, Locale>();
+const { locale } = useI18n<{ message: string }, Locale>();
 
   // SEOメタタグ設定
   useHead({
@@ -116,13 +116,9 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
 
 <template>
   <main class="about">
-    <h1>{{ t('about.ym') }}</h1>
-    <SelfImageAndMessage />
-    <ProfileTable />
-    <div class="his">
-      <h2>History</h2>
-      <History />
-    </div>
+    <AboutHero />
+    <AboutProfile />
+    <AboutHistory />
   </main>
 </template>
 
@@ -135,21 +131,10 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
     pointer-events: all;
   }
 
-  main.about h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    color: #111;
-  }
-
   /* === タブレット（481px-768px） === */
   @media screen and (min-width: 481px) and (max-width: 768px) {
     main.about {
       padding: 2rem;
-    }
-
-    main.about h1 {
-      font-size: 2.2rem;
     }
   }
 
@@ -157,10 +142,6 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
   @media screen and (min-width: 769px) {
     main.about {
       padding: 3rem;
-    }
-
-    main.about h1 {
-      font-size: 2.5rem;
     }
   }
 </style>

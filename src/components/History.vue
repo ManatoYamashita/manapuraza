@@ -18,55 +18,54 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import type { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-export default {
-  name: 'History',
-  setup() {
-    const { t } = useI18n();
+interface HistoryItem {
+  year: string;
+  titleKey: string;
+  descriptionKey: string;
+}
 
-    const historyItems = ref([
-      { year: '2002', titleKey: 'his.02', descriptionKey: 'his.02-de' },
-      { year: '2003', titleKey: 'his.03', descriptionKey: 'his.03-de' },
-      { year: '2015', titleKey: 'his.15', descriptionKey: 'his.15-de' },
-      { year: '2018', titleKey: 'his.18', descriptionKey: 'his.18-de' },
-      { year: '2021', titleKey: 'his.21', descriptionKey: 'his.21-de' },
-      { year: '2021', titleKey: 'his.21-2', descriptionKey: 'his.21-2-de' },
-      { year: '2022', titleKey: 'his.22', descriptionKey: 'his.22-de' },
-      { year: '2023', titleKey: 'his.23', descriptionKey: 'his.23-de' },
-      { year: '2025', titleKey: 'his.25', descriptionKey: 'his.25-de' },
+const { t } = useI18n();
 
-    ]);
+const historyItems = ref<HistoryItem[]>([
+  { year: '2002', titleKey: 'his.02', descriptionKey: 'his.02-de' },
+  { year: '2003', titleKey: 'his.03', descriptionKey: 'his.03-de' },
+  { year: '2015', titleKey: 'his.15', descriptionKey: 'his.15-de' },
+  { year: '2018', titleKey: 'his.18', descriptionKey: 'his.18-de' },
+  { year: '2021', titleKey: 'his.21', descriptionKey: 'his.21-de' },
+  { year: '2021', titleKey: 'his.21-2', descriptionKey: 'his.21-2-de' },
+  { year: '2022', titleKey: 'his.22', descriptionKey: 'his.22-de' },
+  { year: '2023', titleKey: 'his.23', descriptionKey: 'his.23-de' },
+  { year: '2025', titleKey: 'his.25', descriptionKey: 'his.25-de' },
+]);
 
-    const timelineRef = ref(null);
+const timelineRef: Ref<HTMLElement | null> = ref(null);
 
-    onMounted(async () => {
+onMounted(async () => {
   // GSAPを動的インポートして初期バンドルサイズを削減
   const { gsap } = await import('gsap');
 
-      // template refを使用してDOM要素に安全にアクセス（Vue 3ベストプラクティス）
-      if (!timelineRef.value) {
-        console.error('History: Timeline element not found');
-        return;
-      }
+  // template refを使用してDOM要素に安全にアクセス（Vue 3ベストプラクティス）
+  if (!timelineRef.value) {
+    console.error('History: Timeline element not found');
+    return;
+  }
 
-      const entries = timelineRef.value.querySelectorAll('.entry');
+  const entries = timelineRef.value.querySelectorAll('.entry');
 
-      // 各エントリーのアニメーション
-      gsap.from(entries, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        stagger: 0.3,
-        ease: 'power2.out',
-      });
-    });
-
-    return { t, historyItems, timelineRef };
-  },
-};
+  // 各エントリーのアニメーション
+  gsap.from(entries, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.3,
+    ease: 'power2.out',
+  });
+});
 </script>
 
 <style scoped>

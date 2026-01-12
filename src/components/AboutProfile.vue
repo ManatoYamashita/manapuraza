@@ -1,5 +1,5 @@
 <template>
-    <section class="profile-table">
+    <section class="about-profile">
       <h2>Profile</h2>
       <table>
         <tbody>
@@ -97,7 +97,7 @@
   
 <style scoped>
   /* === ベーススタイル（モバイル: ~480px） === */
-  .profile-table {
+  .about-profile {
     margin: 0;
   }
 

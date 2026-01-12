@@ -1,37 +1,55 @@
 <template>
-    <section class="image-and-paragraph">
-      <div class="self-image">
-        <img fetchpriority="high" :src="imageSrc" alt="山下真和都(マナト) | Manato Yamashita" />
-      </div>
-      <div class="message">
-        <strong class="howyoufeel">How you feel?</strong>
-        <p>
-          {{ t('about.passage') }} &#x1F34C;
-        </p>
-        <Sns />
+    <section class="about-hero">
+      <h1 class="page-title">{{ t('about.ym') }}</h1>
+
+      <div class="image-and-paragraph">
+        <div class="self-image">
+          <img fetchpriority="high" :src="imageSrc" :alt="imageAlt" />
+        </div>
+        <div class="message">
+          <strong class="howyoufeel">How you feel?</strong>
+          <p>
+            {{ t('about.passage') }} &#x1F34C;
+          </p>
+          <Sns />
+        </div>
       </div>
     </section>
 </template>
-  
-<script setup>
-  import { onMounted } from 'vue';
+
+<script setup lang="ts">
+  import { computed, onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
+  import type { Locale } from '@/types';
   import Sns from '@/components/Sns.vue';
-  
-  const { t } = useI18n();
+
+  const { t, locale } = useI18n<{ message: string }, Locale>();
   const imageSrc = '/山下真和都(マナト).webp';
-  
+
+  const imageAlt = computed(() =>
+    locale.value === 'ja' ? '山下真和都(マナト)' : 'Manato Yamashita'
+  );
+
   onMounted(async () => {
     // GSAPを動的インポートして初期バンドルサイズを削減
     const { gsap } = await import('gsap');
-    
+
+    // h1タイトルのアニメーション
+    gsap.from('.page-title', {
+      opacity: 0,
+      y: -20,
+      duration: 0.8,
+      ease: 'power2.out',
+    });
+
     // 画像のアニメーション
     gsap.from('.self-image img', {
       y: 100,
       duration: 1,
+      delay: 0.2,
       ease: 'power2.out',
     });
-  
+
     // メッセージのアニメーション
     gsap.from('.message', {
       opacity: 0,
@@ -45,6 +63,17 @@
   
 <style scoped>
   /* === ベーススタイル（モバイル: ~480px） === */
+  .about-hero {
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #111;
+  }
+
   .image-and-paragraph {
     display: flex;
     flex-direction: column;
@@ -90,6 +119,10 @@
 
   /* === タブレット（481px-768px） === */
   @media screen and (min-width: 481px) and (max-width: 768px) {
+    .page-title {
+      font-size: 2.2rem;
+    }
+
     .image-and-paragraph {
       flex-direction: row;
       justify-content: space-between;
@@ -126,6 +159,10 @@
 
   /* === デスクトップ（769px~） === */
   @media screen and (min-width: 769px) {
+    .page-title {
+      font-size: 2.5rem;
+    }
+
     .image-and-paragraph {
       flex-direction: row;
       justify-content: space-between;
