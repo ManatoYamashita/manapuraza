@@ -299,13 +299,14 @@
   .profile-image-container {
     width: 30%;
     max-width: 350px;
+    max-height: 350px;
     flex-shrink: 0;
     margin: 0;
   }
 
   .profile-image {
     border-radius: 50%;
-    height: auto;
+    height: 100%;
   }
 
   .profile-right-content {
