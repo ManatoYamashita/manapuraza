@@ -16,7 +16,7 @@
         <!-- 通常の画像表示 -->
         <img v-else :src="resolvedThumbnail" :alt="title" loading="lazy" @error="handleImageError" />
       </div>
-      <h3>{{ title }} <fa :icon="['fas', 'arrow-right']" class="fa" /></h3>
+      <h3>{{ title }} <ArrowRight :size="16" class="fa" /></h3>
 
       <!-- タグ表示（Card modes） -->
       <div class="creative-tags" v-if="tags && tags.length > 0">
@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { ArrowRight } from 'lucide-vue-next';
 import type { CreativeCategory } from '@/types';
 
 interface Props {

@@ -23,12 +23,13 @@
     "update-csv-from-urls": "tsx scripts/update-csv-from-urls.ts"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.6.0",
-    "@fortawesome/free-brands-svg-icons": "^6.6.0",
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
-    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/vue-fontawesome": "^3.1.3",
     "@vueuse/head": "^2.0.0",
     "gsap": "^3.12.5",
+    "lucide-vue-next": "^0.562.0",
     "marked": "^17.0.1",
     "three": "^0.169.0",
     "vue": "^3.3.2",

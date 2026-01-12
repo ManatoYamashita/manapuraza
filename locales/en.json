@@ -27,7 +27,12 @@
       "research": "Research",
       "research-co": "Information Security",
       "like": "Like",
-      "like-co": "Banana"
+      "like-co": "Banana",
+      "reading": "Manato Yamashita",
+      "howyoufeel": "How You Feel?",
+      "ctaText": "Contact Me",
+      "ctaLabel": "Go to Contact Page",
+      "externalProfileLabel": "View External Profile"
     },
 
     "his": {

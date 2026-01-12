@@ -2,6 +2,8 @@
  * Portfolio creative item data structures
  */
 
+import type { Component } from 'vue';
+
 // Creative categories (literal type for type safety)
 export type CreativeCategory = 'animation' | 'development' | 'illustration' | 'video' | 'design';
 
@@ -9,7 +11,7 @@ export type CreativeCategory = 'animation' | 'development' | 'illustration' | 'v
 export interface CtaButton {
   href: string;
   target: string;
-  icon?: string[];
+  icon?: Component;
   text: string;        // i18n key (e.g., "creatives.cta.viewSite")
   subText: string;     // i18n key (e.g., "creatives.cta.viewSiteSub")
   variant: '' | 'primary' | 'secondary' | 'simple';

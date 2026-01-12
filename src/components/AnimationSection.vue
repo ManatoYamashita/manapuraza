@@ -54,7 +54,6 @@
           </div>
           <div class="video-overlay">
             <div class="play-button">
-              <!-- <font-awesome-icon :icon="['fas', 'play']" /> -->
             </div>
           </div>
         </div>
@@ -68,7 +67,7 @@
           <div class="info-grid">
             <div class="info-item">
               <div class="info-icon">
-                <font-awesome-icon :icon="['fas', 'calendar']" />
+                <Calendar :size="18" />
               </div>
               <div class="info-content">
                 <span class="info-label">制作年</span>
@@ -79,7 +78,7 @@
           
           <div class="credits-section">
             <h4 class="section-subtitle">
-              <font-awesome-icon :icon="['fas', 'users']" class="subtitle-icon" />
+              <Users :size="18" class="subtitle-icon" />
               <span>クレジット</span>
             </h4>
             <dl class="credits-grid">
@@ -89,32 +88,21 @@
               </template>
             </dl>
           </div>
-          
-          <!-- <div class="synopsis-section">
-            <h4 class="section-subtitle">
-              <font-awesome-icon :icon="['fas', 'book-open']" class="subtitle-icon" />
-              <span>あらすじ</span>
-            </h4>
-            <p class="synopsis-text">
-              「新BOP」とは、世田谷区が取り組む放課後の居場所づくり事業です。このアニメーションは、小学生の主人公が初めて新BOPを訪れ、そこでの活動や出会いを通じて成長する姿を描いています。
-            </p>
-          </div> -->
-          
           <div class="animation-links">
-            <Btn 
-              :href="'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu'" 
-              :target="'_blank'" 
-              :icon="['fas', 'play']" 
-              :text="$t('creatives.animation.tcuAnimation.watchMain')" 
+            <Btn
+              :href="'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu'"
+              :target="'_blank'"
+              :icon="PlayCircle"
+              :text="$t('creatives.animation.tcuAnimation.watchMain')"
               :subText="$t('creatives.animation.tcuAnimation.watchSub')"
               :alt="'本編動画を見る（世田谷区公式YouTube）'"
               :variant="'primary'"
             />
-            <Btn 
-              :href="'https://tcu-animation.jp'" 
-              :target="'_blank'" 
-              :icon="['fas', 'globe']" 
-              :text="$t('creatives.animation.tcuAnimation.siteMain')" 
+            <Btn
+              :href="'https://tcu-animation.jp'"
+              :target="'_blank'"
+              :icon="Globe"
+              :text="$t('creatives.animation.tcuAnimation.siteMain')"
               :subText="$t('creatives.animation.tcuAnimation.siteSub')"
               :alt="'公式サイトへ（都市大アニメーション）'"
               :variant="'secondary'"
@@ -126,20 +114,21 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
+import { Calendar, Users, PlayCircle, Globe } from 'lucide-vue-next';
 import Btn from '@/components/Btn.vue';
 import { useI18n } from 'vue-i18n';
 
 // デスクトップ表示かどうかの状態
 const isDesktop = ref(false);
-let mediaQueryList = null;
+let mediaQueryList: MediaQueryList | null = null;
 
 // YouTube iframe読み込み状態管理（Vue3ベストプラクティス）
 const isVideoLoading = ref(true);
 const mobileIframe = ref(null);
 const desktopIframe = ref(null);
-let loadingTimeout = null;
+let loadingTimeout: ReturnType<typeof setTimeout> | null = null;
 
 const { t } = useI18n();
 
@@ -153,9 +142,14 @@ const creditKeys = [
   'creatives.animation.tcuAnimation.description.websiteProduction'
 ];
 
-const credits = computed(() => {
+interface ParsedCredit {
+  label: string;
+  value: string;
+}
+
+const credits = computed<ParsedCredit[]>(() => {
   return creditKeys
-    .map((key) => {
+    .map((key): ParsedCredit | null => {
       const raw = t(key);
       if (!raw) return null;
       const splitIndex = raw.indexOf(':') !== -1 ? raw.indexOf(':') : raw.indexOf('：');
@@ -166,7 +160,7 @@ const credits = computed(() => {
       const value = raw.slice(splitIndex + 1).trim();
       return { label, value };
     })
-    .filter(Boolean);
+    .filter((item): item is ParsedCredit => item !== null);
 });
 
 // iframe読み込み完了ハンドラー（Vue3ベストプラクティス）
@@ -207,10 +201,10 @@ const resetLoadingState = () => {
 };
 
 // メディアクエリの状態が変わったときに実行
-const handleMediaQueryChange = (e) => {
+const handleMediaQueryChange = (e: MediaQueryListEvent): void => {
   const wasDesktop = isDesktop.value;
   isDesktop.value = e.matches;
-  
+
   // デバイス切り替え時は読み込み状態をリセット
   if (wasDesktop !== isDesktop.value) {
     resetLoadingState();
@@ -227,7 +221,7 @@ watch(isDesktop, (newValue, oldValue) => {
 }, { immediate: false });
 
 // GSAPアニメーションの初期化
-const initializeAnimations = (gsap) => {
+const initializeAnimations = (gsap: typeof import('gsap')['gsap']): void => {
   // アニメーションセクションのアニメーション
   gsap.from('#animation', {
     opacity: 0,

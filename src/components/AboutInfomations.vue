@@ -1,10 +1,10 @@
 <template>
-    <section class="profile-table">
-      <h2>Profile</h2>
-      <table>
+    <section id="about-infomations">
+      <h2>Infomations</h2>
+      <table class="about-infomations-table">
         <tbody>
           <tr
-            v-for="(item, index) in profileItems"
+            v-for="(item, index) in infomationItems"
             :key="index"
             ref="rows"
             class="table-row"
@@ -30,8 +30,8 @@
 
   const { t } = useI18n();
 
-  // プロフィール項目を定義
-  const profileItems = [
+  // 表示するインフォメーション項目を定義
+  const infomationItems = [
     {
       label: 'about.name',
       content: t('about.name-co'),
@@ -97,16 +97,17 @@
   
 <style scoped>
   /* === ベーススタイル（モバイル: ~480px） === */
-  .profile-table {
-    margin: 0;
+  #about-infomations {
+    width: 100%;
+    padding: 2rem;
   }
 
   h2 {
     font-size: 1.6rem;
-    margin: 3rem 0 1.5rem 0;
+    margin: 0 0 1.5rem 0;
   }
 
-  table {
+  table.about-infomations-table {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
@@ -133,6 +134,7 @@
     font-weight: 600;
     color: #333;
     position: relative;
+    white-space: nowrap;
   }
 
   td {
@@ -157,7 +159,7 @@
   }
 
   /* モバイルレイアウト（~480px） */
-  table {
+  table.about-infomations-table {
     display: block;
     border-spacing: 0;
   }
@@ -186,7 +188,7 @@
       font-size: 2.0rem;
     }
 
-    table {
+    table.about-infomations-table {
       max-width: 700px;
       display: table;
       border-spacing: 0 10px;
@@ -221,7 +223,7 @@
       font-size: 2.2rem;
     }
 
-    table {
+    table.about-infomations-table {
       max-width: 800px;
       display: table;
       border-spacing: 0 10px;
