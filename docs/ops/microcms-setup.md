@@ -298,3 +298,7 @@ microCMSはデフォルトでCORSを許可しているため、追加設定は�
 - [microCMS公式ドキュメント](https://document.microcms.io/)
 - [microCMS API リファレンス](https://document.microcms.io/content-api/get-list-contents)
 - プロジェクト内ドキュメント: `docs/ops/creatives-guide.md`
+
+---
+
+最終更新: 2026-01-12

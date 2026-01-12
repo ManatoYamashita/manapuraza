@@ -14,17 +14,31 @@
 - `dev/`: 開発環境構築とパフォーマンス最適化。
 
 ## ドキュメント一覧
+
+### TypeScript移行
+- typescript-migration.md — TypeScript完全移行の全工程記録（Phase 1-4、Strictモード有効化、型エラーゼロ達成）。
+- standards/typescript-coding-standards.md — TypeScript Strictモードのコーディング規約（型定義、null安全、best practices）。
+
+### Standards（コーディング規約・ガイドライン）
 - standards/architecture.md — エントリ/初期化/責務分離とフォールバック方針。
 - standards/frontend-guidelines.md — Vue SFC規約、ルーティング、i18n、新規ページ追加の手順。
 - standards/design.md — カラー/フォント/背景/モーションなどのデザイン指針。
+- standards/design-system.md — デザインシステム（コンポーネント、スタイル、パターン）。
 - standards/performance-and-build.md — 遅延/分割、アセット方針、Three.js、ビルド設定。
 - standards/security-and-seo.md — セキュリティ、アクセシビリティ、SEO/アナリティクス。
 - standards/coding-standards.md — コーディングスタイルとレビュー/コミットの基本。
+
+### Ops（運用・手順書）
+- ops/microcms-setup.md — microCMS初期セットアップガイド（アカウント作成、API設定、環境変数、初期データ登録）。
+- ops/creatives-guide.md — microCMSでのポートフォリオ作品管理手順（categories/creatives API、データフロー、詳細ページルーティング `/creatives/:category/:id`）。
 - ops/deployment-checklist.md — デプロイ前後の確認項目とトラブルシュート。
-- ops/creatives-guide.md — `src/data/creatives.js` の作品データ管理手順（animation/development/illustration/video、detail オブジェクト、詳細ページルーティング `/creatives/:category/:id`）。
 - ops/branch.md — ブランチ戦略、GitHub Actions CI/CD、コミットメッセージ規約。
+
+### Dev（開発環境）
 - dev/devcontainer-setup.md — Devcontainer 環境構築ガイド（VS Code + Docker、Node.js 22.13.1、Vue 3 + Vite 対応）。
 - dev/docker-performance.md — Docker パフォーマンス最適化（Named Volume による高速化、CHOKIDAR_USEPOLLING 設定）。
+
+### Analytics（アクセス解析）
 - analytics/ga4-setup.md — Google Analytics 4 (GA4) の完全セットアップガイド（GTM経由、サブドメイン対応）。
 - analytics/ga4-vue-integration.md — Vue.js 3 × GA4 統合実装ガイド（Composable、イベント送信パターン）。
 
@@ -36,4 +50,4 @@
 
 ---
 
-最終更新日: 2026-12-10
+最終更新日: 2026-01-12

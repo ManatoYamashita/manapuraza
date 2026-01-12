@@ -287,3 +287,7 @@ microCMSのセットアップ方法については `docs/ops/microcms-setup.md` 
 - microCMSのメディア管理で画像URLが取得できるか確認
 - ブラウザのネットワークタブで画像リクエストが成功しているか確認
 - CORSエラーが出ていないか確認（microCMSは自動でCORS許可）
+
+---
+
+最終更新: 2026-01-12
