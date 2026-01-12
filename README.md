@@ -17,9 +17,11 @@
 
 山下マナト（山下真和都）のWebポートフォリオです。2021–2026に制作したクリエイティブを整理し、現在も継続改善しています。
 
-### Deployment
-- 最新版: [manapuraza.com](https://manapuraza.com)
-- 初期版: [ver1.0](https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app)
+### Version History
+
+- **v3 (Current)**: [manapuraza.com](https://manapuraza.com) - 株式会社LIGのYouTube企画にてデザイナー保科氏のフィードバックを受けてデザインをさらに改善。TypeScript完全移行、microCMSによるコンテンツ管理を導入。
+- **v2**: [manapuraza.netlify.app](https://manapuraza.netlify.app/) - 株式会社Puzzleインターン中、エンジニア・デザイナーのフィードバックを受けてデザインをバージョンアップ。
+- **v1**: [ver1.0](https://manapuraza-s0y8f8i94-manatoyamashita.vercel.app) - オーストラリア留学中にVue.jsで開発。
 
 ## Stack
 
