@@ -2,7 +2,7 @@
   <div v-if="creative" class="creative-detail">
     <!-- 戻るボタン -->
     <router-link to="/creatives" class="back-link">
-      <fa :icon="['fas', 'arrow-left']" />
+      <ArrowLeft :size="16" />
       {{ $t('creatives.common.backToList') }}
     </router-link>
 
@@ -98,7 +98,7 @@
   <div v-else class="not-found">
     <h1>{{ $t('creatives.common.notFound') }}</h1>
     <router-link to="/creatives" class="back-link">
-      <fa :icon="['fas', 'arrow-left']" />
+      <ArrowLeft :size="16" />
       {{ $t('creatives.common.backToList') }}
     </router-link>
   </div>
@@ -110,6 +110,7 @@
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
   import { marked } from 'marked';
+  import { ArrowLeft, ArrowUpRight } from 'lucide-vue-next';
   import { useCreativesAPI } from '@/composables/useCreativesAPI';
   import Btn from '@/components/Btn.vue';
   import type { Locale, CreativeDetail, CtaButton } from '@/types';
@@ -172,7 +173,7 @@
         : [{
             href: creative.value.url,
             target: '_blank',
-            icon: ['fas', 'arrow-up-right-from-square'],
+            icon: ArrowUpRight,
             text: 'creatives.common.viewProject',
             subText: '',
             variant: 'primary'
@@ -655,6 +656,7 @@
     .creative-title {
       font-size: 1.4rem;
       margin-top: 0;      /* マージン削除で上に配置 */
+      margin-bottom: 1rem;
       padding-right: 5rem;   /* 右上の CTA 領域を避ける */
       word-break: break-word;
     }

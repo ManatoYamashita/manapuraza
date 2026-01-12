@@ -5,66 +5,6 @@ import { createHead } from '@vueuse/head';
 import type { Locale } from '@/types';
 // MetaBallは初期描画のクリティカルパス外なので、アイドル時に遅延読み込みする
 
-// FontAwesomeを必要なものだけに絞り込み
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faArrowUpRightFromSquare,
-  faArrowRight,
-  faArrowLeft,
-  faFilm,
-  faCode,
-  faPalette,
-  faVideo,
-  faPlay,
-  faGlobe,
-  faChevronDown,
-  faChevronUp,
-  faBars,
-  faTimes,
-  faCheck,
-  faEnvelope,
-  faLink,
-  faUsers,
-  faShareNodes,
-  faCalendar
-} from '@fortawesome/free-solid-svg-icons'
-import { 
-  faGithub, 
-  faTwitter, 
-  faLinkedin, 
-  faInstagram, 
-  faDiscord 
-} from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-// アイコンをライブラリに追加
-library.add(
-  faLink,
-  faEnvelope,
-  faGithub,
-  faTwitter,
-  faLinkedin,
-  faInstagram,
-  faDiscord,
-  faArrowUpRightFromSquare,
-  faArrowRight,
-  faArrowLeft,
-  faFilm,
-  faCode,
-  faPalette,
-  faVideo,
-  faPlay,
-  faGlobe,
-  faChevronDown,
-  faChevronUp,
-  faBars,
-  faTimes,
-  faCheck,
-  faUsers,
-  faShareNodes,
-  faCalendar
-);
-
 // Vue-i18n最適化版を使用（Tree shaking最適化）
 const setupI18n = async () => {
   // 標準版を使用（message-compiler含む、但し遅延読み込みで最適化）
@@ -99,10 +39,6 @@ const setupI18n = async () => {
 
 const app = createApp(App);
 const head = createHead();
-
-app.component('fa', FontAwesomeIcon);
-app.component('font-awesome-icon', FontAwesomeIcon);
-// metaball側のコンポーネント登録は遅延読み込み時に設定する
 
 app.use(router);
 app.use(head);
@@ -145,7 +81,6 @@ setupI18n().then(i18n => {
   schedule(async () => {
     const { default: MetaBall } = await import('@/components/MetaBall.vue');
     const metaball = createApp(MetaBall);
-    metaball.component('font-awesome-icon', FontAwesomeIcon);
     metaball.use(router);
     metaball.use(i18n);
     metaball.use(head);

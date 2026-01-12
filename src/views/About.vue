@@ -4,7 +4,7 @@ import { useHead } from '@vueuse/head';
 import { computed } from 'vue';
 import type { Locale } from '@/types';
 import AboutHero from '@/components/AboutHero.vue';
-import AboutProfile from '@/components/AboutProfile.vue';
+import AboutInfomations from '@/components/AboutInfomations.vue';
 import AboutHistory from '@/components/AboutHistory.vue';
 
 const { locale } = useI18n<{ message: string }, Locale>();
@@ -115,16 +115,16 @@ const { locale } = useI18n<{ message: string }, Locale>();
 </script>
 
 <template>
-  <main class="about">
+  <main id="about">
     <AboutHero />
-    <AboutProfile />
+    <AboutInfomations />
     <AboutHistory />
   </main>
 </template>
 
 <style lang="css" scoped>
   /* === ベーススタイル（モバイル: ~480px） === */
-  main.about {
+  main#about {
     width: 100%;
     margin: 0 auto;
     padding: 1.5rem;
@@ -133,14 +133,14 @@ const { locale } = useI18n<{ message: string }, Locale>();
 
   /* === タブレット（481px-768px） === */
   @media screen and (min-width: 481px) and (max-width: 768px) {
-    main.about {
+    main#about {
       padding: 2rem;
     }
   }
 
   /* === デスクトップ（769px~） === */
   @media screen and (min-width: 769px) {
-    main.about {
+    main#about {
       padding: 3rem;
     }
   }

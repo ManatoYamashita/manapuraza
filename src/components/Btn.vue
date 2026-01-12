@@ -162,21 +162,24 @@
 
 <template>
   <button @click="handleClick" :aria-label="alt" :class="[category, variant]">
-    <font-awesome-icon v-if="icon" :icon="icon" class="icon" />
+    <component v-if="icon" :is="icon" :size="20" class="icon" />
     <span class="label">{{ text }}</span>
     <span v-if="subText" class="tooltip" role="tooltip">{{ subText }}</span>
-    <font-awesome-icon v-if="showArrow" :icon="['fas', 'arrow-right']" class="icon" />
+    <ArrowRight v-if="showArrow" :size="20" class="icon" />
   </button>
 </template>
 
 <script setup lang="ts">
+import { ArrowRight } from 'lucide-vue-next';
+import type { Component } from 'vue';
+
 interface Props {
   text?: string;
   subText?: string;
   link?: string;
   href?: string;
   target?: string;
-  icon?: string[] | null;
+  icon?: Component | null;
   alt?: string;
   showArrow?: boolean;
   category?: '' | 'animation' | 'programming' | 'graphics' | 'video';

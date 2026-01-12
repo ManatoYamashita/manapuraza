@@ -43,12 +43,7 @@ export default defineConfig({
             'vue-i18n',
           ],
           'vendor_three': ['three'],
-          'vendor_fontawesome': [
-            '@fortawesome/fontawesome-svg-core',
-            '@fortawesome/free-solid-svg-icons',
-            '@fortawesome/free-brands-svg-icons',
-            '@fortawesome/vue-fontawesome'
-          ],
+          'vendor_lucide': ['lucide-vue-next'],
           'vendor_gsap': ['gsap'],
         }
       },

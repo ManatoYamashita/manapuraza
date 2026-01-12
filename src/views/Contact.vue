@@ -2,6 +2,7 @@
 import { onMounted, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useHead } from '@vueuse/head';
+import { Mail, Share2 } from 'lucide-vue-next';
 import type { Locale } from '@/types';
 import Sns from '@/components/Sns.vue';
 
@@ -157,7 +158,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       <h2>{{ t('contact.methods') }}</h2>
       <div class="contact-info">
         <div class="contact-item">
-          <fa :icon="['fas', 'envelope']" class="contact-icon" />
+          <Mail :size="24" class="contact-icon" />
           <div class="contact-details">
             <h3>{{ t('contact.email.title') }}</h3>
             <p>{{ t('contact.email.description') }}</p>
@@ -169,7 +170,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
         </div>
 
         <div class="contact-item">
-          <fa :icon="['fas', 'share-nodes']" class="contact-icon" />
+          <Share2 :size="24" class="contact-icon" />
           <div class="contact-details">
             <h3>{{ t('contact.social.title') }}</h3>
             <p>{{ t('contact.social.description') }}</p>
@@ -203,19 +204,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
   .contact-section h2 {
     font-size: 2rem;
     margin: 3rem 0 1rem 0;
-    position: relative;
-    display: inline-block;
     color: #111;
-  }
-
-  .contact-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(79, 174, 242, 0.8) 0%, rgba(79, 174, 242, 0.2) 100%);
   }
 
   .contact-message p {

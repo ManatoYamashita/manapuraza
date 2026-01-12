@@ -11,42 +11,42 @@
             @click="setFilter('all')"
             :class="['filter-tag', { active: activeFilter === 'all' }]"
           >
-            <fa :icon="['fas', 'th']" class="tag-icon" />
+            <Grid3X3 :size="16" class="tag-icon" />
             <span>All</span>
           </button>
           <button
             @click="setFilter('animation')"
             :class="['filter-tag', { active: activeFilter === 'animation' }]"
           >
-            <fa :icon="['fas', 'film']" class="tag-icon" />
+            <Film :size="16" class="tag-icon" />
             <span>Anime</span>
           </button>
           <button
             @click="setFilter('development')"
             :class="['filter-tag', { active: activeFilter === 'development' }]"
           >
-            <fa :icon="['fas', 'code']" class="tag-icon" />
+            <Code :size="16" class="tag-icon" />
             <span>Dev</span>
           </button>
           <button
             @click="setFilter('illustration')"
             :class="['filter-tag', { active: activeFilter === 'illustration' }]"
           >
-            <fa :icon="['fas', 'palette']" class="tag-icon" />
+            <Palette :size="16" class="tag-icon" />
             <span>Illust</span>
           </button>
           <button
             @click="setFilter('video')"
             :class="['filter-tag', { active: activeFilter === 'video' }]"
           >
-            <fa :icon="['fas', 'video']" class="tag-icon" />
+            <Video :size="16" class="tag-icon" />
             <span>Video</span>
           </button>
           <button
             @click="setFilter('design')"
             :class="['filter-tag', { active: activeFilter === 'design' }]"
           >
-            <fa :icon="['fas', 'pencil']" class="tag-icon" />
+            <Pencil :size="16" class="tag-icon" />
             <span>Design</span>
           </button>
         </div>
@@ -60,8 +60,9 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { Grid3X3, Film, Code, Palette, Video, Pencil } from 'lucide-vue-next';
 
 // フィルター状態管理
 const activeFilter = ref('all');
@@ -70,7 +71,7 @@ const activeFilter = ref('all');
 const emit = defineEmits(['filter-change']);
 
 // フィルター設定関数
-const setFilter = (category) => {
+const setFilter = (category: string): void => {
   activeFilter.value = category;
   emit('filter-change', category); // 親コンポーネント（Creatives.vue）に通知
 };

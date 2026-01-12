@@ -38,10 +38,10 @@
             :aria-expanded="isDropdownOpen"
             :aria-label="$t('navbar.selectLanguage')"
           >
-            <fa :icon="['fas','globe']" class="globe-icon" />
+            <Globe :size="20" class="globe-icon" />
             <span class="current-lang-label">{{ currentLanguageLabel }}</span>
-            <fa
-              :icon="['fas','chevron-down']"
+            <ChevronDown
+              :size="16"
               class="chevron-icon"
               :class="{ 'rotated': isDropdownOpen }"
             />
@@ -55,8 +55,8 @@
                   :class="{ 'active': locale === lang.code }"
                   class="home-lang-option-btn"
                 >
-                  <fa
-                    :icon="['fas','check']"
+                  <Check
+                    :size="18"
                     class="check-icon"
                     v-show="locale === lang.code"
                   />
@@ -90,6 +90,7 @@
   import { watch, onMounted, onUnmounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
+  import { Globe, ChevronDown, Check } from 'lucide-vue-next';
   import Menu from '@/components/Menu.vue';
   import type { Locale } from '@/types';
 
@@ -350,16 +351,15 @@
   }
   .app {
     min-width: 85vw;
-    /* height: 80vh; */
     max-width: 1280px;
-    max-height: 75vh;
-    /* padding: 2rem 2rem 0 2rem; */
-    padding: 1.4rem;
-    margin: 1rem auto;
+    max-height: 77vh;
+    margin: 0 auto;
+    padding: .5rem;
     border-radius: 10px;
     transition: .5s ease-in-out;
-    /* scroll-behavior: auto; */
     overflow-y: auto; /* スクロール可能に変更 */
+    scrollbar-width: thin;
+    scrollbar-color: transparent;
   }
   .glass {
     /* 背景を少し強めてコントラストを確保 */
@@ -496,7 +496,6 @@
   @media (max-width: 540px) {
     #main {
       display: block;
-      /* overflow: hidden; */
       pointer-events: none;
     }
     #center-logo {
@@ -504,10 +503,8 @@
       width: 60%;
     }
     .app {
-      /* width: 90vw; */
-      height: 70vh;
-      padding: 1rem 0;
-      margin: 1rem auto;
+      margin: 0;
+      width: 100%;
     }
     #sp-nav {
       display: block;
@@ -534,7 +531,6 @@
     justify-content: center;
     flex-wrap: nowrap; /* 明示的にデフォルト設定 */
     gap: 3rem;
-    max-width: 90vw; /* 横幅制限 */
     z-index: 15;
     pointer-events: auto;
   }
@@ -551,10 +547,23 @@
     white-space: nowrap;
   }
 
-  .home-nav-link:hover {
-    color: #d7a800;
-    text-shadow: #f0d300 0 0px 1rem;
-    animation: glow 0.3s ease-in-out infinite alternate;
+  /* タッチデバイスではホバー効果を無効化 */
+  @media (hover: hover) and (pointer: fine) {
+    .home-nav-link:hover {
+      color: #d7a800;
+      text-shadow: #f0d300 0 0px 1rem;
+      animation: glow 0.3s ease-in-out infinite alternate;
+    }
+
+    .home-lang-dropdown-toggle:hover {
+      background: #f0d300;
+      border-color: #d7a800;
+      transform: translateY(-2px);
+    }
+
+    .home-lang-option-btn:hover {
+      background: #f0d300;
+    }
   }
 
   /* メニュー項目間の縦線（最後のリンクにも適用） */
@@ -588,12 +597,6 @@
     color: #111;
     font-size: 1rem;
     white-space: nowrap;
-  }
-
-  .home-lang-dropdown-toggle:hover {
-    background: #f0d300;
-    border-color: #d7a800;
-    transform: translateY(-2px);
   }
 
   .home-lang-dropdown .globe-icon {
@@ -643,10 +646,6 @@
     color: #111;
   }
 
-  .home-lang-option-btn:hover {
-    background: #f0d300;
-  }
-
   .home-lang-option-btn.active {
     font-weight: bold;
     background: #fef9e0;
@@ -668,12 +667,12 @@
 
   .dropdown-slide-enter-from {
     opacity: 0;
-    transform: translateY(-10px) scaleY(0.8);
+    transform: translateY(0) scaleY(0.8);
   }
 
   .dropdown-slide-leave-to {
     opacity: 0;
-    transform: translateY(-10px) scaleY(0.8);
+    transform: translateY(0) scaleY(0.8);
   }
 
   /* ホームメニューフェードアニメーション */
@@ -752,45 +751,89 @@
     }
   }
 
-  /* Mobile: 540px以下 - コンパクトな縦並びレイアウト */
+  /* Mobile: 540px以下 - 縦積みレイアウト */
   @media screen and (max-width: 540px) {
     .home-nav-links {
       display: flex;
-      flex-direction: column; /* 縦並び */
-      gap: 1rem;
-      top: 58%; /* ロゴの下に配置 */
-      align-items: center;
+      flex-direction: column; /* 垂直スタック */
+      flex-wrap: nowrap;
+      align-items: center; /* 水平中央揃え */
+      gap: 0.75rem; /* 項目間の縦間隔 */
+      top: 50%; /* ロゴから少し下げる */
+      max-width: 90vw; /* 画面幅の90%まで使用 */
       padding: 0 1rem;
-      max-width: 90vw;
+      padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem)); /* Safe Area対応 */
     }
 
+    /* リンクスタイル - タッチフレンドリー */
     .home-nav-link {
-      font-size: 1.1rem; /* やや小さめ */
-      padding: 0.4rem 0.8rem;
+      font-size: 1.1rem; /* 可読性確保 */
+      padding: 0.5rem 1.2rem; /* タッチターゲット拡大 */
+      width: 100%; /* 全幅表示 */
+      text-align: center;
+      max-width: 280px; /* iPhone SE対応 */
+      min-height: 44px; /* iOS推奨タッチサイズ */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      white-space: nowrap;
     }
 
-    /* 縦線を削除（縦並びのため不要） */
+    /* 縦線を完全削除 */
     .home-nav-link::after {
       content: none;
+      display: none;
     }
 
-    /* 言語ボタンをコンパクトに */
+    /* 言語ドロップダウンを最下段に配置 */
     .home-lang-dropdown {
       margin-left: 0;
-      width: auto;
+      margin-top: 0.5rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      max-width: 280px;
     }
 
+    /* 言語トグルボタン */
     .home-lang-dropdown-toggle {
-      padding: 0.4rem 1rem;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      min-height: 44px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
+    /* アイコンサイズ調整 */
     .home-lang-dropdown .globe-icon {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     .home-lang-dropdown .current-lang-label {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    .home-lang-dropdown .chevron-icon {
+      font-size: 0.75rem;
+    }
+
+    /* ドロップダウンメニュー中央配置 */
+    .home-lang-dropdown-menu {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      min-width: 180px;
+      max-width: 90vw; /* 画面外回避 */
+    }
+
+    /* ドロップダウンオプションボタン */
+    .home-lang-option-btn {
+      font-size: 0.95rem;
+      padding: 0.75rem 1.2rem;
+      min-height: 44px;
     }
   }
 

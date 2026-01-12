@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="history">
     <div class="timeline" ref="timelineRef">
       <div
         class="entry"
@@ -69,10 +69,11 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-  #main {
+  #history {
     width: 100%;
     max-width: 800px;
     overflow-y: hidden;
+    margin: 0 auto;
   }
   .timeline {
     width: 100%;
@@ -123,6 +124,8 @@ onMounted(async () => {
   p {
     margin: 0;
     font-size: small;
+    color: #666;
+    line-height: 1.6;
   }
   .incident {
     float: right;

@@ -37,10 +37,10 @@
           :aria-expanded="isDropdownOpen"
           :aria-label="$t('navbar.selectLanguage')"
         >
-          <fa :icon="['fas','globe']" class="globe-icon" />
+          <Globe :size="20" class="globe-icon" />
           <span class="current-lang-label">{{ currentLanguageLabel }}</span>
-          <fa
-            :icon="['fas','chevron-down']"
+          <ChevronDown
+            :size="16"
             class="chevron-icon"
             :class="{ 'rotated': isDropdownOpen }"
           />
@@ -54,8 +54,8 @@
                 :class="{ 'active': locale === lang.code }"
                 class="lang-option-btn"
               >
-                <fa
-                  :icon="['fas','check']"
+                <Check
+                  :size="18"
                   class="check-icon"
                   v-show="locale === lang.code"
                 />
@@ -93,10 +93,10 @@
             :aria-expanded="isDropdownOpen"
             :aria-label="$t('navbar.selectLanguage')"
           >
-            <fa :icon="['fas','globe']" class="globe-icon" />
+            <Globe :size="20" class="globe-icon" />
             <span class="current-lang-label">{{ currentLanguageLabel }}</span>
-            <fa
-              :icon="['fas','chevron-down']"
+            <ChevronDown
+              :size="16"
               class="chevron-icon"
               :class="{ 'rotated': isDropdownOpen }"
             />
@@ -110,8 +110,8 @@
                   :class="{ 'active': locale === lang.code }"
                   class="lang-option-btn"
                 >
-                  <fa
-                    :icon="['fas','check']"
+                  <Check
+                    :size="18"
                     class="check-icon"
                     v-show="locale === lang.code"
                   />
@@ -127,7 +127,7 @@
       <nav
         class="mobile-bottom-menu"
         :class="{ 'mobile-menu-animate': isInitialLoad }"
-        v-show="shouldShowMobileNav"
+        v-show="shouldShowMobileNav && currentPath !== '/'"
       >
         <div class="mobile-menu-shell" :class="{ open: isMobileMenuOpen }">
           <!-- 左側: トグルボタン（円形） -->
@@ -143,13 +143,13 @@
             @keydown.space.prevent="handleMorphButtonClick"
           >
             <div class="toggle-icon-container">
-              <fa
-                :icon="['fas','bars']"
+              <MenuIcon
+                :size="26"
                 class="toggle-icon toggle-icon-bars"
                 :class="{ 'icon-hidden': isMobileMenuOpen }"
               />
-              <fa
-                :icon="['fas','times']"
+              <X
+                :size="26"
                 class="toggle-icon toggle-icon-times"
                 :class="{ 'icon-visible': isMobileMenuOpen }"
               />
@@ -195,6 +195,7 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, watch, onErrorCaptured } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { Globe, ChevronDown, Check, Menu as MenuIcon, X } from 'lucide-vue-next';
 import { gsap } from 'gsap';
 import type { Locale } from '@/types';
 
@@ -212,13 +213,12 @@ const isDropdownOpen = ref<boolean>(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 const dropdownRefMobile = ref<HTMLElement | null>(null);
 
-// モバイルメニューの表示判定（ホームページでは非表示）
+// モバイルメニューの表示判定
 const shouldShowMobileNav = computed<boolean>(() => {
-  // ホームページでは常にモバイルメニューを非表示
-  // （App.vueの.home-nav-linksが表示されるため）
-  if (currentPath.value === '/') {
-    return false;
-  }
+  // 常にtrueを返す
+  // - 769px以上: CSSで.mobile-navが非表示
+  // - 768px以下: モバイルメニュー表示
+  // - ホームページ（540px以下）: .home-nav-linksが非表示なので、モバイル下部メニューを表示
   return true;
 });
 
@@ -289,7 +289,7 @@ const handleMorphButtonClick = (): void => {
       .to('.mobile-page-title', {
         opacity: 0.3,           // 薄く残す
         scale: 0.92,
-        y: -10,                 // 上方向に押し込む
+        y: 0,                 // 上方向に押し込む
         zIndex: 1,
         duration: 0.2
       })
@@ -428,6 +428,7 @@ onErrorCaptured(() => {
 <style lang="css" scoped>
 .menu {
   position: relative;
+  margin-bottom: 1rem;
   z-index: 10;
   pointer-events: auto !important;
 }
@@ -448,7 +449,6 @@ onErrorCaptured(() => {
   max-width: clamp(180px, 40vw, 300px);
   min-width: 120px; /* 最小サイズ保証 */
   overflow: hidden;
-  cursor: alias;
   margin-right: auto; /* ロゴを左側に固定 */
 }
 
@@ -457,6 +457,7 @@ onErrorCaptured(() => {
   height: auto; /* アスペクト比維持 */
   max-width: 100%;
   object-fit: contain; /* 縦横比維持しながらコンテナに収める */
+  cursor: alias;
 }
 
 .nav-links {
@@ -631,12 +632,12 @@ onErrorCaptured(() => {
 
 .dropdown-slide-enter-from {
   opacity: 0;
-  transform: translateY(-10px) scaleY(0.8);
+  transform: translateY(0) scaleY(0.8);
 }
 
 .dropdown-slide-leave-to {
   opacity: 0;
-  transform: translateY(-10px) scaleY(0.8);
+  transform: translateY(0) scaleY(0.8);
 }
 
 /* デスクトップ言語切り替え */
@@ -674,6 +675,10 @@ onErrorCaptured(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.mobile-header .logo {
+  cursor: pointer;
 }
 
 .logo-img-mobile {
@@ -1123,13 +1128,11 @@ onErrorCaptured(() => {
 
 .menu-fade-enter-from {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(0);
 }
 
 .menu-fade-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(0);
 }
-
-
 </style>

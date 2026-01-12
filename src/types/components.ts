@@ -22,7 +22,7 @@ export interface AboutHeroProps {
   // Propsなし（i18nのみ使用）
 }
 
-export interface AboutProfileProps {
+export interface AboutInfomationsProps {
   // Propsなし
 }
 
