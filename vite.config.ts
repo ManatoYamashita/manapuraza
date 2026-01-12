@@ -36,15 +36,32 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': [
-            'vue',
-            'vue-router',
-            'vue-i18n',
-          ],
-          'vendor_three': ['three'],
-          'vendor_lucide': ['lucide-vue-next'],
-          'vendor_gsap': ['gsap'],
+        manualChunks: (id) => {
+          // ベンダーライブラリ分割
+          if (id.includes('node_modules/vue') ||
+              id.includes('node_modules/vue-router') ||
+              id.includes('node_modules/vue-i18n')) {
+            return 'vendor';
+          }
+          if (id.includes('node_modules/three')) {
+            return 'vendor_three';
+          }
+          if (id.includes('node_modules/gsap')) {
+            return 'vendor_gsap';
+          }
+          if (id.includes('@fortawesome')) {
+            return 'vendor_fontawesome';
+          }
+
+          // CSS分割
+          if (id.includes('.vue') && id.includes('style')) {
+            if (id.includes('components')) {
+              return 'styles-components';
+            }
+            if (id.includes('views')) {
+              return 'styles-views';
+            }
+          }
         }
       },
     },

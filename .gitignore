@@ -27,5 +27,6 @@ coverage
 
 ## vue
 dist/
+.vite/
 
 stats.html

@@ -7,6 +7,8 @@
           fetchpriority="high"
           :src="imageSrc"
           :alt="imageAlt"
+          width="300"
+          height="300"
           class="profile-image"
         />
       </div>
@@ -24,7 +26,7 @@
               :aria-label="t('about.externalProfileLabel')"
               class="external-link-icon"
             >
-              <ArrowUpRight :size="24" />
+              <font-awesome-icon :icon="faArrowUpRightFromSquare" />
             </a>
           </div>
           <p class="profile-reading">{{ t('about.reading') }}</p>
@@ -48,9 +50,9 @@
         class="cta-button"
         :aria-label="t('about.ctaLabel')"
       >
-        <Mail :size="20" class="icon" />
+        <font-awesome-icon :icon="faEnvelope" class="icon" />
         <span class="label">{{ t('about.ctaText') }}</span>
-        <ArrowRight :size="20" class="icon" />
+        <font-awesome-icon :icon="faArrowRight" class="icon" />
       </router-link>
     </div>
   </section>
@@ -60,7 +62,8 @@
   import { computed, onMounted } from 'vue';
   import { useI18n } from 'vue-i18n';
   import type { Locale } from '@/types';
-  import { ArrowUpRight, ArrowRight, Mail } from 'lucide-vue-next';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { faArrowUpRightFromSquare, faArrowRight, faEnvelope } from '@fortawesome/free-solid-svg-icons';
   import Sns from '@/components/Sns.vue';
 
   const { t, locale } = useI18n<{ message: string }, Locale>();
@@ -297,16 +300,18 @@
   }
 
   .profile-image-container {
-    width: 30%;
-    max-width: 350px;
-    max-height: 350px;
+    max-width: 30%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     flex-shrink: 0;
     margin: 0;
   }
 
   .profile-image {
     border-radius: 50%;
+    width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   .profile-right-content {

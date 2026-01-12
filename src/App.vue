@@ -11,14 +11,16 @@
     </header>
 
     <a href="https://manapuraza.com" aria-current="page" class="home-logo">
-      <img 
-        :fetchpriority="logoQuality === 'high' ? 'high' : 'low'" 
-        :src="currentLogoSrc" 
-        alt="ホームページに戻る" 
-        draggable="false" 
-        id="center-logo" 
-        :class="[className, logoTransitionClass]" 
-        :style="combinedStyleObject" 
+      <img
+        :fetchpriority="logoQuality === 'high' ? 'high' : 'low'"
+        :src="currentLogoSrc"
+        alt="ホームページに戻る"
+        width="800"
+        height="200"
+        draggable="false"
+        id="center-logo"
+        :class="[className, logoTransitionClass]"
+        :style="combinedStyleObject"
         @load="onLogoLoad"
       />
     </a>
@@ -38,10 +40,10 @@
             :aria-expanded="isDropdownOpen"
             :aria-label="$t('navbar.selectLanguage')"
           >
-            <Globe :size="20" class="globe-icon" />
+            <font-awesome-icon :icon="faGlobe" class="globe-icon" />
             <span class="current-lang-label">{{ currentLanguageLabel }}</span>
-            <ChevronDown
-              :size="16"
+            <font-awesome-icon
+              :icon="faChevronDown"
               class="chevron-icon"
               :class="{ 'rotated': isDropdownOpen }"
             />
@@ -55,8 +57,8 @@
                   :class="{ 'active': locale === lang.code }"
                   class="home-lang-option-btn"
                 >
-                  <Check
-                    :size="18"
+                  <font-awesome-icon
+                    :icon="faCheck"
                     class="check-icon"
                     v-show="locale === lang.code"
                   />
@@ -90,7 +92,8 @@
   import { watch, onMounted, onUnmounted, computed, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { useI18n } from 'vue-i18n';
-  import { Globe, ChevronDown, Check } from 'lucide-vue-next';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { faGlobe, faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons';
   import Menu from '@/components/Menu.vue';
   import type { Locale } from '@/types';
 

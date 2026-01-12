@@ -34,3 +34,21 @@
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
 </IfModule>
+
+# セキュリティヘッダー
+<IfModule mod_headers.c>
+  # Content Security Policy
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.microcms-assets.io; font-src 'self' data:; connect-src 'self' https://*.microcms.io; frame-src https://www.youtube.com;"
+
+  # HTTP Strict Transport Security（HTTPS環境のみ）
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+  # Clickjacking対策
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # MIME-Type sniffing防止
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Cross-Origin-Opener-Policy
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+</IfModule>

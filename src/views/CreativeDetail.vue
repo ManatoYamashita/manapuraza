@@ -2,7 +2,7 @@
   <div v-if="creative" class="creative-detail">
     <!-- 戻るボタン -->
     <router-link to="/creatives" class="back-link">
-      <ArrowLeft :size="16" />
+      <font-awesome-icon :icon="faArrowLeft" />
       {{ $t('creatives.common.backToList') }}
     </router-link>
 
@@ -26,7 +26,11 @@
         v-for="(image, index) in detailData.images"
         :key="index"
         :src="image"
+        :srcset="getImageSrcset(image)"
+        :sizes="imageSizes"
         :alt="creative.title"
+        width="1200"
+        height="800"
         class="gallery-image"
         loading="lazy"
       />
@@ -98,7 +102,7 @@
   <div v-else class="not-found">
     <h1>{{ $t('creatives.common.notFound') }}</h1>
     <router-link to="/creatives" class="back-link">
-      <ArrowLeft :size="16" />
+      <font-awesome-icon :icon="faArrowLeft" />
       {{ $t('creatives.common.backToList') }}
     </router-link>
   </div>
@@ -110,8 +114,9 @@
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
   import { marked } from 'marked';
-  import { ArrowLeft, ArrowUpRight } from 'lucide-vue-next';
-  import { useCreativesAPI } from '@/composables/useCreativesAPI';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { faArrowLeft, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+  import { useCreativesAPI, getOptimizedImageUrl } from '@/composables/useCreativesAPI';
   import Btn from '@/components/Btn.vue';
   import type { Locale, CreativeDetail, CtaButton } from '@/types';
 
@@ -173,7 +178,7 @@
         : [{
             href: creative.value.url,
             target: '_blank',
-            icon: ArrowUpRight,
+            icon: faArrowUpRightFromSquare,
             text: 'creatives.common.viewProject',
             subText: '',
             variant: 'primary'
@@ -185,6 +190,17 @@
   const hasYoutube = computed<boolean>(() => {
     return detailData.value.youtube !== null;
   });
+
+  // 画像のレスポンシブ srcset を生成
+  const getImageSrcset = (imageUrl: string): string => {
+    if (!imageUrl.includes('images.microcms-assets.io')) {
+      return '';
+    }
+    return `${getOptimizedImageUrl(imageUrl, 600)} 600w, ${getOptimizedImageUrl(imageUrl, 1200)} 1200w, ${getOptimizedImageUrl(imageUrl, 1800)} 1800w`;
+  };
+
+  // 画像の sizes 属性
+  const imageSizes = '(max-width: 768px) 600px, (max-width: 1200px) 1200px, 1800px';
 
   // デスクトップ判定
   const isDesktop: Ref<boolean> = ref(false);

@@ -67,7 +67,7 @@
           <div class="info-grid">
             <div class="info-item">
               <div class="info-icon">
-                <Calendar :size="18" />
+                <font-awesome-icon :icon="faCalendar" />
               </div>
               <div class="info-content">
                 <span class="info-label">制作年</span>
@@ -78,7 +78,7 @@
           
           <div class="credits-section">
             <h4 class="section-subtitle">
-              <Users :size="18" class="subtitle-icon" />
+              <font-awesome-icon :icon="faUsers" class="subtitle-icon" />
               <span>クレジット</span>
             </h4>
             <dl class="credits-grid">
@@ -92,7 +92,7 @@
             <Btn
               :href="'https://youtu.be/zLuemAdQlMs?si=YaSzwIwY0uxHelyu'"
               :target="'_blank'"
-              :icon="PlayCircle"
+              :icon="faCirclePlay"
               :text="$t('creatives.animation.tcuAnimation.watchMain')"
               :subText="$t('creatives.animation.tcuAnimation.watchSub')"
               :alt="'本編動画を見る（世田谷区公式YouTube）'"
@@ -101,7 +101,7 @@
             <Btn
               :href="'https://tcu-animation.jp'"
               :target="'_blank'"
-              :icon="Globe"
+              :icon="faGlobe"
               :text="$t('creatives.animation.tcuAnimation.siteMain')"
               :subText="$t('creatives.animation.tcuAnimation.siteSub')"
               :alt="'公式サイトへ（都市大アニメーション）'"
@@ -116,7 +116,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
-import { Calendar, Users, PlayCircle, Globe } from 'lucide-vue-next';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faCalendar, faUsers, faCirclePlay, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import Btn from '@/components/Btn.vue';
 import { useI18n } from 'vue-i18n';
 

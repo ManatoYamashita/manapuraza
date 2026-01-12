@@ -13,7 +13,7 @@
             <td>
               <a v-if="item.hasLink" :href="item.linkHref" target="_blank" class="profile-link">
                 {{ item.content }}
-                <ArrowUpRight :size="12" />
+                <font-awesome-icon :icon="faArrowUpRightFromSquare" />
               </a>
               <span v-else v-html="item.content"></span>
             </td>
@@ -26,7 +26,8 @@
 <script setup>
   import { ref } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { ArrowUpRight } from 'lucide-vue-next';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
   const { t } = useI18n();
 

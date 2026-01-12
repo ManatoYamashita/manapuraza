@@ -165,12 +165,13 @@
     <component v-if="icon" :is="icon" :size="20" class="icon" />
     <span class="label">{{ text }}</span>
     <span v-if="subText" class="tooltip" role="tooltip">{{ subText }}</span>
-    <ArrowRight v-if="showArrow" :size="20" class="icon" />
+    <font-awesome-icon v-if="showArrow" :icon="faArrowRight" class="icon" />
   </button>
 </template>
 
 <script setup lang="ts">
-import { ArrowRight } from 'lucide-vue-next';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import type { Component } from 'vue';
 
 interface Props {

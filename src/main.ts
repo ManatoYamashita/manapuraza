@@ -95,17 +95,26 @@ if ('mediaSession' in navigator) {
     navigator.mediaSession.setActionHandler('play', function() {
       // 再生処理
     });
-    
+
     navigator.mediaSession.setActionHandler('pause', function() {
       // 一時停止処理
     });
-    
+
     navigator.mediaSession.setActionHandler('previoustrack', function() {
       // 前のトラックへ
     });
-    
+
     navigator.mediaSession.setActionHandler('nexttrack', function() {
       // 次のトラックへ
+    });
+  });
+}
+
+// Service Worker登録（本番環境のみ）
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((error: Error) => {
+      console.error('SW registration failed:', error);
     });
   });
 }

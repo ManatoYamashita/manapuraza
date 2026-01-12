@@ -2,7 +2,8 @@
 import { onMounted, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useHead } from '@vueuse/head';
-import { Mail, Share2 } from 'lucide-vue-next';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faEnvelope, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import type { Locale } from '@/types';
 import Sns from '@/components/Sns.vue';
 
@@ -158,7 +159,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       <h2>{{ t('contact.methods') }}</h2>
       <div class="contact-info">
         <div class="contact-item">
-          <Mail :size="24" class="contact-icon" />
+          <font-awesome-icon :icon="faEnvelope" class="contact-icon" />
           <div class="contact-details">
             <h3>{{ t('contact.email.title') }}</h3>
             <p>{{ t('contact.email.description') }}</p>
@@ -170,7 +171,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
         </div>
 
         <div class="contact-item">
-          <Share2 :size="24" class="contact-icon" />
+          <font-awesome-icon :icon="faShareNodes" class="contact-icon" />
           <div class="contact-details">
             <h3>{{ t('contact.social.title') }}</h3>
             <p>{{ t('contact.social.description') }}</p>

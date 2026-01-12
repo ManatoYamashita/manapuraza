@@ -281,3 +281,22 @@ export function useCreativesAPI() {
     getMinorCategories,
   };
 }
+
+/**
+ * microCMS Image API を使用して最適化された画像URLを生成
+ * @param url - オリジナルの画像URL
+ * @param width - 幅（px）
+ * @returns 最適化された画像URL
+ */
+export function getOptimizedImageUrl(url: string, width: number): string {
+  if (!url) return '';
+
+  // microCMSの画像URLかチェック
+  if (!url.includes('images.microcms-assets.io')) {
+    return url;
+  }
+
+  // URLにクエリパラメータを追加
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}w=${width}&fm=webp&q=80`;
+}

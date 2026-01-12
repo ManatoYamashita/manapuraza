@@ -10,8 +10,8 @@
               alt="manapuraza.com logo" 
               loading="lazy" 
               decoding="async"
-              width="250"
-              height="50"
+              width="400"
+              height="80"
               class="logo-img" 
               v-show="currentPath !== '/'"
               @error="handleLogoError"
@@ -37,10 +37,10 @@
           :aria-expanded="isDropdownOpen"
           :aria-label="$t('navbar.selectLanguage')"
         >
-          <Globe :size="20" class="globe-icon" />
+          <font-awesome-icon :icon="faGlobe" class="globe-icon" />
           <span class="current-lang-label">{{ currentLanguageLabel }}</span>
-          <ChevronDown
-            :size="16"
+          <font-awesome-icon
+            :icon="faChevronDown"
             class="chevron-icon"
             :class="{ 'rotated': isDropdownOpen }"
           />
@@ -54,8 +54,8 @@
                 :class="{ 'active': locale === lang.code }"
                 class="lang-option-btn"
               >
-                <Check
-                  :size="18"
+                <font-awesome-icon
+                  :icon="faCheck"
                   class="check-icon"
                   v-show="locale === lang.code"
                 />
@@ -76,6 +76,8 @@
             <img
               src="@/assets/logo-low.webp"
               alt="manapuraza.com logo"
+              width="200"
+              height="40"
               loading="lazy"
               decoding="async"
               class="logo-img-mobile"
@@ -93,7 +95,7 @@
             :aria-expanded="isDropdownOpen"
             :aria-label="$t('navbar.selectLanguage')"
           >
-            <Globe :size="20" class="globe-icon" />
+            <font-awesome-icon :icon="faGlobe" class="globe-icon" />
             <span class="current-lang-label">{{ currentLanguageLabel }}</span>
             <ChevronDown
               :size="16"
@@ -143,13 +145,13 @@
             @keydown.space.prevent="handleMorphButtonClick"
           >
             <div class="toggle-icon-container">
-              <MenuIcon
-                :size="26"
+              <font-awesome-icon
+                :icon="faBars"
                 class="toggle-icon toggle-icon-bars"
                 :class="{ 'icon-hidden': isMobileMenuOpen }"
               />
-              <X
-                :size="26"
+              <font-awesome-icon
+                :icon="faXmark"
                 class="toggle-icon toggle-icon-times"
                 :class="{ 'icon-visible': isMobileMenuOpen }"
               />
@@ -195,7 +197,8 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, watch, onErrorCaptured } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { Globe, ChevronDown, Check, Menu as MenuIcon, X } from 'lucide-vue-next';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faGlobe, faChevronDown, faCheck, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { gsap } from 'gsap';
 import type { Locale } from '@/types';
 

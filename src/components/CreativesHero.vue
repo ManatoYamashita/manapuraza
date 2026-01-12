@@ -11,42 +11,42 @@
             @click="setFilter('all')"
             :class="['filter-tag', { active: activeFilter === 'all' }]"
           >
-            <Grid3X3 :size="16" class="tag-icon" />
+            <font-awesome-icon :icon="faTableCells" class="tag-icon" />
             <span>All</span>
           </button>
           <button
             @click="setFilter('animation')"
             :class="['filter-tag', { active: activeFilter === 'animation' }]"
           >
-            <Film :size="16" class="tag-icon" />
+            <font-awesome-icon :icon="faFilm" class="tag-icon" />
             <span>Anime</span>
           </button>
           <button
             @click="setFilter('development')"
             :class="['filter-tag', { active: activeFilter === 'development' }]"
           >
-            <Code :size="16" class="tag-icon" />
+            <font-awesome-icon :icon="faCode" class="tag-icon" />
             <span>Dev</span>
           </button>
           <button
             @click="setFilter('illustration')"
             :class="['filter-tag', { active: activeFilter === 'illustration' }]"
           >
-            <Palette :size="16" class="tag-icon" />
+            <font-awesome-icon :icon="faPalette" class="tag-icon" />
             <span>Illust</span>
           </button>
           <button
             @click="setFilter('video')"
             :class="['filter-tag', { active: activeFilter === 'video' }]"
           >
-            <Video :size="16" class="tag-icon" />
+            <font-awesome-icon :icon="faVideo" class="tag-icon" />
             <span>Video</span>
           </button>
           <button
             @click="setFilter('design')"
             :class="['filter-tag', { active: activeFilter === 'design' }]"
           >
-            <Pencil :size="16" class="tag-icon" />
+            <font-awesome-icon :icon="faPencilAlt" class="tag-icon" />
             <span>Design</span>
           </button>
         </div>
@@ -62,7 +62,8 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { Grid3X3, Film, Code, Palette, Video, Pencil } from 'lucide-vue-next';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faTableCells, faFilm, faCode, faPalette, faVideo, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 // フィルター状態管理
 const activeFilter = ref('all');

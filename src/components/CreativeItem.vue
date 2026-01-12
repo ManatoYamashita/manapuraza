@@ -1,6 +1,6 @@
 <template>
   <!-- Card mode: カード形式のレイアウト -->
-  <li :class="`creative-item creative-item--${mode.toLowerCase()}`" :data-creative-index="index">
+  <li ref="itemRef" :class="`creative-item creative-item--${mode.toLowerCase()}`" :data-creative-index="index">
     <router-link :to="`/creatives/${category}/${id}`">
       <div class="img-cover">
         <!-- YouTube iFrame表示（youtubeUrlがある場合） -->
@@ -14,9 +14,19 @@
           ></iframe>
         </div>
         <!-- 通常の画像表示 -->
-        <img v-else :src="resolvedThumbnail" :alt="title" loading="lazy" @error="handleImageError" />
+        <img
+          v-else
+          :src="resolvedThumbnail"
+          :srcset="thumbnailSrcset"
+          :sizes="thumbnailSizes"
+          :alt="title"
+          width="1280"
+          height="720"
+          loading="lazy"
+          @error="handleImageError"
+        />
       </div>
-      <h3>{{ title }} <ArrowRight :size="16" class="fa" /></h3>
+      <h3>{{ title }} <font-awesome-icon :icon="faArrowRight" class="fa" /></h3>
 
       <!-- タグ表示（Card modes） -->
       <div class="creative-tags" v-if="tags && tags.length > 0">
@@ -29,8 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { ArrowRight } from 'lucide-vue-next';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { getOptimizedImageUrl } from '@/composables/useCreativesAPI';
 import type { CreativeCategory } from '@/types';
 
 interface Props {
@@ -62,10 +74,49 @@ const resolvedThumbnail = computed<string>(() => {
   }
 });
 
+// レスポンシブ画像用の srcset 生成
+const thumbnailSrcset = computed<string>(() => {
+  const baseUrl = resolvedThumbnail.value;
+  // microCMS画像でない場合はsrcsetを生成しない
+  if (!baseUrl.includes('images.microcms-assets.io')) {
+    return '';
+  }
+  return `${getOptimizedImageUrl(baseUrl, 400)} 400w, ${getOptimizedImageUrl(baseUrl, 800)} 800w, ${getOptimizedImageUrl(baseUrl, 1200)} 1200w`;
+});
+
+// レスポンシブ画像用の sizes 属性
+const thumbnailSizes = '(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px';
+
 const handleImageError = (e: Event): void => {
   const target = e.target as HTMLImageElement;
   target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
 };
+
+// IntersectionObserver による遅延読み込み最適化
+const itemRef = ref<HTMLElement | null>(null);
+const isVisible = ref(false);
+
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (itemRef.value) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry && entry.isIntersecting) {
+          isVisible.value = true;
+          observer?.disconnect(); // 一度表示されたら監視を終了
+        }
+      },
+      { rootMargin: '50px' } // 50px手前で読み込み開始
+    );
+    observer.observe(itemRef.value);
+  }
+});
+
+onUnmounted(() => {
+  observer?.disconnect();
+});
 </script>
 
 <style scoped>
@@ -81,7 +132,7 @@ const handleImageError = (e: Event): void => {
     overflow: hidden;
     position: relative;
     width: 100%;
-    padding-top: 56.25%;
+    aspect-ratio: 16 / 9;
     border-radius: 0.5rem;
     border: 2px solid #000; /* 黒の2pxボーダー */
     transition: border-color 0.3s ease;
@@ -149,6 +200,7 @@ const handleImageError = (e: Event): void => {
   /* Illustration mode専用の画像制限 */
   .creative-item--illustration .img-cover {
     height: auto;
+    max-height: 250px;
     padding-top: 0;
     border: 2px solid #000; /* 黒の2pxボーダー */
     transition: border-color 0.3s ease;
