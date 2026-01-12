@@ -300,15 +300,18 @@
   }
 
   .profile-image-container {
-    max-width: 30%;
-    height: 100%;
+    width: 30%;
+    max-width: 350px;
+    height: auto;
     aspect-ratio: 1 / 1;
+    border-radius: .375rem;
     flex-shrink: 0;
     margin: 0;
+    overflow: hidden;
   }
 
   .profile-image {
-    border-radius: 50%;
+    border-radius: .375rem;
     width: 100%;
     height: 100%;
     object-fit: cover;
