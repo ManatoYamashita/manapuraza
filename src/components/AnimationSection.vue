@@ -31,7 +31,6 @@
             <!-- YouTube iframe（読み込み完了時に表示） -->
             <iframe
               v-if="!isDesktop"
-              ref="mobileIframe"
               :class="{ 'iframe-loaded': !isVideoLoading }"
               src="https://www.youtube.com/embed/Q9Uuyhjic2M?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=Q9Uuyhjic2M"
               title="世田谷区オリジナルアニメ「新BOPへようこそ!」"
@@ -40,9 +39,8 @@
               loading="eager"
               @load="onIframeLoad"
             ></iframe>
-            <iframe 
+            <iframe
               v-else
-              ref="desktopIframe"
               :class="{ 'iframe-loaded': !isVideoLoading }"
               src="https://www.youtube.com/embed/hdK1_B_Mef8?loop=1&playsinline=1&controls=0&autoplay=1&mute=1&playlist=hdK1_B_Mef8"
               title="デスクトップ表示用動画"
@@ -127,8 +125,6 @@ let mediaQueryList: MediaQueryList | null = null;
 
 // YouTube iframe読み込み状態管理（Vue3ベストプラクティス）
 const isVideoLoading = ref(true);
-const mobileIframe = ref(null);
-const desktopIframe = ref(null);
 let loadingTimeout: ReturnType<typeof setTimeout> | null = null;
 
 const { t } = useI18n();

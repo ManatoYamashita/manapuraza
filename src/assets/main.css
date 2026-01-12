@@ -106,6 +106,7 @@ a {
 footer {
   position: fixed;
   bottom: 0;
+  left: 10px;
 }
 footer > div.credit,
 footer > div.credit a {
