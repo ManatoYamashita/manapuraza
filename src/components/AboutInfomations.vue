@@ -100,12 +100,13 @@
   /* === ベーススタイル（モバイル: ~480px） === */
   #about-infomations {
     width: 100%;
-    padding: 2rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
   }
 
   h2 {
     font-size: 1.6rem;
-    margin: 0 0 1.5rem 0;
+    margin-left: 1rem;
   }
 
   table.about-infomations-table {

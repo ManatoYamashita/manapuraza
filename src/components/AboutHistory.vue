@@ -15,12 +15,12 @@ import History from '@/components/History.vue';
 }
 h2 {
   font-size: 1.6rem;
-  margin: 3rem 0 1.5rem 0;
+  margin-left: 1rem;
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
   #about-history {
-    padding: 2rem;
+    padding: 1rem;
   }
   h2 {
     font-size: 2.0rem;
@@ -29,7 +29,7 @@ h2 {
 
 @media screen and (min-width: 769px) {
   #about-history {
-    padding: 3rem;
+    padding: 1.5rem;
   }
   h2 {
     font-size: 2.2rem;

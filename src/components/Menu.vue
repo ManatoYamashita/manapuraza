@@ -97,8 +97,8 @@
           >
             <font-awesome-icon :icon="faGlobe" class="globe-icon" />
             <span class="current-lang-label">{{ currentLanguageLabel }}</span>
-            <ChevronDown
-              :size="16"
+            <font-awesome-icon
+              :icon="faChevronDown"
               class="chevron-icon"
               :class="{ 'rotated': isDropdownOpen }"
             />
@@ -112,8 +112,8 @@
                   :class="{ 'active': locale === lang.code }"
                   class="lang-option-btn"
                 >
-                  <Check
-                    :size="18"
+                  <font-awesome-icon
+                    :icon="faCheck"
                     class="check-icon"
                     v-show="locale === lang.code"
                   />
@@ -620,10 +620,11 @@ onErrorCaptured(() => {
 }
 
 .check-icon {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #d7a800;
   flex-shrink: 0;
   width: 1rem;
+  display: inline-block;
 }
 
 /* ドロップダウンアニメーション */
@@ -655,11 +656,6 @@ onErrorCaptured(() => {
 
 /* レスポンシブ対応 */
 @media screen and (max-width: 768px) {
-  /* モバイルで言語ラベルを非表示、地球アイコンのみ */
-  .mobile-lang .current-lang-label {
-    display: none;
-  }
-
   .mobile-lang .lang-dropdown-toggle {
     padding: 0.5rem;
   }
