@@ -6,7 +6,7 @@ This document defines TypeScript coding standards for the manapuraza portfolio p
 
 **TypeScript Version**: 5.3.3
 **Strict Mode**: Enabled
-**Last Updated**: January 2, 2026
+**Last Updated**: January 11, 2026
 
 ## Table of Contents
 
@@ -98,7 +98,7 @@ const message = "hello";
 ✅ **Good** - Annotated complex types:
 ```typescript
 const camera: ShallowRef<PerspectiveCamera | null> = shallowRef(null);
-const creative: Ref<Creative | null> = ref(null);
+const creative: Ref<CMSCreative | null> = ref(null);
 ```
 
 ### 2. Return Types
@@ -108,14 +108,14 @@ Annotate return types for public functions:
 ❌ **Bad** - No return type:
 ```typescript
 function getCreative(id: string) {
-  return creativesData.find(item => item.id === id);
+  return creatives.value.find(item => item.id === id);
 }
 ```
 
 ✅ **Good** - Explicit return type:
 ```typescript
-function getCreative(id: string): Creative | undefined {
-  return creativesData.find(item => item.id === id);
+function getCreative(id: string): CMSCreative | undefined {
+  return creatives.value.find(item => item.id === id);
 }
 ```
 
@@ -134,8 +134,8 @@ Always annotate Vue reactive types:
 import { ref, type Ref } from 'vue';
 
 const count: Ref<number> = ref(0);
-const data: Ref<Creative | null> = ref(null);
-const items: Ref<Creative[]> = ref([]);
+const data: Ref<CMSCreative | null> = ref(null);
+const items: Ref<CMSCreative[]> = ref([]);
 ```
 
 ✅ **Good** - ShallowRef for non-reactive objects:
@@ -244,10 +244,11 @@ const add = (a: number, b: number) => a + b;
 
 // Complex function - explicit return type
 function getCreativeById(
-  category: keyof CreativesData,
-  id: string
-): Creative | undefined {
-  return creativesData[category].find((item) => item.id === id);
+  id: string,
+  locale: 'ja' | 'en'
+): CMSCreative | undefined {
+  const { getCreativeById } = useCreativesAPI();
+  return getCreativeById(id, locale).value ?? undefined;
 }
 ```
 
@@ -289,7 +290,7 @@ function createButton(
 Type rest parameters appropriately:
 
 ```typescript
-function mergeCreatives(...creatives: Creative[]): Creative[] {
+function mergeCreatives(...creatives: CMSCreative[]): CMSCreative[] {
   return creatives.flat();
 }
 ```
@@ -341,7 +342,7 @@ Let TypeScript infer computed types when possible:
 const fullName = computed(() => `${firstName.value} ${lastName.value}`);
 
 // Explicit type when complex
-const filteredItems = computed<Creative[]>(() => {
+const filteredItems = computed<CMSCreative[]>(() => {
   return items.value.filter(item => item.category === selectedCategory.value);
 });
 ```
@@ -364,13 +365,14 @@ Use `import type` for type-only imports:
 
 ```typescript
 // ✅ Good - Type-only import
-import type { Creative, CreativeCategory } from '@/types';
+import type { CMSCreative, CreativeCategory } from '@/types';
 
 // ✅ Good - Mixed import
-import { creativesData, type CreativesData } from '@/data/creatives';
+import { useCreativesAPI } from '@/composables/useCreativesAPI';
+import type { CreativeData } from '@/types/microcms';
 
 // ❌ Bad - Importing types as values
-import { Creative } from '@/types';
+import { CMSCreative } from '@/types';
 ```
 
 ### 2. Import Organization
@@ -391,11 +393,12 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 // 3. Local types
-import type { Creative, CreativeCategory, Locale } from '@/types';
+import type { CMSCreative, CreativeCategory, Locale } from '@/types';
+import type { CreativeData } from '@/types/microcms';
 
 // 4. Local components/utilities
 import CreativeItem from '@/components/CreativeItem.vue';
-import { creativesData } from '@/data/creatives';
+import { useCreativesAPI } from '@/composables/useCreativesAPI';
 ```
 
 ## Error Handling
@@ -524,12 +527,12 @@ Use built-in utility types:
 
 ```typescript
 // Partial for optional updates
-function updateCreative(id: string, updates: Partial<Creative>): void {
+function updateCreative(id: string, updates: Partial<CMSCreative>): void {
   // ...
 }
 
 // Required for mandatory fields
-function createCreative(data: Required<CreativeDetail>): Creative {
+function createCreative(data: Required<CreativeDetail>): CMSCreative {
   // ...
 }
 ```
@@ -629,4 +632,4 @@ Before submitting code for review, verify:
 
 ## Updates
 
-This document will be updated as new TypeScript patterns emerge in the project. Last updated: January 2, 2026.
+This document will be updated as new TypeScript patterns emerge in the project. Last updated: January 11, 2026.

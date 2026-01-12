@@ -1,0 +1,6 @@
+"コンテンツID
+※空欄で構いません。特定の値を設定したい場合に入力してください。",majorCategory,minorCategory,title,titleEn,description,descriptionEn,detail,detailEn,thumbnail,images,youtubeUrl,year,url
+,参照先id,"参照先id1,参照先id2",テキスト1,テキスト1,"複数行のテキストを入力
+こんにちは",テキスト1,"<p>複数行のテキストを入力<br />こんにちは</p>","<p>複数行のテキストを入力<br />こんにちは</p>",https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample1.png,"https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample1.png,https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample2.png",テキスト1,テキスト1,テキスト1
+,参照先id,"参照先id1,参照先id2,参照先id3",テキスト2,テキスト2,"複数行のテキストを入力
+こんばんは",テキスト2,"<p>複数行のテキストを入力<br />こんばんは</p>","<p>複数行のテキストを入力<br />こんばんは</p>",https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample1.png,"https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample1.png,https://images.microcms-assets.io/assets/xxxxxxxx/yyyyyyyy/sample2.png",テキスト2,テキスト2,テキスト2

@@ -1,0 +1,77 @@
+{
+    "contents": [
+        {
+            "id": "design",
+            "createdAt": "2026-01-04T09:08:22.964Z",
+            "updatedAt": "2026-01-04T09:08:22.964Z",
+            "publishedAt": "2026-01-04T09:08:22.964Z",
+            "revisedAt": "2026-01-04T09:08:22.964Z",
+            "name": "デザイン",
+            "nameEn": "Design",
+            "type": [
+                "major"
+            ],
+            "description": "UIやグラフィックデザイン",
+            "descriptionEn": "for example ui-design"
+        },
+        {
+            "id": "video",
+            "createdAt": "2026-01-04T09:06:54.470Z",
+            "updatedAt": "2026-01-04T09:06:54.470Z",
+            "publishedAt": "2026-01-04T09:06:54.470Z",
+            "revisedAt": "2026-01-04T09:06:54.470Z",
+            "name": "動画制作",
+            "nameEn": "video",
+            "type": [
+                "major"
+            ],
+            "description": "動画編集で作った作品のカテゴリ",
+            "descriptionEn": "A major category about videos, I edited"
+        },
+        {
+            "id": "illustration",
+            "createdAt": "2026-01-04T09:05:30.556Z",
+            "updatedAt": "2026-01-04T09:05:30.556Z",
+            "publishedAt": "2026-01-04T09:05:30.556Z",
+            "revisedAt": "2026-01-04T09:05:30.556Z",
+            "name": "絵",
+            "nameEn": "illustration",
+            "type": [
+                "minor"
+            ],
+            "description": "手書きの絵、イラスト",
+            "descriptionEn": "A major category about illustrations"
+        },
+        {
+            "id": "development",
+            "createdAt": "2026-01-04T09:04:22.762Z",
+            "updatedAt": "2026-01-04T09:04:22.762Z",
+            "publishedAt": "2026-01-04T09:04:22.762Z",
+            "revisedAt": "2026-01-04T09:04:22.762Z",
+            "name": "開発（web/app）",
+            "nameEn": "development",
+            "type": [
+                "major"
+            ],
+            "description": "プログラミングを用いたWebやApp作品",
+            "descriptionEn": "A major category about Web and Apps developed with programming"
+        },
+        {
+            "id": "animation",
+            "createdAt": "2026-01-04T08:26:15.723Z",
+            "updatedAt": "2026-01-04T08:26:15.723Z",
+            "publishedAt": "2026-01-04T08:26:15.723Z",
+            "revisedAt": "2026-01-04T08:26:15.723Z",
+            "name": "アニメーション",
+            "nameEn": "Animation",
+            "type": [
+                "major"
+            ],
+            "description": "アニメーション作品のカテゴリ",
+            "descriptionEn": "A major category about animation works"
+        }
+    ],
+    "totalCount": 5,
+    "offset": 0,
+    "limit": 10
+}

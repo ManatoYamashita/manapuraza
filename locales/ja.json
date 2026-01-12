@@ -84,114 +84,16 @@
             }
         },
         "dev": {
-            "paragraph": "情報系学部でC言語、Java言語、情報学の基礎を学んだだけではなく、独学でWeb系の技術を習得し、趣味や業務委託でWeb制作を行っています。Typescript, Next.js, NuxtやGSAPを使用したWebフロントエンドが最も得意な領域です。",
-            "manapuraza": {
-                "title": "manapuraza.com",
-                "description": "当サイトは、広告制作会社の4ヶ月のインターンの1ヶ月で作った、学生時代のクリエイティブの一部を紹介したポートフォリオサイトです。Vue.js3+Vite6, Typescript, Three.js, gsapで書かれています。パフォーマンスとSEO対策に対応しています。（github）",
-                "detailDescription": "Vue.js 3 + Vite 6 で構築した個人ポートフォリオサイトです。\n\n## 技術スタック\n\n- **フレームワーク**: Vue.js 3 (Composition API)\n- **ビルドツール**: Vite 6\n- **3D**: Three.js\n- **アニメーション**: GSAP\n\n## 特徴\n\n- パフォーマンス最適化（Code Splitting, Lazy Loading）\n- SEO対策（Meta Tags, Structured Data）\n- レスポンシブデザイン\n- i18n対応（日本語/英語）"
-            },
-            "dcchanAi": {
-                "title": "でじこんちゃんAI",
-                "description": "デジタルコンテンツ研究会のキャラクターであるでじこんちゃんのAIチャット。Next.js, Typescript, GSAP, ChatGPT APIを使用しています。"
-            },
-            "numeron": {
-                "title": "NUMERON - 論理数字あてゲーム",
-                "description": "大学1年生の時にHTML,CSS,Javascriptの練習のために知り合いと開発した数字当てゲームです。"
-            },
-            "amauSyrup": {
-                "title": "AmauSyrup.net - 天羽しろっぷ非公式ファンサイト",
-                "description": "Vtuberの非公式ウェブサイトで、Notion APIを利用したブログ機能があるのでコーディングの知識がなくてもコンテンツの更新が可能。Next.js, Typescript, GSAPのscrollTriggerを使っています。"
-            },
-            "tcuClubs": {
-                "title": "東京都市大学 同好会連合",
-                "description": "東京都市大学同好会連合の会長をしていた時に作ったサイトCMSを使用しています。開発と保守、運用を担当していました。大学の共用WWWサーバにデプロイ"
-            },
-            "tcuAlumni": {
-                "title": "TCU Alumni Association(Demo)",
-                "description": "ミニマルなイメージのコーポレートサイト。コーディングを必要とせず、コンテンツを更新することが可能。提案で使用したデモ版です。Next.js, Typescript, microCMS, gsapで構築。レスポンシブデザインに対応"
-            },
-            "chaintence": {
-                "title": "Chaintence",
-                "description": "2日間の技育ハッカソンで開発した、テンプレートをつなげてメール文を作成するWebApp。NuxtJS, Typescript, microCMSで構築されています。私はフロントエンドと発表を担当しました。"
-            },
-            "dcchanBot": {
-                "title": "でじこんちゃん Twitter BOT",
-                "description": "私のサークルの公式キャラクターであるでじこんちゃんのTwitter BOT。GoogleAppsScript(GAS)でTwitterのAPIを叩いています。APIの有料化に伴い現在は動作させていません。"
-            },
-            "sekiLab": {
-                "title": "関研究室（TCU情報セキュリティ研究室）",
-                "description": "研究室のWebサイトNuxt.js3, Typescript, microCMSで構築"
-            },
-            "officeTsuyuki": {
-                "title": "オフィス露木",
-                "description": "ミニマルなイメージのコーポレートサイトのプレビューです。コーディングを必要とせず、コンテンツを更新することが可能。 Next.js, Typescript, microCMS, gsapで構築。レスポンシブデザインに対応"
-            },
-            "killerDie": {
-                "title": "キラキラ大学生研究会 1周年記念",
-                "description": "大学の非公認団体の1周年公式サイト。Vue.js3, Typescriptで構築"
-            },
-            "populationGraph": {
-                "title": "都道府県別総人口推移グラフSPA",
-                "description": "データビジュアライゼーションをテストするためのWebアプリ。Highcharts.jsとNext.js, Typescriptで構築。テスト(Jext)とGithubWorkflowも導入"
-            },
-            "wtmApp": {
-                "title": "wtm - おでかけ支援アプリ",
-                "description": "4人のチームで開発したAndroidアプリ。AndroidStudio(Java * Gradle)で開発。私はリーダと開発、デザインを担当しました。"
-            },
-            "downUnder": {
-                "title": "Down Under Mountain - オーストラリア留学ブログ",
-                "description": "2023年に4ヶ月間西オーストラリアのEdith Cowan Universityに留学したので、その時に書いたブログ。WordPressで書かれています。"
-            },
-            "wagiri": {
-                "title": "WAGIRI!! - 和風フリックゲーム",
-                "description": "devate主催のハッカソンでグランプリを受賞した和風フリックゲーム。Next.js(Typescript), Goで構築。オンライン対戦にも対応しています。私はフロントエンドとデザイン、アニメーションを担当しました。"
-            },
-            "hpbToMe": {
-                "title": "HPB to me! 2023 - 21歳、拳で。",
-                "description": "自分の誕生日を祝うために作ったジョークサイト。音楽や声優は知り合いに作ってもらいました。おこがましい"
-            },
-            "tcuAnimation": {
-                "title": "都市大アニメーション",
-                "description": "私が総監督として、世田谷区とアニメを共同制作しているので、その広報用のサイトです。Astro.jsとMDXで構築。"
-            },
-            "tcuSto": {
-                "title": "東京都市大学 学生団体連合本部",
-                "description": "学生団体連合本部の公式サイトです。HTML,CSS,Javascript,GASで構築。"
-            },
-            "textLayout": {
-                "title": "テキスト自動レイアウトWebApp",
-                "description": "卒業研究のために作った、テキストの自動レイアウトをするWebApp。DNPの論文で提唱されたレイアウトルールを適用させてテキストを自動でレイアウトします。Next.js+Typescript, shadcn-ui, GSAP, 機械学習ライブラリにBudouXを使用。"
-            },
-            "cococareer-lp": {
-                "title": "Cococareer LP",
-                "description": "COCOMOTION様の依頼でCococareerという就活サービスのLPを作成。Next.js, Typescript, GSAP, FramerMotion, microCMSで構築。"
-            },
-            "k-kamiya": {
-                "title": "割烹神谷 Website",
-                "description": "川口にある和食レストラン『割烹神谷』の公式Webサイト。Next.js15(Typescript)で書かれ、microCMS, gsap, framer-motionを使用。Stripeでの決済を実装"
-            }
+            "paragraph": "情報系学部でC言語、Java言語、情報学の基礎を学んだだけではなく、独学でWeb系の技術を習得し、趣味や業務委託でWeb制作を行っています。Typescript, Next.js, NuxtやGSAPを使用したWebフロントエンドが最も得意な領域です。"
         },
         "illustration": {
-            "paragraph": "絵を描くことが趣味で、グラフィックデザインやアニメーションを得意としています。また、現在(2024年~)は世田谷区と共同で、総監督と原画+動画としてアニメーションを制作に携わっています。",
-            "pixiv": {
-                "title": "Pixiv",
-                "description": "自分のグラフィックデザインとイラストの作品をまとめたポートフォリオ。"
-            },
-            "webPortfolio": {
-                "title": "クリエイティブ全般を表示するWebポートフォリオウェブサイト",
-                "description": "自分のクリエイティブな作品全般を集めたウェブサイト形式のポートフォリオ。"
-            }
+            "paragraph": "絵を描くことが趣味で、グラフィックデザインやアニメーションを得意としています。また、現在(2024年~)は世田谷区と共同で、総監督と原画+動画としてアニメーションを制作に携わっています。"
         },
         "video": {
-            "paragraph": "大学2年生で160名規模の映像制作のサークルの代表を務めるほか、コンペティションや有償の依頼で映像を制作する経験があります。大学時代のYoutubeチャンネルは消されてしまいましたが、高校時代にゆっくり動画を上げていたチャンネルがあるので、現在はそちらを使用しています。",
-            "tcuDcChannel": {
-                "title": "TCU-DC(サークル)のYouTubeチャンネル",
-                "description": "サークルの活動を紹介するYouTubeチャンネル。一部の作品は私が作った映像ではないものも含まれます。"
-            },
-            "personalChannel": {
-                "title": "個人Youtubeチャンネル2",
-                "description": "高校生の頃にゆっくり動画をアップロードしていたチャンネル。メインチャンネルがBANされてしまったため、現在使用しています。"
-            }
+            "paragraph": "大学2年生で160名規模の映像制作のサークルの代表を務めるほか、コンペティションや有償の依頼で映像を制作する経験があります。大学時代のYoutubeチャンネルは消されてしまいましたが、高校時代にゆっくり動画を上げていたチャンネルがあるので、現在はそちらを使用しています。"
+        },
+        "design": {
+            "paragraph": "グラフィックデザイン、ロゴデザイン、UI/UXデザインなど、デザイン関連の作品を制作しています。デザインの基礎を学び、それを実践的なプロジェクトに活かしています。"
         }
     },
     "contact": {

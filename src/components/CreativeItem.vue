@@ -39,7 +39,7 @@ interface Props {
   description: string;
   thumbnail: string;
   index: number;
-  mode: 'Animation' | 'Development' | 'Illustration' | 'Video';
+  mode: 'Animation' | 'Development' | 'Illustration' | 'Video' | 'Graphic';
   tags?: string[];
   youtubeUrl?: string | null;
 }
@@ -82,6 +82,12 @@ const handleImageError = (e: Event): void => {
     width: 100%;
     padding-top: 56.25%;
     border-radius: 0.5rem;
+    border: 2px solid #000; /* 黒の2pxボーダー */
+    transition: border-color 0.3s ease;
+  }
+
+  .img-cover:hover {
+    border-color: #f0d300; /* ホバー時にbrand colorに変更 */
   }
 
   .img-cover img {
@@ -92,13 +98,11 @@ const handleImageError = (e: Event): void => {
     height: 100%;
     object-fit: cover;
     border-radius: 0.5rem;
-    border: 1px solid #000; /* 黒の1pxボーダー追加 */
-    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
-  .img-cover img:hover {
+  .img-cover:hover img {
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* ホバー時の影で立体感 */
   }
 
   /* YouTube iFrame用のコンテナ */
@@ -145,6 +149,12 @@ const handleImageError = (e: Event): void => {
   .creative-item--illustration .img-cover {
     height: auto;
     padding-top: 0;
+    border: 2px solid #000; /* 黒の2pxボーダー */
+    transition: border-color 0.3s ease;
+  }
+
+  .creative-item--illustration .img-cover:hover {
+    border-color: #f0d300; /* ホバー時にbrand colorに変更 */
   }
 
   .creative-item--illustration .img-cover img {
@@ -153,7 +163,7 @@ const handleImageError = (e: Event): void => {
     max-height: 250px;
     height: auto;
     object-fit: cover;
-    border: 1px solid #000; /* 黒の1pxボーダー追加 */
+    transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
   @media screen and (max-width: 768px) {

@@ -3,7 +3,7 @@
  */
 
 // Creative categories (literal type for type safety)
-export type CreativeCategory = 'animation' | 'development' | 'illustration' | 'video';
+export type CreativeCategory = 'animation' | 'development' | 'illustration' | 'video' | 'design';
 
 // CTA button interface
 export interface CtaButton {
@@ -45,12 +45,26 @@ export interface CreativesData {
   development: Creative[];
   illustration: Creative[];
   video: Creative[];
+  design: Creative[];
 }
 
 // Type guard for category validation
 export function isValidCategory(category: string): category is CreativeCategory {
-  return ['animation', 'development', 'illustration', 'video'].includes(category);
+  return ['animation', 'development', 'illustration', 'video', 'design'].includes(category);
 }
 
 // Helper type for category keys
 export type CreativeCategoryKey = keyof CreativesData;
+
+// CMS版 Creative型（microCMSから取得したデータ）
+export interface CMSCreative extends Omit<Creative, 'title' | 'description' | 'thumbnail'> {
+  title: string;           // 直接の文字列（i18nキーではない）
+  description: string;     // 直接の文字列（i18nキーではない）
+  thumbnail: string;       // CMS URL
+  _isCMS: true;            // CMS版であることを示すフラグ
+}
+
+// CMS版Creative型の型ガード関数
+export function isCMSCreative(creative: Creative | CMSCreative): creative is CMSCreative {
+  return '_isCMS' in creative && creative._isCMS === true;
+}

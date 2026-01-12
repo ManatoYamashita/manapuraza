@@ -36,8 +36,8 @@ export default {
       { year: '2021', titleKey: 'his.21-2', descriptionKey: 'his.21-2-de' },
       { year: '2022', titleKey: 'his.22', descriptionKey: 'his.22-de' },
       { year: '2023', titleKey: 'his.23', descriptionKey: 'his.23-de' },
-      { year: '2026', titleKey: 'his.25', descriptionKey: 'his.25-de' },
-      
+      { year: '2025', titleKey: 'his.25', descriptionKey: 'his.25-de' },
+
     ]);
 
     const timelineRef = ref(null);
@@ -45,13 +45,13 @@ export default {
     onMounted(async () => {
   // GSAPを動的インポートして初期バンドルサイズを削減
   const { gsap } = await import('gsap');
-      
+
       // template refを使用してDOM要素に安全にアクセス（Vue 3ベストプラクティス）
       if (!timelineRef.value) {
         console.error('History: Timeline element not found');
         return;
       }
-      
+
       const entries = timelineRef.value.querySelectorAll('.entry');
 
       // 各エントリーのアニメーション
@@ -151,7 +151,7 @@ export default {
   .p6 { /* 2021年 */
     margin-bottom: .5rem;
   }
-  .p7 { /* 2022年 */ 
+  .p7 { /* 2022年 */
     margin-bottom: .5rem;
   }
   .p8 { /* 2023年 */

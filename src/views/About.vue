@@ -127,10 +127,40 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
 </template>
 
 <style lang="css" scoped>
+  /* === ベーススタイル（モバイル: ~480px） === */
   main.about {
     width: 100%;
     margin: 0 auto;
-    padding: 3rem;
+    padding: 1.5rem;
     pointer-events: all;
+  }
+
+  main.about h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  /* === タブレット（481px-768px） === */
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    main.about {
+      padding: 2rem;
+    }
+
+    main.about h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  /* === デスクトップ（769px~） === */
+  @media screen and (min-width: 769px) {
+    main.about {
+      padding: 3rem;
+    }
+
+    main.about h1 {
+      font-size: 2.5rem;
+    }
   }
 </style>

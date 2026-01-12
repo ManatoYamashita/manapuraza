@@ -7,7 +7,7 @@
     </router-link>
 
     <!-- 作品タイトル -->
-    <h1 class="creative-title">{{ $t(creative.title) }}</h1>
+    <h1 class="creative-title">{{ creative.title }}</h1>
 
     <!-- タグ -->
     <div class="creative-tags" v-if="creative.tags && creative.tags.length > 0">
@@ -26,7 +26,7 @@
         v-for="(image, index) in detailData.images"
         :key="index"
         :src="image"
-        :alt="$t(creative.title)"
+        :alt="creative.title"
         class="gallery-image"
         loading="lazy"
       />
@@ -39,7 +39,7 @@
         <iframe
           v-if="!isDesktop && detailData.youtube"
           :src="detailData.youtube.mobile"
-          :title="$t(creative.title)"
+          :title="creative.title"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           loading="lazy"
@@ -47,7 +47,7 @@
         <iframe
           v-else-if="detailData.youtube"
           :src="detailData.youtube.desktop"
-          :title="$t(creative.title)"
+          :title="creative.title"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           loading="lazy"
@@ -110,21 +110,30 @@
   import { useI18n } from 'vue-i18n';
   import { useHead } from '@vueuse/head';
   import { marked } from 'marked';
-  import { creativesData, detailDefaults } from '@/data/creatives';
+  import { useCreativesAPI } from '@/composables/useCreativesAPI';
   import Btn from '@/components/Btn.vue';
-  import type { Locale, Creative, CreativeCategory, CreativeDetail, CtaButton } from '@/types';
+  import type { Locale, CreativeDetail, CtaButton } from '@/types';
 
   const route = useRoute();
-  const { t } = useI18n<{ message: string }, Locale>();
+  const { t, locale } = useI18n<{ message: string }, Locale>();
 
   // URL パラメータから作品データを取得
   const category = computed<string>(() => route.params.category as string);
   const id = computed<string>(() => route.params.id as string);
 
-  const creative = computed<Creative | null>(() => {
-    const categoryData = creativesData[category.value as CreativeCategory];
-    if (!categoryData) return null;
-    return categoryData.find(item => item.id === id.value) || null;
+  // microCMS APIから作品データを取得
+  const { getCreativeById, fetchCreatives } = useCreativesAPI();
+  const creative = computed(() => 
+    getCreativeById(id.value, locale.value as 'ja' | 'en').value
+  );
+
+  // データ取得
+  onMounted(async () => {
+    try {
+      await fetchCreatives();
+    } catch (err) {
+      console.error('Failed to fetch creative:', err);
+    }
   });
 
   // Detail データの構造型定義
@@ -139,7 +148,14 @@
 
   // Detail データの取得（fallback 対応）
   const detailData = computed<DetailData>(() => {
-    if (!creative.value) return detailDefaults as DetailData;
+    if (!creative.value) return {
+      images: [],
+      descriptionMarkdown: '',
+      youtube: null,
+      productionYear: '',
+      credits: [],
+      cta: []
+    } as DetailData;
 
     const detail: Partial<CreativeDetail> = creative.value.detail || {};
 
