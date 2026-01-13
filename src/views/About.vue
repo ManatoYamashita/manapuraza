@@ -51,7 +51,7 @@ const { locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:url',
-        content: 'https://yamashitamana.to/about'
+        content: 'https://www.yamashitamana.to/about'
       },
       {
         property: 'og:type',
@@ -59,7 +59,7 @@ const { locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:image',
-        content: 'https://yamashitamana.to/山下真和都(マナト).webp'
+        content: 'https://www.yamashitamana.to/山下真和都(マナト).webp'
       },
       {
         name: 'twitter:title',
@@ -81,7 +81,7 @@ const { locale } = useI18n<{ message: string }, Locale>();
     link: [
       {
         rel: 'canonical',
-        href: 'https://yamashitamana.to/about'
+        href: 'https://www.yamashitamana.to/about'
       }
     ],
     script: [
@@ -92,8 +92,8 @@ const { locale } = useI18n<{ message: string }, Locale>();
           "@type": "Person",
           "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
           "alternateName": ["山下マナト", "ヤマシタマナト", "Manato Yamashita"],
-          "url": "https://yamashitamana.to/about",
-          "image": "https://yamashitamana.to/山下真和都(マナト).webp",
+          "url": "https://www.yamashitamana.to/about",
+          "image": "https://www.yamashitamana.to/山下真和都(マナト).webp",
           "jobTitle": locale.value === 'ja' ? "学生 / エンジニア" : "Student / Engineer",
           "alumniOf": {
             "@type": "CollegeOrUniversity",

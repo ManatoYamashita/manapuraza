@@ -232,7 +232,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
       },
       {
         property: 'og:url',
-        content: 'https://yamashitamana.to/creatives'
+        content: 'https://www.yamashitamana.to/creatives'
       },
       {
         property: 'og:type',
@@ -240,7 +240,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
       },
       {
         property: 'og:image',
-        content: 'https://yamashitamana.to/ogp.webp'
+        content: 'https://www.yamashitamana.to/ogp.webp'
       },
       {
         name: 'twitter:title',
@@ -262,7 +262,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
     link: [
       {
         rel: 'canonical',
-        href: 'https://yamashitamana.to/creatives'
+        href: 'https://www.yamashitamana.to/creatives'
       }
     ],
     script: [
@@ -272,14 +272,14 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": locale.value === 'ja' ? "作品集" : "Portfolio",
-          "url": "https://yamashitamana.to/creatives",
+          "url": "https://www.yamashitamana.to/creatives",
           "description": locale.value === 'ja' 
             ? "山下マナトのクリエイティブ作品集"
             : "Creative portfolio of Manato Yamashita",
           "creator": {
             "@type": "Person",
             "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
-            "url": "https://yamashitamana.to/about"
+            "url": "https://www.yamashitamana.to/about"
           },
           "mainEntity": {
             "@type": "ItemList",

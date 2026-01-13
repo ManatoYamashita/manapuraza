@@ -51,7 +51,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:url',
-        content: 'https://yamashitamana.to/contact'
+        content: 'https://www.yamashitamana.to/contact'
       },
       {
         property: 'og:type',
@@ -59,7 +59,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:image',
-        content: 'https://yamashitamana.to/ogp.webp'
+        content: 'https://www.yamashitamana.to/ogp.webp'
       },
       {
         name: 'twitter:title',
@@ -81,7 +81,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
     link: [
       {
         rel: 'canonical',
-        href: 'https://yamashitamana.to/contact'
+        href: 'https://www.yamashitamana.to/contact'
       }
     ],
     script: [
@@ -91,7 +91,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
           "@context": "https://schema.org",
           "@type": "ContactPage",
           "name": locale.value === 'ja' ? "お問い合わせ" : "Contact",
-          "url": "https://yamashitamana.to/contact",
+          "url": "https://www.yamashitamana.to/contact",
           "description": locale.value === 'ja' 
             ? "山下真和都へのお問い合わせページ"
             : "Contact page for Manato Yamashita",
@@ -99,7 +99,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
             "@type": "Person",
             "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
             "email": "info@yamashitamana.to",
-            "url": "https://yamashitamana.to",
+            "url": "https://www.yamashitamana.to",
             "sameAs": [
               "https://bsky.app/profile/yamashita.bsky.social",
               "https://www.linkedin.com/in/yamashitamanato",

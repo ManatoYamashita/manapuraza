@@ -8,7 +8,7 @@
                     <p>{{ $t('404.message') }}</p>
                     <br>
                     <button class="goback">
-                        <a href="https://yamashitamana.to">
+                        <a href="https://www.yamashitamana.to">
                             <span class="circle" aria-hidden="true">
                             <span class="icon arrow"></span>
                             </span>

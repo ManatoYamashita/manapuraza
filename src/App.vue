@@ -10,7 +10,7 @@
       <Menu />
     </header>
 
-    <a href="https://yamashitamana.to" aria-current="page" class="home-logo">
+    <a href="https://www.yamashitamana.to" aria-current="page" class="home-logo">
       <img
         :fetchpriority="logoQuality === 'high' ? 'high' : 'low'"
         :src="currentLogoSrc"

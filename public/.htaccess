@@ -8,9 +8,13 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-  # 旧ドメインから新ドメインへの完全リダイレクト
+  # 旧ドメインから新ドメイン（www付き）へのリダイレクト
   RewriteCond %{HTTP_HOST} ^(www\.)?manapuraza\.com$ [NC]
-  RewriteRule ^(.*)$ https://yamashitamana.to/$1 [R=301,L]
+  RewriteRule ^(.*)$ https://www.yamashitamana.to/$1 [R=301,L]
+
+  # 新ドメインのnon-www → www リダイレクト
+  RewriteCond %{HTTP_HOST} ^yamashitamana\.to$ [NC]
+  RewriteRule ^(.*)$ https://www.yamashitamana.to/$1 [R=301,L]
 </IfModule>
 
 # ============================================

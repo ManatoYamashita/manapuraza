@@ -43,7 +43,7 @@ User-agent: Claude-Web
 Disallow: /
 
 # サイトマップの場所
-Sitemap: https://yamashitamana.to/sitemap.xml
+Sitemap: https://www.yamashitamana.to/sitemap.xml
 
 # ホスト指定（推奨）
-Host: https://yamashitamana.to
+Host: https://www.yamashitamana.to

@@ -353,7 +353,7 @@
       {
         property: 'og:url',
         content: computed(() =>
-          `https://yamashitamana.to/creatives/${category.value}/${id.value}`
+          `https://www.yamashitamana.to/creatives/${category.value}/${id.value}`
         )
       },
       {
@@ -361,7 +361,7 @@
         content: computed(() =>
           creative.value
             ? creative.value.thumbnail
-            : 'https://yamashitamana.to/ogp.webp'
+            : 'https://www.yamashitamana.to/ogp.webp'
         )
       }
     ],
@@ -369,7 +369,7 @@
       {
         rel: 'canonical',
         href: computed(() =>
-          `https://yamashitamana.to/creatives/${category.value}/${id.value}`
+          `https://www.yamashitamana.to/creatives/${category.value}/${id.value}`
         )
       }
     ]
