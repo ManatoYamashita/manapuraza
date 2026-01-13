@@ -353,7 +353,7 @@
       {
         property: 'og:url',
         content: computed(() =>
-          `https://manapuraza.com/creatives/${category.value}/${id.value}`
+          `https://yamashitamana.to/creatives/${category.value}/${id.value}`
         )
       },
       {
@@ -361,7 +361,7 @@
         content: computed(() =>
           creative.value
             ? creative.value.thumbnail
-            : 'https://manapuraza.com/ogp.webp'
+            : 'https://yamashitamana.to/ogp.webp'
         )
       }
     ],
@@ -369,7 +369,7 @@
       {
         rel: 'canonical',
         href: computed(() =>
-          `https://manapuraza.com/creatives/${category.value}/${id.value}`
+          `https://yamashitamana.to/creatives/${category.value}/${id.value}`
         )
       }
     ]

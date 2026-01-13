@@ -13,8 +13,8 @@ const { locale } = useI18n<{ message: string }, Locale>();
   useHead({
     title: computed(() => 
       locale.value === 'ja' 
-        ? '山下真和都(マナト) - About | MANAPURAZA.COM'
-        : 'Manato Yamashita - About | MANAPURAZA.COM'
+        ? '山下真和都(マナト) - About | YAMASHITAMANA.TO'
+        : 'Manato Yamashita - About | YAMASHITAMANA.TO'
     ),
     meta: [
       {
@@ -37,8 +37,8 @@ const { locale } = useI18n<{ message: string }, Locale>();
         property: 'og:title',
         content: computed(() => 
           locale.value === 'ja' 
-            ? '山下真和都(マナト) - About | MANAPURAZA.COM'
-            : 'Manato Yamashita - About | MANAPURAZA.COM'
+            ? '山下真和都(マナト) - About | YAMASHITAMANA.TO'
+            : 'Manato Yamashita - About | YAMASHITAMANA.TO'
         )
       },
       {
@@ -51,7 +51,7 @@ const { locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:url',
-        content: 'https://manapuraza.com/about'
+        content: 'https://yamashitamana.to/about'
       },
       {
         property: 'og:type',
@@ -59,7 +59,7 @@ const { locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:image',
-        content: 'https://manapuraza.com/山下真和都(マナト).webp'
+        content: 'https://yamashitamana.to/山下真和都(マナト).webp'
       },
       {
         name: 'twitter:title',
@@ -81,7 +81,7 @@ const { locale } = useI18n<{ message: string }, Locale>();
     link: [
       {
         rel: 'canonical',
-        href: 'https://manapuraza.com/about'
+        href: 'https://yamashitamana.to/about'
       }
     ],
     script: [
@@ -92,8 +92,8 @@ const { locale } = useI18n<{ message: string }, Locale>();
           "@type": "Person",
           "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
           "alternateName": ["山下マナト", "ヤマシタマナト", "Manato Yamashita"],
-          "url": "https://manapuraza.com/about",
-          "image": "https://manapuraza.com/山下真和都(マナト).webp",
+          "url": "https://yamashitamana.to/about",
+          "image": "https://yamashitamana.to/山下真和都(マナト).webp",
           "jobTitle": locale.value === 'ja' ? "学生 / エンジニア" : "Student / Engineer",
           "alumniOf": {
             "@type": "CollegeOrUniversity",

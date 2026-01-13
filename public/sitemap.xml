@@ -4,15 +4,15 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <!-- Home Page -->
     <url>
-        <loc>https://manapuraza.com/</loc>
+        <loc>https://yamashitamana.to/</loc>
         <lastmod>2026-11-24</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://manapuraza.com/" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://manapuraza.com/" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://yamashitamana.to/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://yamashitamana.to/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://yamashitamana.to/" />
         <image:image>
-            <image:loc>https://manapuraza.com/ogp.webp</image:loc>
+            <image:loc>https://yamashitamana.to/ogp.webp</image:loc>
             <image:caption>MANAPURAZA.COM - 山下マナト（山下真和都）ポートフォリオ</image:caption>
             <image:title>山下マナト Portfolio</image:title>
         </image:image>
@@ -20,14 +20,14 @@
 
     <!-- About Page -->
     <url>
-        <loc>https://manapuraza.com/about</loc>
+        <loc>https://yamashitamana.to/about</loc>
         <lastmod>2026-11-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
-        <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/about" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://manapuraza.com/about" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://yamashitamana.to/about" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://yamashitamana.to/about" />
         <image:image>
-            <image:loc>https://manapuraza.com/山下真和都(マナト).webp</image:loc>
+            <image:loc>https://yamashitamana.to/山下真和都(マナト).webp</image:loc>
             <image:caption>山下真和都（マナト）プロフィール写真</image:caption>
             <image:title>About Manato Yamashita</image:title>
         </image:image>
@@ -35,14 +35,14 @@
 
     <!-- Creatives Page -->
     <url>
-        <loc>https://manapuraza.com/creatives</loc>
+        <loc>https://yamashitamana.to/creatives</loc>
         <lastmod>2026-11-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
-        <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/creatives" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://manapuraza.com/creatives" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://yamashitamana.to/creatives" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://yamashitamana.to/creatives" />
         <image:image>
-            <image:loc>https://manapuraza.com/ogp.webp</image:loc>
+            <image:loc>https://yamashitamana.to/ogp.webp</image:loc>
             <image:caption>山下マナト クリエイティブ作品集</image:caption>
             <image:title>Creatives Portfolio</image:title>
         </image:image>
@@ -50,11 +50,11 @@
 
     <!-- Contact Page -->
     <url>
-        <loc>https://manapuraza.com/contact</loc>
+        <loc>https://yamashitamana.to/contact</loc>
         <lastmod>2026-11-24</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
-        <xhtml:link rel="alternate" hreflang="ja" href="https://manapuraza.com/contact" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://manapuraza.com/contact" />
+        <xhtml:link rel="alternate" hreflang="ja" href="https://yamashitamana.to/contact" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://yamashitamana.to/contact" />
     </url>
 </urlset>

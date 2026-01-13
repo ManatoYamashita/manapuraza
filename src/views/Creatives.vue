@@ -194,8 +194,8 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
   useHead({
     title: computed(() => 
       locale.value === 'ja' 
-        ? 'Creatives - 作品集 | MANAPURAZA.COM'
-        : 'Creatives - Portfolio | MANAPURAZA.COM'
+        ? 'Creatives - 作品集 | YAMASHITAMANA.TO'
+        : 'Creatives - Portfolio | YAMASHITAMANA.TO'
     ),
     meta: [
       {
@@ -218,8 +218,8 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
         property: 'og:title',
         content: computed(() => 
           locale.value === 'ja' 
-            ? 'Creatives - 作品集 | MANAPURAZA.COM'
-            : 'Creatives - Portfolio | MANAPURAZA.COM'
+            ? 'Creatives - 作品集 | YAMASHITAMANA.TO'
+            : 'Creatives - Portfolio | YAMASHITAMANA.TO'
         )
       },
       {
@@ -232,7 +232,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
       },
       {
         property: 'og:url',
-        content: 'https://manapuraza.com/creatives'
+        content: 'https://yamashitamana.to/creatives'
       },
       {
         property: 'og:type',
@@ -240,7 +240,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
       },
       {
         property: 'og:image',
-        content: 'https://manapuraza.com/ogp.webp'
+        content: 'https://yamashitamana.to/ogp.webp'
       },
       {
         name: 'twitter:title',
@@ -262,7 +262,7 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
     link: [
       {
         rel: 'canonical',
-        href: 'https://manapuraza.com/creatives'
+        href: 'https://yamashitamana.to/creatives'
       }
     ],
     script: [
@@ -272,14 +272,14 @@ const handleFilterChange = (category: 'all' | CreativeCategory): void => {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": locale.value === 'ja' ? "作品集" : "Portfolio",
-          "url": "https://manapuraza.com/creatives",
+          "url": "https://yamashitamana.to/creatives",
           "description": locale.value === 'ja' 
             ? "山下マナトのクリエイティブ作品集"
             : "Creative portfolio of Manato Yamashita",
           "creator": {
             "@type": "Person",
             "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
-            "url": "https://manapuraza.com/about"
+            "url": "https://yamashitamana.to/about"
           },
           "mainEntity": {
             "@type": "ItemList",

@@ -1,4 +1,21 @@
+# ============================================
+# 301 Permanent Redirect: manapuraza.com → yamashitamana.to
+# ============================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPSの強制
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # 旧ドメインから新ドメインへの完全リダイレクト
+  RewriteCond %{HTTP_HOST} ^(www\.)?manapuraza\.com$ [NC]
+  RewriteRule ^(.*)$ https://yamashitamana.to/$1 [R=301,L]
+</IfModule>
+
+# ============================================
 # SPAフォールバック設定
+# ============================================
 <IfModule mod_rewrite.c>
   RewriteEngine On
   # ベースディレクトリの設定

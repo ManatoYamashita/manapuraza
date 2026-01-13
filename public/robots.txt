@@ -1,4 +1,4 @@
-# robots.txt for manapuraza.com
+# robots.txt for yamashitamana.to
 # 最終更新: 2026-11-24
 
 # 全てのクローラーに対する基本設定
@@ -43,7 +43,7 @@ User-agent: Claude-Web
 Disallow: /
 
 # サイトマップの場所
-Sitemap: https://manapuraza.com/sitemap.xml
+Sitemap: https://yamashitamana.to/sitemap.xml
 
 # ホスト指定（推奨）
-Host: https://manapuraza.com
+Host: https://yamashitamana.to

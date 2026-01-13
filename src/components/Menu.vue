@@ -7,7 +7,7 @@
           <transition name="slide" mode="out-in">
             <img 
               src="@/assets/logo-low.webp" 
-              alt="manapuraza.com logo" 
+              alt="yamashitamana.to logo" 
               loading="lazy" 
               decoding="async"
               width="400"
@@ -75,7 +75,7 @@
           <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
             <img
               src="@/assets/logo-low.webp"
-              alt="manapuraza.com logo"
+              alt="yamashitamana.to logo"
               width="200"
               height="40"
               loading="lazy"

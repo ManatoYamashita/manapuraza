@@ -52,7 +52,7 @@
     },
     {
       id: 'twitter',
-      href: 'https://manapuraza.com/twitter',
+      href: 'https://yamashitamana.to/twitter',
       icon: faTwitter,
       label: 'Twitter'
     },

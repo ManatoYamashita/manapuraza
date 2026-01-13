@@ -13,8 +13,8 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
   useHead({
     title: computed(() => 
       locale.value === 'ja' 
-        ? 'Contact - お問い合わせ | MANAPURAZA.COM'
-        : 'Contact | MANAPURAZA.COM'
+        ? 'Contact - お問い合わせ | YAMASHITAMANA.TO'
+        : 'Contact | YAMASHITAMANA.TO'
     ),
     meta: [
       {
@@ -37,8 +37,8 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
         property: 'og:title',
         content: computed(() => 
           locale.value === 'ja' 
-            ? 'Contact - お問い合わせ | MANAPURAZA.COM'
-            : 'Contact | MANAPURAZA.COM'
+            ? 'Contact - お問い合わせ | YAMASHITAMANA.TO'
+            : 'Contact | YAMASHITAMANA.TO'
         )
       },
       {
@@ -51,7 +51,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:url',
-        content: 'https://manapuraza.com/contact'
+        content: 'https://yamashitamana.to/contact'
       },
       {
         property: 'og:type',
@@ -59,7 +59,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
       },
       {
         property: 'og:image',
-        content: 'https://manapuraza.com/ogp.webp'
+        content: 'https://yamashitamana.to/ogp.webp'
       },
       {
         name: 'twitter:title',
@@ -81,7 +81,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
     link: [
       {
         rel: 'canonical',
-        href: 'https://manapuraza.com/contact'
+        href: 'https://yamashitamana.to/contact'
       }
     ],
     script: [
@@ -91,15 +91,15 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
           "@context": "https://schema.org",
           "@type": "ContactPage",
           "name": locale.value === 'ja' ? "お問い合わせ" : "Contact",
-          "url": "https://manapuraza.com/contact",
+          "url": "https://yamashitamana.to/contact",
           "description": locale.value === 'ja' 
             ? "山下真和都へのお問い合わせページ"
             : "Contact page for Manato Yamashita",
           "mainEntity": {
             "@type": "Person",
             "name": locale.value === 'ja' ? "山下真和都" : "Manato Yamashita",
-            "email": "info@manapuraza.com",
-            "url": "https://manapuraza.com",
+            "email": "info@yamashitamana.to",
+            "url": "https://yamashitamana.to",
             "sameAs": [
               "https://bsky.app/profile/yamashita.bsky.social",
               "https://www.linkedin.com/in/yamashitamanato",
@@ -112,7 +112,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
             "contactPoint": {
               "@type": "ContactPoint",
               "contactType": locale.value === 'ja' ? "お問い合わせ" : "General Inquiries",
-              "email": "info@manapuraza.com",
+              "email": "info@yamashitamana.to",
               "availableLanguage": ["Japanese", "English"]
             }
           }
@@ -164,7 +164,7 @@ const { t, locale } = useI18n<{ message: string }, Locale>();
             <h3>{{ t('contact.email.title') }}</h3>
             <p>{{ t('contact.email.description') }}</p>
             <a href="mailto:g2172117@tcu.ac.jp" class="contact-link">
-              <span class="email-address">info<span class="at-symbol">[at]</span>manapuraza.com</span>
+              <span class="email-address">info<span class="at-symbol">[at]</span>yamashitamana.to</span>
               <span class="email-note">（[at]の部分を<mark>@</mark>と読み替えてください。）</span>
             </a>
           </div>
