@@ -12,16 +12,15 @@
 
     <a href="https://www.yamashitamana.to" aria-current="page" class="home-logo">
       <img
-        :fetchpriority="logoQuality === 'high' ? 'high' : 'low'"
-        :src="currentLogoSrc"
+        fetchpriority="high"
+        :src="logoSvg"
         alt="ホームページに戻る"
         width="800"
         height="200"
         draggable="false"
         id="center-logo"
-        :class="[className, logoTransitionClass]"
-        :style="combinedStyleObject"
-        @load="onLogoLoad"
+        :class="className"
+        :style="styleObject"
       />
     </a>
     
@@ -96,6 +95,7 @@
   import { faGlobe, faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons';
   import Menu from '@/components/Menu.vue';
   import type { Locale } from '@/types';
+  import logoSvg from '@/assets/logo.svg';
 
   const route = useRoute();
   const router = useRouter();
@@ -145,24 +145,6 @@
     }
   };
 
-  // プログレッシブローディング用のロゴ管理
-  type LogoQuality = 'low' | 'high';
-  const logoQuality = ref<LogoQuality>('low');
-  const isLogoTransitioning = ref<boolean>(false);
-  const logoLoadAttempted = ref<boolean>(false);
-
-  // ロゴソースの計算プロパティ
-  const currentLogoSrc = computed<string>(() => {
-    return logoQuality.value === 'low'
-      ? new URL('@/assets/logo-low.webp', import.meta.url).href
-      : new URL('@/assets/logo.webp', import.meta.url).href;
-  });
-
-  // ロゴ遷移用クラス
-  const logoTransitionClass = computed<string>(() => {
-    return isLogoTransitioning.value ? 'logo-transitioning' : '';
-  });
-
   const checkRouterReady = async (): Promise<void> => {
     await router.isReady();
     updateHomePageState();
@@ -203,59 +185,8 @@
     updateHomePageState();
   });
 
-  // 高画質版ロゴの遅延読み込み
-  const loadHighQualityLogo = (): void => {
-    if (logoLoadAttempted.value) return;
-
-    logoLoadAttempted.value = true;
-    const highQualityImg = new Image();
-
-    highQualityImg.onload = () => {
-      // 遅延してスムーズな遷移を実現
-      setTimeout(() => {
-        isLogoTransitioning.value = true;
-        setTimeout(() => {
-          logoQuality.value = 'high';
-          setTimeout(() => {
-            isLogoTransitioning.value = false;
-          }, 300);
-        }, 100);
-      }, 200);
-    };
-
-    highQualityImg.onerror = () => {
-    };
-
-    highQualityImg.src = new URL('@/assets/logo.webp', import.meta.url).href;
-  };
-
-  // ロゴ読み込み完了ハンドラー
-  const onLogoLoad = (): void => {
-    // 初期の低画質ロゴが読み込まれた後、高画質版を遅延読み込み
-    if (logoQuality.value === 'low' && !logoLoadAttempted.value) {
-      const schedule = window.requestIdleCallback || ((cb: IdleRequestCallback) => setTimeout(cb, 100));
-      schedule(() => {
-        loadHighQualityLogo();
-      });
-    }
-  };
-
   onMounted(() => {
     checkRouterReady();
-
-    // LCP改善: 高品質版ロゴのプリロードヒントを追加
-    const addLogoPreload = (): void => {
-      const logoPreloadLink = document.createElement('link');
-      logoPreloadLink.rel = 'preload';
-      logoPreloadLink.href = new URL('@/assets/logo.webp', import.meta.url).href;
-      logoPreloadLink.as = 'image';
-      logoPreloadLink.type = 'image/webp';
-      logoPreloadLink.fetchPriority = 'high';
-      document.head.appendChild(logoPreloadLink);
-    };
-
-    // プリロードを即座に実行（LCP最適化）
-    addLogoPreload();
 
     // 言語切り替えドロップダウンのイベントリスナー
     document.addEventListener('click', handleClickOutside);
@@ -292,20 +223,6 @@
     }
   });
 
-  // ロゴのスタイルオブジェクト（遷移効果を含む）
-  const combinedStyleObject = computed<StyleObject>(() => {
-    const baseStyle = styleObject.value;
-    const transitionStyle: StyleObject = isLogoTransitioning.value ? {
-      opacity: '0.7',
-      transform: baseStyle.transform ? `${baseStyle.transform} scale(1.02)` : 'scale(1.02)',
-    } : {};
-
-    return {
-      ...baseStyle,
-      ...transitionStyle,
-      transition: `${baseStyle.transition || 'all .4s ease-in-out'}, opacity .3s ease-in-out, transform .3s ease-in-out`,
-    };
-  });
 </script>
 
 <style scoped>
@@ -329,24 +246,19 @@
     transform: translate(-50%, -50%);
     transition: all .5s ease-in-out;
   }
-  
-  /* プログレッシブローディング遷移効果 */
-  .logo-transitioning {
-    filter: brightness(1.1) saturate(1.05);
-  }
   #sp-nav {
     display: none;
   }
   .route-home {
     opacity: 1;
     transition: all .4s ease-in-out;
-    animation-delay: 1s;
+    animation-delay: 2.3s;
   }
   .route-other {
     opacity: 0;
     filter: blur(2rem);
     transition: all .4s ease-in-out;
-    animation-delay: 1s;
+    animation-delay: 2.3s;
   }
   .hidden {
     visibility: hidden;
@@ -696,7 +608,7 @@
   /* 初期表示時のアニメーション（ロゴと同期） */
   .home-nav-links {
     opacity: 0;
-    animation: homeMenuFadeIn 0.4s ease-in-out 1s forwards;
+    animation: homeMenuFadeIn 0.4s ease-in-out 2.3s forwards;
   }
 
   @keyframes homeMenuFadeIn {

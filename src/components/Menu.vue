@@ -5,14 +5,13 @@
       <div class="logo">
         <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
           <transition name="slide" mode="out-in">
-            <img 
-              src="@/assets/logo-low.webp" 
-              alt="yamashitamana.to logo" 
-              loading="lazy" 
+            <img
+              :src="logoSvg"
+              alt="yamashitamana.to logo"
               decoding="async"
-              width="400"
-              height="80"
-              class="logo-img" 
+              width="300"
+              height="75"
+              class="logo-img"
               v-show="currentPath !== '/'"
               @error="handleLogoError"
             />
@@ -74,11 +73,10 @@
         <div class="logo">
           <RouterLink to="/" aria-current="page" aria-label="ホームページに戻る">
             <img
-              src="@/assets/logo-low.webp"
+              :src="logoSvg"
               alt="yamashitamana.to logo"
               width="200"
-              height="40"
-              loading="lazy"
+              height="50"
               decoding="async"
               class="logo-img-mobile"
               v-show="currentPath !== '/'"
@@ -201,6 +199,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faGlobe, faChevronDown, faCheck, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { gsap } from 'gsap';
 import type { Locale } from '@/types';
+import logoSvg from '@/assets/logo.svg';
 
 const route = useRoute();
 const router = useRouter();
@@ -512,15 +511,15 @@ onErrorCaptured(() => {
 .nav-animate {
   opacity: 0;
   transform: translateY(-20px);
-  animation: navFadeInUp 0.8s ease-out 1s forwards;
+  animation: navFadeInUp 0.8s ease-out 2.3s forwards;
 }
 
 .nav-animate:nth-child(2) {
-  animation-delay: 1.2s;
+  animation-delay: 2.5s;
 }
 
 .nav-animate:nth-child(3) {
-  animation-delay: 1.4s;
+  animation-delay: 2.7s;
 }
 
 @keyframes navFadeInUp {
@@ -976,7 +975,7 @@ onErrorCaptured(() => {
 /* フェードインアニメーション（初回表示用） */
 .mobile-menu-animate {
   opacity: 0;
-  animation: mobileFadeIn 0.5s ease-in-out 1s forwards;
+  animation: mobileFadeIn 0.5s ease-in-out 2.3s forwards;
 }
 
 @keyframes mobileFadeIn {
