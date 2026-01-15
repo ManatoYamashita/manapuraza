@@ -8,9 +8,8 @@
 import { ref, computed, type Ref, type ComputedRef } from 'vue';
 import type { CategoryData, CreativeData, MicroCMSListResponse, CMSCreative } from '@/types';
 
-// 環境変数からAPIエンドポイントとキーを取得
-const API_ENDPOINT = import.meta.env.VITE_MICROCMS_API_ENDPOINT;
-const API_KEY = import.meta.env.VITE_MICROCMS_API_KEY;
+// Netlify Functionsプロキシエンドポイント
+const PROXY_ENDPOINT = '/.netlify/functions/microcms-proxy';
 
 // キャッシュ有効期限（30分）
 const CACHE_DURATION = 30 * 60 * 1000;
@@ -29,13 +28,15 @@ const isLoading = ref(false);
 const error = ref<Error | null>(null);
 
 /**
- * microCMS API共通クライアント
+ * microCMS API共通クライアント（Netlify Functions プロキシ経由）
  */
 async function fetchMicroCMS<T>(
   endpoint: string,
   params?: Record<string, string | number>
 ): Promise<T> {
-  const url = new URL(`${API_ENDPOINT}/${endpoint}`);
+  // Netlify Functionプロキシを経由
+  const url = new URL(PROXY_ENDPOINT, window.location.origin);
+  url.searchParams.append('endpoint', endpoint);
 
   // クエリパラメータを追加
   if (params) {
@@ -44,14 +45,13 @@ async function fetchMicroCMS<T>(
     });
   }
 
-  const response = await fetch(url.toString(), {
-    headers: {
-      'X-MICROCMS-API-KEY': API_KEY,
-    },
-  });
+  const response = await fetch(url.toString());
 
   if (!response.ok) {
-    throw new Error(`microCMS API Error: ${response.status} ${response.statusText}`);
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      errorData.error || `Proxy API Error: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();

@@ -10,8 +10,10 @@
   ],
   "scripts": {
     "dev": "vite",
+    "dev:netlify": "netlify dev",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "preview:netlify": "netlify build && netlify serve",
     "analyze": "vite build --mode=analyze",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --fix",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@netlify/functions": "^5.1.2",
     "@types/node": "^20.11.0",
     "@types/three": "^0.169.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
@@ -50,6 +53,7 @@
     "eslint-plugin-vue": "^9.33.0",
     "form-data": "^4.0.5",
     "globals": "^16.5.0",
+    "netlify-cli": "^23.13.3",
     "prettier": "^3.6.2",
     "rollup-plugin-visualizer": "^5.14.0",
     "terser": "^5.39.0",
