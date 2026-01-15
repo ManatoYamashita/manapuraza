@@ -23,6 +23,5 @@ https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/aa64c6
 https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/a0eda9c90208466cb9893893e4f10be0/youtube-manapuraza.webp
 https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/5314b409193a4009b74c45076f1f786c/youtube-tcudc.webp
 https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/44788b553c164c859a1479173409ca20/山下真和都(マナト).webp
-https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/a06128e6558247a79d6c2893d792ca1a/icon_white.webp
-https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/dfb898d7e70e4e8198140ee573b83e6d/icon.webp
+https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/dfb898d7e70e4e8198140ee573b83e6d/favicon.png
 https://images.microcms-assets.io/assets/d54b2cb61c0a4ed4b40dbd8096a9d0d8/96b4088db8134b9fbd152d2bb9b023ee/ogp.jpg

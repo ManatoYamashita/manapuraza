@@ -263,7 +263,7 @@ manapuraza/
 - コード分割
   - Vite Rollup `manualChunks` により依存を論理分割
 - 画像最適化
-  - WebP採用、`index.html` で `icon.webp` を preload
+  - WebP採用、`index.html` で `favicon.png` を preload
   - microCMS CDN配信、レスポンシブsrcset対応
 - ビルド最適化
   - Terser圧縮（`drop_debugger`, 選択的console削除）

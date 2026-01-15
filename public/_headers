@@ -37,7 +37,7 @@
 ###############################################
 # Images - 30 days cache
 ###############################################
-/icon.webp
+/favicon.png
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
 /ogp.webp
