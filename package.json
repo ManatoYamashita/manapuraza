@@ -53,7 +53,7 @@
     "eslint-plugin-vue": "^9.33.0",
     "form-data": "^4.0.5",
     "globals": "^16.5.0",
-    "netlify-cli": "^23.13.3",
+    "netlify-cli": "^27.20.1",
     "prettier": "^3.6.2",
     "rollup-plugin-visualizer": "^5.14.0",
     "terser": "^5.39.0",
