@@ -34,7 +34,7 @@
     "marked": "^17.0.1",
     "three": "^0.169.0",
     "vue": "^3.5.26",
-    "vue-i18n": "^9.7.1",
+    "vue-i18n": "^11.4.14",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
