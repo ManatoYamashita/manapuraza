@@ -51,7 +51,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-vue": "^9.33.0",
-    "form-data": "^4.0.5",
+    "form-data": "^4.0.6",
     "globals": "^16.5.0",
     "netlify-cli": "^27.20.1",
     "prettier": "^3.6.2",
@@ -59,8 +59,11 @@
     "terser": "^5.39.0",
     "tsx": "^4.21.0",
     "typescript": "^5.3.3",
-    "vite": "^6.2.3",
+    "vite": "^6.4.6",
     "vue-template-compiler": "^0.1.0",
     "vue-tsc": "^3.2.2"
+  },
+  "overrides": {
+    "@vue/server-renderer": "^3.5.42"
   }
 }
